@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- $Id: catalog.xml 5915 2007-05-28 16:52:11Z dizzzz $ -->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <public publicId="-//VALIDATION//EN" uri="hamlet.dtd"/>
+</catalog>

@@ -1,0 +1,3 @@
+INFO    (2011-10-08) 13:52.48:876   [core.runnable] (Unknown-URI) Unknown-thread/DefaultRunnableManager: ThreadPool named "default" created with maximum queue-size=2147483647,max-pool-size=5,min-pool-size=5,priority=5,isDaemon=false,keep-alive-time-ms=60000,block-policy="RUN",shutdown-wait-time-ms=-1
+INFO    (2011-10-08) 13:52.48:881   [core.runnable] (Unknown-URI) Unknown-thread/DefaultRunnableManager: ThreadPool named "daemon" created with no queue,max-pool-size=2147483647,min-pool-size=1,priority=5,isDaemon=true,keep-alive-time-ms=60000,block-policy=ABORT,shutdown-wait-time-ms=-1
+WARN    (2011-10-08) 13:52.49:684   [core.language.java] (Unknown-URI) Unknown-thread/JavaLanguage: Attempted to retrieve directory listing of non-directory C:\Windows\Sun\Java\lib\ext

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: roadmap.xml 15009 2011-07-30 22:32:09Z ellefj $ -->
+<roadmap>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sidebar.xml"/>
+    <title>eXist-db: Current State, Features and Roadmap</title>
+    <comment>Due to size restrictions, longer remarks on some of the listed topics are available in
+        separate documents. This is indicated with a reference.</comment>
+    <module>
+        <name>Document Storage</name>
+        <part>
+            <name>Collection storage</name>
+            <status>Stable_redesign</status>
+            <priority>High</priority>
+            <test_coverage>No tests</test_coverage>
+            <progress>0</progress>
+            <event start="20071020T000000Z" end="20071020T000000Z" isDuration="true"/>
+            <who>wolf</who>
+            <remark>
+                <p>The current organization of collections and resources causes a number of problems
+                    with respect to (a) locking, (b) query performance, (c) update performance.
+                    Right now, documents are tightly bound to the collection in which they are
+                    contained. Any operation on a document has to go through its parent collection.
+                    As a result, locking and access control becomes quite complex as we need to take
+                    care of the document and the collection.</p>
+
+                <p>There's also a direct dependency between the size of a collection (in terms of
+                    the number of documents stored in it) and document update speed. If a collection
+                    has a large number of documents, removing a single document becomes very
+                    slow.</p>
+
+                <p>This problem can be solved by physically decoupling documents and
+                    collections:</p>
+
+                <ul>
+                    <li>a collection should be modelled as a logical unit, not a physical one.</li>
+                    <li>current integer document ids should be replaced by hierarchical ids, which
+                        model the entire collection/document path.</li>
+                    <li>the link between the resource and the collection is only done through the
+                        hierarchical document id.</li>
+                    <li>locking and access control should be delegated to a central lock manager,
+                        which just contains a map DocumentProxy -> Lock</li>
+                </ul>
+            </remark>
+        </part>
+        <part>
+            <name>Allow metadata to be associated with a document</name>
+            <status>Open</status>
+            <priority>Avg</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Metadata could include system properties like last-modification date or
+                    user-defined metadata. Preferably, metadata records should be ordinary XML
+                    documents. The format should not be restricted.</p>
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>Indexing</name>
+        <remark>
+            <p>Since version 1.2, there are now alternative index configuration methods which
+                support the optimizer in rewriting a query for best performance. A new modularized
+                indexing architecture allows to plug in arbitrary new indexes into the indexing
+                pipeline. A N-gram and a spatial index module were added as prototypes to test the
+                new architecture.</p>
+            <p>There will be other index types added in the future, for example:</p>
+            <ul>
+                <li> combined path indexes to speed up frequently-used XPath expressions</li>
+                <li>indexes to support operations on atomic-values, e.g. in order-by expressions or
+                    the distinct-values function</li>
+                <li>integration of specialized, external index types like the spatial index module
+                    mentioned above.</li>
+            </ul>
+        </remark>
+        <part>
+            <name>XQuery and XPath Full Text 1.0</name>
+            <status>Open</status>
+            <priority>Avg</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>15</progress>
+            <who></who>
+            <remark>
+                <p>Implement the W3C's full text extensions to XQuery. Many features could be easily implemented on
+                    top of Lucene.</p>
+
+                <p>The grammar for the full text extensions has already been merged into the XQuery
+                    parser as part of a Google Summer of Code project and is available in an SVN
+                    branch. It just needs to be filled with life.</p>
+            </remark>
+        </part>
+        <part>
+            <name>Index-support for order-by, distinct-values</name>
+            <status>Open</status>
+            <priority>Avg</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Order-by expressions and other functions that need to access atomized nodes are
+                    not supported by indexes.</p>
+            </remark>
+        </part>
+        <part>
+            <name>Collation-driven indexing</name>
+            <status>Open</status>
+            <priority>Avg</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="2008" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Maybe part of FT index redesign.</p>
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>Transactions and Recovery</name>
+        <remark>
+            <p>The journal log and the recovery manager should be stable and are covered by
+                extensive tests. However, recovery failures can not be excluded entirely. The tests
+                can't reproduce every possible real-world scenario.</p>
+            <p>However, some steps remain for eXist to become a fully transactional database system.
+                Transaction support is currently limited to the functionality needed for crash
+                recovery. Though we maintain transactions internally, they are currently not exposed
+                to applications. Also, read operations are not transactional right now.</p>
+            <p>In order to allow user-defined ACID transactions with support for rollback, all index
+                files would need to be protected by the journaling log. The required functionality
+                is basically available, but the feature is currently not regarded as
+                high-priority.</p>
+        </remark>
+        <part>
+            <name>Internal transaction management</name>
+            <status>Stable</status>
+            <priority>x</priority>
+            <test_coverage>Tested</test_coverage>
+            <progress>100</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Transactions are maintained internally, but they are not exposed to applications.
+                    eXist-db does not yet support full ACID transactions. Read-only operations bypass
+                    the transaction system.</p>
+            </remark>
+        </part>
+        <part>
+            <name>User-definable transactions</name>
+            <status>Open</status>
+            <priority>Low</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Journal logs are limited to critical data required for recovery. No transaction
+                    rollbacks.</p>
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>Backup / Restore</name>
+        <part>
+            <name>Store configuration into backup</name>
+            <status>Open</status>
+            <priority>x</priority>
+            <test_coverage>No tests</test_coverage>
+            <progress>0</progress>
+            <who/>
+            <remark>
+                <p> The backup utility should also include a copy of the relevant server
+                    configuration files (mainly conf.xml) into the created backup. Settings like
+                    page size, additional XQuery or index modules etc. are important. </p>
+            </remark>
+        </part>
+
+    </module>
+    <module>
+        <name>Configuration</name>
+        <part>
+            <name>Dynamic configuration of the database via Java Management Extensions (JMX)</name>
+            <status>Open</status>
+            <priority>x</priority>
+            <test_coverage>No tests</test_coverage>
+            <progress>0</progress>
+            <event start="2008" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Main problem: access control and security.</p>
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>Node-level updates</name>
+        <part>
+            <name>XUpdate</name>
+            <status>Stable</status>
+            <priority>x</priority>
+            <test_coverage>Tested</test_coverage>
+            <progress>100</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark/>
+        </part>
+        <part>
+            <name>XQuery Update Extensions</name>
+            <status>Stable_redesign</status>
+            <priority>x</priority>
+            <test_coverage>Tested</test_coverage>
+            <progress>75</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>eXist's XQuery Update Extensions were implemented before the first W3C drafts
+                    were published. The differences between the W3C recommendation and our
+                    implementation are not that big, though there are some subtle differences
+                    concerning the processing model. In fact, the recommendation simplifies a few
+                    issues.</p>
+
+                <p>
+                    <a href="http://www.w3.org/TR/xquery-update-10/"
+                        >http://www.w3.org/TR/xquery-update-10/</a>
+                </p>
+
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>Access-Control</name>
+        <remark>
+            <p>The currently implemented Unix-like access control scheme is sufficient to protect
+                resources and collections in a multi-user environment. However, it might be too
+                coarse-grained for some types of applications. A more dynamic ACL implementation
+                could help here. Right now, security management forms part of the database core.
+                This is unnecessary. A more modular architecture would allow different security
+                managers to be plugged in. It would be the responsibility of the security manager
+                implementation to handle ACL lists.</p>
+            <p>Since version 1.1, eXist supports the XACML standard for fine-grained access control
+                to stored XQueries, Java classes etc.</p>
+        </remark>
+    </module>
+    <module>
+        <name>Schema Validation </name>
+        <part>
+            <name>XQuery validation features</name>
+            <status>Open</status>
+            <priority>Avg</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark/>
+        </part>
+        <part>
+            <name>Store PSVI with the node tree in the database</name>
+            <status>Open</status>
+            <priority>Low</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20080201T000000Z" end="20080226T000000Z" task="16" isDuration="true"/>
+            <who>dizzzz</who>
+            <remark/>
+        </part>
+        <part>
+            <name>Static typing based on PSVI</name>
+            <status>Open</status>
+            <priority>Low</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20080201T000000Z" end="20080226T000000Z" task="16" isDuration="true"/>
+            <who>dizzzz</who>
+            <remark/>
+        </part>
+    </module>
+    <module>
+        <name>XQuery</name>
+        <remark>
+            <p>The XQuery engine as well as the standard function libraries should be updated to
+                align with the XQuery 3.0 recommendation. Basically, almost all XQuery 1.0 core language
+                features are implemented, excluding schema related features, which are currently
+                beyond eXist-db's scope.</p>
+            <p>XQuery support in eXist-db is covered by the official W3C XQuery Test Suite (XQTS) 1.02.
+                Implementing the official XQTS XQuery test suite was a top priority in order to
+                guarantee standard conformance and avoid future regressions.</p>
+        </remark>
+        <part>
+            <name>Core XPath and XQuery</name>
+            <status>Stable</status>
+            <priority>x</priority>
+            <test_coverage>tested</test_coverage>
+            <progress>100</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Updated to the XPath 2.0 and XQuery 1.0 recommendations. Stable, excluding
+                    schema-related features.</p>
+            </remark>
+        </part>
+        <part>
+            <name>XPath and XQuery atomic value types</name>
+            <status>Stable</status>
+            <priority>Avg</priority>
+            <test_coverage>tested</test_coverage>
+            <progress>99.4</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+        </part>
+        <part>
+            <name>XPath and XQuery function libraries</name>
+            <status>Stable</status>
+            <priority>High</priority>
+            <test_coverage>tested</test_coverage>
+            <progress>99.4</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Updated to XPath 2.0 and XQuery 1.0 recommendations. Stable, excluding
+                    schema-related features.</p>
+            </remark>
+        </part>
+        <part>
+            <name>XPath and XQuery function libraries</name>
+            <status>Stable</status>
+            <priority>High</priority>
+            <test_coverage>tested</test_coverage>
+            <progress>99.4</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Updated to XPath 2.0 and XQuery 1.0 recommendations.</p>
+            </remark>
+        </part>
+        <part>
+            <name>XQuery serialization</name>
+            <status>Stable_redesign</status>
+            <priority>Avg</priority>
+            <test_coverage>tested</test_coverage>
+            <progress>80</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Though we implement most of the serialization options specified in the XQuery and
+                    XSLT serialization spec, some options need to be reworked and should be covered
+                    by tests.</p>
+            </remark>
+        </part>
+        <part>
+            <name>Error reporting</name>
+            <status>Stable_redesign</status>
+            <priority>Avg</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>75</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Error reports by the XQuery parser and compiler need to be improved.</p>
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>XInclude</name>
+        <status>Stable</status>
+        <priority>Low</priority>
+        <test_coverage>No tests</test_coverage>
+        <progress>80</progress>
+        <event start="20071020T000000Z" end="2008" isDuration="true"/>
+        <who/>
+        <remark>
+            <p>XInclude expansion happens at serialization time. Queries across the included
+                document fragments are not possible. Stable, but limited.</p>
+        </remark>
+    </module>
+    <module>
+        <name>Interfaces</name>
+        <part>
+            <name>XML:DB API</name>
+            <status>Stable</status>
+            <priority>x</priority>
+            <test_coverage>Tested</test_coverage>
+            <progress>100</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark/>
+        </part>
+        <part>
+            <name>XML-RPC</name>
+            <status>Stable</status>
+            <priority>x</priority>
+            <test_coverage>Partially tested</test_coverage>
+            <progress>100</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Exposes the entire database functionality.</p>
+            </remark>
+        </part>
+        <part>
+            <name>REST</name>
+            <status>Stable_redesign</status>
+            <priority>Low</priority>
+            <test_coverage>Partially tested</test_coverage>
+            <progress>90</progress>
+            <event start="20080501T000000Z" end="20080526T000000Z" task="21" isDuration="true"/>
+            <who>delirium</who>
+            <remark>
+                <p>Does not cover administrative functions, e.g. user-management and permissions.
+                    Stable, but further functionality could be exposed.</p>
+                <p class="update">The XQuery API for Java (XQJ) implementation makes heavy use of
+                    REST and improves the interface in some aspects. However, the XQJ branch has not
+                    yet been merged into trunk.</p>
+
+            </remark>
+        </part>
+        <part>
+            <name>SOAP</name>
+            <status>Stable</status>
+            <priority>Low</priority>
+            <test_coverage>No tests</test_coverage>
+            <progress>90</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+        </part>
+    </module>
+    <module>
+        <name>Documentation</name>
+        <part>
+            <name>1.5</name>
+            <status>Open</status>
+            <priority>Low</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>0</progress>
+            <event start="20080615T000000Z" end="20080615T000000Z" task="25" isDuration="false"/>
+            <who/>
+            <remark>
+                <p>Based on Java 6.</p>
+            </remark>
+        </part>
+    </module>
+    <module>
+        <name>Other Tasks</name>
+        <part>
+            <name>i18n</name>
+            <status>Open</status>
+            <priority>Low</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>20</progress>
+            <event start="20071020T000000Z" end="2008" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>Provide translations for error messages, console outputs etc. At least, resource
+                    bundles should be used, so others can translate them if they want.</p>
+            </remark>
+        </part>
+        <part>
+            <name>Clean up/upgrade libraries</name>
+            <status>Beta</status>
+            <priority>Low</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>60</progress>
+            <event start="20071212T000000Z" end="20071213T000000Z" isDuration="true"/>
+            <who/>
+            <remark>
+                <p>All libraries included with eXist need to be checked.</p>
+            </remark>
+        </part>
+        <part>
+            <name>Move to ANTLR3 parser</name>
+            <status>Instable</status>
+            <priority>High</priority>
+            <test_coverage>N/A</test_coverage>
+            <progress>60</progress>
+            <event start="20080110T000000Z" end="20080228T000000Z" task="14" isDuration="true"/>
+            <who>ljo</who>
+            <remark>
+                <p>Change the parser to ANTLR3 which is better performant, LL* lookahead capable and
+                    processes whitespace in a better manner than ANTLR2 which we currently are
+                    using.</p>
+                <p>Maybe use gunit for testing?</p>
+            </remark>
+        </part>
+    </module>
+    <legend>
+        <title>Legend</title>
+        <status>
+            <name>Open</name>
+            <description>Not yet started</description>
+        </status>
+        <status>
+            <name>Instable</name>
+            <description>Some work is necessary</description>
+        </status>
+        <status>
+            <name>Alpha</name>
+            <description>Implemented, but not tested</description>
+        </status>
+        <status>
+            <name>Beta</name>
+            <description>Tested, but not finished</description>
+        </status>
+        <status>
+            <name>Stable_redesign</name>
+            <description>Basically stable, but redesign might be necessary</description>
+        </status>
+        <status>
+            <name>Stable</name>
+            <description>No further work needed</description>
+        </status>
+
+        <progress>
+            <name>Percentage</name>
+            <description>Percentage of completion</description>
+        </progress>
+        <priority>
+            <name>Highest</name>
+            <description>Very important</description>
+        </priority>
+        <priority>
+            <name>High</name>
+            <description>Important</description>
+        </priority>
+        <priority>
+            <name>Avg</name>
+            <description>Nice to have</description>
+        </priority>
+        <priority>
+            <name>Low</name>
+            <description>Not very important</description>
+        </priority>
+        <priority>
+            <name>x</name>
+            <description>Not yet decided</description>
+        </priority>
+
+    </legend>
+
+</roadmap>
