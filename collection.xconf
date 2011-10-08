@@ -1,20 +1,52 @@
 <collection xmlns="http://exist-db.org/collection-config/1.0">
-    <index xmlns:g="ddi:group:3_1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:d="ddi:datacollection:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:wiki="http://exist-db.org/xquery/wiki">
-	    <!-- Disable the standard full text index -->
-        <fulltext default="none" attributes="no"/>
-	(:index id and urn for faster queries on id/urn-resolve :)        
-	<create qname="r:UserID" type="xs:integer"/>	
-	<create qname="@urn" type="xs:string"/>
+  <index
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:dc="ddi:datacollection:3_1"
+    xmlns:r="ddi:reusable:3_1"
+    xmlns:s="ddi:studyunit:3_1"
+    xmlns:cc="ddi:conceptualcomponent:3_1"
+    xmlns:lp="ddi:logicalproduct:3_1"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:wiki="http://exist-db.org/xquery/wiki">
+      
+	  <!-- Disable the standard full text index -->
+    <fulltext default="none" attributes="no"/>
+	  (:index id and urn for faster queries on id/urn-resolve :)        
+	  <create qname="r:UserID" type="xs:integer"/>	
+	  <create qname="@urn" type="xs:string"/>
 
-	<!-- Lucene index is configured below -->
-        <lucene>
-            <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
-            <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
-            <text qname="r:Content" analyzer="st"/>
-            <text qname="r:Title" analyzer="st"/>
-            <text qname="r:Creator" analyzer="st"/>
-            <text qname="r:Publisher" analyzer="st"/>
-            <text qname="d:QuestionText" analyzer="st"/>
-        </lucene>
-    </index>
+	  <!-- Lucene index is configured below -->
+    <lucene>
+      <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+      <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
+      <analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>
+
+      <!-- studyunit/citation -->
+      <text qname="r:Citation/Title" analyzer="da"/>
+      <text qname="r:Citation/Creator" analyzer="da"/>
+      <text qname="r:Citation/PublicationDate/SimpleDate" analyzer="da"/>
+      <!-- studyunit/description -->
+      <text qname="r:Abstract/Content" analyzer="da"/>
+      <text qname="r:Purpose/Content" analyzer="da"/>
+      <!-- studyunit/coverage -->
+      <text qname="r:Coverage/TemporalCoverage/ReferenceDate/SimpleDate" analyzer="da"/>
+      <text qname="s:KindOfData" analyzer="da"/>
+      <!-- studyunit/universe -->
+      <text qname="r:UniverseReference/ID" analyzer="da"/>
+      <!-- universe label and humanreadble -->
+      <text qname="cc:ConceptualComponent/UniverseScheme/Universe/Label" analyzer="da"/>
+      <text qname="cc:ConceptualComponent/UniverseScheme/Universe/HumanReadable" analyzer="da"/>
+      <!-- concept label and descriptione -->
+      <text qname="cc:ConceptualComponent/ConceptScheme/Concept/Label" analyzer="da"/>
+      <text qname="cc:ConceptualComponent/ConceptScheme/Concept/Description" analyzer="da"/>
+      <!-- question name and text -->
+      <text qname="dc:DataCollection/QuestionScheme/QuestionItem/QuestionItemName" analyzer="da"/>
+      <text qname="dc:DataCollection/QuestionScheme/QuestionItem/QuestionText/LiteralText/Text" analyzer="da"/>
+      <!-- variable name label -->
+      <text qname="lp:LogicalProduct/VariableScheme/Variable/VariableName" analyzer="da"/>
+      <text qname="lp:LogicalProduct/VariableScheme/Variable/Label" analyzer="da"/>
+      <!-- category label -->
+      <text qname="lp:LogicalProduct/CategoryScheme/Category/Label" analyzer="da"/>
+    </lucene>
+  </index>
 </collection>
