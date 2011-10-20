@@ -1,10 +1,8 @@
 <collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd"
   xmlns="http://exist-db.org/collection-config/1.0">
-  <index xmlns:dc="ddi:datacollection:3_1" xmlns:atom="http://www.w3.org/2005/Atom"
-    xmlns:s="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1" xmlns:lp="ddi:logicalproduct:3_1"
-    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:wiki="http://exist-db.org/xquery/wiki"
-    xmlns:cc="ddi:conceptualcomponent:3_1">
+  <index xmlns:dc="ddi:datacollection:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1"
+    xmlns:lp="ddi:logicalproduct:3_1" xmlns:cc="ddi:conceptualcomponent:3_1">
 
     <!-- Disable the standard full text index -->
     <fulltext default="none" attributes="false"/>
@@ -15,35 +13,42 @@
     <!-- Lucene index is configured below -->
     <lucene>
       <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
-      <analyzer id="da" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>  <!--id="ws"-->
+      <analyzer id="da" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
+      <!--id="ws"-->
       <!--<analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>-->
 
-      <!-- studyunit/citation -->
+      <!--su:StudyUnit/@id-->
+      <text qname="@id" analyzer="da" boost="10.0"/>
+      <!--su:StudyUnit/r:Citation/Title-->
       <text qname="r:Title" analyzer="da"/>
-      <text qname="r:Creator" analyzer="da"/> <!-- r:Citation/Creator -->
-      <text qname="r:SimpleDate" analyzer="da"/>  <!--r:Citation/PublicationDate/SimpleDate-->
-      <!-- studyunit/description -->
-      <text qname="r:Content" analyzer="da"/>  <!--r:Abstract/Content-->
-      <text qname="r:Content" analyzer="da"/>  <!--r:Purpose/Content-->
-      <!-- studyunit/coverage -->
-      <text qname="r:SimpleDate" analyzer="da"/>  <!--r:Coverage/TemporalCoverage/ReferenceDate/SimpleDate-->
-      <text qname="s:KindOfData" analyzer="da"/>
-      <!-- studyunit/universe -->
-      <text qname="r:ID" analyzer="da"/>  <!--r:UniverseReference/ID-->
-      <!-- universe label and humanreadble -->
-      <text qname="cc:Label" analyzer="da"/>  <!--cc:ConceptualComponent/UniverseScheme/Universe/Label-->
-      <text qname="cc:HumanReadable" analyzer="da"/>  <!--cc:ConceptualComponent/UniverseScheme/Universe/HumanReadable-->
-      <!-- concept label and descriptione -->
-      <text qname="cc:Label" analyzer="da"/>  <!--cc:ConceptualComponent/ConceptScheme/Concept/Label-->
-      <text qname="cc:Description" analyzer="da"/>  <!--cc:ConceptualComponent/ConceptScheme/Concept/Description-->
-      <!-- question name and text -->
-      <text qname="dc:QuestionItemName" analyzer="da"/>  <!--dc:DataCollection/QuestionScheme/QuestionItem/QuestionItemName-->
-      <text qname="dc:Text" analyzer="da"/>  <!--dc:DataCollection/QuestionScheme/QuestionItem/QuestionText/LiteralText/Text-->
-      <!-- variable name label -->
-      <text qname="lp:VariableName" analyzer="da"/>  <!--lp:LogicalProduct/VariableScheme/Variable/VariableName-->
-      <text qname="lp:Label" analyzer="da"/>  <!--lp:LogicalProduct/VariableScheme/Variable/Label-->
-      <!-- category label -->
-      <text qname="lp:Label" analyzer="da"/>  <!--lp:LogicalProduct/CategoryScheme/Category/Label-->
+      <!--su:StudyUnit/r:Citation/Creator-->
+      <text qname="r:Creator" analyzer="da"/>
+      <!--su:StudyUnit/r:Citation/PublicationDate/SimpleDate-->
+      <!--su:StudyUnit/r:Coverage/TemporalCoverage/ReferenceDate/SimpleDate-->
+      <text qname="r:SimpleDate" analyzer="da"/>
+      <!--su:StudyUnit/Abstract/r:Content-->
+      <!--su:StudyUnit/Purpose/r:Content-->
+      <text qname="r:Content" analyzer="da"/>
+      <!--su:StudyUnit/KindOfData-->
+      <text qname="su:KindOfData" analyzer="da"/>
+      <!--su:StudyUnit/r:UniverseReference/ID-->
+      <text qname="r:ID" analyzer="da"/>
+      <!--su:StudyUnit/cc:ConceptualComponent/UniverseScheme/Universe/Label-->
+      <!--su:StudyUnit/cc:ConceptualComponent/ConceptScheme/Concept/Label-->
+      <text qname="cc:Label" analyzer="da"/>
+      <!--su:StudyUnit/cc:ConceptualComponent/UniverseScheme/Universe/HumanReadable-->
+      <text qname="cc:HumanReadable" analyzer="da"/>
+      <!--su:StudyUnit/cc:ConceptualComponent/ConceptScheme/Concept/Description-->
+      <text qname="cc:Description" analyzer="da"/>
+      <!--su:StudyUnit/dc:DataCollection/QuestionScheme/QuestionItem/QuestionItemName-->
+      <text qname="dc:QuestionItemName" analyzer="da"/>
+      <!--su:StudyUnit/dc:DataCollection/QuestionScheme/QuestionItem/QuestionText/LiteralText/Text-->
+      <text qname="dc:Text" analyzer="da"/>
+      <!--su:StudyUnit/lp:LogicalProduct/VariableScheme/Variable/VariableName-->
+      <text qname="lp:VariableName" analyzer="da"/>
+      <!--su:StudyUnit/lp:LogicalProduct/VariableScheme/Variable/Label-->
+      <!--lp:LogicalProduct/CategoryScheme/Category/Label-->
+      <text qname="lp:Label" analyzer="da"/>
     </lucene>
   </index>
 </collection>
