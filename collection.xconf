@@ -1,4 +1,4 @@
-<collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<collection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd"
   xmlns="http://exist-db.org/collection-config/1.0">
   <index xmlns:dc="ddi:datacollection:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1"
@@ -13,42 +13,46 @@
     <!-- Lucene index is configured below -->
     <lucene>
       <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
-      <analyzer id="da" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
-      <!--id="ws"-->
+      <analyzer id="da" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/><!--id="ws"-->
       <!--<analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>-->
 
       <!--su:StudyUnit/@id-->
-      <text qname="@id" analyzer="da" boost="10.0"/>
-      <!--su:StudyUnit/r:Citation/Title-->
-      <text qname="r:Title" analyzer="da"/>
+      <text match="//su:StudyUnit/@id" analyzer="da" boost="59049.0"/>
       <!--su:StudyUnit/r:Citation/Creator-->
-      <text qname="r:Creator" analyzer="da"/>
-      <!--su:StudyUnit/r:Citation/PublicationDate/SimpleDate-->
-      <!--su:StudyUnit/r:Coverage/TemporalCoverage/ReferenceDate/SimpleDate-->
-      <text qname="r:SimpleDate" analyzer="da"/>
+      <text qname="r:Creator" analyzer="da" boost="19683.0"/>
+      <!--su:StudyUnit/r:Citation/Title-->
+      <text qname="r:Title" analyzer="da" boost="6561.0"/>
       <!--su:StudyUnit/Abstract/r:Content-->
+      <text match="//su:Abstract/r:Content" analyzer="da" boost="2187.0"/>
       <!--su:StudyUnit/Purpose/r:Content-->
-      <text qname="r:Content" analyzer="da"/>
+      <text match="//su:Purpose/r:Content" analyzer="da" boost="729.0"/>
       <!--su:StudyUnit/KindOfData-->
-      <text qname="su:KindOfData" analyzer="da"/>
+      <text qname="su:KindOfData" analyzer="da" boost="243.0"/>
+      <!--su:StudyUnit/cc:ConceptualComponent/ConceptScheme/Concept/r:Label-->
+      <text match="//cc:Concept/r:Label" analyzer="da" boost="81.0"/>
+      <!--su:StudyUnit/cc:ConceptualComponent/ConceptScheme/Concept/r:Description-->
+      <text qname="r:Description" analyzer="da" boost="81.0"/>
       <!--su:StudyUnit/r:UniverseReference/ID-->
-      <text qname="r:ID" analyzer="da"/>
-      <!--su:StudyUnit/cc:ConceptualComponent/UniverseScheme/Universe/Label-->
-      <!--su:StudyUnit/cc:ConceptualComponent/ConceptScheme/Concept/Label-->
-      <text qname="cc:Label" analyzer="da"/>
+      <text match="//r:UniverseReference/r:ID" analyzer="da" boost="27.0"/>
+      <!--su:StudyUnit/cc:ConceptualComponent/UniverseScheme/Universe/r:Label-->
+      <text match="//cc:Universe/r:Label" analyzer="da" boost="27.0"/>
       <!--su:StudyUnit/cc:ConceptualComponent/UniverseScheme/Universe/HumanReadable-->
-      <text qname="cc:HumanReadable" analyzer="da"/>
-      <!--su:StudyUnit/cc:ConceptualComponent/ConceptScheme/Concept/Description-->
-      <text qname="cc:Description" analyzer="da"/>
+      <text qname="cc:HumanReadable" analyzer="da" boost="27.0"/>
       <!--su:StudyUnit/dc:DataCollection/QuestionScheme/QuestionItem/QuestionItemName-->
-      <text qname="dc:QuestionItemName" analyzer="da"/>
+      <text qname="dc:QuestionItemName" analyzer="da" boost="9.0"/>
       <!--su:StudyUnit/dc:DataCollection/QuestionScheme/QuestionItem/QuestionText/LiteralText/Text-->
-      <text qname="dc:Text" analyzer="da"/>
+      <text qname="dc:Text" analyzer="da" boost="9.0"/>
       <!--su:StudyUnit/lp:LogicalProduct/VariableScheme/Variable/VariableName-->
-      <text qname="lp:VariableName" analyzer="da"/>
-      <!--su:StudyUnit/lp:LogicalProduct/VariableScheme/Variable/Label-->
-      <!--lp:LogicalProduct/CategoryScheme/Category/Label-->
-      <text qname="lp:Label" analyzer="da"/>
+      <text qname="lp:VariableName" analyzer="da" boost="3.0"/>
+      <!--su:StudyUnit/lp:LogicalProduct/VariableScheme/Variable/r:Label-->
+      <text match="//lp:Variable/r:Label" analyzer="da" boost="3.0"/>
+      <!--lp:LogicalProduct/CategoryScheme/Category/r:Label-->
+      <text match="//lp:Category/r:Label" analyzer="da" boost="1.0"/>
     </lucene>
+    
+    <!-- Range indexes -->
+    <!--su:StudyUnit/r:Citation/PublicationDate/SimpleDate-->
+    <!--su:StudyUnit/r:Coverage/TemporalCoverage/ReferenceDate/SimpleDate-->
+    <create qname="r:SimpleDate" type="xs:dateTime"/>
   </index>
 </collection>
