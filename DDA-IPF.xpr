@@ -8,7 +8,5 @@
     <projectTree name="DDA-IPF.xpr">
         <file name="all.xquery"/>
         <file name="collection.xconf"/>
-        <file name="ddi_exist.xquery"/>
-        <file name="StudyUnit.xquery"/>
     </projectTree>
 </project>
