@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd">
+    
+    <!-- identification and label of element meeting search citeria -->
+    <!-- 
+        note: version and parentVersion may in some cases return empty or nill
+        result: make attributtes empty, eg.: version="" parentVersion=""
+    -->
+    <LightXmlObject element="element-qname" id="element-id" parentId="parent-element-id"
+        parentVersion="parent-element-id">
+        <Label lang="lang">Human readable text</Label>
+
+        <!-- identification, label and duration of containg study of the element -->
+        <CustomList type="study">
+            <Custom option="id">id-of-study</Custom>
+            <Custom option="version">version-of-study</Custom>
+            <Custom option="label" value="lang">Title of study</Custom>
+            
+            <!-- 
+                note: the Coverage element may not be in the exampels uploaded, 
+                but will come shortly, until then leave out or make empty. 
+            -->
+            <Custom option="start">xs:datetime</Custom><!-- xpath to origion: StudyUnit/Coverage/TemporalCoverage/ReferenceDate/StartDate -->
+            <Custom option="end">xs:datetime</Custom><!-- xpath to origion: StudyUnit/Coverage/TemporalCoverage/ReferenceDate/EndDate -->            
+        </CustomList>
+    </LightXmlObject>
+
+    <!-- 
+        example from 10-var-test-study 
+    -->
+    <LightXmlObject element="Concept" id="conc-695fdb22-4bf1-4359-9647-4a1c421593d1" version="1.0.0"
+        parentId="cons-e875ed1c-6773-4ca5-ae0c-9ad5d4a3ae38" parentVersion="1.0.0">
+        <Label lang="da">Baggrundsvariabler</Label>
+        <CustomList type="study">
+            <Custom option="id">14069</Custom>
+            <Custom option="version">1.0.0</Custom>
+            <Custom option="label" value="da">De danske partimedlemmer, 2000.</Custom>
+            <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
+            <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
+        </CustomList>
+    </LightXmlObject>
+</dl:LightXmlObjectList>
