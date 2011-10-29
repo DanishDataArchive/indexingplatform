@@ -6,6 +6,10 @@
         <options/>
     </meta>
     <projectTree name="DDA-IPF.xpr">
+        <folder name="Schema">
+            <file name="Schema/ddieditor-lightxmlobject.xsd"/>
+            <file name="Schema/search-result-example.xml"/>
+        </folder>
         <file name="all.xquery"/>
         <file name="collection.xconf"/>
     </projectTree>
