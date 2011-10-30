@@ -8,7 +8,7 @@ declare namespace lp="ddi:logicalproduct:3_1";
 
 (:declare namespace dl = "ddieditor-lightobject";:)
 
-let $search-string := 'National'(:'14069':)
+let $search-string := '"er du dansk"'(:'14069':)
 for $result in
     /i:DDIInstance/su:StudyUnit/@id[ft:query(., $search-string)] |
     /i:DDIInstance/su:StudyUnit/r:Citation/r:Creator[ft:query(., $search-string)] |
@@ -17,12 +17,12 @@ for $result in
     /i:DDIInstance/su:StudyUnit/su:Purpose/r:Content[ft:query(., $search-string)] |
     /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)] |
     /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(r:Label, $search-string)] |
-    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Description[ft:query(., $search-string)] |
+    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(r:Description, $search-string)] |
     /i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID[ft:query(., $search-string)] |
     /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(r:Label, $search-string)] |
-    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/cc:HumanReadable[ft:query(., $search-string)] |
-    /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionItemName[ft:query(., $search-string)] |
-    /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionText/dc:LiteralText/dc:Text[ft:query(., $search-string)] |
+    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(cc:HumanReadable, $search-string)] |
+    /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
+    /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)] |
     /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:VariableName, $search-string)] |
     /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(r:Label, $search-string)] |
     /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(r:Label, $search-string)]
@@ -37,8 +37,8 @@ order by ft:score($result) descending
 
 
 return
-    <LightXmlObject element="{node-name($result)}" id="conc-695fdb22-4bf1-4359-9647-4a1c421593d1" version="1.0.0"
-        parentId="cons-e875ed1c-6773-4ca5-ae0c-9ad5d4a3ae38" parentVersion="1.0.0">
+    <LightXmlObject element="{local-name($result)}" id="{data($result/@id)}" version="{data($result/@version)}"
+        parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         <Label lang="da">Baggrundsvariabler</Label>
         <CustomList type="study">
             <Custom option="id">{data($study-unit/@id)}</Custom>
