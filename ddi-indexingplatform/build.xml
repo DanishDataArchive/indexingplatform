@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<project basedir="." default="test" name="DDA-IPF" xmlns:xdb="http://exist-db.org/ant">
+	<!-- properties -->
+	<property environment="env" />
+	<property name="exist.home" value="${env.EXIST_HOME}" />
+	<property file="${basedir}/build.properties" />
+
+	<!-- xmldb properties are set in file build.properties-->
+	<property name="xmldb.uri" value="xmldb:exist://${xmldb.host}:${xmldb.port}/exist/xmlrpc/db" />
+
+	<!-- directories -->
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="src.resources.dir" value="${src.dir}/resources" />
+	<property name="testsrc.dir" value="${basedir}/testsrc" />
+	<property name="build.classes.dir" value="${basedir}/bin" />
+	<property name="build.dir.jdoc" value="${build.classes.dir}/javadoc" />
+	<property name="junit.results.dir" value="${build.classes.dir}/junit-result" />
+	<property name="junit.report.dir" value="${build.classes.dir}/junit-report" />
+	<property name="lib.dir" value="${basedir}/lib" />
+
+	<!-- classpath -->
+	<path id="classpath.core">
+		<fileset dir="${exist.home}/lib/core">
+			<include name="*.jar" />
+		</fileset>
+
+		<fileset dir="${exist.home}/lib/optional">
+			<include name="*.jar" />
+		</fileset>
+
+		<fileset dir="${exist.home}/lib/endorsed">
+			<include name="*.jar" />
+		</fileset>
+
+		<fileset dir="${exist.home}/lib/extensions">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<fileset dir="${exist.home}/extensions">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<pathelement location="${exist.home}/exist.jar" />
+		<pathelement location="${exist.home}/exist-optional.jar" />
+	</path>
+
+	<path id="classpath.junit">
+		<fileset dir="${exist.home}/lib/test">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="${build.classes.dir}" />
+		<pathelement path="${testsrc.dir}" />
+		<pathelement location="${src.dir}" />
+	</path>
+
+	<path id="classpath.aspectj">
+		<fileset dir="${exist.home}/tools/aspectj/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- typedef -->
+	<typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
+		<classpath refid="classpath.core" />
+	</typedef>
+
+	<!-- taskdef -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="${lib.dir}/ant-contrib.jar" />
+		</classpath>
+	</taskdef>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- standard targets 							 -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="echo-env" description="Echo envs: JAVA_HOME, EXIST_HOME">
+		<echo message="JAVA_HOME: ${java.home}" />
+		<echo message="EXIST_HOME: ${exist.home}" />
+		<echo message="xmldb.host: ${xmldb.host}" />
+		<echo message="xmldb.port: ${xmldb.port}" />
+		<echo message="xmldb.user: ${xmldb.user}" />
+		<echo message="xmldb.passwd: '${xmldb.passwd}'" />
+		<echo message="xmldb.coll: ${xmldb.coll}" />
+		<echo message="xmldb.uri: ${xmldb.uri}" />
+	</target>
+
+	<target name="compile" description="Compile source and testsource">
+		<mkdir dir="${build.classes.dir}" />
+		<javac destdir="${build.classes.dir}" fork="yes">
+			<classpath>
+				<path refid="classpath.core" />
+				<path refid="classpath.junit" />
+				<path refid="classpath.aspectj" />
+			</classpath>
+			<src path="${src.dir}" />
+			<src path="${testsrc.dir}" />
+		</javac>
+
+	</target>
+
+	<target name="clean" description="Clean source and testsource builds">
+		<delete includeemptydirs="true" verbose="true">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${basedir}/logs">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- exist setup     							 -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="deploy-index" depends="compile" description="Sed collection.xconf with EXIST_HOME and copy to system/config/db/collection-name Note: eXist needs to be running">
+		<!-- sed with EXIST_HOME -->
+		<loadfile srcfile="${src.resources.dir}/collection.xconf" property="result">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="EXIST_HOME" value="${exist.home}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${build.classes.dir}/resources/collection.xconf">${result}</echo>
+
+		<!-- upload -->
+		<echo message="-----------------------------" />
+		<echo message="Deploing index to: ${xmldb.uri}/system/config/db/${xmldb.coll}" />
+		<echo message="-----------------------------" />
+		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/system/config/db/${xmldb.coll}" initdb="true" createcollection="true">
+			<fileset dir="${build.classes.dir}/resources">
+				<include name="collection.xconf" />
+			</fileset>
+		</xdb:store>
+	</target>
+
+	<target name="import-xml" description="Import into eXist XML files located in xml directory Note: eXist needs to be running">
+		<echo message="-----------------------------" />
+		<echo message="Importing XML from: ${xml.import.dir} to: ${xmldb.coll}" />
+		<echo message="-----------------------------" />
+		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/${xmldb.coll}" initdb="true" createcollection="true">
+			<fileset dir="${xml.import.dir}" includes="*.xml" />
+		</xdb:store>
+	</target>
+
+	<target name="remove-xml" description="Remove stored XML files by deleting collection Note: eXist needs to be running">
+		<echo message="-----------------------------" />
+		<echo message="Removing collection: ${xmldb.coll}" />
+		<echo message="-----------------------------" />
+		<xdb:remove uri="${xmldb.uri}" collection="${xmldb.coll}" user="${xmldb.user}" password="${xmldb.passwd}" />
+	</target>
+
+	<target name="reindex" depends="compile" description="Reindex collection-name Note: eXist needs to be running">
+		<echo message="-----------------------------" />
+		<echo message="Reinding: ${xmldb.coll}" />
+		<echo message="-----------------------------" />
+		<java classname="dk.dda.exist.Reindex" fork="true">
+			<sysproperty key="log4j.configuration" value="file://${basedir}/log4j.xml" />
+			<arg value="${xmldb.uri}" />
+			<arg value="${xmldb.coll}" />
+			<arg value="${xmldb.user}" />
+			<arg value="${xmldb.passwd}" />
+			<classpath>
+				<path refid="classpath.core" />
+				<path refid="classpath.junit" />
+				<path refid="classpath.aspectj" />
+			</classpath>
+		</java>
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- test										 -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="test" depends="compile" description="Run local testcases, based as a mod of http://exist-db.org/testing/testing.html Note: eXist must NOT be running">
+		<mkdir dir="${junit.results.dir}" />
+		<junit haltonfailure="false" printsummary="yes" showoutput="yes" maxmemory="512m">
+			<sysproperty key="exist.home" value="${exist.home}" />
+			<sysproperty key="log4j.configuration" value="file://${basedir}/log4j.xml" />
+			<classpath refid="classpath.core" />
+			<classpath refid="classpath.junit" />
+			<classpath refid="classpath.aspectj" />
+
+			<formatter type="plain" />
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${junit.results.dir}">
+				<fileset dir="${basedir}/testsrc">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="test-report" description="Generate HTML test reports">
+		<echo message="-----------------------------" />
+		<echo message="Creating reports, please wait" />
+		<echo message="-----------------------------" />
+		<mkdir dir="${junit.report.dir}" />
+		<junitreport todir="${junit.report.dir}">
+			<fileset dir="${junit.results.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${junit.report.dir}" />
+		</junitreport>
+	</target>
+</project>
