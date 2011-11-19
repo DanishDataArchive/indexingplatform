@@ -177,6 +177,7 @@ declare function result:buildResultListItem($result as element()) as element() {
         else if ($result-name eq 'Variable') then result:getVariableReferences($result)
         else if ($result-name eq 'Concept') then result:getConceptReferences($result)
         else if ($result-name eq 'Universe') then result:getUniverseReferences($result)
+        else if ($result-name eq 'Category') then result:getCategoryReferences($result)
         else <CustomList type="unknown references"/>
     
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
@@ -289,4 +290,21 @@ declare function result:getUniverseReferences($universe as element()) as element
     (:Variable:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(r:UniverseReference/r:ID, $universe/@id)]
         return resultHelper:createVariableCustom($variable)
+};
+
+(:~
+ : Finds all relevant references for a given Category (Question, Variable)
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $category Category to process
+ :)
+declare function result:getCategoryReferences($category as element()) as element()* {
+    (:QuestionItem:)
+    for $codeScheme in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
+        for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
+            return resultHelper:createQuestionItemCustom($question)
+    (:Variable:)
+    (:for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $category/@id)]
+        return resultHelper:createVariableCustom($variable):)
 };

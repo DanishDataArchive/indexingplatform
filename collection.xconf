@@ -56,6 +56,8 @@
       <text match="//dc:QuestionItem/@id"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:ConceptReference/r:ID-->
       <text match="//dc:QuestionItem/dc:ConceptReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:CodeDomain/dc:CodeSchemeReference/r:ID-->
+      <text match="//dc:QuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
       <text match="//cc:Concept/@id"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
@@ -68,7 +70,7 @@
       <text match="//lp:Variable/lp:ConceptReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
       <text match="//cc:Universe/@id"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/CategoryReference/r:ID-->
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID-->
       <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/@id-->
       <text match="//lp:Category/@id"/>
