@@ -285,8 +285,8 @@ declare function result:getUniverseReferences($universe as element()) as element
         return <CustomList type="StudyUnit">
             <Custom option="id">{data($study/@id)}</Custom>
             {resultHelper:createCustomLabel($study/r:Citation/r:Title)}
-        </CustomList>
+        </CustomList>,
     (:Variable:)
-    (:for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $universe/@id)]
-        return resultHelper:createVariableCustom($variable):)
+    for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(r:UniverseReference/r:ID, $universe/@id)]
+        return resultHelper:createVariableCustom($variable)
 };
