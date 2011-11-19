@@ -176,7 +176,8 @@ declare function result:buildResultListItem($result as element()) as element() {
         if ($result-name eq 'QuestionItem') then result:getQuestionReferences($result)
         else if ($result-name eq 'Variable') then result:getVariableReferences($result)
         else if ($result-name eq 'Concept') then result:getConceptReferences($result)
-        else "NOT IMPLEMENTED"
+        else if ($result-name eq 'Universe') then result:getUniverseReferences($result)
+        else <CustomList type="unknown references"/>
     
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
@@ -280,9 +281,12 @@ declare function result:getConceptReferences($concept as element()) as element()
  :)
 declare function result:getUniverseReferences($universe as element()) as element()* {
     (:StudyUnit:)
-    for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
-        return resultHelper:createQuestionItemCustom($question),
+    for $study in /i:DDIInstance/su:StudyUnit[ft:query(r:UniverseReference/r:ID, $universe/@id)]
+        return <CustomList type="StudyUnit">
+            <Custom option="id">{data($study/@id)}</Custom>
+            {resultHelper:createCustomLabel($study/r:Citation/r:Title)}
+        </CustomList>
     (:Variable:)
-    for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
-        return resultHelper:createVariableCustom($variable)
+    (:for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $universe/@id)]
+        return resultHelper:createVariableCustom($variable):)
 };
