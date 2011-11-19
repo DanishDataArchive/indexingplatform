@@ -76,11 +76,26 @@ declare function resultHelper:getStudyUnit($result as element()) as element() {
  : @version 1.0
  : @param   $conceptId the ID of the Concept
  :)
-declare function resultHelper:getCreateConcept($conceptId as xs:string) as element() {
+declare function resultHelper:createConcept($conceptId as xs:string) as element() {
     let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptId)]
     return <CustomList type="Concept">
         <Custom option="id">{$conceptId}</Custom>
         {resultHelper:createCustomLabel($concept/r:Label)}
+    </CustomList>
+};
+
+(:~
+ : Returns a Custom element containing the info about the Universe
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $universeId the ID of the Universe
+ :)
+declare function resultHelper:createUniverse($universeId as xs:string) as element() {
+    let $universe := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(@id, $universeId)]
+    return <CustomList type="Universe">
+        <Custom option="id">{$universeId}</Custom>
+        {resultHelper:createCustomLabel($universe/r:Label)}
     </CustomList>
 };
 
@@ -93,15 +108,13 @@ declare function resultHelper:getCreateConcept($conceptId as xs:string) as eleme
  :)
 declare function result:buildResultListItem($result as element()) as element() {
     let $result-name := local-name($result)
-    let $result-name := if ($result-name eq 'Content') then
-                                            local-name($result/..)
-                                        else $result-name
+    let $result-name :=
+        if ($result-name eq 'Content') then local-name($result/..)
+        else $result-name
     let $label := resultHelper:getLabel($result)
     let $referenceList :=
-        if ($result-name eq 'QuestionItem') then
-            result:getQuestionReferences($result)
-        else if ($result-name eq 'Variable') then
-            result:getVariableReferences($result)
+        if ($result-name eq 'QuestionItem') then result:getQuestionReferences($result)
+        else if ($result-name eq 'Variable') then result:getVariableReferences($result)
         else "NOT IMPLEMENTED"
     
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
@@ -122,7 +135,7 @@ declare function result:buildResultListItem($result as element()) as element() {
 declare function result:getQuestionReferences($question as element()) as element()* {
     (:Concept:)
     for $conceptId in $question/dc:ConceptReference/r:ID
-        return resultHelper:getCreateConcept(string($conceptId)),
+        return resultHelper:createConcept(string($conceptId)),
     (:CodeScheme:)
     for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         let $codeSchemeIdString := string($codeSchemeId)
@@ -140,12 +153,7 @@ declare function result:getQuestionReferences($question as element()) as element
     (:Universe:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         for $universeId in $variable/r:UniverseReference/r:ID
-            let $universeIdString := string($universeId)
-            let $universe := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(@id, $universeIdString)]
-            return <CustomList type="Universe">
-                <Custom option="id">{$universeIdString}</Custom>
-                {resultHelper:createCustomLabel($universe/r:Label)}
-            </CustomList>,
+            return resultHelper:createUniverse(string($universeId)),
     (:Category:)
     for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         let $codeSchemeIdString := string($codeSchemeId)
@@ -169,5 +177,8 @@ declare function result:getQuestionReferences($question as element()) as element
 declare function result:getVariableReferences($variable as element()) as element()* {
     (:Concept:)
     for $conceptId in $variable/lp:ConceptReference/r:ID
-        return resultHelper:getCreateConcept(string($conceptId))
+        return resultHelper:createConcept(string($conceptId)),
+    (:Universe:)
+    for $universeId in $variable/r:UniverseReference/r:ID
+        return resultHelper:createUniverse(string($universeId))
 };
