@@ -45,7 +45,8 @@ declare function result:createLabel($nodes as element()*) as element()* {
  :)
 declare function result:createCustomLabel($nodes as element()*) as element()* {
     for $node in $nodes
-        return <Custom option="label" value="{data($node/@xml:lang)}">{data($node)}</Custom>
+        return if (data($node/@xml:lang)) then <Custom option="label" value="{data($node/@xml:lang)}">{data($node)}</Custom>
+                                          else <Custom option="label">{data($node)}</Custom>
 };
 
 (:~
@@ -96,15 +97,23 @@ declare function result:getStudyUnit($result as element()) as element() {
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $question-id ID of the question to look-up
+ : @param   $question question to process
  :)
 declare function result:getQuestionReferences($question as element()) as element()* {
+    (:Concept:)
     for $conceptId in $question/dc:ConceptReference/r:ID
-    let $conceptIdString := string($conceptId)
-    (:return <W>{/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptIdString)]}</W>:)
-    let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptIdString)]
-    return <CustomList type="Concept">
-        <Custom option="id">{$conceptIdString}</Custom>
-        {result:createCustomLabel($concept/r:Label)}
-    </CustomList>
+        let $conceptIdString := string($conceptId)
+        let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptIdString)]
+        return <CustomList type="Concept">
+            <Custom option="id">{$conceptIdString}</Custom>
+            {result:createCustomLabel($concept/r:Label)}
+        </CustomList>,
+    (:CodeScheme:)
+    for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
+        let $codeSchemeIdString := string($codeSchemeId)
+        let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
+        return <CustomList type="CodeScheme">
+            <Custom option="id">{$codeSchemeIdString}</Custom>
+            {result:createCustomLabel($codeScheme/r:Label)}
+        </CustomList>
 };

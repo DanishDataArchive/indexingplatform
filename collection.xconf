@@ -58,6 +58,8 @@
       <text match="//dc:QuestionItem/dc:ConceptReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
       <text match="//cc:Concept/@id"/>
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
+      <text match="//lp:CodeScheme/@id"/>
     </lucene>
     
     <!-- Range indexes -->
