@@ -12,5 +12,6 @@
         </folder>
         <file name="all.xquery"/>
         <file name="collection.xconf"/>
+        <file name="resultFunctions.xquery"/>
     </projectTree>
 </project>

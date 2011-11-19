@@ -1,6 +1,7 @@
 xquery version "1.0";
 
-import module namespace kwic="http://exist-db.org/xquery/kwic";
+import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/resultFunctions.xquery";(:"xmldb:exist:///db/dda/resultFunctions.xquery":)
+(:import module namespace kwic="http://exist-db.org/xquery/kwic";:)
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -11,75 +12,9 @@ declare namespace lp="ddi:logicalproduct:3_1";
 
 declare namespace ddi="http://dda.dk/ddi";
 
-(:~
- : Finds the element containing the human readable text and returns its value in a Label element(s)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $node the nodes which contains the human readable text in its descendants
- :)
-declare function local:getLabel($node as element()) as element()* {
-    let $node-name := local-name($node)
-    return if ($node-name eq 'Concept' or $node-name eq 'Universe' or $node-name eq 'Variable' or $node-name eq 'Category') then
-        local:createLabel($node/r:Label)
-    else if ($node-name eq 'QuestionItem') then
-        local:createLabel($node/dc:QuestionText/dc:LiteralText/dc:Text)
-    else
-        local:createLabel($node)
-};
 
-(:~
- : Returns a Label element(s) 
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $nodes the element(s) containing the value for the Label
- :)
-declare function local:createLabel($nodes as element()*) as element()* {
-    for $node in $nodes
-        return <Label lang="{data($node/@xml:lang)}">{data($node)}</Label>
-};
 
-(:~
- : Returns a Custom element(s) 
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $nodes the element(s) containing the value for the Custom element
- :)
-declare function local:createCustomLabel($nodes as element()*) as element()* {
-    for $node in $nodes
-        return <Custom option="label" value="{data($node/@xml:lang)}">{data($node)}</Custom>
-};
 
-(:~
- : Returns a single LightXmlObject element containing a single result 
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $result one element in the result list obtained by the query
- :)
-declare function local:buildResultListItem($result as element()) as element() {
-    let $study-unit := $result/ancestor-or-self::su:StudyUnit
-    let $title := $study-unit/r:Citation/r:Title
-    let $result-name := local-name($result)
-    let $result-name := if ($result-name eq 'Content') then
-                                            local-name($result/..)
-                                        else $result-name
-    let $label := local:getLabel($result)
-    
-      return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
-        parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
-        {$label}
-        <CustomList type="study">
-            <Custom option="id">{data($study-unit/@id)}</Custom>
-            <Custom option="version">{data($study-unit/@version)}</Custom>
-            {local:createCustomLabel($title)}
-            <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
-            <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
-        </CustomList>
-    </LightXmlObject>
-};
 
 (:~
  : Makes a free-text search in StudyUnit elements and returns the element(s) containing the match
@@ -193,7 +128,7 @@ declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:
     {
         for $result in $results[position() = $hit-start to $hit-end]
         order by ft:score($result) descending
-            return local:buildResultListItem($result)
+            return result:buildResultListItem($result)
         (:<result score="{ft:score($result)}">{$result}</result>:)
         (:kwic:summarize($result, <config width="40"/>):)
     }
@@ -201,4 +136,7 @@ declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:
 };
 
 
+
+
 ddi:searchAll('National', 10, 0)(:'14069':)
+(:ddi:getQuestionReferences('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
