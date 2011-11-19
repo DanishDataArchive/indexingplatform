@@ -303,8 +303,9 @@ declare function result:getCategoryReferences($category as element()) as element
     (:QuestionItem:)
     for $codeScheme in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
         for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
-            return resultHelper:createQuestionItemCustom($question)
+            return resultHelper:createQuestionItemCustom($question),
     (:Variable:)
-    (:for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $category/@id)]
-        return resultHelper:createVariableCustom($variable):)
+    for $codeScheme in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
+        for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
+            return resultHelper:createVariableCustom($variable)
 };

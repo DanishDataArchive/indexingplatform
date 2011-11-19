@@ -68,6 +68,8 @@
       <text match="//lp:Variable/r:UniverseReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:ConceptReference/r:ID-->
       <text match="//lp:Variable/lp:ConceptReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID-->
+      <text match="//lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
       <text match="//cc:Universe/@id"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID-->
