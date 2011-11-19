@@ -231,7 +231,15 @@ declare function result:getVariableReferences($variable as element()) as element
         return resultHelper:createUniverseCustomFromId(string($universeId)),
     (:QuestionItem:)
     for $questionId in $variable/lp:QuestionReference/r:ID
-        return resultHelper:createQuestionItemCustomFromId(string($questionId))
+        return resultHelper:createQuestionItemCustomFromId(string($questionId)),
+    (:representation type:)
+    let $representationType := if ($variable/lp:Representation/lp:TextRepresentation) then <Custom option="type">TextRepresentation</Custom>
+                       else if ($variable/lp:Representation/lp:NumericRepresentation) then <Custom option="type" value="{data($variable/lp:Representation/lp:NumericRepresentation/@type)}">NumericRepresentation</Custom>
+                       else if ($variable/lp:Representation/lp:CodeRepresentation) then <Custom option="type">CodeRepresentation</Custom>
+                       else ""
+        return <CustomList type="RepresentationType">
+            {$representationType}
+        </CustomList>
 };
 
 (:~
