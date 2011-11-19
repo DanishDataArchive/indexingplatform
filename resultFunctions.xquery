@@ -121,5 +121,14 @@ declare function result:getQuestionReferences($question as element()) as element
         return <CustomList type="Variable">
             <Custom option="id">{data($variable/@id)}</Custom>
             {result:createCustomLabel($variable/r:Label)}
-        </CustomList>
+        </CustomList>,
+    (:Universe:)
+    for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
+        for $universeId in $variable/r:UniverseReference/r:ID
+            let $universeIdString := string($universeId)
+            let $universe := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(@id, $universeIdString)]
+            return <CustomList type="Universe">
+                <Custom option="id">{$universeIdString}</Custom>
+                {result:createCustomLabel($universe/r:Label)}
+            </CustomList>
 };

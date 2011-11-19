@@ -62,6 +62,10 @@
       <text match="//lp:CodeScheme/@id"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:QuestionReference/r:ID-->
       <text match="//lp:Variable/lp:QuestionReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:UniverseReference/r:ID-->
+      <text match="//lp:Variable/r:UniverseReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
+      <text match="//cc:Universe/@id"/>
     </lucene>
     
     <!-- Range indexes -->
