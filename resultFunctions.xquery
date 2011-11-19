@@ -142,6 +142,24 @@ declare function resultHelper:createVariableCustom($variable as element()) as el
 };
 
 (:~
+ : Returns a Custom element(s) containing the info about the Category
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $codeSchemeId the ID of the CodeScheme holding the references to the Categories
+ :)
+declare function resultHelper:createCategoryCustomFromCodeSchemeId($codeSchemeId as xs:string) as element()* {
+    let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeId)]
+    for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
+        let $categoryIdString := string($categoryId)
+        let $category := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(@id, $categoryIdString)]
+        return <CustomList type="Category">
+            <Custom option="id">{$categoryIdString}</Custom>
+            {resultHelper:createCustomLabel($category/r:Label)}
+        </CustomList>
+};
+
+(:~
  : Returns a single LightXmlObject element containing a single result 
  :
  : @author  Kemal Pajevic
@@ -204,15 +222,7 @@ declare function result:getQuestionReferences($question as element()) as element
         </CustomList>,
     (:Category:)
     for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
-        let $codeSchemeIdString := string($codeSchemeId)
-        let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
-        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
-            let $categoryIdString := string($categoryId)
-            let $category := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(@id, $categoryIdString)]
-            return <CustomList type="Category">
-                <Custom option="id">{$categoryIdString}</Custom>
-                {resultHelper:createCustomLabel($category/r:Label)}
-            </CustomList>
+        return resultHelper:createCategoryCustomFromCodeSchemeId($codeSchemeId)
 };
 
 (:~
@@ -239,7 +249,10 @@ declare function result:getVariableReferences($variable as element()) as element
                        else ""
         return <CustomList type="RepresentationType">
             {$representationType}
-        </CustomList>
+        </CustomList>,
+    (:Category:)
+    for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID
+        return resultHelper:createCategoryCustomFromCodeSchemeId($codeSchemeId)
 };
 
 (:~
