@@ -115,5 +115,11 @@ declare function result:getQuestionReferences($question as element()) as element
         return <CustomList type="CodeScheme">
             <Custom option="id">{$codeSchemeIdString}</Custom>
             {result:createCustomLabel($codeScheme/r:Label)}
+        </CustomList>,
+    (:Variable:)
+    for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
+        return <CustomList type="Variable">
+            <Custom option="id">{data($variable/@id)}</Custom>
+            {result:createCustomLabel($variable/r:Label)}
         </CustomList>
 };

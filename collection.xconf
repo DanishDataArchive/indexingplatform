@@ -60,6 +60,8 @@
       <text match="//cc:Concept/@id"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
       <text match="//lp:CodeScheme/@id"/>
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:QuestionReference/r:ID-->
+      <text match="//lp:Variable/lp:QuestionReference/r:ID"/>
     </lucene>
     
     <!-- Range indexes -->
