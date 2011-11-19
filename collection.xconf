@@ -52,7 +52,7 @@
       <!-- Index for specific search -->
       <!--/i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID-->
       <text match="//r:UniverseReference/r:ID"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionItemName/@id-->
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/@id-->
       <text match="//dc:QuestionItem/@id"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:ConceptReference/r:ID-->
       <text match="//dc:QuestionItem/dc:ConceptReference/r:ID"/>

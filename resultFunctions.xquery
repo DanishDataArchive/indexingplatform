@@ -100,6 +100,21 @@ declare function resultHelper:createUniverse($universeId as xs:string) as elemen
 };
 
 (:~
+ : Returns a Custom element containing the info about the QuestionItem
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $questionId the ID of the QuestionItem
+ :)
+declare function resultHelper:createQuestionItem($questionId as xs:string) as element() {
+    let $question := /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(@id, $questionId)]
+    return <CustomList type="QuestionItem">
+        <Custom option="id">{$questionId}</Custom>
+        {resultHelper:createCustomLabel($question/dc:QuestionText/dc:LiteralText/dc:Text)}
+    </CustomList>
+};
+
+(:~
  : Returns a single LightXmlObject element containing a single result 
  :
  : @author  Kemal Pajevic
@@ -180,5 +195,8 @@ declare function result:getVariableReferences($variable as element()) as element
         return resultHelper:createConcept(string($conceptId)),
     (:Universe:)
     for $universeId in $variable/r:UniverseReference/r:ID
-        return resultHelper:createUniverse(string($universeId))
+        return resultHelper:createUniverse(string($universeId)),
+    (:QuestionItem:)
+    for $questionId in $variable/lp:QuestionReference/r:ID
+        return resultHelper:createQuestionItem(string($questionId))
 };
