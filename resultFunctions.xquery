@@ -180,13 +180,13 @@ declare function result:getQuestionReferences($question as element()) as element
     for $conceptId in $question/dc:ConceptReference/r:ID
         return resultHelper:createConceptCustomFromId(string($conceptId)),
     (:CodeScheme:)
-    for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
+    (:for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         let $codeSchemeIdString := string($codeSchemeId)
         let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
         return <CustomList type="CodeScheme">
             <Custom option="id">{$codeSchemeIdString}</Custom>
             {resultHelper:createCustomLabel($codeScheme/r:Label)}
-        </CustomList>,
+        </CustomList>,:)
     (:Variable:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         return resultHelper:createVariableCustom($variable),
@@ -194,6 +194,14 @@ declare function result:getQuestionReferences($question as element()) as element
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         for $universeId in $variable/r:UniverseReference/r:ID
             return resultHelper:createUniverseCustomFromId(string($universeId)),
+    (:domain type:)
+    let $domainType := if ($question/dc:TextDomain) then <Custom option="type">TextDomain</Custom>
+                       else if ($question/dc:NumericDomain) then <Custom option="type" value="{data($question/dc:NumericDomain/@type)}">NumericDomain</Custom>
+                       else if ($question/dc:CodeDomain) then <Custom option="type">CodeDomain</Custom>
+                       else ""
+        return <CustomList type="DomainType">
+            {$domainType}
+        </CustomList>,
     (:Category:)
     for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         let $codeSchemeIdString := string($codeSchemeId)
@@ -235,6 +243,22 @@ declare function result:getVariableReferences($variable as element()) as element
  :)
 declare function result:getConceptReferences($concept as element()) as element()* {
     (:QuestionItem:)
+    for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
+        return resultHelper:createQuestionItemCustom($question),
+    (:Variable:)
+    for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
+        return resultHelper:createVariableCustom($variable)
+};
+
+(:~
+ : Finds all relevant references for a given Universe (StudyUnit, Variable)
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $universe Universe to process
+ :)
+declare function result:getUniverseReferences($universe as element()) as element()* {
+    (:StudyUnit:)
     for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
         return resultHelper:createQuestionItemCustom($question),
     (:Variable:)
