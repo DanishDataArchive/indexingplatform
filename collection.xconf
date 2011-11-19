@@ -66,6 +66,10 @@
       <text match="//lp:Variable/r:UniverseReference/r:ID"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
       <text match="//cc:Universe/@id"/>
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/CategoryReference/r:ID-->
+      <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/@id-->
+      <text match="//lp:Category/@id"/>
     </lucene>
     
     <!-- Range indexes -->

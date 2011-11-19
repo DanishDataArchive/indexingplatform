@@ -130,5 +130,16 @@ declare function result:getQuestionReferences($question as element()) as element
             return <CustomList type="Universe">
                 <Custom option="id">{$universeIdString}</Custom>
                 {result:createCustomLabel($universe/r:Label)}
+            </CustomList>,
+    (:Category:)
+    for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
+        let $codeSchemeIdString := string($codeSchemeId)
+        let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
+        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
+            let $categoryIdString := string($categoryId)
+            let $category := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(@id, $categoryIdString)]
+            return <CustomList type="Category">
+                <Custom option="id">{$categoryIdString}</Custom>
+                {result:createCustomLabel($category/r:Label)}
             </CustomList>
 };
