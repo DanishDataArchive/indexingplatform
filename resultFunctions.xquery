@@ -25,7 +25,7 @@ declare function result:getLabel($node as element()) as element()* {
 };
 
 (:~
- : Returns a Label element(s) 
+ : Returns a Label element(s)
  :
  : @author  Kemal Pajevic
  : @version 1.0
@@ -56,25 +56,39 @@ declare function result:createCustomLabel($nodes as element()*) as element()* {
  : @param   $result one element in the result list obtained by the query
  :)
 declare function result:buildResultListItem($result as element()) as element() {
-    let $study-unit := $result/ancestor-or-self::su:StudyUnit
-    let $title := $study-unit/r:Citation/r:Title
     let $result-name := local-name($result)
     let $result-name := if ($result-name eq 'Content') then
                                             local-name($result/..)
                                         else $result-name
     let $label := result:getLabel($result)
+    let $referenceList := if ($result-name eq 'QuestionItem') then
+            result:getQuestionReferences($result)
+        else "NOT QuestionItem"
     
-      return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
+    return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         {$label}
-        <CustomList type="StudyUnit">
-            <Custom option="id">{data($study-unit/@id)}</Custom>
-            <Custom option="version">{data($study-unit/@version)}</Custom>
-            {result:createCustomLabel($title)}
-            <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
-            <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
-        </CustomList>
+        {result:getStudyUnit($result)}
+        {$referenceList}
     </LightXmlObject>
+};
+
+(:~
+ : Returns a Custom element containing the info about the StudyUnit 
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $result one element in the result list obtained by the query
+ :)
+declare function result:getStudyUnit($result as element()) as element() {
+    let $study-unit := $result/ancestor-or-self::su:StudyUnit    
+    return <CustomList type="StudyUnit">
+        <Custom option="id">{data($study-unit/@id)}</Custom>
+        <Custom option="version">{data($study-unit/@version)}</Custom>
+        {result:createCustomLabel($study-unit/r:Citation/r:Title)}
+        <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
+        <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
+    </CustomList>
 };
 
 (:~
@@ -84,18 +98,13 @@ declare function result:buildResultListItem($result as element()) as element() {
  : @version 1.0
  : @param   $question-id ID of the question to look-up
  :)
-declare function result:getQuestionReferences($question-id as xs:string) as element() {
-    let $question := /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(@id, $question-id)]
-    let $conceptReferenceIDs := $question/dc:ConceptReference/r:ID
-    return <LightXmlObject element="{local-name($question)}" id="{data($question/@id)}" version="{data($question/@version)}"
-        parentId="{data($question/../@id)}" parentVersion="{data($question/../@version)}">
-        {result:getLabel($question)}
-        (:<CustomList type="study">
-            <Custom option="id">{data($study-unit/@id)}</Custom>
-            <Custom option="version">{data($study-unit/@version)}</Custom>
-            {result:createCustomLabel($title)}
-            <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
-            <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
-        </CustomList>:)
-    </LightXmlObject>
+declare function result:getQuestionReferences($question as element()) as element()* {
+    for $conceptId in $question/dc:ConceptReference/r:ID
+    let $conceptIdString := string($conceptId)
+    (:return <W>{/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptIdString)]}</W>:)
+    let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptIdString)]
+    return <CustomList type="Concept">
+        <Custom option="id">{$conceptIdString}</Custom>
+        {result:createCustomLabel($concept/r:Label)}
+    </CustomList>
 };

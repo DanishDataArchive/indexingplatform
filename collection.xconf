@@ -16,6 +16,7 @@
       <analyzer id="da" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/><!--id="ws"-->
       <!--<analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>-->
 
+      <!-- Index for full-text search -->
       <!--/i:DDIInstance/su:StudyUnit/@id-->
       <text match="//su:StudyUnit/@id" analyzer="da" boost="59049.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Creator-->
@@ -32,8 +33,6 @@
       <text match="//cc:Concept/r:Label" analyzer="da" boost="81.0"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Description-->
       <text qname="r:Description" analyzer="da" boost="81.0"/>
-      <!--/i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID-->
-      <text match="//r:UniverseReference/r:ID" analyzer="da" boost="27.0"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/r:Label-->
       <text match="//cc:Universe/r:Label" analyzer="da" boost="27.0"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/cc:HumanReadable-->
@@ -48,6 +47,17 @@
       <text match="//lp:Variable/r:Label" analyzer="da" boost="3.0"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/r:Label-->
       <text match="//lp:Category/r:Label" analyzer="da" boost="1.0"/>
+      
+      
+      <!-- Index for specific search -->
+      <!--/i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID-->
+      <text match="//r:UniverseReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionItemName/@id-->
+      <text match="//dc:QuestionItem/@id"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:ConceptReference/r:ID-->
+      <text match="//dc:QuestionItem/dc:ConceptReference/r:ID"/>
+      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
+      <text match="//cc:Concept/@id"/>
     </lucene>
     
     <!-- Range indexes -->
