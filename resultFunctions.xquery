@@ -104,6 +104,21 @@ declare function resultHelper:createUniverseCustomFromId($universeId as xs:strin
  :
  : @author  Kemal Pajevic
  : @version 1.0
+ : @param   $question the QuestionItem
+ :)
+declare function resultHelper:createQuestionItemCustom($question as element()) as element() {
+    let $dummy := ""
+    return <CustomList type="QuestionItem">
+        <Custom option="id">{data($question/@id)}</Custom>
+        {resultHelper:createCustomLabel($question/dc:QuestionText/dc:LiteralText/dc:Text)}
+    </CustomList>
+};
+
+(:~
+ : Returns a Custom element containing the info about the QuestionItem
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
  : @param   $questionId the ID of the QuestionItem
  :)
 declare function resultHelper:createQuestionItemCustomFromId($questionId as xs:string) as element() {
@@ -112,17 +127,17 @@ declare function resultHelper:createQuestionItemCustomFromId($questionId as xs:s
 };
 
 (:~
- : Returns a Custom element containing the info about the QuestionItem
+ : Returns a Custom element containing the info about the Variable
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $question the QuestionItem
+ : @param   $variable the Variable
  :)
-declare function resultHelper:createQuestionItemCustom($question as element()) as element() {
+declare function resultHelper:createVariableCustom($variable as element()) as element() {
     let $dummy := ""
-    return <CustomList type="QuestionItem">
-        <Custom option="id">{data($question/@id)}</Custom>
-        {resultHelper:createCustomLabel($question/dc:QuestionText/dc:LiteralText/dc:Text)}
+    return <CustomList type="Variable">
+        <Custom option="id">{data($variable/@id)}</Custom>
+        {resultHelper:createCustomLabel($variable/r:Label)}
     </CustomList>
 };
 
@@ -174,10 +189,7 @@ declare function result:getQuestionReferences($question as element()) as element
         </CustomList>,
     (:Variable:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
-        return <CustomList type="Variable">
-            <Custom option="id">{data($variable/@id)}</Custom>
-            {resultHelper:createCustomLabel($variable/r:Label)}
-        </CustomList>,
+        return resultHelper:createVariableCustom($variable),
     (:Universe:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         for $universeId in $variable/r:UniverseReference/r:ID
@@ -224,8 +236,8 @@ declare function result:getVariableReferences($variable as element()) as element
 declare function result:getConceptReferences($concept as element()) as element()* {
     (:QuestionItem:)
     for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
-        return resultHelper:createQuestionItemCustom($question)(:,
-    (:Variable:)for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
-    for $variableId in $concept/lp:ConceptReference/r:ID
-        return resultHelper:createVariable(string($variableId)):)
+        return resultHelper:createQuestionItemCustom($question),
+    (:Variable:)
+    for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
+        return resultHelper:createVariableCustom($variable)
 };
