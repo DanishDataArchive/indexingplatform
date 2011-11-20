@@ -11,6 +11,7 @@ declare namespace cc="ddi:conceptualcomponent:3_1";
 declare namespace lp="ddi:logicalproduct:3_1";
 
 declare namespace ddi="http://dda.dk/ddi";
+declare namespace sp="http://dda.dk/ddi/search-parameters";
 
 
 (:~
@@ -149,51 +150,29 @@ declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $studyId           the ID of the StudyUnit that needs to be matched
- : @param   $title             the Title of the Study that needs to be matched
- : @param   $abstract-purpose  the Abstract or Purpose that needs to be matched
- : @param   $creator           the Creator that needs to be matched
- : @param   $kindOfData        the KindOfData that needs to be matched
- : @param   $coverageFrom      start-date of the temporal range
- : @param   $coverageTo        end-date of the temporal range
- : @param   $concept           the Concept that needs to be matched
- : @param   $universe          the Universe that needs to be matched
- : @param   $question          the Question that needs to be matched
- : @param   $variable          the Variable that needs to be matched
- : @param   $category          the Category that needs to be matched
+ : @param   $searchParameters  the search parameters wrapped in a SearchParameters element
  : @param   $hits-perpage      number of hits to be shown per page
  : @param   $hit-start         number of the first hit to be shown on the page
  :)
-(:declare function ddi:advancedSearch($studyId as xs:string,
-                                    $title as xs:string,
-                                    $abstract-purpose as xs:string,
-                                    $creator as xs:string,
-                                    $kindOfData as xs:string,
-                                    $coverageFrom as xs:dateTime,
-                                    $coverageTo as xs:dateTime,
-                                    $concept as xs:string,
-                                    $universe as xs:string,
-                                    $question as xs:string,
-                                    $variable as xs:string,
-                                    $category as xs:string,
-                                    $hits-perpage as xs:integer,
-                                    $hit-start as xs:integer) as element() {
-    
-    let $studyUnitResults :=
+declare function ddi:advancedSearch($searchParameters as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+    let $searchScope := if ($searchParameters/sp:studyId) then <W>{data($searchParameters/sp:studyId)}</W>
+    else <w/>
+    return $searchScope
+(:    let $studyUnitResults :=
         /i:DDIInstance/su:StudyUnit/@id[ft:query(., $studyId)]                            &
         /i:DDIInstance/su:StudyUnit/r:Citation/r:Title[ft:query(., $title)]               &
         /i:DDIInstance/su:StudyUnit/su:Abstract/r:Content[ft:query(., $abstract-purpose)] &
         /i:DDIInstance/su:StudyUnit/su:Purpose/r:Content[ft:query(., $abstract-purpose)]  &
         /i:DDIInstance/su:StudyUnit/r:Citation/r:Creator[ft:query(., $creator)]           &
-        /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)]
-    let $results :=
+        /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)]:)
+    (:let $results :=
         local:queryConcept($concept)   |
         local:queryUniverse($universe)  |
         local:queryQuestion($question)  |
         local:queryVariable($variable)  |
         local:queryCategory($category)
-    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start)
-};:)
+    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start):)
+};
 
 (:~
  : Searches for a QuestionItem and returns a LightXmlObjectList element with the result
@@ -282,7 +261,23 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
 
 
 
-ddi:searchAll('KemalQ', 10, 0)(:'14069':)
+ddi:searchAll('National', 10, 0)(:'14069':)
+(:let $searchParameters :=
+    <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <studyId>studyId0</studyId>
+        <title>title0</title>
+        <abstract-purpose>abstract-purpose0</abstract-purpose>
+        <creator>creator0</creator>
+        <kindOfData>kindOfData0</kindOfData>
+        <coverageFrom>2006-05-04</coverageFrom>
+        <coverageTo>2006-05-04</coverageTo>
+        <concept>concept0</concept>
+        <universe>universe0</universe>
+        <question>question0</question>
+        <variable>variable0</variable>
+        <category>category0</category>
+    </SearchParameters>
+return ddi:advancedSearch($searchParameters, 10, 0):)
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)
