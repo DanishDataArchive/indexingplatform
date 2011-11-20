@@ -1,0 +1,26 @@
+Question:
+OK    Concept /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:ConceptReference/r:ID
+VÆK    CodeScheme /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID
+OK    Variable (referencer ligger i Variable)
+OK    Universe (ligger i Variable. find samtlige universer som bliver refereret af samtlige variabler som refererer til spørgsmålet)
+OK    DomainType (ikke rigtig element) (Code|Numeric|Text|DateTime)
+OK    Category (referencer ligger i CodeScheme/Code/CategoryReference)
+
+Variable:
+OK    Concept
+OK    Universe
+OK    Question
+OK    RepresentationType (ikke rigtig element) (Code|Numeric|Text|DateTime)
+OK    Category (ligger i Code)
+
+Concept:
+OK    Question (referencer ligger i Question)
+OK    Variable (referencer ligger i Variable)
+
+Universe:
+OK    StudyUnit (referencer ligger i StudyUnit)
+OK    Variable (referencer ligger i Variable)
+
+Category:
+0..*    Question (referencer ligger i Question/CodeScheme/Code)
+0..*    Variable (referencer ligger i Variable/CodeScheme/Code)
