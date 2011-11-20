@@ -92,13 +92,13 @@ declare function local:queryCategory($search-string as xs:string) as element()* 
 };
 
 (:~
- : Makes a free-text search in all indexed elements and returns  a list of LightXmlObject elements with results
+ : Makes a free-text search in all indexed elements and returns a list of LightXmlObject elements with the results
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
- : @param   $hits-perpage the number of hits to be shown per page
- : @param   $hit-start number of the first hit to be shown on the page
+ : @param   $hits-perpage  the number of hits to be shown per page
+ : @param   $hit-start     number of the first hit to be shown on the page
  :)
 declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
     let $results := 
@@ -136,8 +136,96 @@ declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:
     </dl:LightXmlObjectList>
 };
 
+(:~
+ : Searches for a QuestionItem and returns a LightXmlObjectList element with the result
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $questionId    the ID of the QuestionItem
+ :)
+declare function ddi:lookupQuestion($questionId as xs:string) as element() {
+    let $question := /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(@id, $questionId)]
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+            {result:buildResultListItem($question)}
+    </dl:LightXmlObjectList>
+};
+
+(:~
+ : Searches for a Variable and returns a LightXmlObjectList element with the result
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $variableId    the ID of the Variable
+ :)
+declare function ddi:lookupVariable($variableId as xs:string) as element() {
+    let $variable := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(@id, $variableId)]
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+            {result:buildResultListItem($variable)}
+    </dl:LightXmlObjectList>
+};
+
+(:~
+ : Searches for a Concept and returns a LightXmlObjectList element with the result
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $conceptId    the ID of the Concept
+ :)
+declare function ddi:lookupConcept($conceptId as xs:string) as element() {
+    let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptId)]
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+            {result:buildResultListItem($concept)}
+    </dl:LightXmlObjectList>
+};
+
+(:~
+ : Searches for a Universe and returns a LightXmlObjectList element with the result
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $universeId    the ID of the Universe
+ :)
+declare function ddi:lookupUniverse($universeId as xs:string) as element() {
+    let $universe := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(@id, $universeId)]
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+            {result:buildResultListItem($universe)}
+    </dl:LightXmlObjectList>
+};
+
+(:~
+ : Searches for a Category and returns a LightXmlObjectList element with the result
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $categoryId    the ID of the Category
+ :)
+declare function ddi:lookupCategory($categoryId as xs:string) as element() {
+    let $category := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(@id, $categoryId)]
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+            {result:buildResultListItem($category)}
+    </dl:LightXmlObjectList>
+};
 
 
 
-ddi:searchAll('KemalU', 10, 0)(:'14069':)
-(:ddi:getQuestionReferences('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
+ddi:searchAll('KemalQ', 10, 0)(:'14069':)
+(:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
+(:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
+(:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)
+(:ddi:lookupUniverse('eafc0dde-0b5e-4449-b3dd-09071f6a2707'):)
+(:ddi:lookupCategory('cat-d4ebcb36-9409-4b41-bdaa-ece686b5f772'):)
