@@ -1,7 +1,5 @@
 module namespace result = "http://dda.dk/ddi/result";
 
-declare namespace resultHelper = "http://dda.dk/ddi/resultHelper";
-
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
 declare namespace r="ddi:reusable:3_1";
@@ -16,14 +14,14 @@ declare namespace lp="ddi:logicalproduct:3_1";
  : @version 1.0
  : @param   $node the nodes which contains the human readable text in its descendants
  :)
-declare function resultHelper:getLabel($node as element()) as element()* {
+declare function local:getLabel($node as element()) as element()* {
     let $node-name := local-name($node)
     return if ($node-name eq 'Concept' or $node-name eq 'Universe' or $node-name eq 'Variable' or $node-name eq 'Category') then
-        resultHelper:createLabel($node/r:Label)
+        local:createLabel($node/r:Label)
     else if ($node-name eq 'QuestionItem') then
-        resultHelper:createLabel($node/dc:QuestionText/dc:LiteralText/dc:Text)
+        local:createLabel($node/dc:QuestionText/dc:LiteralText/dc:Text)
     else
-        resultHelper:createLabel($node)
+        local:createLabel($node)
 };
 
 (:~
@@ -33,7 +31,7 @@ declare function resultHelper:getLabel($node as element()) as element()* {
  : @version 1.0
  : @param   $nodes the element(s) containing the value for the Label
  :)
-declare function resultHelper:createLabel($nodes as element()*) as element()* {
+declare function local:createLabel($nodes as element()*) as element()* {
     for $node in $nodes
         return <Label lang="{data($node/@xml:lang)}">{data($node)}</Label>
 };
@@ -45,7 +43,7 @@ declare function resultHelper:createLabel($nodes as element()*) as element()* {
  : @version 1.0
  : @param   $nodes the element(s) containing the value for the Custom element
  :)
-declare function resultHelper:createCustomLabel($nodes as element()*) as element()* {
+declare function local:createCustomLabel($nodes as element()*) as element()* {
     for $node in $nodes
         return if (data($node/@xml:lang)) then <Custom option="label" value="{data($node/@xml:lang)}">{data($node)}</Custom>
                                           else <Custom option="label">{data($node)}</Custom>
@@ -58,12 +56,12 @@ declare function resultHelper:createCustomLabel($nodes as element()*) as element
  : @version 1.0
  : @param   $result one element in the result list obtained by the query
  :)
-declare function resultHelper:createStudyUnitCustom($result as element()) as element() {
+declare function local:createStudyUnitCustom($result as element()) as element() {
     let $study-unit := $result/ancestor-or-self::su:StudyUnit    
     return <CustomList type="StudyUnit">
         <Custom option="id">{data($study-unit/@id)}</Custom>
         <Custom option="version">{data($study-unit/@version)}</Custom>
-        {resultHelper:createCustomLabel($study-unit/r:Citation/r:Title)}
+        {local:createCustomLabel($study-unit/r:Citation/r:Title)}
         <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
         <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
     </CustomList>
@@ -76,11 +74,11 @@ declare function resultHelper:createStudyUnitCustom($result as element()) as ele
  : @version 1.0
  : @param   $conceptId the ID of the Concept
  :)
-declare function resultHelper:createConceptCustomFromId($conceptId as xs:string) as element() {
+declare function local:createConceptCustomFromId($conceptId as xs:string) as element() {
     let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptId)]
     return <CustomList type="Concept">
         <Custom option="id">{$conceptId}</Custom>
-        {resultHelper:createCustomLabel($concept/r:Label)}
+        {local:createCustomLabel($concept/r:Label)}
     </CustomList>
 };
 
@@ -91,11 +89,11 @@ declare function resultHelper:createConceptCustomFromId($conceptId as xs:string)
  : @version 1.0
  : @param   $universeId the ID of the Universe
  :)
-declare function resultHelper:createUniverseCustomFromId($universeId as xs:string) as element() {
+declare function local:createUniverseCustomFromId($universeId as xs:string) as element() {
     let $universe := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(@id, $universeId)]
     return <CustomList type="Universe">
         <Custom option="id">{$universeId}</Custom>
-        {resultHelper:createCustomLabel($universe/r:Label)}
+        {local:createCustomLabel($universe/r:Label)}
     </CustomList>
 };
 
@@ -106,11 +104,11 @@ declare function resultHelper:createUniverseCustomFromId($universeId as xs:strin
  : @version 1.0
  : @param   $question the QuestionItem
  :)
-declare function resultHelper:createQuestionItemCustom($question as element()) as element() {
+declare function local:createQuestionItemCustom($question as element()) as element() {
     let $dummy := ""
     return <CustomList type="QuestionItem">
         <Custom option="id">{data($question/@id)}</Custom>
-        {resultHelper:createCustomLabel($question/dc:QuestionText/dc:LiteralText/dc:Text)}
+        {local:createCustomLabel($question/dc:QuestionText/dc:LiteralText/dc:Text)}
     </CustomList>
 };
 
@@ -121,9 +119,9 @@ declare function resultHelper:createQuestionItemCustom($question as element()) a
  : @version 1.0
  : @param   $questionId the ID of the QuestionItem
  :)
-declare function resultHelper:createQuestionItemCustomFromId($questionId as xs:string) as element() {
+declare function local:createQuestionItemCustomFromId($questionId as xs:string) as element() {
     let $question := /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(@id, $questionId)]
-    return resultHelper:createQuestionItemCustom($question)
+    return local:createQuestionItemCustom($question)
 };
 
 (:~
@@ -133,11 +131,11 @@ declare function resultHelper:createQuestionItemCustomFromId($questionId as xs:s
  : @version 1.0
  : @param   $variable the Variable
  :)
-declare function resultHelper:createVariableCustom($variable as element()) as element() {
+declare function local:createVariableCustom($variable as element()) as element() {
     let $dummy := ""
     return <CustomList type="Variable">
         <Custom option="id">{data($variable/@id)}</Custom>
-        {resultHelper:createCustomLabel($variable/r:Label)}
+        {local:createCustomLabel($variable/r:Label)}
     </CustomList>
 };
 
@@ -148,14 +146,14 @@ declare function resultHelper:createVariableCustom($variable as element()) as el
  : @version 1.0
  : @param   $codeSchemeId the ID of the CodeScheme holding the references to the Categories
  :)
-declare function resultHelper:createCategoryCustomFromCodeSchemeId($codeSchemeId as xs:string) as element()* {
+declare function local:createCategoryCustomFromCodeSchemeId($codeSchemeId as xs:string) as element()* {
     let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeId)]
     for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
         let $categoryIdString := string($categoryId)
         let $category := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(@id, $categoryIdString)]
         return <CustomList type="Category">
             <Custom option="id">{$categoryIdString}</Custom>
-            {resultHelper:createCustomLabel($category/r:Label)}
+            {local:createCustomLabel($category/r:Label)}
         </CustomList>
 };
 
@@ -171,7 +169,7 @@ declare function result:buildResultListItem($result as element()) as element() {
     let $result-name :=
         if ($result-name eq 'Content') then local-name($result/..)
         else $result-name
-    let $label := resultHelper:getLabel($result)
+    let $label := local:getLabel($result)
     let $referenceList :=
         if ($result-name eq 'QuestionItem') then result:getQuestionReferences($result)
         else if ($result-name eq 'Variable') then result:getVariableReferences($result)
@@ -183,7 +181,7 @@ declare function result:buildResultListItem($result as element()) as element() {
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         {$label}
-        {resultHelper:createStudyUnitCustom($result)}
+        {local:createStudyUnitCustom($result)}
         {$referenceList}
     </LightXmlObject>
 };
@@ -198,22 +196,22 @@ declare function result:buildResultListItem($result as element()) as element() {
 declare function result:getQuestionReferences($question as element()) as element()* {
     (:Concept:)
     for $conceptId in $question/dc:ConceptReference/r:ID
-        return resultHelper:createConceptCustomFromId(string($conceptId)),
+        return local:createConceptCustomFromId(string($conceptId)),
     (:CodeScheme:)
     (:for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         let $codeSchemeIdString := string($codeSchemeId)
         let $codeScheme := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
         return <CustomList type="CodeScheme">
             <Custom option="id">{$codeSchemeIdString}</Custom>
-            {resultHelper:createCustomLabel($codeScheme/r:Label)}
+            {local:createCustomLabel($codeScheme/r:Label)}
         </CustomList>,:)
     (:Variable:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
-        return resultHelper:createVariableCustom($variable),
+        return local:createVariableCustom($variable),
     (:Universe:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         for $universeId in $variable/r:UniverseReference/r:ID
-            return resultHelper:createUniverseCustomFromId(string($universeId)),
+            return local:createUniverseCustomFromId(string($universeId)),
     (:domain type:)
     let $domainType := if ($question/dc:TextDomain) then <Custom option="type">TextDomain</Custom>
                        else if ($question/dc:NumericDomain) then <Custom option="type" value="{data($question/dc:NumericDomain/@type)}">NumericDomain</Custom>
@@ -224,7 +222,7 @@ declare function result:getQuestionReferences($question as element()) as element
         </CustomList>,
     (:Category:)
     for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
-        return resultHelper:createCategoryCustomFromCodeSchemeId($codeSchemeId)
+        return local:createCategoryCustomFromCodeSchemeId($codeSchemeId)
 };
 
 (:~
@@ -237,13 +235,13 @@ declare function result:getQuestionReferences($question as element()) as element
 declare function result:getVariableReferences($variable as element()) as element()* {
     (:Concept:)
     for $conceptId in $variable/lp:ConceptReference/r:ID
-        return resultHelper:createConceptCustomFromId(string($conceptId)),
+        return local:createConceptCustomFromId(string($conceptId)),
     (:Universe:)
     for $universeId in $variable/r:UniverseReference/r:ID
-        return resultHelper:createUniverseCustomFromId(string($universeId)),
+        return local:createUniverseCustomFromId(string($universeId)),
     (:QuestionItem:)
     for $questionId in $variable/lp:QuestionReference/r:ID
-        return resultHelper:createQuestionItemCustomFromId(string($questionId)),
+        return local:createQuestionItemCustomFromId(string($questionId)),
     (:representation type:)
     let $representationType := if ($variable/lp:Representation/lp:TextRepresentation) then <Custom option="type">TextRepresentation</Custom>
                        else if ($variable/lp:Representation/lp:NumericRepresentation) then <Custom option="type" value="{data($variable/lp:Representation/lp:NumericRepresentation/@type)}">NumericRepresentation</Custom>
@@ -254,7 +252,7 @@ declare function result:getVariableReferences($variable as element()) as element
         </CustomList>,
     (:Category:)
     for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID
-        return resultHelper:createCategoryCustomFromCodeSchemeId($codeSchemeId)
+        return local:createCategoryCustomFromCodeSchemeId($codeSchemeId)
 };
 
 (:~
@@ -267,10 +265,10 @@ declare function result:getVariableReferences($variable as element()) as element
 declare function result:getConceptReferences($concept as element()) as element()* {
     (:QuestionItem:)
     for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
-        return resultHelper:createQuestionItemCustom($question),
+        return local:createQuestionItemCustom($question),
     (:Variable:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
-        return resultHelper:createVariableCustom($variable)
+        return local:createVariableCustom($variable)
 };
 
 (:~
@@ -285,11 +283,11 @@ declare function result:getUniverseReferences($universe as element()) as element
     for $study in /i:DDIInstance/su:StudyUnit[ft:query(r:UniverseReference/r:ID, $universe/@id)]
         return <CustomList type="StudyUnit">
             <Custom option="id">{data($study/@id)}</Custom>
-            {resultHelper:createCustomLabel($study/r:Citation/r:Title)}
+            {local:createCustomLabel($study/r:Citation/r:Title)}
         </CustomList>,
     (:Variable:)
     for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(r:UniverseReference/r:ID, $universe/@id)]
-        return resultHelper:createVariableCustom($variable)
+        return local:createVariableCustom($variable)
 };
 
 (:~
@@ -303,9 +301,9 @@ declare function result:getCategoryReferences($category as element()) as element
     (:QuestionItem:)
     for $codeScheme in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
         for $question in /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
-            return resultHelper:createQuestionItemCustom($question),
+            return local:createQuestionItemCustom($question),
     (:Variable:)
     for $codeScheme in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
         for $variable in /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
-            return resultHelper:createVariableCustom($variable)
+            return local:createVariableCustom($variable)
 };
