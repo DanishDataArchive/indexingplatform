@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:smd="http://dda.dk/ddi/search-metadata" targetNamespace="http://dda.dk/ddi/search-metadata" elementFormDefault="qualified">
+    
+    <xs:element name="SearchMetaData" type="smd:SearchMetaDataType" />
+    
+    <xs:complexType name="SearchMetaDataType">
+        <xs:attribute name="result-count" type="xs:integer" use="required" />
+        <xs:attribute name="hit-start" type="xs:integer" use="required" />
+        <xs:attribute name="hit-end" type="xs:integer" use="required" />
+        <xs:attribute name="hits-perpage" type="xs:integer" use="required" />
+        <xs:attribute name="number-of-pages" type="xs:integer" use="required" />
+        <xs:attribute name="current-page" type="xs:integer" use="required" />
+    </xs:complexType>
+
+</xs:schema>

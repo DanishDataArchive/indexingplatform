@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:dl="ddieditor-lightobject" targetNamespace="ddieditor-lightobject"
+	xmlns:dl="ddieditor-lightobject" xmlns:smd="http://dda.dk/ddi/search-metadata" targetNamespace="ddieditor-lightobject"
 	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	
+	<xs:import namespace="http://dda.dk/ddi/search-metadata" schemaLocation="search-metadata.xsd"/>
 
 	<xs:complexType name="LightXmlObjectListType">
 		<xs:sequence>
+			<xs:element ref="smd:SearchMetaData" minOccurs="0" maxOccurs="1" />
 			<xs:element name="LightXmlObject" type="dl:LightXmlObjectType"
 				maxOccurs="unbounded" minOccurs="0" />
 		</xs:sequence>
