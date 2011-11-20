@@ -118,25 +118,26 @@ declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
-        xmlns:dda="http://dda.dk"
-        dda:result-count="{$result-count}"
-        dda:hit-start="{$hit-start}"
-        dda:hit-end="{$hit-end}"
-        dda:hits-perpage="{$hits-perpage}"
-        dda:number-of-pages="{$number-of-pages}"
-        dda:current-page="{$current-page}">
-    {
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+        <smd:SearchMetaData
+            result-count="{$result-count}"
+            hit-start="{$hit-start}"
+            hit-end="{$hit-end}"
+            hits-perpage="{$hits-perpage}"
+            number-of-pages="{$number-of-pages}"
+            current-page="{$current-page}"/>
+        {
         for $result in $results[position() = $hit-start to $hit-end]
         order by ft:score($result) descending
             return result:buildResultListItem($result)
         (:<result score="{ft:score($result)}">{$result}</result>:)
         (:kwic:summarize($result, <config width="40"/>):)
-    }
+        }
     </dl:LightXmlObjectList>
 };
 
 
 
 
-ddi:searchAll('Kemal', 10, 0)(:'14069':)
+ddi:searchAll('KemalU', 10, 0)(:'14069':)
 (:ddi:getQuestionReferences('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)

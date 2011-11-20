@@ -135,12 +135,14 @@
 		</xdb:store>
 	</target>
 
-	<target name="import-xml" description="Import into eXist XML files located in xml directory Note: eXist needs to be running">
+	<target name="import-xml" description="Import into eXist XML files located in xml-import directory Note: eXist needs to be running">
 		<echo message="-----------------------------" />
 		<echo message="Importing XML from: ${xml.import.dir} to: ${xmldb.coll}" />
 		<echo message="-----------------------------" />
 		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/${xmldb.coll}" initdb="true" createcollection="true">
-			<fileset dir="${xml.import.dir}" includes="*.xml" />
+			<fileset dir="${xml.import.dir}">
+				<include name="**/*.xml" />
+			</fileset>
 		</xdb:store>
 	</target>
 
