@@ -22,12 +22,12 @@ declare namespace sp="http://dda.dk/ddi/search-parameters";
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryStudyUnit($search-string as xs:string) as element()* {
-    /i:DDIInstance/su:StudyUnit/@id[ft:query(., $search-string)]                   |
-    /i:DDIInstance/su:StudyUnit/r:Citation/r:Creator[ft:query(., $search-string)]  |
-    /i:DDIInstance/su:StudyUnit/r:Citation/r:Title[ft:query(., $search-string)]    |
-    /i:DDIInstance/su:StudyUnit/su:Abstract/r:Content[ft:query(., $search-string)] |
-    /i:DDIInstance/su:StudyUnit/su:Purpose/r:Content[ft:query(., $search-string)]  |
-    /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)]
+    //su:StudyUnit/@id[ft:query(., $search-string)] |
+    //r:Creator[ft:query(., $search-string)] |
+    //r:Title[ft:query(., $search-string)] |
+    //r:Content[ft:query(., $search-string)] |
+    //r:Content[ft:query(., $search-string)] |
+    //su:KindOfData[ft:query(., $search-string)]
 };
 
 (:~
@@ -50,8 +50,8 @@ declare function local:queryConcept($search-string as xs:string) as element()* {
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryUniverse($search-string as xs:string) as element()* {
-    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(r:Label, $search-string)] |
-    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(cc:HumanReadable, $search-string)]
+    //cc:Universe[ft:query(r:Label, $search-string)] |
+    //cc:Universe[ft:query(cc:HumanReadable, $search-string)]
 };
 
 (:~
@@ -62,8 +62,8 @@ declare function local:queryUniverse($search-string as xs:string) as element()* 
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryQuestion($search-string as xs:string) as element()* {
-    /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
-    /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    //dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
+    //dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
 };
 
 (:~
@@ -74,8 +74,8 @@ declare function local:queryQuestion($search-string as xs:string) as element()* 
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryVariable($search-string as xs:string) as element()* {
-    /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(lp:VariableName, $search-string)] |
-    /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(r:Label, $search-string)]
+    //lp:Variable[ft:query(lp:VariableName, $search-string)] |
+    //lp:Variable[ft:query(r:Label, $search-string)]
 };
 
 (:~
@@ -86,7 +86,7 @@ declare function local:queryVariable($search-string as xs:string) as element()* 
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryCategory($search-string as xs:string) as element()* {
-    /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(r:Label, $search-string)]
+    //lp:Category[ft:query(r:Label, $search-string)]
 };
 
 (:~
