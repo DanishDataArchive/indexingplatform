@@ -126,55 +126,6 @@ declare function local:buildLightXmlObjectList($results as element()*, $hits-per
 };
 
 (:~
- : Makes a free-text search in all indexed elements and returns a list of LightXmlObject elements with the results
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $search-string the string that needs to be matched
- : @param   $hits-perpage  number of hits to be shown per page
- : @param   $hit-start     number of the first hit to be shown on the page
- :)
-declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
-    let $results := 
-        local:queryStudyUnit($search-string) |
-        local:queryConcept($search-string)   |
-        local:queryUniverse($search-string)  |
-        local:queryQuestion($search-string)  |
-        local:queryVariable($search-string)  |
-        local:queryCategory($search-string)
-    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start)
-};
-
-(:~
- : Makes a free-text search in all indexed elements and returns a list of LightXmlObject elements with the results
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $searchParameters  the search parameters wrapped in a SearchParameters element
- : @param   $hits-perpage      number of hits to be shown per page
- : @param   $hit-start         number of the first hit to be shown on the page
- :)
-declare function ddi:advancedSearch($searchParameters as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
-    let $searchScope := if ($searchParameters/sp:studyId) then <W>{data($searchParameters/sp:studyId)}</W>
-    else <w/>
-    return $searchScope
-(:    let $studyUnitResults :=
-        /i:DDIInstance/su:StudyUnit/@id[ft:query(., $studyId)]                            &
-        /i:DDIInstance/su:StudyUnit/r:Citation/r:Title[ft:query(., $title)]               &
-        /i:DDIInstance/su:StudyUnit/su:Abstract/r:Content[ft:query(., $abstract-purpose)] &
-        /i:DDIInstance/su:StudyUnit/su:Purpose/r:Content[ft:query(., $abstract-purpose)]  &
-        /i:DDIInstance/su:StudyUnit/r:Citation/r:Creator[ft:query(., $creator)]           &
-        /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)]:)
-    (:let $results :=
-        local:queryConcept($concept)   |
-        local:queryUniverse($universe)  |
-        local:queryQuestion($question)  |
-        local:queryVariable($variable)  |
-        local:queryCategory($category)
-    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start):)
-};
-
-(:~
  : Searches for a QuestionItem and returns a LightXmlObjectList element with the result
  :
  : @author  Kemal Pajevic
@@ -259,10 +210,59 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
     </dl:LightXmlObjectList>
 };
 
+(:~
+ : Makes a free-text search in all indexed elements and returns a list of LightXmlObject elements with the results
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $search-string the string that needs to be matched
+ : @param   $hits-perpage  number of hits to be shown per page
+ : @param   $hit-start     number of the first hit to be shown on the page
+ :)
+declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+    let $results := 
+        local:queryStudyUnit($search-string) |
+        local:queryConcept($search-string)   |
+        local:queryUniverse($search-string)  |
+        local:queryQuestion($search-string)  |
+        local:queryVariable($search-string)  |
+        local:queryCategory($search-string)
+    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start)
+};
+
+(:~
+ : Makes a free-text search in all indexed elements and returns a list of LightXmlObject elements with the results
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $searchParameters  the search parameters wrapped in a SearchParameters element
+ : @param   $hits-perpage      number of hits to be shown per page
+ : @param   $hit-start         number of the first hit to be shown on the page
+ :)
+declare function ddi:advancedSearch($searchParameters as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+    let $searchScope := if ($searchParameters/sp:studyId) then <W>{data($searchParameters/sp:studyId)}</W>
+    else <w/>
+    return $searchScope
+(:    let $studyUnitResults :=
+        /i:DDIInstance/su:StudyUnit/@id[ft:query(., $studyId)]                            &
+        /i:DDIInstance/su:StudyUnit/r:Citation/r:Title[ft:query(., $title)]               &
+        /i:DDIInstance/su:StudyUnit/su:Abstract/r:Content[ft:query(., $abstract-purpose)] &
+        /i:DDIInstance/su:StudyUnit/su:Purpose/r:Content[ft:query(., $abstract-purpose)]  &
+        /i:DDIInstance/su:StudyUnit/r:Citation/r:Creator[ft:query(., $creator)]           &
+        /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)]:)
+    (:let $results :=
+        local:queryConcept($concept)   |
+        local:queryUniverse($universe)  |
+        local:queryQuestion($question)  |
+        local:queryVariable($variable)  |
+        local:queryCategory($category)
+    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start):)
+};
 
 
-ddi:searchAll('National', 10, 0)(:'14069':)
-(:let $searchParameters :=
+
+(:ddi:searchAll('National', 10, 0):)(:'14069':)
+let $searchParameters :=
     <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <studyId>studyId0</studyId>
         <title>title0</title>
@@ -277,7 +277,7 @@ ddi:searchAll('National', 10, 0)(:'14069':)
         <variable>variable0</variable>
         <category>category0</category>
     </SearchParameters>
-return ddi:advancedSearch($searchParameters, 10, 0):)
+return ddi:advancedSearch($searchParameters, 10, 0)
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)
