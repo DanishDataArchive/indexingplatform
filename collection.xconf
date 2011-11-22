@@ -12,13 +12,13 @@
 
     <!-- Lucene index is configured below -->
     <lucene>
-      <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
-      <analyzer id="da" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/><!--id="ws"-->
+      <analyzer id="da" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/><!--id="st"-->
+      <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
       <!--<analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>-->
 
       <!-- Index for full-text search -->
       <!--/i:DDIInstance/su:StudyUnit/@id-->
-      <text match="//su:StudyUnit/@id" analyzer="da" boost="59049.0"/>
+      <text match="//su:StudyUnit/@id" analyzer="ws" boost="59049.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Creator-->
       <text qname="r:Creator" analyzer="da" boost="19683.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Title-->
@@ -48,36 +48,39 @@
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/r:Label-->
       <text match="//lp:Category/r:Label" analyzer="da" boost="1.0"/>
       
+      <text qname="r:Label" analyzer="da"/>
+      <text qname="lp:Variable" analyzer="da"/>
+      
       
       <!-- Index for specific search -->
       <!--/i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID-->
-      <text match="//r:UniverseReference/r:ID"/>
+      <text match="//r:UniverseReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/@id-->
-      <text match="//dc:QuestionItem/@id"/>
+      <text match="//dc:QuestionItem/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:ConceptReference/r:ID-->
-      <text match="//dc:QuestionItem/dc:ConceptReference/r:ID"/>
+      <text match="//dc:QuestionItem/dc:ConceptReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:CodeDomain/dc:CodeSchemeReference/r:ID-->
-      <text match="//dc:QuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID"/>
+      <text match="//dc:QuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
-      <text match="//cc:Concept/@id"/>
+      <text match="//cc:Concept/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
-      <text match="//lp:CodeScheme/@id"/>
+      <text match="//lp:CodeScheme/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/@id-->
-      <text match="//lp:Variable/@id"/>
+      <text match="//lp:Variable/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:QuestionReference/r:ID-->
-      <text match="//lp:Variable/lp:QuestionReference/r:ID"/>
+      <text match="//lp:Variable/lp:QuestionReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:UniverseReference/r:ID-->
-      <text match="//lp:Variable/r:UniverseReference/r:ID"/>
+      <text match="//lp:Variable/r:UniverseReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:ConceptReference/r:ID-->
-      <text match="//lp:Variable/lp:ConceptReference/r:ID"/>
+      <text match="//lp:Variable/lp:ConceptReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID-->
-      <text match="//lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID"/>
+      <text match="//lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
-      <text match="//cc:Universe/@id"/>
+      <text match="//cc:Universe/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID-->
-      <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID"/>
+      <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/@id-->
-      <text match="//lp:Category/@id"/>
+      <text match="//lp:Category/@id" analyzer="ws"/>
     </lucene>
     
     <!-- Range indexes -->
