@@ -18,7 +18,7 @@ declare function local:getLabel($node as element()) as element()* {
     let $node-name := local-name($node)
     return if ($node-name eq 'Concept' or $node-name eq 'Universe' or $node-name eq 'Variable' or $node-name eq 'Category') then
         local:createLabel($node/r:Label)
-    else if ($node-name eq 'QuestionItem') then
+    else if ($node-name eq 'QuestionItem' or $node-name eq 'MultipleQuestionItem') then
         local:createLabel($node/dc:QuestionText/dc:LiteralText/dc:Text)
     else
         local:createLabel($node)
@@ -171,7 +171,7 @@ declare function result:buildResultListItem($result as element()) as element() {
         else $result-name
     let $label := local:getLabel($result)
     let $referenceList :=
-        if ($result-name eq 'QuestionItem') then result:getQuestionReferences($result)
+        if ($result-name eq 'QuestionItem' or $result-name eq 'MultipleQuestionItem') then result:getQuestionReferences($result)
         else if ($result-name eq 'Variable') then result:getVariableReferences($result)
         else if ($result-name eq 'Concept') then result:getConceptReferences($result)
         else if ($result-name eq 'Universe') then result:getUniverseReferences($result)

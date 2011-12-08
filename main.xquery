@@ -25,6 +25,8 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
     //su:StudyUnit/@id[ft:query(., $search-string)] |
     //r:Creator[ft:query(., $search-string)] |
     //r:Title[ft:query(., $search-string)] |
+    //r:Keyword[ft:query(., $search-string)] |
+    //r:LevelName[ft:query(., $search-string)] |
     //r:Content[ft:query(., $search-string)] |
     //r:Content[ft:query(., $search-string)] |
     //su:KindOfData[ft:query(., $search-string)]
@@ -38,8 +40,8 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryConcept($search-string as xs:string) as element()* {
-    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(r:Label, $search-string)] |
-    /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(r:Description, $search-string)]
+    //cc:Concept[ft:query(r:Label, $search-string)] |
+    //cc:Concept[ft:query(r:Description, $search-string)]
 };
 
 (:~
@@ -63,7 +65,9 @@ declare function local:queryUniverse($search-string as xs:string) as element()* 
  :)
 declare function local:queryQuestion($search-string as xs:string) as element()* {
     //dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
-    //dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    //dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)] |
+    //dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
+    //dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
 };
 
 (:~
@@ -261,8 +265,8 @@ declare function ddi:advancedSearch($searchParameters as element(), $hits-perpag
 
 
 
-(:ddi:searchAll('National', 10, 0):)(:'14069':)
-let $searchParameters :=
+ddi:searchAll('National', 10, 0)(:'14069':)
+(:let $searchParameters :=
     <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <studyId>studyId0</studyId>
         <title>title0</title>
@@ -277,7 +281,7 @@ let $searchParameters :=
         <variable>variable0</variable>
         <category>category0</category>
     </SearchParameters>
-return ddi:advancedSearch($searchParameters, 10, 0)
+return ddi:advancedSearch($searchParameters, 10, 0):)
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)
