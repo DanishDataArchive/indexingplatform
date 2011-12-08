@@ -23,6 +23,10 @@
       <text qname="r:Creator" analyzer="da" boost="19683.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Title-->
       <text qname="r:Title" analyzer="da" boost="6561.0"/>
+      <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TopicalCoverage/r:Keyword-->
+      <text qname="r:Keyword" analyzer="da" boost="4000.0"/>
+      <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName-->
+      <text qname="r:LevelName" analyzer="da" boost="3000.0"/>
       <!--/i:DDIInstance/su:StudyUnit/su:Abstract/r:Content-->
       <text match="//su:Abstract/r:Content" analyzer="da" boost="2187.0"/>
       <!--/i:DDIInstance/su:StudyUnit/su:Purpose/r:Content-->
@@ -40,7 +44,10 @@
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionItemName-->
       <text qname="dc:QuestionItemName" analyzer="da" boost="9.0"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <text qname="dc:Text" analyzer="da" boost="9.0"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:MultipleQuestionItemName-->
+      <text qname="dc:MultipleQuestionItemName" analyzer="da" boost="9.0"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:VariableName-->
       <text qname="lp:VariableName" analyzer="da" boost="3.0"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:Label-->
