@@ -1,5 +1,7 @@
 xquery version "1.0";
 
+module namespace ddi = "http://dda.dk/ddi";
+
 import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/result-functions.xquery";(:"xmldb:exist:///db/dda/result-functions.xquery":)
 (:import module namespace kwic="http://exist-db.org/xquery/kwic";:)
 
@@ -10,8 +12,8 @@ declare namespace dc="ddi:datacollection:3_1";
 declare namespace cc="ddi:conceptualcomponent:3_1";
 declare namespace lp="ddi:logicalproduct:3_1";
 
-declare namespace ddi="http://dda.dk/ddi";
 declare namespace sp="http://dda.dk/ddi/search-parameters";
+declare namespace ss="http://dda.dk/ddi/search-scope";
 
 
 (:~
@@ -222,15 +224,23 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
  : @param   $search-string the string that needs to be matched
  : @param   $hits-perpage  number of hits to be shown per page
  : @param   $hit-start     number of the first hit to be shown on the page
+ : @param   $scope         the search scope wrapped in a SearchScope element
  :)
-declare function ddi:searchAll($search-string as xs:string, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+declare function ddi:simpleSearch($search-string as xs:string, $hits-perpage as xs:integer, $hit-start as xs:integer, $scope as element()) as element() {
+    let $studyUnitScope := if ($scope/ss:StudyUnit) then local:queryStudyUnit($search-string) else ()
+    let $conceptScope := if ($scope/ss:Concept) then local:queryConcept($search-string) else ()
+    let $universeScope := if ($scope/ss:Universe) then local:queryUniverse($search-string) else ()
+    let $questionScope := if ($scope/ss:Question) then local:queryQuestion($search-string) else ()
+    let $variableScope := if ($scope/ss:Variable) then local:queryVariable($search-string) else ()
+    let $categoryScope := if ($scope/ss:Category) then local:queryCategory($search-string) else ()
+    
     let $results := 
-        local:queryStudyUnit($search-string) |
-        local:queryConcept($search-string)   |
-        local:queryUniverse($search-string)  |
-        local:queryQuestion($search-string)  |
-        local:queryVariable($search-string)  |
-        local:queryCategory($search-string)
+        $studyUnitScope |
+        $conceptScope   |
+        $universeScope  |
+        $questionScope  |
+        $variableScope  |
+        $categoryScope
     return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start)
 };
 
@@ -263,9 +273,17 @@ declare function ddi:advancedSearch($searchParameters as element(), $hits-perpag
     return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start):)
 };
 
+let $scope :=
+    <SearchScope xmlns="http://dda.dk/ddi/search-scope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <StudyUnit/>
+        <Concept/>
+        <Universe/>
+        <Question/>
+        <Variable/>
+        <Category/>
+    </SearchScope>
 
-
-ddi:searchAll('National', 10, 0)(:'14069':)
+return ddi:simpleSearch('National', 10, 0, $scope)(:'14069':)
 (:let $searchParameters :=
     <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <studyId>studyId0</studyId>
