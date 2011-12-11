@@ -22,14 +22,14 @@ declare namespace sp="http://dda.dk/ddi/search-parameters";
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryStudyUnit($search-string as xs:string) as element()* {
-    //su:StudyUnit/@id[ft:query(., $search-string)] |
-    //r:Creator[ft:query(., $search-string)] |
-    //r:Title[ft:query(., $search-string)] |
-    //r:Keyword[ft:query(., $search-string)] |
-    //r:LevelName[ft:query(., $search-string)] |
-    //r:Content[ft:query(., $search-string)] |
-    //r:Content[ft:query(., $search-string)] |
-    //su:KindOfData[ft:query(., $search-string)]
+    collection('/db/dda')//su:StudyUnit/@id[ft:query(., $search-string)] |
+    collection('/db/dda')//r:Creator[ft:query(., $search-string)] |
+    collection('/db/dda')//r:Title[ft:query(., $search-string)] |
+    collection('/db/dda')//r:Keyword[ft:query(., $search-string)] |
+    collection('/db/dda')//r:LevelName[ft:query(., $search-string)] |
+    collection('/db/dda')//r:Content[ft:query(., $search-string)] |
+    collection('/db/dda')//r:Content[ft:query(., $search-string)] |
+    collection('/db/dda')//su:KindOfData[ft:query(., $search-string)]
 };
 
 (:~
@@ -40,8 +40,8 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryConcept($search-string as xs:string) as element()* {
-    //cc:Concept[ft:query(r:Label, $search-string)] |
-    //cc:Concept[ft:query(r:Description, $search-string)]
+    collection('/db/dda')//cc:Concept[ft:query(r:Label, $search-string)] |
+    collection('/db/dda')//cc:Concept[ft:query(r:Description, $search-string)]
 };
 
 (:~
@@ -52,8 +52,8 @@ declare function local:queryConcept($search-string as xs:string) as element()* {
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryUniverse($search-string as xs:string) as element()* {
-    //cc:Universe[ft:query(r:Label, $search-string)] |
-    //cc:Universe[ft:query(cc:HumanReadable, $search-string)]
+    collection('/db/dda')//cc:Universe[ft:query(r:Label, $search-string)] |
+    collection('/db/dda')//cc:Universe[ft:query(cc:HumanReadable, $search-string)]
 };
 
 (:~
@@ -64,10 +64,10 @@ declare function local:queryUniverse($search-string as xs:string) as element()* 
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryQuestion($search-string as xs:string) as element()* {
-    //dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
-    //dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)] |
-    //dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
-    //dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
+    collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)] |
+    collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
+    collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
 };
 
 (:~
@@ -78,8 +78,8 @@ declare function local:queryQuestion($search-string as xs:string) as element()* 
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryVariable($search-string as xs:string) as element()* {
-    //lp:Variable[ft:query(lp:VariableName, $search-string)] |
-    //lp:Variable[ft:query(r:Label, $search-string)]
+    collection('/db/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] |
+    collection('/db/dda')//lp:Variable[ft:query(r:Label, $search-string)]
 };
 
 (:~
@@ -90,7 +90,7 @@ declare function local:queryVariable($search-string as xs:string) as element()* 
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryCategory($search-string as xs:string) as element()* {
-    //lp:Category[ft:query(r:Label, $search-string)]
+    collection('/db/dda')//lp:Category[ft:query(r:Label, $search-string)]
 };
 
 (:~
@@ -137,7 +137,7 @@ declare function local:buildLightXmlObjectList($results as element()*, $hits-per
  : @param   $questionId    the ID of the QuestionItem
  :)
 declare function ddi:lookupQuestion($questionId as xs:string) as element() {
-    let $question := /i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem[ft:query(@id, $questionId)]
+    let $question := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -154,7 +154,7 @@ declare function ddi:lookupQuestion($questionId as xs:string) as element() {
  : @param   $variableId    the ID of the Variable
  :)
 declare function ddi:lookupVariable($variableId as xs:string) as element() {
-    let $variable := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable[ft:query(@id, $variableId)]
+    let $variable := collection('/db/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -171,7 +171,7 @@ declare function ddi:lookupVariable($variableId as xs:string) as element() {
  : @param   $conceptId    the ID of the Concept
  :)
 declare function ddi:lookupConcept($conceptId as xs:string) as element() {
-    let $concept := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept[ft:query(@id, $conceptId)]
+    let $concept := collection('/db/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -188,7 +188,7 @@ declare function ddi:lookupConcept($conceptId as xs:string) as element() {
  : @param   $universeId    the ID of the Universe
  :)
 declare function ddi:lookupUniverse($universeId as xs:string) as element() {
-    let $universe := /i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe[ft:query(@id, $universeId)]
+    let $universe := collection('/db/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -205,7 +205,7 @@ declare function ddi:lookupUniverse($universeId as xs:string) as element() {
  : @param   $categoryId    the ID of the Category
  :)
 declare function ddi:lookupCategory($categoryId as xs:string) as element() {
-    let $category := /i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category[ft:query(@id, $categoryId)]
+    let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -248,12 +248,12 @@ declare function ddi:advancedSearch($searchParameters as element(), $hits-perpag
     else <w/>
     return $searchScope
 (:    let $studyUnitResults :=
-        /i:DDIInstance/su:StudyUnit/@id[ft:query(., $studyId)]                            &
-        /i:DDIInstance/su:StudyUnit/r:Citation/r:Title[ft:query(., $title)]               &
-        /i:DDIInstance/su:StudyUnit/su:Abstract/r:Content[ft:query(., $abstract-purpose)] &
-        /i:DDIInstance/su:StudyUnit/su:Purpose/r:Content[ft:query(., $abstract-purpose)]  &
-        /i:DDIInstance/su:StudyUnit/r:Citation/r:Creator[ft:query(., $creator)]           &
-        /i:DDIInstance/su:StudyUnit/su:KindOfData[ft:query(., $search-string)]:)
+        collection('/db/dda')//su:StudyUnit/@id[ft:query(., $studyId)]                            &
+        collection('/db/dda')//r:Citation/r:Title[ft:query(., $title)]               &
+        collection('/db/dda')//su:Abstract/r:Content[ft:query(., $abstract-purpose)] &
+        collection('/db/dda')//su:Purpose/r:Content[ft:query(., $abstract-purpose)]  &
+        collection('/db/dda')//r:Citation/r:Creator[ft:query(., $creator)]           &
+        collection('/db/dda')//su:StudyUnit/su:KindOfData[ft:query(., $search-string)]:)
     (:let $results :=
         local:queryConcept($concept)   |
         local:queryUniverse($universe)  |
