@@ -75,7 +75,7 @@ declare function local:createStudyUnitCustom($result as element()) as element() 
  : @param   $conceptId the ID of the Concept
  :)
 declare function local:createConceptCustomFromId($conceptId as xs:string) as element() {
-    let $concept := //cc:Concept[ft:query(@id, $conceptId)]
+    let $concept := collection('/db/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <CustomList type="Concept">
         <Custom option="id">{$conceptId}</Custom>
         {local:createCustomLabel($concept/r:Label)}
@@ -90,7 +90,7 @@ declare function local:createConceptCustomFromId($conceptId as xs:string) as ele
  : @param   $universeId the ID of the Universe
  :)
 declare function local:createUniverseCustomFromId($universeId as xs:string) as element() {
-    let $universe := //cc:Universe[ft:query(@id, $universeId)]
+    let $universe := collection('/db/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <CustomList type="Universe">
         <Custom option="id">{$universeId}</Custom>
         {local:createCustomLabel($universe/r:Label)}
@@ -120,7 +120,7 @@ declare function local:createQuestionItemCustom($question as element()) as eleme
  : @param   $questionId the ID of the QuestionItem
  :)
 declare function local:createQuestionItemCustomFromId($questionId as xs:string) as element() {
-    let $question := //dc:QuestionItem[ft:query(@id, $questionId)]
+    let $question := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionId)]
     return local:createQuestionItemCustom($question)
 };
 
@@ -147,10 +147,10 @@ declare function local:createVariableCustom($variable as element()) as element()
  : @param   $codeSchemeId the ID of the CodeScheme holding the references to the Categories
  :)
 declare function local:createCategoryCustomFromCodeSchemeId($codeSchemeId as xs:string) as element()* {
-    let $codeScheme := //lp:CodeScheme[ft:query(@id, $codeSchemeId)]
+    let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeId)]
     for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
         let $categoryIdString := string($categoryId)
-        let $category := //lp:Category[ft:query(@id, $categoryIdString)]
+        let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryIdString)]
         return <CustomList type="Category">
             <Custom option="id">{$categoryIdString}</Custom>
             {local:createCustomLabel($category/r:Label)}
@@ -200,16 +200,16 @@ declare function result:getQuestionReferences($question as element()) as element
     (:CodeScheme:)
     (:for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         let $codeSchemeIdString := string($codeSchemeId)
-        let $codeScheme := //lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
+        let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
         return <CustomList type="CodeScheme">
             <Custom option="id">{$codeSchemeIdString}</Custom>
             {local:createCustomLabel($codeScheme/r:Label)}
         </CustomList>,:)
     (:Variable:)
-    for $variable in //lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
+    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         return local:createVariableCustom($variable),
     (:Universe:)
-    for $variable in //lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
+    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
         for $universeId in $variable/r:UniverseReference/r:ID
             return local:createUniverseCustomFromId(string($universeId)),
     (:domain type:)
@@ -264,10 +264,10 @@ declare function result:getVariableReferences($variable as element()) as element
  :)
 declare function result:getConceptReferences($concept as element()) as element()* {
     (:QuestionItem:)
-    for $question in //dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
+    for $question in collection('/db/dda')//dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
         return local:createQuestionItemCustom($question),
     (:Variable:)
-    for $variable in //lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
+    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
         return local:createVariableCustom($variable)
 };
 
@@ -280,13 +280,13 @@ declare function result:getConceptReferences($concept as element()) as element()
  :)
 declare function result:getUniverseReferences($universe as element()) as element()* {
     (:StudyUnit:)
-    for $study in //su:StudyUnit[ft:query(r:UniverseReference/r:ID, $universe/@id)]
+    for $study in collection('/db/dda')//su:StudyUnit[ft:query(r:UniverseReference/r:ID, $universe/@id)]
         return <CustomList type="StudyUnit">
             <Custom option="id">{data($study/@id)}</Custom>
             {local:createCustomLabel($study/r:Citation/r:Title)}
         </CustomList>,
     (:Variable:)
-    for $variable in //lp:Variable[ft:query(r:UniverseReference/r:ID, $universe/@id)]
+    for $variable in collection('/db/dda')//lp:Variable[ft:query(r:UniverseReference/r:ID, $universe/@id)]
         return local:createVariableCustom($variable)
 };
 
@@ -299,11 +299,11 @@ declare function result:getUniverseReferences($universe as element()) as element
  :)
 declare function result:getCategoryReferences($category as element()) as element()* {
     (:QuestionItem:)
-    for $codeScheme in //lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
-        for $question in //dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
+    for $codeScheme in collection('/db/dda')//lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
+        for $question in collection('/db/dda')//dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
             return local:createQuestionItemCustom($question),
     (:Variable:)
-    for $codeScheme in //lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
-        for $variable in //lp:Variable[ft:query(lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
+    for $codeScheme in collection('/db/dda')//lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
+        for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
             return local:createVariableCustom($variable)
 };
