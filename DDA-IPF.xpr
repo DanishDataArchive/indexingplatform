@@ -11,8 +11,10 @@
             <file name="Schema/search-metadata.xsd"/>
             <file name="Schema/search-parameters.xsd"/>
         </folder>
+        <file name="advanced.xquery"/>
         <file name="collection.xconf"/>
-        <file name="main.xquery"/>
+        <file name="search.xquery"/>
         <file name="result-functions.xquery"/>
+        <file name="simple.xquery"/>
     </projectTree>
 </project>
