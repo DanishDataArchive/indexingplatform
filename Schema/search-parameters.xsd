@@ -8,6 +8,8 @@
         <xs:sequence>
             <xs:element name="studyId" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="topicalCoverage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="spatialCoverage" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="abstract-purpose" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="creator" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="kindOfData" type="xs:string" minOccurs="0" maxOccurs="1"/>
