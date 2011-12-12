@@ -1,0 +1,18 @@
+Lavet i sprint 2
+
+- Tilføjet nye elementer til index
+- Tilføjet temporal coverage
+- Implementeret stored xqueries med REST interface
+- Lavet test html
+- Tilføjet specifik collection til alle opslag (gjort klar til ekstra collection ifm. URN resolution)
+- Tilføjet mulighed for at vælge scope for simpel søgning
+- Tilføjet DanishAnalyzer
+
+Mangler
+
+- Avanceret søgning
+- Tweake scores
+- Vise context
+- MultipleQuestionItem
+- Stemmer
+- URN
