@@ -3,19 +3,19 @@
   xmlns="http://exist-db.org/collection-config/1.0">
   <index xmlns:i="ddi:instance:3_1" xmlns:dc="ddi:datacollection:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1"
     xmlns:lp="ddi:logicalproduct:3_1" xmlns:cc="ddi:conceptualcomponent:3_1">
-
+    
     <!-- Disable the standard full text index -->
     <fulltext default="none" attributes="false"/>
     <!--(: index id and urn for faster queries on id/urn-resolve :)  -->
     <!--       <create qname="r:UserID" type="xs:integer"/>
-  <create qname="@urn" type="xs:string"/> -->
-
+      <create qname="@urn" type="xs:string"/> -->
+    
     <!-- Lucene index is configured below -->
     <lucene>
-      <analyzer id="da" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/><!--id="st"-->
+      <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
       <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
-      <!--<analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>-->
-
+      <analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>
+      
       <!-- Index for full-text search -->
       <!--/i:DDIInstance/su:StudyUnit/@id-->
       <text match="//su:StudyUnit/@id" analyzer="ws" boost="59049.0"/>
