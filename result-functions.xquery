@@ -62,8 +62,8 @@ declare function local:createStudyUnitCustom($result as element()) as element() 
         <Custom option="id">{data($study-unit/@id)}</Custom>
         <Custom option="version">{data($study-unit/@version)}</Custom>
         {local:createCustomLabel($study-unit/r:Citation/r:Title)}
-        <Custom option="start">2000-05-01T00:00:00.000+01:00</Custom>
-        <Custom option="end">2001-07-01T00:00:00.000+01:00</Custom>
+        <Custom option="start">{data($study-unit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate)}</Custom>
+        <Custom option="end">{data($study-unit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate)}</Custom>
     </CustomList>
 };
 
