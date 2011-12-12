@@ -93,9 +93,9 @@
     <!-- Range indexes -->
     <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:PublicationDate/r:SimpleDate-->
     <create qname="r:SimpleDate" type="xs:dateTime"/>
-    <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TopicalCoverage/r:ReferenceDate/r:StartDate-->
+    <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate-->
     <create qname="r:StartDate" type="xs:dateTime"/>
-    <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TopicalCoverage/r:ReferenceDate/r:EndDate-->
+    <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate-->
     <create qname="r:EndDate" type="xs:dateTime"/>
   </index>
 </collection>
