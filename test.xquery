@@ -1,16 +1,22 @@
-import module namespace ddi = "http://dda.dk/ddi" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/search.xquery";(:"xmldb:exist:///db/dda/search.xquery":)
+import module namespace ddi = "http://dda.dk/ddi" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/lib/search.xquery";(:"xmldb:exist:///db/dda/lib/search.xquery":)
 
-let $scope :=
-    <SearchScope xmlns="http://dda.dk/ddi/search-scope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <StudyUnit/>
-        <Concept/>
-        <Universe/>
-        <Question/>
-        <Variable/>
-        <Category/>
-    </SearchScope>
+let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"
+ xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
+ xmlns:ss="http://dda.dk/ddi/search-scope"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ssp:search-string>national</ssp:search-string>
+    <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
+    <ss:SearchScope>
+        <ss:StudyUnit/>
+        <ss:Concept/>
+        <ss:Universe/>
+        <ss:Question/>
+        <ss:Variable/>
+        <ss:Category/>
+    </ss:SearchScope>
+</ssp:SimpleSearchParameters>
 
-return ddi:simpleSearch('studienummer', 10, 0, $scope)(:'14069':)
+return ddi:simpleSearch($simple-search-parameters)
 
 (:let $searchParameters :=
     <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">

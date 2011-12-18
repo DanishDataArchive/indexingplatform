@@ -1,6 +1,6 @@
 xquery version "1.0";
 
-import module namespace ddi = "http://dda.dk/ddi" at "xmldb:exist:///db/dda/search.xquery";(:"xmldb:exist:///db/dda/result-functions.xquery":)
+import module namespace ddi = "http://dda.dk/ddi" at "xmldb:exist:///db/dda/lib/search.xquery";
 
 
 declare option exist:serialize "method=xhtml media-type=text/html";

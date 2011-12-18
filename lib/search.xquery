@@ -2,7 +2,7 @@ xquery version "1.0";
 
 module namespace ddi = "http://dda.dk/ddi";
 
-import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/result-functions.xquery";(:"xmldb:exist:///db/dda/result-functions.xquery":)
+import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/lib/result-functions.xquery";(:"xmldb:exist:///db/dda/lib/result-functions.xquery":)
 (:import module namespace kwic="http://exist-db.org/xquery/kwic";:)
 
 declare namespace i="ddi:instance:3_1";
@@ -12,7 +12,9 @@ declare namespace dc="ddi:datacollection:3_1";
 declare namespace cc="ddi:conceptualcomponent:3_1";
 declare namespace lp="ddi:logicalproduct:3_1";
 
-declare namespace sp="http://dda.dk/ddi/search-parameters";
+declare namespace ssp="http://dda.dk/ddi/simple-search-parameters";
+declare namespace asp="http://dda.dk/ddi/advanced-search-parameters";
+declare namespace smd="http://dda.dk/ddi/search-metadata";
 declare namespace ss="http://dda.dk/ddi/search-scope";
 
 
@@ -114,8 +116,8 @@ declare function local:buildLightXmlObjectList($results as element()*, $hits-per
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
-        xmlns:smd="http://dda.dk/ddi/search-metadata">
-        <smd:SearchMetaData
+        xmlns:rmd="http://dda.dk/ddi/result-metadata">
+        <rmd:ResultMetaData
             result-count="{$result-count}"
             hit-start="{$hit-start}"
             hit-end="{$hit-end}"
@@ -226,13 +228,17 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
  : @param   $hit-start     number of the first hit to be shown on the page
  : @param   $scope         the search scope wrapped in a SearchScope element
  :)
-declare function ddi:simpleSearch($search-string as xs:string, $hits-perpage as xs:integer, $hit-start as xs:integer, $scope as element()) as element() {
-    let $studyUnitScope := if ($scope/ss:StudyUnit) then local:queryStudyUnit($search-string) else ()
-    let $conceptScope := if ($scope/ss:Concept) then local:queryConcept($search-string) else ()
-    let $universeScope := if ($scope/ss:Universe) then local:queryUniverse($search-string) else ()
-    let $questionScope := if ($scope/ss:Question) then local:queryQuestion($search-string) else ()
-    let $variableScope := if ($scope/ss:Variable) then local:queryVariable($search-string) else ()
-    let $categoryScope := if ($scope/ss:Category) then local:queryCategory($search-string) else ()
+declare function ddi:simpleSearch($simple-search-parameters as node()) as element() {
+    let $search-string := data($simple-search-parameters/ssp:search-string)
+    let $search-metadata := $simple-search-parameters/smd:SearchMetaData
+    let $search-scope := $simple-search-parameters/ss:SearchScope
+
+    let $studyUnitScope := if ($search-scope/ss:StudyUnit) then local:queryStudyUnit($search-string) else ()
+    let $conceptScope := if ($search-scope/ss:Concept) then local:queryConcept($search-string) else ()
+    let $universeScope := if ($search-scope/ss:Universe) then local:queryUniverse($search-string) else ()
+    let $questionScope := if ($search-scope/ss:Question) then local:queryQuestion($search-string) else ()
+    let $variableScope := if ($search-scope/ss:Variable) then local:queryVariable($search-string) else ()
+    let $categoryScope := if ($search-scope/ss:Category) then local:queryCategory($search-string) else ()
     
     let $results := 
         $studyUnitScope |
@@ -241,7 +247,9 @@ declare function ddi:simpleSearch($search-string as xs:string, $hits-perpage as 
         $questionScope  |
         $variableScope  |
         $categoryScope
-    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start)
+        
+        (:return <w>{$search-string}</w>:)
+    return local:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
 };
 
 (:~
@@ -254,7 +262,7 @@ declare function ddi:simpleSearch($search-string as xs:string, $hits-perpage as 
  : @param   $hit-start         number of the first hit to be shown on the page
  :)
 declare function ddi:advancedSearch($searchParameters as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
-    let $searchScope := if ($searchParameters/sp:studyId) then <W>{data($searchParameters/sp:studyId)}</W>
+    let $searchScope := if ($searchParameters/asp:studyId) then <W>{data($searchParameters/asp:studyId)}</W>
     else <w/>
     return $searchScope
 (:    let $studyUnitResults :=
