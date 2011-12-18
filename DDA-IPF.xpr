@@ -6,17 +6,34 @@
         <options/>
     </meta>
     <projectTree name="DDA-IPF.xpr">
-        <folder name="Schema">
-            <file name="Schema/ddieditor-lightxmlobject.xsd"/>
-            <file name="Schema/search-metadata.xsd"/>
-            <file name="Schema/search-parameters.xsd"/>
-            <file name="Schema/search-scope.xsd"/>
+        <folder name="html">
+            <file name="html/advanced.xquery"/>
+            <file name="html/simple.xquery"/>
         </folder>
-        <file name="advanced.xquery"/>
-        <file name="collection.xconf"/>
-        <file name="search.xquery"/>
-        <file name="result-functions.xquery"/>
-        <file name="simple.xquery"/>
+        <folder name="index">
+            <file name="index/collection.xconf"/>
+        </folder>
+        <folder name="lib">
+            <file name="lib/result-functions.xquery"/>
+            <file name="lib/search.xquery"/>
+        </folder>
+        <folder name="rest">
+            <file name="rest/simple-search.xquery"/>
+        </folder>
+        <folder name="schema">
+            <folder name="result">
+                <file name="schema/result/ddieditor-lightxmlobject.xsd"/>
+                <file name="schema/result/result-metadata.xsd"/>
+            </folder>
+            <folder name="search">
+                <file
+                    name="schema/search/advanced-search-parameters.xsd"/>
+                <file name="schema/search/search-metadata.xsd"/>
+                <file name="schema/search/search-scope.xsd"/>
+                <file name="schema/search/simple-search-parameters.xsd"
+                />
+            </folder>
+        </folder>
         <file name="test.xquery"/>
     </projectTree>
 </project>

@@ -10,7 +10,7 @@ let $scope :=
         <Category/>
     </SearchScope>
 
-return ddi:simpleSearch('og', 10, 0, $scope)(:'14069':)
+return ddi:simpleSearch('studienummer', 10, 0, $scope)(:'14069':)
 
 (:let $searchParameters :=
     <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
