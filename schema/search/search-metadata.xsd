@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:smd="http://dda.dk/ddi/search-metadata" targetNamespace="http://dda.dk/ddi/search-metadata" elementFormDefault="qualified">
+    
+    <xs:element name="SearchMetaData" type="smd:SearchMetaDataType" />
+    
+    <xs:complexType name="SearchMetaDataType">
+        <xs:sequence>
+            <xs:element name="hits-perpage" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="hit-start" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>
