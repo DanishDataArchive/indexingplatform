@@ -223,12 +223,9 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $search-string the string that needs to be matched
- : @param   $hits-perpage  number of hits to be shown per page
- : @param   $hit-start     number of the first hit to be shown on the page
- : @param   $scope         the search scope wrapped in a SearchScope element
+ : @param   $simple-search-parameter the search parameters wrapped in a SimpleSearchParameters element
  :)
-declare function ddi:simpleSearch($simple-search-parameters as node()) as element() {
+declare function ddi:simpleSearch($simple-search-parameters as element()) as element() {
     let $search-string := data($simple-search-parameters/ssp:search-string)
     let $search-metadata := $simple-search-parameters/smd:SearchMetaData
     let $search-scope := $simple-search-parameters/ss:SearchScope
@@ -247,8 +244,7 @@ declare function ddi:simpleSearch($simple-search-parameters as node()) as elemen
         $questionScope  |
         $variableScope  |
         $categoryScope
-        
-        (:return <w>{$search-string}</w>:)
+
     return local:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
 };
 
