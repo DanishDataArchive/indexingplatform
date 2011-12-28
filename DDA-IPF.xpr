@@ -14,6 +14,7 @@
             <file name="index/collection.xconf"/>
         </folder>
         <folder name="lib">
+            <file name="lib/denormalization-functions.xquery"/>
             <file name="lib/result-functions.xquery"/>
             <file name="lib/search.xquery"/>
         </folder>
@@ -21,6 +22,10 @@
             <file name="rest/simple-search.xquery"/>
         </folder>
         <folder name="schema">
+            <folder name="denormalization">
+                <file name="schema/denormalization/denormalized-ddi.xsd"
+                />
+            </folder>
             <folder name="result">
                 <file name="schema/result/ddieditor-lightxmlobject.xsd"/>
                 <file name="schema/result/result-metadata.xsd"/>
