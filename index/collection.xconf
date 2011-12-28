@@ -68,6 +68,10 @@
       <text match="//dc:QuestionItem/dc:ConceptReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:CodeDomain/dc:CodeSchemeReference/r:ID-->
       <text match="//dc:QuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID" analyzer="ws"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/@id-->
+      <text match="//dc:MultipleQuestionItem/@id" analyzer="ws"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem//dc:SubQuestions/dc:QuestionItem/@id-->
+      <text match="//dc:MultipleQuestionItem/dc:SubQuestions/dc:QuestionItem/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
       <text match="//cc:Concept/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
