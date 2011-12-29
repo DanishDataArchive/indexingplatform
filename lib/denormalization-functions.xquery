@@ -371,7 +371,6 @@ declare function local:listUniverses() as node()* {
                         let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
                         return
                         for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
-                            (:let $categorySaved := local:saveVariableToCategory($variable, $categoryId):)
                             return <CategoryReference id="{$categoryId}"/>
                 }
                 </CategoryReferenceList>
@@ -379,8 +378,57 @@ declare function local:listUniverses() as node()* {
     return update insert $dernormalizedUniverses into collection('/db/dda-denormalization')//d:UniverseList
 };
 
+declare function local:listConcepts() as node()* {
+    let $dernormalizedConcepts :=
+        for $concept in collection('/db/dda')//cc:Concept
+            let $conceptId := string($concept/@id)
+            let $study-unit := $concept/ancestor::su:StudyUnit
+            let $variables := collection('/db/dda')//lp:Variable[ft:query(lp:ConceptReference/r:ID, $conceptId)]
+            return
+            <Concept id="{data($concept/@id)}" studyId="{data($study-unit/@id)}" xmlns="http://dda.dk/ddi/denormalized-ddi">
+                <VariableReferenceList>
+                {
+                for $variable in $variables
+                    return <VariableReference id="{data($variable/@id)}"/>
+                }
+                </VariableReferenceList>
+                <QuestionItemReferenceList>
+                {
+                for $question in collection('/db/dda')//dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $conceptId)]
+                    return <QuestionItemReference id="{$question/@id}"/>
+                }
+                </QuestionItemReferenceList>
+                <MultipleQuestionItemReferenceList>
+                {
+                for $multipleQuestionItem in collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:ConceptReference/r:ID, $conceptId)]
+                    return <MultipleQuestionItemReference id="{$multipleQuestionItem/@id}"/>
+                }
+                </MultipleQuestionItemReferenceList>
+                <UniverseReferenceList>
+                {
+                for $variable in $variables
+                    for $universeId in $variable/r:UniverseReference/r:ID
+                        return <UniverseReference id="{$universeId}"/>
+                }
+                </UniverseReferenceList>
+                <CategoryReferenceList>
+                {
+                for $variable in $variables
+                    for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID
+                        let $codeSchemeIdString := string($codeSchemeId)
+                        let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
+                        return
+                        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
+                            return <CategoryReference id="{$categoryId}"/>
+                }
+                </CategoryReferenceList>
+            </Concept>
+    return update insert $dernormalizedConcepts into collection('/db/dda-denormalization')//d:ConceptList
+};
+
 local:createDenormalizationDocuments(),
 local:listVariables(),
 local:listQuestionItems(),
 local:listMultipleQuestionItems(),
-local:listUniverses()
+local:listUniverses(),
+local:listConcepts()

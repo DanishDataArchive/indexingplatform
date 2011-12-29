@@ -72,6 +72,8 @@
       <text match="//dc:MultipleQuestionItem/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem//dc:SubQuestions/dc:QuestionItem/@id-->
       <text match="//dc:MultipleQuestionItem/dc:SubQuestions/dc:QuestionItem/@id" analyzer="ws"/>
+      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:ConceptReference/r:ID-->
+      <text match="//dc:MultipleQuestionItem/dc:ConceptReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
       <text match="//cc:Concept/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
