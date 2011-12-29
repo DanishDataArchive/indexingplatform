@@ -11,7 +11,12 @@
             <file name="html/simple.xquery"/>
         </folder>
         <folder name="index">
-            <file name="index/collection.xconf"/>
+            <folder name="dda">
+                <file name="index/dda/collection.xconf"/>
+            </folder>
+            <folder name="dda-denormalization">
+                <file name="index/dda-denormalization/collection.xconf"/>
+            </folder>
         </folder>
         <folder name="lib">
             <file name="lib/denormalization-functions.xquery"/>
