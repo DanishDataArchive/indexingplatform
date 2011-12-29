@@ -280,25 +280,29 @@ declare function local:listMultipleQuestionItems() as node()* {
         for $multipleQuestionItem in collection('/db/dda')//dc:MultipleQuestionItem
             let $multipleQuestionItemId := string($multipleQuestionItem/@id)
             let $study-unit := $multipleQuestionItem/ancestor::su:StudyUnit
+            let $questions := $multipleQuestionItem/dc:SubQuestions/dc:QuestionItem
             return
             <MultipleQuestionItem id="{data($multipleQuestionItem/@id)}" studyId="{data($study-unit/@id)}" xmlns="http://dda.dk/ddi/denormalized-ddi">
-               (: <VariableReferenceList>
+                <VariableReferenceList>
                 {
-                for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $multipleQuestionItemId)]
-                    return <VariableReference id="{data($variable/@id)}"/>
+                for $question in $questions
+                    let $questionIdString := string($question/@id)
+                    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $questionIdString)]
+                        return <VariableReference id="{$variable/@id}"/>
                 }
                 </VariableReferenceList>
                 <QuestionItemReferenceList>
                 {
-                for $multipleMultipleQuestionItem in collection('/db/dda')//dc:MultipleMultipleQuestionItem[ft:query(dc:SubQuestions/dc:MultipleQuestionItem/@id, $multipleQuestionItemId)]
-                    return <MultipleMultipleQuestionItemReference id="{$multipleMultipleQuestionItem/@id}"/>
+                for $question in $questions
+                    return <QuestionItemReference id="{$question/@id}"/>
                 }
                 </QuestionItemReferenceList>
                 <UniverseReferenceList>
                 {
-                for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $multipleQuestionItemId)]
-                    for $universeId in $variable/r:UniverseReference/r:ID
-                        return <UniverseReference id="{$universeId}"/>
+                for $question in $questions
+                    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
+                        for $universeId in $variable/r:UniverseReference/r:ID
+                            return <UniverseReference id="{$universeId}"/>
                 }
                 </UniverseReferenceList>
                 <ConceptReferenceList>
@@ -309,14 +313,15 @@ declare function local:listMultipleQuestionItems() as node()* {
                 </ConceptReferenceList>
                 <CategoryReferenceList>
                 {
-                for $codeSchemeId in $multipleQuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID
-                    let $codeSchemeIdString := string($codeSchemeId)
-                    let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
-                    return
-                    for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
-                        return <CategoryReference id="{$categoryId}"/>
+                for $question in $questions
+                    for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
+                        let $codeSchemeIdString := string($codeSchemeId)
+                        let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
+                        return
+                        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
+                            return <CategoryReference id="{$categoryId}"/>
                 }
-                </CategoryReferenceList>:)
+                </CategoryReferenceList>
             </MultipleQuestionItem>
     return update insert $dernormalizedMultipleQuestionItems into collection('/db/dda-denormalization')//d:MultipleQuestionItemList
 };
@@ -377,4 +382,5 @@ declare function local:listUniverses() as node()* {
 local:createDenormalizationDocuments(),
 local:listVariables(),
 local:listQuestionItems(),
+local:listMultipleQuestionItems(),
 local:listUniverses()
