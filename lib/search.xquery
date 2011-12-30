@@ -15,7 +15,7 @@ declare namespace lp="ddi:logicalproduct:3_1";
 declare namespace ssp="http://dda.dk/ddi/simple-search-parameters";
 declare namespace asp="http://dda.dk/ddi/advanced-search-parameters";
 declare namespace smd="http://dda.dk/ddi/search-metadata";
-declare namespace ss="http://dda.dk/ddi/search-scope";
+declare namespace s="http://dda.dk/ddi/scope";
 
 
 (:~
@@ -228,7 +228,7 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
 declare function ddi:simpleSearch($simple-search-parameters as element()) as element() {
     let $search-string := data($simple-search-parameters/ssp:search-string)
     let $search-metadata := $simple-search-parameters/smd:SearchMetaData
-    let $search-scope := $simple-search-parameters/ss:SearchScope
+    let $search-scope := $simple-search-parameters/s:Scope
 
     let $studyUnitScope := if ($search-scope/ss:StudyUnit) then local:queryStudyUnit($search-string) else ()
     let $conceptScope := if ($search-scope/ss:Concept) then local:queryConcept($search-string) else ()

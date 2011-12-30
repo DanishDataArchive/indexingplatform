@@ -39,7 +39,7 @@
                 <file
                     name="schema/search/advanced-search-parameters.xsd"/>
                 <file name="schema/search/search-metadata.xsd"/>
-                <file name="schema/search/search-scope.xsd"/>
+                <file name="schema/search/scope.xsd"/>
                 <file name="schema/search/simple-search-parameters.xsd"
                 />
             </folder>

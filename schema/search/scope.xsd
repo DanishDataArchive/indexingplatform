@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:ss="http://dda.dk/ddi/search-scope" targetNamespace="http://dda.dk/ddi/search-scope" elementFormDefault="qualified">
+    xmlns:s="http://dda.dk/ddi/scope" targetNamespace="http://dda.dk/ddi/scope" elementFormDefault="qualified">
     
-    <xs:element name="SearchScope" type="ss:SearchScopeType" />
+    <xs:element name="Scope" type="s:ScopeType" />
     
-    <xs:complexType name="SearchScopeType">
+    <xs:complexType name="ScopeType">
         <xs:sequence>
             <xs:element name="StudyUnit" minOccurs="0" maxOccurs="1"/>
             <xs:element name="Concept" minOccurs="0" maxOccurs="1"/>

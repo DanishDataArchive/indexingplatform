@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata"  xmlns:ss="http://dda.dk/ddi/search-scope" targetNamespace="http://dda.dk/ddi/simple-search-parameters" elementFormDefault="qualified">
+    xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata"  xmlns:s="http://dda.dk/ddi/scope" targetNamespace="http://dda.dk/ddi/simple-search-parameters" elementFormDefault="qualified">
     
     <xs:import namespace="http://dda.dk/ddi/search-metadata" schemaLocation="search-metadata.xsd"/>
-    <xs:import namespace="http://dda.dk/ddi/search-scope" schemaLocation="search-scope.xsd"/>
+    <xs:import namespace="http://dda.dk/ddi/scope" schemaLocation="scope.xsd"/>
     
     <xs:element name="SimpleSearchParameters" type="ssp:SimpleSearchParametersType" />
     
@@ -11,7 +11,7 @@
         <xs:sequence>
             <xs:element name="search-string" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element ref="smd:SearchMetaData" minOccurs="1" maxOccurs="1" />
-            <xs:element ref="ss:SearchScope" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="s:Scope" minOccurs="1" maxOccurs="1" />
         </xs:sequence>
     </xs:complexType>
     

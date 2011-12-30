@@ -2,18 +2,18 @@ import module namespace ddi = "http://dda.dk/ddi" at "file:///C:/Users/kp/Dropbo
 
 let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"
  xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
- xmlns:ss="http://dda.dk/ddi/search-scope"
+ xmlns:s="http://dda.dk/ddi/scope"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ssp:search-string>national</ssp:search-string>
     <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
-    <ss:SearchScope>
-        <ss:StudyUnit/>
-        <ss:Concept/>
-        <ss:Universe/>
-        <ss:Question/>
-        <ss:Variable/>
-        <ss:Category/>
-    </ss:SearchScope>
+    <s:Scope>
+        <s:StudyUnit/>
+        <s:Concept/>
+        <s:Universe/>
+        <s:Question/>
+        <s:Variable/>
+        <s:Category/>
+    </s:Scope>
 </ssp:SimpleSearchParameters>
 
 return ddi:simpleSearch($simple-search-parameters)
