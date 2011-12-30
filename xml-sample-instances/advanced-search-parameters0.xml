@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<asp:AdvancedSearchParameters xmlns:sm="http://dda.dk/ddi/search-metadata"
+ xmlns:s="http://dda.dk/ddi/scope"
+ xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://dda.dk/ddi/advanced-search-parameters file:/C:/Users/kp/Dropbox/DDA/DDA-IPF/schema/search/advanced-search-parameters.xsd">
+    <asp:studyId>studyId0</asp:studyId>
+    <asp:title>title0</asp:title>
+    <asp:topicalCoverage>topicalCoverage0</asp:topicalCoverage>
+    <asp:spatialCoverage>spatialCoverage0</asp:spatialCoverage>
+    <asp:abstract-purpose>abstract-purpose0</asp:abstract-purpose>
+    <asp:creator>creator0</asp:creator>
+    <asp:kindOfData>kindOfData0</asp:kindOfData>
+    <asp:coverageFrom>2006-05-04</asp:coverageFrom>
+    <asp:coverageTo>2006-05-04</asp:coverageTo>
+    <asp:Variable>Variable0</asp:Variable>
+    <asp:QuestionItem>QuestionItem0</asp:QuestionItem>
+    <asp:MultipleQuestionItem>MultipleQuestionItem0</asp:MultipleQuestionItem>
+    <asp:Universe>Universe0</asp:Universe>
+    <asp:Concept>Concept0</asp:Concept>
+    <asp:Category>Category0</asp:Category>
+    <sm:SearchMetaData hits-perpage="2" hit-start="1"/>
+    <s:Scope>
+        <s:StudyUnit>
+        </s:StudyUnit>
+        <s:Variable>
+        </s:Variable>
+        <s:QuestionItem>
+        </s:QuestionItem>
+        <s:MultipleQuestionItem>
+        </s:MultipleQuestionItem>
+        <s:Universe>
+        </s:Universe>
+        <s:Concept>
+        </s:Concept>
+        <s:Category>
+        </s:Category>
+    </s:Scope>
+</asp:AdvancedSearchParameters>
