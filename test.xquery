@@ -17,24 +17,43 @@ let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://d
     </s:Scope>
 </ssp:SimpleSearchParameters>
 
-return ddi:simpleSearch($simple-search-parameters)
+(:return ddi:simpleSearch($simple-search-parameters):)
 
-(:let $searchParameters :=
-    <SearchParameters xmlns="http://dda.dk/ddi/search-parameters" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <studyId>studyId0</studyId>
-        <title>title0</title>
-        <abstract-purpose>abstract-purpose0</abstract-purpose>
-        <creator>creator0</creator>
-        <kindOfData>kindOfData0</kindOfData>
-        <coverageFrom>2006-05-04</coverageFrom>
-        <coverageTo>2006-05-04</coverageTo>
-        <concept>concept0</concept>
-        <universe>universe0</universe>
-        <question>question0</question>
-        <variable>variable0</variable>
-        <category>category0</category>
-    </SearchParameters>
-return ddi:advancedSearch($searchParameters, 10, 0):)
+let $advanced-search-parameters :=
+    <asp:AdvancedSearchParameters xmlns:sm="http://dda.dk/ddi/search-metadata"
+     xmlns:s="http://dda.dk/ddi/scope"
+     xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://dda.dk/ddi/advanced-search-parameters file:/C:/Users/kp/Dropbox/DDA/DDA-IPF/schema/search/advanced-search-parameters.xsd">
+        <asp:studyId>13794</asp:studyId>
+        <asp:title>kommunale</asp:title>
+        <asp:topicalCoverage>Tillidserhverv</asp:topicalCoverage>
+        <asp:spatialCoverage>national</asp:spatialCoverage>
+        <asp:abstract-purpose>udvalgstilknytning</asp:abstract-purpose>
+        <asp:creator>Søren</asp:creator>
+        <asp:kindOfData>Spørgeskemaundersøgelse</asp:kindOfData>
+        <asp:coverageFrom>2000-08-01</asp:coverageFrom>
+        <asp:coverageTo>2000-12-01</asp:coverageTo>
+        <asp:Variable>Variable0</asp:Variable>
+        <asp:QuestionItem>QuestionItem0</asp:QuestionItem>
+        <asp:MultipleQuestionItem>MultipleQuestionItem0</asp:MultipleQuestionItem>
+        <asp:Universe>Universe0</asp:Universe>
+        <asp:Concept>Concept0</asp:Concept>
+        <asp:Category>Category0</asp:Category>
+        <sm:SearchMetaData hits-perpage="10" hit-start="0"/>
+        <s:Scope>
+            <s:StudyUnit/>
+            <s:Variable/>
+            <s:QuestionItem/>
+            <s:MultipleQuestionItem/>
+            <s:Universe/>
+            <s:Concept/>
+            <s:Category/>
+        </s:Scope>
+    </asp:AdvancedSearchParameters>
+    
+return ddi:advancedSearch($advanced-search-parameters)
+
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)

@@ -283,12 +283,12 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
  :              &#160;&#160;&#160;&#160;&lt;asp:kindOfData&gt;kindOfData0&lt;/asp:kindOfData&gt;                                     &lt;!-- KindOfData of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
  :              &#160;&#160;&#160;&#160;&lt;asp:coverageFrom&gt;2006-05-04&lt;/asp:coverageFrom&gt;                                  &lt;!-- Starting coverage date of the StudyUnit we wish to limit the results to (xs:date). Optional. --&gt;<br/>
  :              &#160;&#160;&#160;&#160;&lt;asp:coverageTo&gt;2006-05-04&lt;/asp:coverageTo&gt;                                      &lt;!-- Ending coverage date of the StudyUnit we wish to limit the results to (xs:date). Optional. --&gt;<br/>
- :              &#160;&#160;&#160;&#160;&lt;asp:Variable&gt;variable text&lt;/asp:Variable&gt;                                       &lt;!-- Search-text for the Variable(s) we wish to find (xs:string). If left empty Variable will not be searched and returned. Optional. --&gt;<br/>
- :              &#160;&#160;&#160;&#160;&lt;asp:QuestionItem&gt;questionItem text&lt;/asp:QuestionItem&gt;                           &lt;!-- Search-text for the QuestionItem(s) we wish to find (xs:string). If left empty QuestionItem will not be searched and returned. Optional. --&gt;<br/>
- :              &#160;&#160;&#160;&#160;&lt;asp:MultipleQuestionItem&gt;multipleQuestionItem text&lt;/asp:MultipleQuestionItem&gt;   &lt;!-- Search-text for the MultipleQuestionItem(s) we wish to find (xs:string). If left empty MultipleQuestionItem will not be searched and returned. Optional. --&gt;<br/>
- :              &#160;&#160;&#160;&#160;&lt;asp:Universe&gt;universe text&lt;/asp:Universe&gt;                                       &lt;!-- Search-text for the Universe(s) we wish to find (xs:string). If left empty Universe will not be searched and returned. Optional. --&gt;<br/>
- :              &#160;&#160;&#160;&#160;&lt;asp:Concept&gt;concept text&lt;/asp:Concept&gt;                                          &lt;!-- Search-text for the Coverage(s) we wish to find (xs:string). If left empty Coverage will not be searched and returned. Optional. --&gt;<br/>
- :              &#160;&#160;&#160;&#160;&lt;asp:Category&gt;category text&lt;/asp:Category&gt;                                       &lt;!-- Search-text for the Category(s) we wish to find (xs:string). If left empty Category will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:Variable&gt;variable text&lt;/asp:Variable&gt;                                       &lt;!-- Search-text for the Variable(s) we wish to find (xs:string). If left out Variable will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:QuestionItem&gt;questionItem text&lt;/asp:QuestionItem&gt;                           &lt;!-- Search-text for the QuestionItem(s) we wish to find (xs:string). If left out QuestionItem will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:MultipleQuestionItem&gt;multipleQuestionItem text&lt;/asp:MultipleQuestionItem&gt;   &lt;!-- Search-text for the MultipleQuestionItem(s) we wish to find (xs:string). If left out MultipleQuestionItem will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:Universe&gt;universe text&lt;/asp:Universe&gt;                                       &lt;!-- Search-text for the Universe(s) we wish to find (xs:string). If left out Universe will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:Concept&gt;concept text&lt;/asp:Concept&gt;                                          &lt;!-- Search-text for the Coverage(s) we wish to find (xs:string). If left out Coverage will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:Category&gt;category text&lt;/asp:Category&gt;                                       &lt;!-- Search-text for the Category(s) we wish to find (xs:string). If left out Category will not be searched and returned. Optional. --&gt;<br/>
  :              &#160;&#160;&#160;&#160;&lt;smd:SearchMetaData hits-perpage="2" hit-start="1"/&gt;                                   &lt;!-- The number of hits we wish to show per page (xs:positiveInteger) and the number of the first result we wish to get (xs:nonNegativeInteger). Both required. --&gt;<br/>
  :              &#160;&#160;&#160;&#160;&lt;s:Scope&gt;                                                                              &lt;!-- The scope of our results. Each child-element is optional and if it is present the search will for all found results return a list of references of the type specified by that element (if any exist). The child-elements have no type or content; only the existence is checked. --&gt;<br/>
  :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:StudyUnit/&gt;<br/>
@@ -301,10 +301,55 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
  :              &#160;&#160;&#160;&#160;&lt;/s:Scope&gt;<br/>
  :          &lt;/asp:AdvancedSearchParameters&gt;<br/>
  :)
-declare function ddi:advancedSearch($searchParameters as element()) as element() {
-    let $searchScope := if ($searchParameters/asp:studyId) then <W>{data($searchParameters/asp:studyId)}</W>
+declare function ddi:advancedSearch($search-parameters as element()) as element()* {
+    let $studyFromId :=
+        if($search-parameters/asp:studyId) then
+            let $studyId := string($search-parameters/asp:studyId)
+            return collection('/db/dda')//su:StudyUnit[ft:query(@id, $studyId)] else ()
+    let $studyFromTitle :=
+        if($search-parameters/asp:title) then
+            let $studyTitle := string($search-parameters/asp:title)
+            return collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $studyTitle)] else ()
+    let $studyFromTopicalCoverage :=
+        if($search-parameters/asp:topicalCoverage) then
+            let $studyTopicalCoverage := string($search-parameters/asp:topicalCoverage)
+            return collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $studyTopicalCoverage)] else ()
+    let $studyFromSpatialCoverage :=
+        if($search-parameters/asp:spatialCoverage) then
+            let $studySpatialCoverage := string($search-parameters/asp:spatialCoverage)
+            return collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $studySpatialCoverage)] else ()
+    let $studyFromAbstractPurpose :=
+        if($search-parameters/asp:abstract-purpose) then
+            let $studyAbstractPurpose := string($search-parameters/asp:abstract-purpose)
+            return collection('/db/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $studyAbstractPurpose)] | 
+                   collection('/db/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $studyAbstractPurpose)] else ()
+    let $studyFromCreator :=
+        if($search-parameters/asp:creator) then
+            let $studyCreator := string($search-parameters/asp:creator)
+            return collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $studyCreator)] else ()
+    let $studyFromKindOfData :=
+        if($search-parameters/asp:kindOfData) then
+            let $studyKindOfData := string($search-parameters/asp:kindOfData)
+            return collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $studyKindOfData)] else ()
+    let $studyFromTemporalCoverage :=
+        if($search-parameters/asp:coverageFrom) then
+            let $studyFrom := dateTime($search-parameters/asp:coverageFrom, xs:time('00:00:00.000+01:00'))
+            return if($search-parameters/asp:coverageTo) then
+                let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
+                return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom and r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo] 
+            else
+                collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom]
+        else
+            if($search-parameters/asp:coverageTo) then
+                let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
+                return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
+            else ()
+   
+    for $studyUnit in $studyFromTemporalCoverage
+        return <w>{$studyUnit/@id}</w>
+    (:let $searchScope := if ($search-parameters/asp:Variable) then <W>{data($searchParameters/asp:studyId)}</W>
     else <w/>
-    return $searchScope
+    return $searchScope:)
 (:    let $studyUnitResults :=
         collection('/db/dda')//su:StudyUnit/@id[ft:query(., $studyId)]                            &
         collection('/db/dda')//r:Citation/r:Title[ft:query(., $title)]               &
