@@ -1,8 +1,7 @@
 <collection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd"
   xmlns="http://exist-db.org/collection-config/1.0">
-  <index xmlns:i="ddi:instance:3_1" xmlns:dc="ddi:datacollection:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1"
-    xmlns:lp="ddi:logicalproduct:3_1" xmlns:cc="ddi:conceptualcomponent:3_1">
+  <index xmlns:d="http://dda.dk/ddi/denormalized-ddi">
     
     <!-- Disable the standard full text index -->
     <fulltext default="none" attributes="false"/>
@@ -15,40 +14,24 @@
       <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
         
       <!-- Index for specific search -->
-      <!--/i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID-->
-      <text match="//r:UniverseReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/@id-->
-      <text match="//dc:QuestionItem/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:ConceptReference/r:ID-->
-      <text match="//dc:QuestionItem/dc:ConceptReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:CodeDomain/dc:CodeSchemeReference/r:ID-->
-      <text match="//dc:QuestionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/@id-->
-      <text match="//dc:MultipleQuestionItem/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem//dc:SubQuestions/dc:QuestionItem/@id-->
-      <text match="//dc:MultipleQuestionItem/dc:SubQuestions/dc:QuestionItem/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:ConceptReference/r:ID-->
-      <text match="//dc:MultipleQuestionItem/dc:ConceptReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
-      <text match="//cc:Concept/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
-      <text match="//lp:CodeScheme/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/@id-->
-      <text match="//lp:Variable/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:QuestionReference/r:ID-->
-      <text match="//lp:Variable/lp:QuestionReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:UniverseReference/r:ID-->
-      <text match="//lp:Variable/r:UniverseReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:ConceptReference/r:ID-->
-      <text match="//lp:Variable/lp:ConceptReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID-->
-      <text match="//lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
-      <text match="//cc:Universe/@id" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID-->
-      <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/@id-->
-      <text match="//lp:Category/@id" analyzer="ws"/>
+      <text match="//d:Variable/@id" analyzer="ws"/>
+      <text match="//d:Variable/@studyId" analyzer="ws"/>
+      <text match="//d:QuestionItem/@id" analyzer="ws"/>
+      <text match="//d:QuestionItem/@studyId" analyzer="ws"/>
+      <text match="//d:MultipleQuestionItem/@id" analyzer="ws"/>
+      <text match="//d:MultipleQuestionItem/@studyId" analyzer="ws"/>
+      <text match="//d:Universe/@id" analyzer="ws"/>
+      <text match="//d:Universe/@studyId" analyzer="ws"/>
+      <text match="//d:Concept/@id" analyzer="ws"/>
+      <text match="//d:Concept/@studyId" analyzer="ws"/>
+      <text match="//d:Category/@id" analyzer="ws"/>
+      <text match="//d:Category/@studyId" analyzer="ws"/>
+      <text match="//d:VariableReference/@id" analyzer="ws"/>
+      <text match="//d:QuestionItemReference/@id" analyzer="ws"/>
+      <text match="//d:MultipleQuestionItemReference/@id" analyzer="ws"/>
+      <text match="//d:UniverseReference/@id" analyzer="ws"/>
+      <text match="//d:ConceptReference/@id" analyzer="ws"/>
+      <text match="//d:CategoryReference/@id" analyzer="ws"/>
     </lucene>
   </index>
 </collection>
