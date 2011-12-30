@@ -7,10 +7,11 @@
     <xs:complexType name="ScopeType">
         <xs:sequence>
             <xs:element name="StudyUnit" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="Concept" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="Universe" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="Question" minOccurs="0" maxOccurs="1"/>
             <xs:element name="Variable" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="QuestionItem" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MultipleQuestionItem" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Universe" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Concept" minOccurs="0" maxOccurs="1"/>
             <xs:element name="Category" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>

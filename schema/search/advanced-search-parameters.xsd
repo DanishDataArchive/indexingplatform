@@ -18,11 +18,12 @@
             <xs:element name="kindOfData" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="coverageFrom" type="xs:date" minOccurs="0" maxOccurs="1"/>
             <xs:element name="coverageTo" type="xs:date" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="concept" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="universe" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="question" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="variable" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="category" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Variable" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="QuestionItem" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MultipleQuestionItem" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Universe" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Concept" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Category" type="xs:string" minOccurs="0" maxOccurs="1"/>
             
             <xs:element ref="smd:SearchMetaData" minOccurs="1" maxOccurs="1" />
             <xs:element ref="s:Scope" minOccurs="1" maxOccurs="1" />

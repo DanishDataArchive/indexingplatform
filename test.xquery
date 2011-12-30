@@ -8,10 +8,11 @@ let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://d
     <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
     <s:Scope>
         <s:StudyUnit/>
-        <s:Concept/>
-        <s:Universe/>
-        <s:Question/>
         <s:Variable/>
+        <s:QuestionItem/>
+        <s:MultipleQuestionItem/>
+        <s:Universe/>
+        <s:Concept/>
         <s:Category/>
     </s:Scope>
 </ssp:SimpleSearchParameters>
