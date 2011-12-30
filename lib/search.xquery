@@ -223,19 +223,35 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $simple-search-parameter the search parameters wrapped in a SimpleSearchParameters element
+ : @param   $search-parameters the search parameters wrapped in a SimpleSearchParameters element with the following format:<br/>
+ :          &lt;ssp:SimpleSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"<br/>
+ :           &#160;&#160;xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"<br/>
+ :           &#160;&#160;xmlns:s="http://dda.dk/ddi/scope"<br/>
+ :           &#160;&#160;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;ssp:search-string&gt;some text&lt;/ssp:search-string&gt;  &lt;!-- The text we are searching for (xs:string). Required. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;smd:SearchMetaData hits-perpage="10" hit-start="0"/&gt;   &lt;!-- The number of hits we wish to show per page (xs:positiveInteger) and the number of the first result we wish to get (xs:nonNegativeInteger). Both required. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;s:Scope&gt;                                               &lt;!-- The scope of our search. Each child-element is optional and if it is present the search will return results of the type specified by that element (if found). The child-elements have no type or content; only the existence is checked. --&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:StudyUnit/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Variable/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:QuestionItem/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:MultipleQuestionItem/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Universe/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Concept/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Category/&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;/s:Scope&gt;<br/>
+ :          &lt;/ssp:SimpleSearchParameters&gt;<br/>
  :)
-declare function ddi:simpleSearch($simple-search-parameters as element()) as element() {
-    let $search-string := data($simple-search-parameters/ssp:search-string)
-    let $search-metadata := $simple-search-parameters/smd:SearchMetaData
-    let $search-scope := $simple-search-parameters/s:Scope
+declare function ddi:simpleSearch($search-parameters as element()) as element() {
+    let $search-string := data($search-parameters/ssp:search-string)
+    let $search-metadata := $search-parameters/smd:SearchMetaData
+    let $search-scope := $search-parameters/s:Scope
 
-    let $studyUnitScope := if ($search-scope/ss:StudyUnit) then local:queryStudyUnit($search-string) else ()
-    let $conceptScope := if ($search-scope/ss:Concept) then local:queryConcept($search-string) else ()
-    let $universeScope := if ($search-scope/ss:Universe) then local:queryUniverse($search-string) else ()
-    let $questionScope := if ($search-scope/ss:Question) then local:queryQuestion($search-string) else ()
-    let $variableScope := if ($search-scope/ss:Variable) then local:queryVariable($search-string) else ()
-    let $categoryScope := if ($search-scope/ss:Category) then local:queryCategory($search-string) else ()
+    let $studyUnitScope := if ($search-scope/s:StudyUnit) then local:queryStudyUnit($search-string) else ()
+    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
+    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
+    let $questionScope := if ($search-scope/s:Question) then local:queryQuestion($search-string) else ()
+    let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
+    let $categoryScope := if ($search-scope/s:Category) then local:queryCategory($search-string) else ()
     
     let $results := 
         $studyUnitScope |
@@ -253,11 +269,39 @@ declare function ddi:simpleSearch($simple-search-parameters as element()) as ele
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $searchParameters  the search parameters wrapped in a SearchParameters element
- : @param   $hits-perpage      number of hits to be shown per page
- : @param   $hit-start         number of the first hit to be shown on the page
+ : @param   $search-parameters the search parameters wrapped in a AdvancedSearchParameters element with the following format:<br/>
+ :          &lt;asp:AdvancedSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"
+ :           &#160;&#160;xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
+ :           &#160;&#160;xmlns:s="http://dda.dk/ddi/scope"
+ :           &#160;&#160;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+ :              &#160;&#160;&#160;&#160;&lt;asp:studyId&gt;studyId0&lt;/asp:studyId&gt;                                          &lt;!-- Id of the StudyUnit we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:title&gt;title0&lt;/asp:title&gt;                                                &lt;!-- Title of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:topicalCoverage&gt;topicalCoverage0&lt;/asp:topicalCoverage&gt;                  &lt;!-- TopicalCoverage of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:spatialCoverage&gt;spatialCoverage0&lt;/asp:spatialCoverage&gt;                  &lt;!-- SpatialCoverage of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:abstract-purpose&gt;abstract-purpose0&lt;/asp:abstract-purpose&gt;               &lt;!-- Purpose of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:creator&gt;creator0&lt;/asp:creator&gt;                                          &lt;!-- Creator of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:kindOfData&gt;kindOfData0&lt;/asp:kindOfData&gt;                                 &lt;!-- KindOfData of the StudyUnit(s) we wish to limit the results to (xs:string). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:coverageFrom&gt;2006-05-04&lt;/asp:coverageFrom&gt;                              &lt;!-- Starting coverage date of the StudyUnit we wish to limit the results to (xs:date). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:coverageTo&gt;2006-05-04&lt;/asp:coverageTo&gt;                                  &lt;!-- Ending coverage date of the StudyUnit we wish to limit the results to (xs:date). Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:concept&gt;concept0&lt;/asp:concept&gt;                                          &lt;!-- Search-text for the Coverage(s) we wish to find (xs:string). If left empty Coverage will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:universe&gt;universe0&lt;/asp:universe&gt;                                       &lt;!-- Search-text for the Universe(s) we wish to find (xs:string). If left empty Universe will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:questionItem&gt;questionItem0&lt;/asp:questionItem&gt;                           &lt;!-- Search-text for the QuestionItem(s) we wish to find (xs:string). If left empty QuestionItem will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:multipleQuestionItem&gt;multipleQuestionItem0&lt;/asp:multipleQuestionItem&gt;   &lt;!-- Search-text for the MultipleQuestionItem(s) we wish to find (xs:string). If left empty MultipleQuestionItem will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:variable&gt;variable0&lt;/asp:variable&gt;                                       &lt;!-- Search-text for the Variable(s) we wish to find (xs:string). If left empty Variable will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;asp:category&gt;category0&lt;/asp:category&gt;                                       &lt;!-- Search-text for the Category(s) we wish to find (xs:string). If left empty Category will not be searched and returned. Optional. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;smd:SearchMetaData hits-perpage="2" hit-start="1"/&gt;                               &lt;!-- The number of hits we wish to show per page (xs:positiveInteger) and the number of the first result we wish to get (xs:nonNegativeInteger). Both required. --&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;s:Scope&gt;                                                                          &lt;!-- The scope of our results. Each child-element is optional and if it is present the search will for all found results return a list of references of the type specified by that element (if any exist). The child-elements have no type or content; only the existence is checked. --&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:StudyUnit/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Variable/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:QuestionItem/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:MultipleQuestionItem/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Universe/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Concept/&gt;<br/>
+ :                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;s:Category/&gt;<br/>
+ :              &#160;&#160;&#160;&#160;&lt;/s:Scope&gt;<br/>
+ :          &lt;/asp:AdvancedSearchParameters&gt;<br/>
  :)
-declare function ddi:advancedSearch($searchParameters as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+declare function ddi:advancedSearch($searchParameters as element()) as element() {
     let $searchScope := if ($searchParameters/asp:studyId) then <W>{data($searchParameters/asp:studyId)}</W>
     else <w/>
     return $searchScope
