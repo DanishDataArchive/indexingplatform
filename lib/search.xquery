@@ -67,9 +67,19 @@ declare function local:queryUniverse($search-string as xs:string) as element()* 
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
-declare function local:queryQuestion($search-string as xs:string) as element()* {
+declare function local:queryQuestionItem($search-string as xs:string) as element()* {
     collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
-    collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)] |
+    collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+};
+
+(:~
+ : Makes a free-text search in MultipleQuestionItem elements and returns the element(s) containing the match
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $search-string the string that needs to be matched
+ :)
+declare function local:queryMultipleQuestionItem($search-string as xs:string) as element()* {
     collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
     collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
 };
@@ -138,15 +148,32 @@ declare function local:buildLightXmlObjectList($results as element()*, $hits-per
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $questionId    the ID of the QuestionItem
+ : @param   $questionItemId    the ID of the QuestionItem
  :)
-declare function ddi:lookupQuestion($questionId as xs:string) as element() {
-    let $question := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionId)]
+declare function ddi:lookupQuestionItem($questionItemId as xs:string) as element() {
+    let $questionItem := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($question)}
+            {result:buildResultListItem($questionItem)}
+    </dl:LightXmlObjectList>
+};
+
+(:~
+ : Searches for a MultipleQuestionItem and returns a LightXmlObjectList element with the result
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $multipleQuestionItemId    the ID of the QuestionItem
+ :)
+declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:string) as element() {
+    let $multipleQuestionItem := collection('/db/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+            {result:buildResultListItem($multipleQuestionItem)}
     </dl:LightXmlObjectList>
 };
 
@@ -247,18 +274,20 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
     let $search-scope := $search-parameters/s:Scope
 
     let $studyUnitScope := if ($search-scope/s:StudyUnit) then local:queryStudyUnit($search-string) else ()
-    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
-    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
-    let $questionScope := if ($search-scope/s:Question) then local:queryQuestion($search-string) else ()
     let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
+    let $questionItemScope := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
+    let $multipleQuestionItemScope := if ($search-scope/s:MultipleQuestionItem) then local:queryMultipleQuestionItem($search-string) else ()
+    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
+    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
     let $categoryScope := if ($search-scope/s:Category) then local:queryCategory($search-string) else ()
     
     let $results := 
-        $studyUnitScope |
-        $conceptScope   |
-        $universeScope  |
-        $questionScope  |
-        $variableScope  |
+        $studyUnitScope            |
+        $variableScope             |
+        $questionItemScope         |
+        $multipleQuestionItemScope |
+        $universeScope             |
+        $conceptScope              |
         $categoryScope
 
     return local:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
@@ -344,19 +373,17 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
                 return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
             else ()
+    
+    let $variableSearch := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
+    let $questionItemSearch := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
+    let $multipleQuestionItemSearch := if ($search-scope/s:MultipleQuestionItem) then local:queryMultipleQuestionItem($search-string) else ()
+    let $universeSearch := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
+    let $conceptSearch := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
+    let $categorySearch := if ($search-scope/s:Category) then local:queryCategory($search-string) else ()
    
-    for $studyUnit in $studyFromTemporalCoverage
-        return <w>{$studyUnit/@id}</w>
-    (:let $searchScope := if ($search-parameters/asp:Variable) then <W>{data($searchParameters/asp:studyId)}</W>
-    else <w/>
-    return $searchScope:)
-(:    let $studyUnitResults :=
-        collection('/db/dda')//su:StudyUnit/@id[ft:query(., $studyId)]                            &
-        collection('/db/dda')//r:Citation/r:Title[ft:query(., $title)]               &
-        collection('/db/dda')//su:Abstract/r:Content[ft:query(., $abstract-purpose)] &
-        collection('/db/dda')//su:Purpose/r:Content[ft:query(., $abstract-purpose)]  &
-        collection('/db/dda')//r:Citation/r:Creator[ft:query(., $creator)]           &
-        collection('/db/dda')//su:StudyUnit/su:KindOfData[ft:query(., $search-string)]:)
+    (:for $studyUnit in $studyFromTemporalCoverage
+        return <w>{$studyUnit/@id}</w>:)
+
     (:let $results :=
         local:queryConcept($concept)   |
         local:queryUniverse($universe)  |
