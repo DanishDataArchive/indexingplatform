@@ -292,32 +292,32 @@ declare function result:getReferences($resultElement as element(), $scope as ele
         else ()
     let $variables :=
         if ($referenceScope/s:Variable) then
-            for $variableReference in $referenceList/d:VariableReferenceList/d:VariableReference
+            for $variableReference in $referenceList/d:VariableReference
                 return local:createVariableCustomFromId($variableReference/@id)
         else ()
     let $questionItems :=
         if ($referenceScope/s:QuestionItem) then
-            for $questionItemReference in $referenceList/d:QuestionItemReferenceList/d:QuestionItemReference
+            for $questionItemReference in $referenceList/d:QuestionItemReference
                 return local:createQuestionItemCustomFromId($questionItemReference/@id)
         else ()
     let $multipleQuestionItems :=
         if ($referenceScope/s:MultipleQuestionItem) then
-            for $multipleQuestionItemReference in $referenceList/d:MultipleQuestionItemReferenceList/d:MultipleQuestionItemReference
+            for $multipleQuestionItemReference in $referenceList/d:MultipleQuestionItemReference
             return local:createMultipleQuestionItemCustomFromId($multipleQuestionItemReference/@id)
         else ()
     let $universes :=
         if ($referenceScope/s:Universe) then
-            for $universeReference in $referenceList/d:UniverseReferenceList/d:UniverseReference
+            for $universeReference in $referenceList/d:UniverseReference
             return local:createUniverseCustomFromId($universeReference/@id)
         else ()
     let $concepts :=
         if ($referenceScope/s:Concept) then
-            for $conceptReference in $referenceList/d:ConceptReferenceList/d:ConceptReference
+            for $conceptReference in $referenceList/d:ConceptReference
             return local:createConceptCustomFromId($conceptReference/@id)
         else ()
     let $categories :=
         if ($referenceScope/s:Category) then
-            for $categoryReference in $referenceList/d:CategoryReferenceList/d:CategoryReference
+            for $categoryReference in $referenceList/d:CategoryReference
             return local:createCategoryCustomFromId($categoryReference/@id)
         else ()
     

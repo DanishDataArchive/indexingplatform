@@ -2,163 +2,55 @@
 <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://dda.dk/ddi/denormalized-ddi file:/C:/Users/kp/Dropbox/DDA/DDA-IPF/schema/denormalization/denormalized-ddi.xsd">
+    <ConceptList>
+        <Concept id="id1" studyId="studyId1">
+            <ConceptReference id="id3"/>
+            <ConceptReference id="id5"/>
+            <VariableReference id="id7"/>
+        </Concept>
+        <Concept id="id9" studyId="studyId3">
+            <VariableReference id="id11"/>
+            <MultipleQuestionItemReference id="id13"/>
+            <VariableReference id="id15"/>
+        </Concept>
+        <Concept id="id17" studyId="studyId5">
+            <UniverseReference id="id19"/>
+            <UniverseReference id="id21"/>
+            <CategoryReference id="id23"/>
+        </Concept>
+    </ConceptList>
     <QuestionItemList>
-        <QuestionItem id="id1" studyId="studyId1">
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id3" studyId="studyId3"/>
-                <QuestionItemReference id="id5" studyId="studyId5"/>
-                <QuestionItemReference id="id7" studyId="studyId7"/>
-            </QuestionItemReferenceList>
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id9" studyId="studyId9"/>
-                <QuestionItemReference id="id11" studyId="studyId11"/>
-                <QuestionItemReference id="id13" studyId="studyId13"/>
-            </QuestionItemReferenceList>
-            <ConceptReferenceList>
-                <ConceptReference id="id15" studyId="studyId15"/>
-                <ConceptReference id="id17" studyId="studyId17"/>
-                <ConceptReference id="id19" studyId="studyId19"/>
-            </ConceptReferenceList>
+        <QuestionItem id="id25" studyId="studyId7">
+            <VariableReference id="id27"/>
+            <MultipleQuestionItemReference id="id29"/>
+            <QuestionItemReference id="id31"/>
         </QuestionItem>
-        <QuestionItem id="id21" studyId="studyId21">
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id23" studyId="studyId23"/>
-                <QuestionItemReference id="id25" studyId="studyId25"/>
-                <QuestionItemReference id="id27" studyId="studyId27"/>
-            </QuestionItemReferenceList>
-            <UniverseReferenceList>
-                <UniverseReference id="id29" studyId="studyId29"/>
-                <UniverseReference id="id31" studyId="studyId31"/>
-                <UniverseReference id="id33" studyId="studyId33"/>
-            </UniverseReferenceList>
-            <ConceptReferenceList>
-                <ConceptReference id="id35" studyId="studyId35"/>
-                <ConceptReference id="id37" studyId="studyId37"/>
-                <ConceptReference id="id39" studyId="studyId39"/>
-            </ConceptReferenceList>
+        <QuestionItem id="id33" studyId="studyId9">
+            <QuestionItemReference id="id35"/>
+            <MultipleQuestionItemReference id="id37"/>
+            <CategoryReference id="id39"/>
         </QuestionItem>
-        <QuestionItem id="id41" studyId="studyId41">
-            <ConceptReferenceList>
-                <ConceptReference id="id43" studyId="studyId43"/>
-                <ConceptReference id="id45" studyId="studyId45"/>
-                <ConceptReference id="id47" studyId="studyId47"/>
-            </ConceptReferenceList>
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id49" studyId="studyId49"/>
-                <QuestionItemReference id="id51" studyId="studyId51"/>
-                <QuestionItemReference id="id53" studyId="studyId53"/>
-            </QuestionItemReferenceList>
-            <ConceptReferenceList>
-                <ConceptReference id="id55" studyId="studyId55"/>
-                <ConceptReference id="id57" studyId="studyId57"/>
-                <ConceptReference id="id59" studyId="studyId59"/>
-            </ConceptReferenceList>
+        <QuestionItem id="id41" studyId="studyId11">
+            <MultipleQuestionItemReference id="id43"/>
+            <ConceptReference id="id45"/>
+            <MultipleQuestionItemReference id="id47"/>
         </QuestionItem>
     </QuestionItemList>
-    <QuestionItemList>
-        <QuestionItem id="id61" studyId="studyId61">
-            <MultipleQuestionItemReferenceList>
-                <MultipleQuestionItemReference id="id63" studyId="studyId63"/>
-                <MultipleQuestionItemReference id="id65" studyId="studyId65"/>
-                <MultipleQuestionItemReference id="id67" studyId="studyId67"/>
-            </MultipleQuestionItemReferenceList>
-            <UniverseReferenceList>
-                <UniverseReference id="id69" studyId="studyId69"/>
-                <UniverseReference id="id71" studyId="studyId71"/>
-                <UniverseReference id="id73" studyId="studyId73"/>
-            </UniverseReferenceList>
-            <VariableReferenceList>
-                <VariableReference id="id75" studyId="studyId75"/>
-                <VariableReference id="id77" studyId="studyId77"/>
-                <VariableReference id="id79" studyId="studyId79"/>
-            </VariableReferenceList>
-        </QuestionItem>
-        <QuestionItem id="id81" studyId="studyId81">
-            <VariableReferenceList>
-                <VariableReference id="id83" studyId="studyId83"/>
-                <VariableReference id="id85" studyId="studyId85"/>
-                <VariableReference id="id87" studyId="studyId87"/>
-            </VariableReferenceList>
-            <VariableReferenceList>
-                <VariableReference id="id89" studyId="studyId89"/>
-                <VariableReference id="id91" studyId="studyId91"/>
-                <VariableReference id="id93" studyId="studyId93"/>
-            </VariableReferenceList>
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id95" studyId="studyId95"/>
-                <QuestionItemReference id="id97" studyId="studyId97"/>
-                <QuestionItemReference id="id99" studyId="studyId99"/>
-            </QuestionItemReferenceList>
-        </QuestionItem>
-        <QuestionItem id="id101" studyId="studyId101">
-            <VariableReferenceList>
-                <VariableReference id="id103" studyId="studyId103"/>
-                <VariableReference id="id105" studyId="studyId105"/>
-                <VariableReference id="id107" studyId="studyId107"/>
-            </VariableReferenceList>
-            <CategoryReferenceList>
-                <CategoryReference id="id109" studyId="studyId109"/>
-                <CategoryReference id="id111" studyId="studyId111"/>
-                <CategoryReference id="id113" studyId="studyId113"/>
-            </CategoryReferenceList>
-            <CategoryReferenceList>
-                <CategoryReference id="id115" studyId="studyId115"/>
-                <CategoryReference id="id117" studyId="studyId117"/>
-                <CategoryReference id="id119" studyId="studyId119"/>
-            </CategoryReferenceList>
-        </QuestionItem>
-    </QuestionItemList>
-    <MultipleQuestionItemList>
-        <MultipleQuestionItem id="id121" studyId="studyId121">
-            <ConceptReferenceList>
-                <ConceptReference id="id123" studyId="studyId123"/>
-                <ConceptReference id="id125" studyId="studyId125"/>
-                <ConceptReference id="id127" studyId="studyId127"/>
-            </ConceptReferenceList>
-            <CategoryReferenceList>
-                <CategoryReference id="id129" studyId="studyId129"/>
-                <CategoryReference id="id131" studyId="studyId131"/>
-                <CategoryReference id="id133" studyId="studyId133"/>
-            </CategoryReferenceList>
-            <UniverseReferenceList>
-                <UniverseReference id="id135" studyId="studyId135"/>
-                <UniverseReference id="id137" studyId="studyId137"/>
-                <UniverseReference id="id139" studyId="studyId139"/>
-            </UniverseReferenceList>
-        </MultipleQuestionItem>
-        <MultipleQuestionItem id="id141" studyId="studyId141">
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id143" studyId="studyId143"/>
-                <QuestionItemReference id="id145" studyId="studyId145"/>
-                <QuestionItemReference id="id147" studyId="studyId147"/>
-            </QuestionItemReferenceList>
-            <QuestionItemReferenceList>
-                <QuestionItemReference id="id149" studyId="studyId149"/>
-                <QuestionItemReference id="id151" studyId="studyId151"/>
-                <QuestionItemReference id="id153" studyId="studyId153"/>
-            </QuestionItemReferenceList>
-            <MultipleQuestionItemReferenceList>
-                <MultipleQuestionItemReference id="id155" studyId="studyId155"/>
-                <MultipleQuestionItemReference id="id157" studyId="studyId157"/>
-                <MultipleQuestionItemReference id="id159" studyId="studyId159"/>
-            </MultipleQuestionItemReferenceList>
-        </MultipleQuestionItem>
-        <MultipleQuestionItem id="id161" studyId="studyId161">
-            <UniverseReferenceList>
-                <UniverseReference id="id163" studyId="studyId163"/>
-                <UniverseReference id="id165" studyId="studyId165"/>
-                <UniverseReference id="id167" studyId="studyId167"/>
-            </UniverseReferenceList>
-            <ConceptReferenceList>
-                <ConceptReference id="id169" studyId="studyId169"/>
-                <ConceptReference id="id171" studyId="studyId171"/>
-                <ConceptReference id="id173" studyId="studyId173"/>
-            </ConceptReferenceList>
-            <CategoryReferenceList>
-                <CategoryReference id="id175" studyId="studyId175"/>
-                <CategoryReference id="id177" studyId="studyId177"/>
-                <CategoryReference id="id179" studyId="studyId179"/>
-            </CategoryReferenceList>
-        </MultipleQuestionItem>
-    </MultipleQuestionItemList>
+    <ConceptList>
+        <Concept id="id49" studyId="studyId13">
+            <MultipleQuestionItemReference id="id51"/>
+            <MultipleQuestionItemReference id="id53"/>
+            <ConceptReference id="id55"/>
+        </Concept>
+        <Concept id="id57" studyId="studyId15">
+            <QuestionItemReference id="id59"/>
+            <MultipleQuestionItemReference id="id61"/>
+            <ConceptReference id="id63"/>
+        </Concept>
+        <Concept id="id65" studyId="studyId17">
+            <UniverseReference id="id67"/>
+            <ConceptReference id="id69"/>
+            <ConceptReference id="id71"/>
+        </Concept>
+    </ConceptList>
 </DenormalizedDdi>

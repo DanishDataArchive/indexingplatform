@@ -53,51 +53,15 @@
     
     <xs:complexType name="DdiElementType">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="VariableReferenceList" type="d:VariableReferenceListType" minOccurs="0" maxOccurs="1" />
-            <xs:element name="QuestionItemReferenceList" type="d:QuestionItemeReferenceListType" minOccurs="0" maxOccurs="1" />
-            <xs:element name="MultipleQuestionItemReferenceList" type="d:MultipleQuestionItemReferenceListType" minOccurs="0" maxOccurs="1" />
-            <xs:element name="UniverseReferenceList" type="d:UniverseReferenceListType" minOccurs="0" maxOccurs="1" />
-            <xs:element name="ConceptReferenceList" type="d:ConceptReferenceListType" minOccurs="0" maxOccurs="1" />
-            <xs:element name="CategoryReferenceList" type="d:CategoryReferenceListType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="VariableReference" type="d:ReferenceType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="QuestionItemReference" type="d:ReferenceType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="MultipleQuestionItemReference" type="d:ReferenceType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="UniverseReference" type="d:ReferenceType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="ConceptReference" type="d:ReferenceType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="CategoryReference" type="d:ReferenceType" minOccurs="0" maxOccurs="1" />
         </xs:choice>
         <xs:attribute name="id" type="xs:string" use="required" />
         <xs:attribute name="studyId" type="xs:string" use="required" />
-    </xs:complexType>
-    
-    <xs:complexType name="VariableReferenceListType">
-        <xs:sequence>
-            <xs:element name="VariableReference" type="d:ReferenceType" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="QuestionItemeReferenceListType">
-        <xs:sequence>
-            <xs:element name="QuestionItemReference" type="d:ReferenceType" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="MultipleQuestionItemReferenceListType">
-        <xs:sequence>
-            <xs:element name="MultipleQuestionItemReference" type="d:ReferenceType" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="UniverseReferenceListType">
-        <xs:sequence>
-            <xs:element name="UniverseReference" type="d:ReferenceType" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="ConceptReferenceListType">
-        <xs:sequence>
-            <xs:element name="ConceptReference" type="d:ReferenceType" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="CategoryReferenceListType">
-        <xs:sequence>
-            <xs:element name="CategoryReference" type="d:ReferenceType" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
     </xs:complexType>
     
     <xs:complexType name="ReferenceType">
