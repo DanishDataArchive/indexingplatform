@@ -106,21 +106,6 @@ declare function local:createUniverseCustomFromId($universeId as xs:string) as e
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $question the QuestionItem
- :)
-declare function local:createQuestionItemCustom($questionItem as element()) as element() {
-    let $dummy := ()
-    return <CustomList type="QuestionItem">
-        <Custom option="id">{data($questionItem/@id)}</Custom>
-        {local:createCustomLabel($questionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
-    </CustomList>
-};
-
-(:~
- : Returns a Custom element containing the info about the QuestionItem
- :
- : @author  Kemal Pajevic
- : @version 1.0
  : @param   $questionItemId the ID of the QuestionItem
  :)
 declare function local:createQuestionItemCustomFromId($questionItemId as xs:string) as element() {
@@ -128,21 +113,6 @@ declare function local:createQuestionItemCustomFromId($questionItemId as xs:stri
     return <CustomList type="QuestionItem">
         <Custom option="id">{data($questionItem/@id)}</Custom>
         {local:createCustomLabel($questionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
-    </CustomList>
-};
-
-(:~
- : Returns a Custom element containing the info about the QuestionItem
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $question the MultipleQuestionItem
- :)
-declare function local:createMultipleQuestionItemCustom($multipleQuestionItem as element()) as element() {
-    let $dummy := ()
-    return <CustomList type="MultipleQuestionItem">
-        <Custom option="id">{data($multipleQuestionItem/@id)}</Custom>
-        {local:createCustomLabel($multipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
     </CustomList>
 };
 
@@ -166,21 +136,6 @@ declare function local:createMultipleQuestionItemCustomFromId($multipleQuestionI
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $variable the Variable
- :)
-declare function local:createVariableCustom($variable as element()) as element() {
-    let $dummy := ()
-    return <CustomList type="Variable">
-        <Custom option="id">{data($variable/@id)}</Custom>
-        {local:createCustomLabel($variable/r:Label)}
-    </CustomList>
-};
-
-(:~
- : Returns a Custom element containing the info about the Variable
- :
- : @author  Kemal Pajevic
- : @version 1.0
  : @param   $variableId the ID of the Variable
  :)
 declare function local:createVariableCustomFromId($variableId as xs:string) as element() {
@@ -189,24 +144,6 @@ declare function local:createVariableCustomFromId($variableId as xs:string) as e
         <Custom option="id">{data($variable/@id)}</Custom>
         {local:createCustomLabel($variable/r:Label)}
     </CustomList>
-};
-
-(:~
- : Returns a Custom element(s) containing the info about the Category
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $codeSchemeId the ID of the CodeScheme holding the references to the Categories
- :)
-declare function local:createCategoryCustomFromCodeSchemeId($codeSchemeId as xs:string) as element()* {
-    let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeId)]
-    for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID
-        let $categoryIdString := string($categoryId)
-        let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryIdString)]
-        return <CustomList type="Category">
-            <Custom option="id">{$categoryIdString}</Custom>
-            {local:createCustomLabel($category/r:Label)}
-        </CustomList>
 };
 
 (:~
@@ -322,143 +259,4 @@ declare function result:getReferences($resultElement as element(), $scope as ele
         else ()
     
     return $representationType | $domainType | $variables | $questionItems | $multipleQuestionItems | $universes | $concepts | $categories
-};
-
-declare function result:getStudyUnitReferences($question as element()) as element()* {
-    let $dummy := ()
-    return ()
-};
-
-(:~
- : Finds all relevant references for a given QuestionItem (Concept, CodeScheme, Variable, Universe, Category)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $question QuestionItem to process
- :)
-declare function result:getQuestionItemReferences($question as element()) as element()* {
-    (:Concept:)
-    for $conceptId in $question/dc:ConceptReference/r:ID
-        return local:createConceptCustomFromId(string($conceptId)),
-    (:CodeScheme:)
-    (:for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
-        let $codeSchemeIdString := string($codeSchemeId)
-        let $codeScheme := collection('/db/dda')//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]
-        return <CustomList type="CodeScheme">
-            <Custom option="id">{$codeSchemeIdString}</Custom>
-            {local:createCustomLabel($codeScheme/r:Label)}
-        </CustomList>,:)
-    (:Variable:)
-    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
-        return local:createVariableCustom($variable),
-    (:Universe:)
-    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]
-        for $universeId in $variable/r:UniverseReference/r:ID
-            return local:createUniverseCustomFromId(string($universeId)),
-    (:domain type:)
-    let $domainType := if ($question/dc:TextDomain) then <Custom option="type">TextDomain</Custom>
-                       else if ($question/dc:NumericDomain) then <Custom option="type" value="{data($question/dc:NumericDomain/@type)}">NumericDomain</Custom>
-                       else if ($question/dc:CodeDomain) then <Custom option="type">CodeDomain</Custom>
-                       else ""
-        return <CustomList type="DomainType">
-            {$domainType}
-        </CustomList>,
-    (:Category:)
-    for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
-        return local:createCategoryCustomFromCodeSchemeId($codeSchemeId)
-};
-
-(:~
- : Finds all relevant references for a given MultipleQuestionItem (Concept, CodeScheme, Variable, Universe, Category)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $question MultipleQuestionItem to process
- :)
-declare function result:getMultipleQuestionItemReferences($question as element()) as element()* {
-    let $dummy := ()
-    return ()
-};
-
-(:~
- : Finds all relevant references for a given Variable (Concept, Universe, Question, Code/Category)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $variable Variable to process
- :)
-declare function result:getVariableReferences($variable as element()) as element()* {
-    (:Concept:)
-    for $conceptId in $variable/lp:ConceptReference/r:ID
-        return local:createConceptCustomFromId(string($conceptId)),
-    (:Universe:)
-    for $universeId in $variable/r:UniverseReference/r:ID
-        return local:createUniverseCustomFromId(string($universeId)),
-    (:QuestionItem:)
-    for $questionId in $variable/lp:QuestionReference/r:ID
-        return local:createQuestionItemCustomFromId(string($questionId)),
-    (:representation type:)
-    let $representationType := if ($variable/lp:Representation/lp:TextRepresentation) then <Custom option="type">TextRepresentation</Custom>
-                       else if ($variable/lp:Representation/lp:NumericRepresentation) then <Custom option="type" value="{data($variable/lp:Representation/lp:NumericRepresentation/@type)}">NumericRepresentation</Custom>
-                       else if ($variable/lp:Representation/lp:CodeRepresentation) then <Custom option="type">CodeRepresentation</Custom>
-                       else ""
-        return <CustomList type="RepresentationType">
-            {$representationType}
-        </CustomList>,
-    (:Category:)
-    for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID
-        return local:createCategoryCustomFromCodeSchemeId($codeSchemeId)
-};
-
-(:~
- : Finds all relevant references for a given Concept (Question, Variable)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $concept Concept to process
- :)
-declare function result:getConceptReferences($concept as element()) as element()* {
-    (:QuestionItem:)
-    for $question in collection('/db/dda')//dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $concept/@id)]
-        return local:createQuestionItemCustom($question),
-    (:Variable:)
-    for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:ConceptReference/r:ID, $concept/@id)]
-        return local:createVariableCustom($variable)
-};
-
-(:~
- : Finds all relevant references for a given Universe (StudyUnit, Variable)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $universe Universe to process
- :)
-declare function result:getUniverseReferences($universe as element()) as element()* {
-    (:StudyUnit:)
-    for $study in collection('/db/dda')//su:StudyUnit[ft:query(r:UniverseReference/r:ID, $universe/@id)]
-        return <CustomList type="StudyUnit">
-            <Custom option="id">{data($study/@id)}</Custom>
-            {local:createCustomLabel($study/r:Citation/r:Title)}
-        </CustomList>,
-    (:Variable:)
-    for $variable in collection('/db/dda')//lp:Variable[ft:query(r:UniverseReference/r:ID, $universe/@id)]
-        return local:createVariableCustom($variable)
-};
-
-(:~
- : Finds all relevant references for a given Category (Question, Variable)
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $category Category to process
- :)
-declare function result:getCategoryReferences($category as element()) as element()* {
-    (:QuestionItem:)
-    for $codeScheme in collection('/db/dda')//lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
-        for $question in collection('/db/dda')//dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
-            return local:createQuestionItemCustom($question),
-    (:Variable:)
-    for $codeScheme in collection('/db/dda')//lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $category/@id)]
-        for $variable in collection('/db/dda')//lp:Variable[ft:query(lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID, $codeScheme/@id)]
-            return local:createVariableCustom($variable)
 };
