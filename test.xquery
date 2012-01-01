@@ -4,7 +4,7 @@ let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://d
  xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
  xmlns:s="http://dda.dk/ddi/scope"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <ssp:search-string>national</ssp:search-string>
+    <ssp:search-string>V114</ssp:search-string>
     <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
     <s:Scope>
         <s:StudyUnit/>
@@ -16,8 +16,6 @@ let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://d
         <s:Category/>
     </s:Scope>
 </ssp:SimpleSearchParameters>
-
-(:return ddi:simpleSearch($simple-search-parameters):)
 
 let $advanced-search-parameters :=
     <asp:AdvancedSearchParameters xmlns:sm="http://dda.dk/ddi/search-metadata"
@@ -34,12 +32,7 @@ let $advanced-search-parameters :=
         <asp:kindOfData>Spørgeskemaundersøgelse</asp:kindOfData>
         <asp:coverageFrom>2000-08-01</asp:coverageFrom>
         <asp:coverageTo>2000-12-01</asp:coverageTo>
-        <asp:Variable>Variable0</asp:Variable>
-        <asp:QuestionItem>QuestionItem0</asp:QuestionItem>
-        <asp:MultipleQuestionItem>MultipleQuestionItem0</asp:MultipleQuestionItem>
-        <asp:Universe>Universe0</asp:Universe>
-        <asp:Concept>Concept0</asp:Concept>
-        <asp:Category>Category0</asp:Category>
+        <asp:Universe>andet</asp:Universe>
         <sm:SearchMetaData hits-perpage="10" hit-start="0"/>
         <s:Scope>
             <s:StudyUnit/>
@@ -52,10 +45,22 @@ let $advanced-search-parameters :=
         </s:Scope>
     </asp:AdvancedSearchParameters>
     
-return ddi:advancedSearch($advanced-search-parameters)
+(:return
+if(false()) then
+    ddi:simpleSearch($simple-search-parameters)
+else
+    ddi:advancedSearch($advanced-search-parameters):)
 
+return ddi:test()
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)
 (:ddi:lookupUniverse('eafc0dde-0b5e-4449-b3dd-09071f6a2707'):)
 (:ddi:lookupCategory('cat-d4ebcb36-9409-4b41-bdaa-ece686b5f772'):)
+
+(:        <asp:Variable>Variable0</asp:Variable>
+        <asp:QuestionItem>QuestionItem0</asp:QuestionItem>
+        <asp:MultipleQuestionItem>MultipleQuestionItem0</asp:MultipleQuestionItem>
+        <asp:Universe>andet</asp:Universe>
+        <asp:Concept>Concept0</asp:Concept>
+        <asp:Category>Category0</asp:Category>:)

@@ -16,6 +16,7 @@ declare namespace ssp="http://dda.dk/ddi/simple-search-parameters";
 declare namespace asp="http://dda.dk/ddi/advanced-search-parameters";
 declare namespace smd="http://dda.dk/ddi/search-metadata";
 declare namespace s="http://dda.dk/ddi/scope";
+declare namespace d="http://dda.dk/ddi/denormalized-ddi";
 
 
 (:~
@@ -26,14 +27,14 @@ declare namespace s="http://dda.dk/ddi/scope";
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryStudyUnit($search-string as xs:string) as element()* {
-    collection('/db/dda')//su:StudyUnit/@id[ft:query(., $search-string)] |
-    collection('/db/dda')//r:Creator[ft:query(., $search-string)] |
-    collection('/db/dda')//r:Title[ft:query(., $search-string)] |
-    collection('/db/dda')//r:Keyword[ft:query(., $search-string)] |
-    collection('/db/dda')//r:LevelName[ft:query(., $search-string)] |
-    collection('/db/dda')//r:Content[ft:query(., $search-string)] |
-    collection('/db/dda')//r:Content[ft:query(., $search-string)] |
-    collection('/db/dda')//su:KindOfData[ft:query(., $search-string)]
+    collection('/db/dda')//su:StudyUnit[ft:query(@id, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
+    collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)]
 };
 
 (:~
@@ -116,7 +117,7 @@ declare function local:queryCategory($search-string as xs:string) as element()* 
  : @param   $hits-perpage  the number of hits to be shown per page
  : @param   $hit-start     number of the first hit to be shown on the page
  :)
-declare function local:buildLightXmlObjectList($results as element()*, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+declare function local:buildLightXmlObjectList($results as element()*, $scope as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
     let $result-count := count($results)
     let $hit-end := if ($result-count lt $hits-perpage) then $result-count
                     else $hit-start + $hits-perpage
@@ -137,7 +138,7 @@ declare function local:buildLightXmlObjectList($results as element()*, $hits-per
         {
         for $result in $results[position() = $hit-start to $hit-end]
         order by ft:score($result) descending
-            return result:buildResultListItem($result)
+            return result:buildResultListItem($result, $scope)
         (:kwic:summarize($result, <config width="40"/>):)
         }
     </dl:LightXmlObjectList>
@@ -149,14 +150,15 @@ declare function local:buildLightXmlObjectList($results as element()*, $hits-per
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $questionItemId    the ID of the QuestionItem
+ : @param   $scope    list of types of references we wish to return for this QuestionItem, given as a Scope element. If empty default list will be used.
  :)
-declare function ddi:lookupQuestionItem($questionItemId as xs:string) as element() {
+declare function ddi:lookupQuestionItem($questionItemId as xs:string, $scope as element()) as element() {
     let $questionItem := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($questionItem)}
+            {result:buildResultListItem($questionItem, $scope)}
     </dl:LightXmlObjectList>
 };
 
@@ -165,15 +167,16 @@ declare function ddi:lookupQuestionItem($questionItemId as xs:string) as element
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $multipleQuestionItemId    the ID of the QuestionItem
+ : @param   $multipleQuestionItemId    the ID of the MultipleQuestionItem
+ : @param   $scope    list of types of references we wish to return for this MultipleQuestionItem, given as a Scope element. If empty default list will be used.
  :)
-declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:string) as element() {
+declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:string, $scope as element()) as element() {
     let $multipleQuestionItem := collection('/db/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($multipleQuestionItem)}
+            {result:buildResultListItem($multipleQuestionItem, $scope)}
     </dl:LightXmlObjectList>
 };
 
@@ -183,14 +186,15 @@ declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:st
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $variableId    the ID of the Variable
+ : @param   $scope    list of types of references we wish to return for this Variable, given as a Scope element. If empty default list will be used.
  :)
-declare function ddi:lookupVariable($variableId as xs:string) as element() {
+declare function ddi:lookupVariable($variableId as xs:string, $scope as element()) as element() {
     let $variable := collection('/db/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($variable)}
+            {result:buildResultListItem($variable, $scope)}
     </dl:LightXmlObjectList>
 };
 
@@ -200,14 +204,15 @@ declare function ddi:lookupVariable($variableId as xs:string) as element() {
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $conceptId    the ID of the Concept
+ : @param   $scope    list of types of references we wish to return for this Concept, given as a Scope element. If empty default list will be used.
  :)
-declare function ddi:lookupConcept($conceptId as xs:string) as element() {
+declare function ddi:lookupConcept($conceptId as xs:string, $scope as element()) as element() {
     let $concept := collection('/db/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($concept)}
+            {result:buildResultListItem($concept, $scope)}
     </dl:LightXmlObjectList>
 };
 
@@ -217,14 +222,15 @@ declare function ddi:lookupConcept($conceptId as xs:string) as element() {
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $universeId    the ID of the Universe
+ : @param   $scope    list of types of references we wish to return for this Universe, given as a Scope element. If empty default list will be used.
  :)
-declare function ddi:lookupUniverse($universeId as xs:string) as element() {
+declare function ddi:lookupUniverse($universeId as xs:string, $scope as element()) as element() {
     let $universe := collection('/db/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($universe)}
+            {result:buildResultListItem($universe, $scope)}
     </dl:LightXmlObjectList>
 };
 
@@ -234,14 +240,15 @@ declare function ddi:lookupUniverse($universeId as xs:string) as element() {
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $categoryId    the ID of the Category
+ : @param   $scope    list of types of references we wish to return for this Category, given as a Scope element. If empty default list will be used.
  :)
-declare function ddi:lookupCategory($categoryId as xs:string) as element() {
+declare function ddi:lookupCategory($categoryId as xs:string, $scope as element()) as element() {
     let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($category)}
+            {result:buildResultListItem($category, $scope)}
     </dl:LightXmlObjectList>
 };
 
@@ -273,6 +280,7 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
     let $search-metadata := $search-parameters/smd:SearchMetaData
     let $search-scope := $search-parameters/s:Scope
 
+    (: For each element type check if we wish to include it in our search (if it is included in the scope). :)
     let $studyUnitScope := if ($search-scope/s:StudyUnit) then local:queryStudyUnit($search-string) else ()
     let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
     let $questionItemScope := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
@@ -290,7 +298,7 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
         $conceptScope              |
         $categoryScope
 
-    return local:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
+    return local:buildLightXmlObjectList($results, (), data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
 };
 
 (:~
@@ -331,6 +339,11 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
  :          &lt;/asp:AdvancedSearchParameters&gt;<br/>
  :)
 declare function ddi:advancedSearch($search-parameters as element()) as element()* {
+    (: Note that in the comments below the word “element” refers to either Variable, QuestionItem, MultipleQuestionItem, Universe, Concept or Category. :)
+
+    (: First check if any of the parameters regarding StudyUnit are set, and for each one that is get a separate list of StudyUnits based on that criteria. :)
+    (: We will later use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
+    (: The reason why we do not simply put all the criteria in one query is that all the parameters are optional, which means that we have to check if they are set and only use them if they are. :)
     let $studyFromId :=
         if($search-parameters/asp:studyId) then
             let $studyId := string($search-parameters/asp:studyId)
@@ -374,21 +387,68 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
             else ()
     
-    let $variableSearch := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
-    let $questionItemSearch := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
-    let $multipleQuestionItemSearch := if ($search-scope/s:MultipleQuestionItem) then local:queryMultipleQuestionItem($search-string) else ()
-    let $universeSearch := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
-    let $conceptSearch := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
-    let $categorySearch := if ($search-scope/s:Category) then local:queryCategory($search-string) else ()
-   
-    (:for $studyUnit in $studyFromTemporalCoverage
-        return <w>{$studyUnit/@id}</w>:)
+    (: Use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
+    let $studyUnits :=
+        $studyFromId               intersect
+        $studyFromTitle            intersect
+        $studyFromTopicalCoverage  intersect
+        $studyFromSpatialCoverage  intersect
+        $studyFromAbstractPurpose  intersect
+        $studyFromCreator          intersect
+        $studyFromKindOfData       intersect
+        $studyFromTemporalCoverage
+    
+    (: For each element type find out if we want to search of that type of element (if the parameter specifying the search-text for that element is set and not empty). :)
+    let $variableSearch := if (data($search-parameters/asp:Variable)) then true() else false()
+    let $questionItemSearch := if (data($search-parameters/asp:QuestionItem)) then true() else false()
+    let $multipleQuestionItemSearch := if (data($search-parameters/asp:MultipleQuestionItem)) then true() else false()
+    let $universeSearch := if (data($search-parameters/asp:Universe)) then true() else false()
+    let $conceptSearch := if (data($search-parameters/asp:Concept)) then true() else false()
+    let $categorySearch := if (data($search-parameters/asp:Category)) then true() else false()
 
-    (:let $results :=
-        local:queryConcept($concept)   |
-        local:queryUniverse($universe)  |
-        local:queryQuestion($question)  |
-        local:queryVariable($variable)  |
-        local:queryCategory($category)
-    return local:buildLightXmlObjectList($results, $hits-perpage, $hit-start):)
+    let $searchSpecificElements :=
+        $variableSearch             or
+        $questionItemSearch         or
+        $multipleQuestionItemSearch or
+        $universeSearch             or
+        $conceptSearch              or
+        $categorySearch
+
+    let $results :=
+    (: If any of the element-specific parameters are set than we are looking for specific elements, not just studies. :)
+    (: In that case we do not return the list of studies acquired by the study-specific parameters, but the list of elements found by the element-specific parameters. :)
+    (: We will query for a specific element type if (and only if) its parameter has been set. :)
+    (: The studies serve only to limit the list of elements to the studies that satisfy certain criteria. :)
+    (: This means that if no elements are found we will return 0 results, regardless of the list of found studies. :)
+    if ($searchSpecificElements) then
+        let $variableResults := if ($variableSearch) then local:queryVariable($search-parameters/asp:Variable) else ()
+        let $questionItemResults := if ($questionItemSearch) then local:queryQuestionItem($search-parameters/asp:QuestionItem) else ()
+        let $multipleQuestionItemResults := if ($multipleQuestionItemSearch) then local:queryMultipleQuestionItem($search-parameters/asp:MultipleQuestionItem) else ()
+        let $universeResults := if ($universeSearch) then local:queryUniverse($search-parameters/asp:Universe) else ()
+        let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
+        let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
+        let $elementsInAllStudies :=
+            $variableResults             |
+            $questionItemResults         |
+            $multipleQuestionItemResults |
+            $universeResults             |
+            $conceptResults              |
+            $categoryResults
+        return
+        for $element in $elementsInAllStudies
+            let $elementStudyId := ""
+            return <W/>
+            
+    (: If no element-specific parameters are set than we return the studies (if any have been found). :)
+    else
+        let $dummy := ()
+        return $studyUnits
+
+    let $search-metadata := $search-parameters/smd:SearchMetaData
+    return local:buildLightXmlObjectList($results, $search-parameters/s:Scope, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
 };
+
+(:declare function ddi:test() as element() {
+    let $studyId := collection('/db/dda-denormalization')//d:Universe/@studyId[ft:query(@id, 'univ-75bc3b5f-eff3-48b1-a643-fa8638ebf459')]
+    return <W>{$studyId}</W>
+};:)
