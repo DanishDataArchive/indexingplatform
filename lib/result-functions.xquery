@@ -171,16 +171,6 @@ declare function local:createCategoryCustomFromId($categoryId as xs:string) as e
 declare function result:buildResultListItem($result as element(), $scope as element()) as element() {
     let $result-name := local-name($result)
     let $label := local:getLabel($result)
-    (:let $referenceList :=
-        if ($result-name eq 'StudyUnit') then result:getStudyUnitReferences($result)
-        else if ($result-name eq 'Variable') then result:getVariableReferences($result)
-        else if ($result-name eq 'QuestionItem') then result:getQuestionItemReferences($result)
-        else if ($result-name eq 'MultipleQuestionItem') then result:getMultipleQuestionItemReferences($result)
-        else if ($result-name eq 'Universe') then result:getUniverseReferences($result)
-        else if ($result-name eq 'Concept') then result:getConceptReferences($result)
-        else if ($result-name eq 'Category') then result:getCategoryReferences($result)
-        else ():)
-    
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         {$label}
@@ -192,6 +182,7 @@ declare function result:buildResultListItem($result as element(), $scope as elem
 declare function result:getReferences($resultElement as element(), $scope as element()) as element()* {
     let $resultElementId := string($resultElement/@id)
     let $resultElementName := local-name($resultElement)
+    (: Get a denormalized list of all elements referred by or referring to this element :)
     let $referenceList :=
              if ($resultElementName eq 'StudyUnit') then collection('/db/dda-denormalization')//d:StudyUnit[ft:query(@id, $resultElementId)]
         else if ($resultElementName eq 'Variable') then collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $resultElementId)]
@@ -202,6 +193,7 @@ declare function result:getReferences($resultElement as element(), $scope as ele
         else if ($resultElementName eq 'Category') then collection('/db/dda-denormalization')//d:Category[ft:query(@id, $resultElementId)]
         else ()
 
+    (: If the scope (list of types of referring elements) is set then use it. Otherwise fall back to a default list, specific for each element type. :)
     let $referenceScope :=
         if ($scope) then $scope
         else
@@ -213,6 +205,8 @@ declare function result:getReferences($resultElement as element(), $scope as ele
             else if ($resultElementName eq 'Category') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
             else ()
 
+    (: For each reference type check if we wish to show it (if it is in scope) and if so create it as a Custom element. :)
+    (: RepresentationType is not really a reference, but we wish to show it for variables. :)
     let $representationType :=
         if ($referenceScope/s:RepresentationType) then
                  if ($resultElement/lp:Representation/lp:TextRepresentation) then <CustomList type="RepresentationType"><Custom option="type">TextRepresentation</Custom></CustomList>
@@ -220,6 +214,7 @@ declare function result:getReferences($resultElement as element(), $scope as ele
             else if ($resultElement/lp:Representation/lp:CodeRepresentation) then <CustomList type="RepresentationType"><Custom option="type">CodeRepresentation</Custom></CustomList>
             else ()
         else ()
+    (: DomainType is not really a reference, but we wish to show it for questions. :)
     let $domainType :=
         if ($referenceScope/s:DomainType) then
                  if ($resultElement/dc:TextDomain) then <CustomList type="DomainType"><Custom option="type">TextDomain</Custom></CustomList>
