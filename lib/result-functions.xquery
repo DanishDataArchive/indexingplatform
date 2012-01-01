@@ -6,6 +6,8 @@ declare namespace r="ddi:reusable:3_1";
 declare namespace dc="ddi:datacollection:3_1";
 declare namespace cc="ddi:conceptualcomponent:3_1";
 declare namespace lp="ddi:logicalproduct:3_1";
+declare namespace s="http://dda.dk/ddi/scope";
+declare namespace d="http://dda.dk/ddi/denormalized-ddi";
 
 (:~
  : Finds the element containing the human readable text and returns its value in a Label element(s)
@@ -20,6 +22,8 @@ declare function local:getLabel($node as element()) as element()* {
         local:createLabel($node/r:Label)
     else if ($node-name eq 'QuestionItem' or $node-name eq 'MultipleQuestionItem') then
         local:createLabel($node/dc:QuestionText/dc:LiteralText/dc:Text)
+    else if ($node-name eq 'StudyUnit') then
+        local:createLabel($node/r:Citation/r:Title)
     else
         local:createLabel($node)
 };
@@ -104,11 +108,11 @@ declare function local:createUniverseCustomFromId($universeId as xs:string) as e
  : @version 1.0
  : @param   $question the QuestionItem
  :)
-declare function local:createQuestionItemCustom($question as element()) as element() {
-    let $dummy := ""
+declare function local:createQuestionItemCustom($questionItem as element()) as element() {
+    let $dummy := ()
     return <CustomList type="QuestionItem">
-        <Custom option="id">{data($question/@id)}</Custom>
-        {local:createCustomLabel($question/dc:QuestionText/dc:LiteralText/dc:Text)}
+        <Custom option="id">{data($questionItem/@id)}</Custom>
+        {local:createCustomLabel($questionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
     </CustomList>
 };
 
@@ -117,11 +121,44 @@ declare function local:createQuestionItemCustom($question as element()) as eleme
  :
  : @author  Kemal Pajevic
  : @version 1.0
- : @param   $questionId the ID of the QuestionItem
+ : @param   $questionItemId the ID of the QuestionItem
  :)
-declare function local:createQuestionItemCustomFromId($questionId as xs:string) as element() {
-    let $question := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionId)]
-    return local:createQuestionItemCustom($question)
+declare function local:createQuestionItemCustomFromId($questionItemId as xs:string) as element() {
+    let $questionItem := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
+    return <CustomList type="QuestionItem">
+        <Custom option="id">{data($questionItem/@id)}</Custom>
+        {local:createCustomLabel($questionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
+    </CustomList>
+};
+
+(:~
+ : Returns a Custom element containing the info about the QuestionItem
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $question the MultipleQuestionItem
+ :)
+declare function local:createMultipleQuestionItemCustom($multipleQuestionItem as element()) as element() {
+    let $dummy := ()
+    return <CustomList type="MultipleQuestionItem">
+        <Custom option="id">{data($multipleQuestionItem/@id)}</Custom>
+        {local:createCustomLabel($multipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
+    </CustomList>
+};
+
+(:~
+ : Returns a Custom element containing the info about the MultipleQuestionItem
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $multipleQuestionItemId the ID of the MultipleQuestionItem
+ :)
+declare function local:createMultipleQuestionItemCustomFromId($multipleQuestionItemId as xs:string) as element() {
+    let $multipleQuestionItem := collection('/db/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
+    return <CustomList type="MultipleQuestionItem">
+        <Custom option="id">{data($multipleQuestionItem/@id)}</Custom>
+        {local:createCustomLabel($multipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
+    </CustomList>
 };
 
 (:~
@@ -132,7 +169,22 @@ declare function local:createQuestionItemCustomFromId($questionId as xs:string) 
  : @param   $variable the Variable
  :)
 declare function local:createVariableCustom($variable as element()) as element() {
-    let $dummy := ""
+    let $dummy := ()
+    return <CustomList type="Variable">
+        <Custom option="id">{data($variable/@id)}</Custom>
+        {local:createCustomLabel($variable/r:Label)}
+    </CustomList>
+};
+
+(:~
+ : Returns a Custom element containing the info about the Variable
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $variableId the ID of the Variable
+ :)
+declare function local:createVariableCustomFromId($variableId as xs:string) as element() {
+    let $variable := collection('/db/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <CustomList type="Variable">
         <Custom option="id">{data($variable/@id)}</Custom>
         {local:createCustomLabel($variable/r:Label)}
@@ -158,32 +210,123 @@ declare function local:createCategoryCustomFromCodeSchemeId($codeSchemeId as xs:
 };
 
 (:~
+ : Returns a Custom element containing the info about the Category
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $categoryId the ID of the Category
+ :)
+declare function local:createCategoryCustomFromId($categoryId as xs:string) as element() {
+    let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryId)]
+    return <CustomList type="Category">
+        <Custom option="id">{data($category/@id)}</Custom>
+        {local:createCustomLabel($category/r:Label)}
+    </CustomList>
+};
+
+(:~
  : Returns a single LightXmlObject element containing a single result 
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $result one element in the result list obtained by the query
  :)
-declare function result:buildResultListItem($result as element()) as element() {
+declare function result:buildResultListItem($result as element(), $scope as element()) as element() {
     let $result-name := local-name($result)
-    let $result-name :=
-        if ($result-name eq 'Content') then local-name($result/..)
-        else $result-name
     let $label := local:getLabel($result)
-    let $referenceList :=
-        if ($result-name eq 'QuestionItem' or $result-name eq 'MultipleQuestionItem') then result:getQuestionReferences($result)
+    (:let $referenceList :=
+        if ($result-name eq 'StudyUnit') then result:getStudyUnitReferences($result)
         else if ($result-name eq 'Variable') then result:getVariableReferences($result)
-        else if ($result-name eq 'Concept') then result:getConceptReferences($result)
+        else if ($result-name eq 'QuestionItem') then result:getQuestionItemReferences($result)
+        else if ($result-name eq 'MultipleQuestionItem') then result:getMultipleQuestionItemReferences($result)
         else if ($result-name eq 'Universe') then result:getUniverseReferences($result)
+        else if ($result-name eq 'Concept') then result:getConceptReferences($result)
         else if ($result-name eq 'Category') then result:getCategoryReferences($result)
-        else <CustomList type="unknown references"/>
+        else ():)
     
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         {$label}
         {local:createStudyUnitCustom($result)}
-        {$referenceList}
+        {result:getReferences($result, $scope)}
     </LightXmlObject>
+};
+
+declare function result:getReferences($resultElement as element(), $scope as element()) as element()* {
+    let $resultElementId := string($resultElement/@id)
+    let $resultElementName := local-name($resultElement)
+    let $referenceList :=
+             if ($resultElementName eq 'StudyUnit') then collection('/db/dda-denormalization')//d:StudyUnit[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Variable') then collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'QuestionItem') then collection('/db/dda-denormalization')//d:QuestionItem[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'MultipleQuestionItem') then collection('/db/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Universe') then collection('/db/dda-denormalization')//d:Universe[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Concept') then collection('/db/dda-denormalization')//d:Concept[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Category') then collection('/db/dda-denormalization')//d:Category[ft:query(@id, $resultElementId)]
+        else ()
+
+    let $referenceScope :=
+        if ($scope) then $scope
+        else
+                 if ($resultElementName eq 'Variable') then <s:Scope><s:QuestionItem/><s:MultipleQuestionItem/><s:Universe/><s:Concept/><s:Category/><s:RepresentationType/></s:Scope>
+            else if ($resultElementName eq 'QuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/><s:DomainType/></s:Scope>
+            else if ($resultElementName eq 'MultipleQuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/></s:Scope>
+            else if ($resultElementName eq 'Universe') then <s:Scope><s:Variable/></s:Scope>
+            else if ($resultElementName eq 'Concept') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
+            else if ($resultElementName eq 'Category') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
+            else ()
+
+    let $representationType :=
+        if ($referenceScope/s:RepresentationType) then
+                 if ($resultElement/lp:Representation/lp:TextRepresentation) then <CustomList type="RepresentationType"><Custom option="type">TextRepresentation</Custom></CustomList>
+            else if ($resultElement/lp:Representation/lp:NumericRepresentation) then <CustomList type="RepresentationType"><Custom option="type" value="{data($resultElement/lp:Representation/lp:NumericRepresentation/@type)}">NumericRepresentation</Custom></CustomList>
+            else if ($resultElement/lp:Representation/lp:CodeRepresentation) then <CustomList type="RepresentationType"><Custom option="type">CodeRepresentation</Custom></CustomList>
+            else ()
+        else ()
+    let $domainType :=
+        if ($referenceScope/s:DomainType) then
+                 if ($resultElement/dc:TextDomain) then <CustomList type="DomainType"><Custom option="type">TextDomain</Custom></CustomList>
+            else if ($resultElement/dc:NumericDomain) then <CustomList type="DomainType"><Custom option="type" value="{data($resultElement/dc:NumericDomain/@type)}">NumericDomain</Custom></CustomList>
+            else if ($resultElement/dc:CodeDomain) then <CustomList type="DomainType"><Custom option="type">CodeDomain</Custom></CustomList>
+            else ()
+        else ()
+    let $variables :=
+        if ($referenceScope/s:Variable) then
+            for $variableReference in $referenceList/d:VariableReferenceList/d:VariableReference
+                return local:createVariableCustomFromId($variableReference/@id)
+        else ()
+    let $questionItems :=
+        if ($referenceScope/s:QuestionItem) then
+            for $questionItemReference in $referenceList/d:QuestionItemReferenceList/d:QuestionItemReference
+                return local:createQuestionItemCustomFromId($questionItemReference/@id)
+        else ()
+    let $multipleQuestionItems :=
+        if ($referenceScope/s:MultipleQuestionItem) then
+            for $multipleQuestionItemReference in $referenceList/d:MultipleQuestionItemReferenceList/d:MultipleQuestionItemReference
+            return local:createMultipleQuestionItemCustomFromId($multipleQuestionItemReference/@id)
+        else ()
+    let $universes :=
+        if ($referenceScope/s:Universe) then
+            for $universeReference in $referenceList/d:UniverseReferenceList/d:UniverseReference
+            return local:createUniverseCustomFromId($universeReference/@id)
+        else ()
+    let $concepts :=
+        if ($referenceScope/s:Concept) then
+            for $conceptReference in $referenceList/d:ConceptReferenceList/d:ConceptReference
+            return local:createConceptCustomFromId($conceptReference/@id)
+        else ()
+    let $categories :=
+        if ($referenceScope/s:Category) then
+            for $categoryReference in $referenceList/d:CategoryReferenceList/d:CategoryReference
+            return local:createCategoryCustomFromId($categoryReference/@id)
+        else ()
+    
+    return $representationType | $domainType | $variables | $questionItems | $multipleQuestionItems | $universes | $concepts | $categories
+};
+
+declare function result:getStudyUnitReferences($question as element()) as element()* {
+    let $dummy := ()
+    return ()
 };
 
 (:~
@@ -193,7 +336,7 @@ declare function result:buildResultListItem($result as element()) as element() {
  : @version 1.0
  : @param   $question QuestionItem to process
  :)
-declare function result:getQuestionReferences($question as element()) as element()* {
+declare function result:getQuestionItemReferences($question as element()) as element()* {
     (:Concept:)
     for $conceptId in $question/dc:ConceptReference/r:ID
         return local:createConceptCustomFromId(string($conceptId)),
@@ -223,6 +366,18 @@ declare function result:getQuestionReferences($question as element()) as element
     (:Category:)
     for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID
         return local:createCategoryCustomFromCodeSchemeId($codeSchemeId)
+};
+
+(:~
+ : Finds all relevant references for a given MultipleQuestionItem (Concept, CodeScheme, Variable, Universe, Category)
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $question MultipleQuestionItem to process
+ :)
+declare function result:getMultipleQuestionItemReferences($question as element()) as element()* {
+    let $dummy := ()
+    return ()
 };
 
 (:~
