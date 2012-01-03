@@ -15,7 +15,8 @@
                 <file name="index/dda/collection.xconf"/>
             </folder>
             <folder name="dda-denormalization">
-                <file name="index/dda-denormalization/collection.xconf"/>
+                <file name="index/dda-denormalization/collection.xconf"
+                />
             </folder>
         </folder>
         <folder name="lib">
@@ -24,6 +25,7 @@
             <file name="lib/search.xquery"/>
         </folder>
         <folder name="rest">
+            <file name="rest/advanced-search.xquery"/>
             <file name="rest/simple-search.xquery"/>
         </folder>
         <folder name="schema">
