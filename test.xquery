@@ -32,7 +32,8 @@ let $advanced-search-parameters :=
         <asp:kindOfData>Spørgeskemaundersøgelse</asp:kindOfData>
         <asp:coverageFrom>2000-08-01</asp:coverageFrom>
         <asp:coverageTo>2000-12-01</asp:coverageTo>
-        <asp:Universe>andet</asp:Universe>
+        <asp:Variable>STUDIENUMMER</asp:Variable>
+        <asp:QuestionItem>studiesituation</asp:QuestionItem>
         <sm:SearchMetaData hits-perpage="10" hit-start="0"/>
         <s:Scope>
             <s:StudyUnit/>
@@ -45,13 +46,13 @@ let $advanced-search-parameters :=
         </s:Scope>
     </asp:AdvancedSearchParameters>
     
-(:return
+return
 if(false()) then
     ddi:simpleSearch($simple-search-parameters)
 else
-    ddi:advancedSearch($advanced-search-parameters):)
+    ddi:advancedSearch($advanced-search-parameters)
 
-return ddi:test()
+(:return ddi:test():)
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)

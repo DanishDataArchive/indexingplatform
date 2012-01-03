@@ -374,14 +374,19 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             let $studyKindOfData := string($search-parameters/asp:kindOfData)
             return collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $studyKindOfData)] else ()
     let $studyFromTemporalCoverage :=
+        (: Is start-date for TemporalCoverage is entered ... :)
         if($search-parameters/asp:coverageFrom) then
             let $studyFrom := dateTime($search-parameters/asp:coverageFrom, xs:time('00:00:00.000+01:00'))
+            (: ... check if end-date also is entered. If so then find only those studies whose both start and end dates are within the specified interval (both dates including) :)
             return if($search-parameters/asp:coverageTo) then
                 let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
                 return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom and r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo] 
+            (: If no end-date is entered then find those studies whose start-date is later (or same) then the specified start-date. :)
             else
                 collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom]
+        (: If no start-date is entered ... :)
         else
+            (: ... check if end-date is entered. If so then find those studies whose end-date is earlier (or same) then the specified end-date. :)
             if($search-parameters/asp:coverageTo) then
                 let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
                 return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
@@ -414,41 +419,47 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
         $conceptSearch              or
         $categorySearch
 
-    let $results :=
     (: If any of the element-specific parameters are set than we are looking for specific elements, not just studies. :)
     (: In that case we do not return the list of studies acquired by the study-specific parameters, but the list of elements found by the element-specific parameters. :)
     (: We will query for a specific element type if (and only if) its parameter has been set. :)
     (: The studies serve only to limit the list of elements to the studies that satisfy certain criteria. :)
     (: This means that if no elements are found we will return 0 results, regardless of the list of found studies. :)
-    if ($searchSpecificElements) then
-        let $variableResults := if ($variableSearch) then local:queryVariable($search-parameters/asp:Variable) else ()
-        let $questionItemResults := if ($questionItemSearch) then local:queryQuestionItem($search-parameters/asp:QuestionItem) else ()
-        let $multipleQuestionItemResults := if ($multipleQuestionItemSearch) then local:queryMultipleQuestionItem($search-parameters/asp:MultipleQuestionItem) else ()
-        let $universeResults := if ($universeSearch) then local:queryUniverse($search-parameters/asp:Universe) else ()
-        let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
-        let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
-        let $elementsInAllStudies :=
-            $variableResults             |
-            $questionItemResults         |
-            $multipleQuestionItemResults |
-            $universeResults             |
-            $conceptResults              |
-            $categoryResults
-        return
-        for $element in $elementsInAllStudies
-            let $elementStudyId := ""
-            return <W/>
-            
-    (: If no element-specific parameters are set than we return the studies (if any have been found). :)
-    else
-        let $dummy := ()
-        return $studyUnits
+    let $results :=
+        if ($searchSpecificElements) then
+            let $variableResults := if ($variableSearch) then local:queryVariable($search-parameters/asp:Variable) else ()
+            let $questionItemResults := if ($questionItemSearch) then local:queryQuestionItem($search-parameters/asp:QuestionItem) else ()
+            let $multipleQuestionItemResults := if ($multipleQuestionItemSearch) then local:queryMultipleQuestionItem($search-parameters/asp:MultipleQuestionItem) else ()
+            let $universeResults := if ($universeSearch) then local:queryUniverse($search-parameters/asp:Universe) else ()
+            let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
+            let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
+    
+            (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+            return (
+                for $variable in $variableResults
+                    let $denormalizedVariable := collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
+                    return if ($studyUnits[@id = $denormalizedVariable/@studyId]) then $variable else (),
+                for $questionItem in $questionItemResults
+                    let $denormalizedQuestionItem := collection('/db/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
+                    return if ($studyUnits[@id = $denormalizedQuestionItem/@studyId]) then $questionItem else (),
+                for $multipleQuestionItem in $multipleQuestionItemResults
+                    let $denormalizedMultipleQuestionItem := collection('/db/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
+                    return if ($studyUnits[@id = $denormalizedMultipleQuestionItem/@studyId]) then $multipleQuestionItem else (),
+                for $universe in $universeResults
+                    let $denormalizedUniverse := collection('/db/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
+                    return if ($studyUnits[@id = $denormalizedUniverse/@studyId]) then $universe else (),
+                for $concept in $conceptResults
+                    let $denormalizedConcept := collection('/db/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
+                    return if ($studyUnits[@id = $denormalizedConcept/@studyId]) then $concept else (),
+                for $category in $categoryResults
+                    let $denormalizedCategory := collection('/db/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
+                    return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
+            )
+                
+        (: If no element-specific parameters are set than we return the studies (if any were found). :)
+        else
+            let $dummy := ()
+            return $studyUnits
 
     let $search-metadata := $search-parameters/smd:SearchMetaData
     return local:buildLightXmlObjectList($results, $search-parameters/s:Scope, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
 };
-
-(:declare function ddi:test() as element() {
-    let $studyId := collection('/db/dda-denormalization')//d:Universe/@studyId[ft:query(@id, 'univ-75bc3b5f-eff3-48b1-a643-fa8638ebf459')]
-    return <W>{$studyId}</W>
-};:)
