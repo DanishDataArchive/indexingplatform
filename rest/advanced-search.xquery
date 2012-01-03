@@ -4,7 +4,7 @@ import module namespace ddi = "http://dda.dk/ddi" at "xmldb:exist:///db/dda/lib/
 
 declare function local:main() as node()? {
     let $search-parameters := request:get-data()/*
-    return ddi:simpleSearch($search-parameters)
+    return ddi:advancedSearch($search-parameters)
 };
 
 local:main()

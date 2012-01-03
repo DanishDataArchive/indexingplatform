@@ -25,6 +25,8 @@ import java.net.PasswordAuthentication;
 public class RESTclient {
 	
 	private static final String BASE_URL = "http://localhost:8080/exist/rest/db/dda/rest/";
+	private static final String SIMPLE_SEARCH_PAGE = "simple-search.xquery";
+	private static final String ADVANCED_SEARCH_PAGE = "advanced-search.xquery";
     private static final QName qname = new QName("", "");
     private static final String USER = "admin";
 	private static final String PASSWORD = "";
@@ -48,7 +50,34 @@ public class RESTclient {
 												    		"        <s:Category/>" +
 												    		"    </s:Scope>" +
 												    		"</ssp:SimpleSearchParameters>";
-
+    private static final String advancedSearchParameters = 	"<asp:AdvancedSearchParameters xmlns:sm=\"http://dda.dk/ddi/search-metadata\"" +
+    														"     xmlns:s=\"http://dda.dk/ddi/scope\"" +
+    														"     xmlns:asp=\"http://dda.dk/ddi/advanced-search-parameters\"" +
+    														"     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
+    														"     xsi:schemaLocation=\"http://dda.dk/ddi/advanced-search-parameters file:/C:/Users/kp/Dropbox/DDA/DDA-IPF/schema/search/advanced-search-parameters.xsd\">" +
+    														"        <asp:studyId>13794</asp:studyId>" +
+    														"        <asp:title>kommunale</asp:title>" +
+    														"        <asp:topicalCoverage>Tillidserhverv</asp:topicalCoverage>" +
+    														"        <asp:spatialCoverage>national</asp:spatialCoverage>" +
+    														"        <asp:abstract-purpose>udvalgstilknytning</asp:abstract-purpose>" +
+    														"        <asp:creator>Søren</asp:creator>" +
+    														"        <asp:kindOfData>Spørgeskemaundersøgelse</asp:kindOfData>" +
+    														"        <asp:coverageFrom>2000-08-01</asp:coverageFrom>" +
+    														"        <asp:coverageTo>2000-12-01</asp:coverageTo>" +
+    														"        <asp:Variable>STUDIENUMMER</asp:Variable>" +
+    														"        <asp:QuestionItem>studiesituation</asp:QuestionItem>" +
+    														"        <sm:SearchMetaData hits-perpage=\"10\" hit-start=\"0\"/>" +
+    														"        <s:Scope>" +
+    														"            <s:StudyUnit/>" +
+    														"            <s:Variable/>" +
+    														"            <s:QuestionItem/>" +
+    														"            <s:MultipleQuestionItem/>" +
+    														"            <s:Universe/>" +
+    														"            <s:Concept/>" +
+    														"            <s:Category/>" +
+    														"        </s:Scope>" +
+    														"    </asp:AdvancedSearchParameters>";
+    
    public RESTclient() {
 	   Authenticator.setDefault(new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -58,13 +87,13 @@ public class RESTclient {
 	
     }
 
-    private void POST() {
+    private void POST(String page, String data) {
 		service = Service.create(qname);
-		service.addPort(qname, HTTPBinding.HTTP_BINDING, BASE_URL + "simple-search.xquery");
+		service.addPort(qname, HTTPBinding.HTTP_BINDING, BASE_URL + page);
         Dispatch<Source> dispatcher = service.createDispatch(qname, Source.class, Service.Mode.MESSAGE);
         Map<String, Object> requestContext = dispatcher.getRequestContext();
         requestContext.put(MessageContext.HTTP_REQUEST_METHOD, "POST");
-        Source result = dispatcher.invoke(new StreamSource(new StringReader(simpleSearchParameters)));
+        Source result = dispatcher.invoke(new StreamSource(new StringReader(data)));
         printSource(result);
     }
 
@@ -97,7 +126,8 @@ public class RESTclient {
     
     public static void main(String argsp[]) {
     	RESTclient client= new RESTclient();
-        client.POST();
+        //client.POST(SIMPLE_SEARCH_PAGE, simpleSearchParameters);
+    	client.POST(ADVANCED_SEARCH_PAGE, advancedSearchParameters);
         //client.GET();
     }
 
