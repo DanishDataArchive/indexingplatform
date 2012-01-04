@@ -457,8 +457,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 
         (: If no element-specific parameters are set than we return the studies (if any were found). :)
         else
-            let $dummy := ()
-            return $studyUnits
+            $studyUnits
 
     let $search-metadata := $search-parameters/smd:SearchMetaData
     return local:buildLightXmlObjectList($results, $search-parameters/s:Scope, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
