@@ -18,15 +18,20 @@
                 <file name="index/dda-denormalization/collection.xconf"
                 />
             </folder>
+            <folder name="dda-urn">
+                <file name="index/dda-urn/collection.xconf"/>
+            </folder>
         </folder>
         <folder name="lib">
             <file name="lib/denormalization-functions.xquery"/>
             <file name="lib/result-functions.xquery"/>
             <file name="lib/search.xquery"/>
+            <file name="lib/urn.xquery"/>
         </folder>
         <folder name="rest">
             <file name="rest/advanced-search.xquery"/>
             <file name="rest/simple-search.xquery"/>
+            <file name="rest/urn-resolution.xquery"/>
         </folder>
         <folder name="schema">
             <folder name="denormalization">

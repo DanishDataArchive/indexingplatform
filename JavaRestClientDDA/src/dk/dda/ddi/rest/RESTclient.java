@@ -15,6 +15,7 @@ import javax.xml.ws.Service;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.http.HTTPBinding;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Map;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -25,8 +26,10 @@ import java.net.PasswordAuthentication;
 public class RESTclient {
 	
 	private static final String BASE_URL = "http://localhost:8080/exist/rest/db/dda/rest/";
+	private static final String BASE_URN_URL = "http://localhost:8080/exist/rest/db/dda-urn/rest/";
 	private static final String SIMPLE_SEARCH_PAGE = "simple-search.xquery";
 	private static final String ADVANCED_SEARCH_PAGE = "advanced-search.xquery";
+	private static final String URN_RESOLUTION_PAGE = "urn-resolution.xquery";
     private static final QName qname = new QName("", "");
     private static final String USER = "admin";
 	private static final String PASSWORD = "";
@@ -77,6 +80,7 @@ public class RESTclient {
     														"            <s:Category/>" +
     														"        </s:Scope>" +
     														"    </asp:AdvancedSearchParameters>";
+    private static final String urn = "urn:ddi:dk.dda:quei-c5539352-4c17-42e7-b6b4-ea775ccc82fb:1.0.0";
     
    public RESTclient() {
 	   Authenticator.setDefault(new Authenticator() {
@@ -89,7 +93,7 @@ public class RESTclient {
 
     private void POST(String page, String data) {
 		service = Service.create(qname);
-		service.addPort(qname, HTTPBinding.HTTP_BINDING, BASE_URL + page);
+		service.addPort(qname, HTTPBinding.HTTP_BINDING, page);
         Dispatch<Source> dispatcher = service.createDispatch(qname, Source.class, Service.Mode.MESSAGE);
         Map<String, Object> requestContext = dispatcher.getRequestContext();
         requestContext.put(MessageContext.HTTP_REQUEST_METHOD, "POST");
@@ -98,15 +102,15 @@ public class RESTclient {
     }
 
 
-//    private  void GET() {
-//		service = Service.create(qname);
-//		service.addPort(qname, HTTPBinding.HTTP_BINDING, BASE_URL + "simple-search.xquery");
-//		Dispatch<Source> dispatcher = service.createDispatch(qname, Source.class, Service.Mode.MESSAGE);
-//        Map<String, Object> requestContext = dispatcher.getRequestContext();
-//        requestContext.put(MessageContext.HTTP_REQUEST_METHOD, "GET");
-//        Source result = dispatcher.invoke(null);
-//        printSource(result);
-//    }
+    private  void GET(String page, String parameters) {
+    	service = Service.create(qname);
+		service.addPort(qname, HTTPBinding.HTTP_BINDING, page + "?" + parameters);
+		Dispatch<Source> dispatcher = service.createDispatch(qname, Source.class, Service.Mode.MESSAGE);
+        Map<String, Object> requestContext = dispatcher.getRequestContext();
+        requestContext.put(MessageContext.HTTP_REQUEST_METHOD, "GET");
+        Source result = dispatcher.invoke(null);
+        printSource(result);
+    }
 
 
 /** Convenience method for printing the source XML to the console
@@ -126,9 +130,10 @@ public class RESTclient {
     
     public static void main(String argsp[]) {
     	RESTclient client= new RESTclient();
-        //client.POST(SIMPLE_SEARCH_PAGE, simpleSearchParameters);
-    	client.POST(ADVANCED_SEARCH_PAGE, advancedSearchParameters);
-        //client.GET();
+        //client.POST(BASE_URL + SIMPLE_SEARCH_PAGE, simpleSearchParameters);
+    	//client.POST(BASE_URL + ADVANCED_SEARCH_PAGE, advancedSearchParameters);
+    	String httpParameters = "urn=" + urn;
+        client.GET(BASE_URN_URL + URN_RESOLUTION_PAGE, httpParameters);
     }
 
 }
