@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<project name="ddieditor-xmlbeans" default="scomp" basedir=".">
+
+	<!-- properties -->
+	<property file="build.properties" />
+	<property environment="env" />
+	<property file="${basedir}/../lib-java/lib.properties" />
+
+	<!-- directories -->
+	<property name="lib.dir" value="${basedir}/../lib-java/" />
+	<property name="locallib.dir" value="${basedir}/lib"/>
+	<property name="source.dir" value="${basedir}/source/resources" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="xmlsource.dir" value="${basedir}/xmlsource" />
+	<property name="xmllib.dir" value="${basedir}/xmllib" />
+	<property name="build.dir.jar" value="${build.dir}/jar" />
+	<property name="build.dir.jdoc" value="${build.dir}/javadoc" />
+	<property name="build.dir.resources" value="${build.dir}/resources" />
+
+	<!-- javac arguments -->
+	<property name="javac.debug" value="on" />
+	<property name="javac.deprecation" value="off" />
+	<property name="javac.optimize" value="off" />
+	<property name="javac.depend" value="off" />
+	<property name="javac.verbose" value="off" />
+	<property name="build.compiler.pedantic" value="no" />
+	<property name="java.heap.init" value="256m" />
+	<property name="java.heap.max" value="1024m" />
+
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="xmlbeans/${version.xmlbeans}/*.jar" />
+		</fileset>
+		<fileset dir="${xmllib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement path="${build.dir}" />
+	</path>
+
+	<!-- classpath -->
+	<path id="svn.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- taskdef  -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${locallib.dir}/ant-contrib.jar" />
+		</classpath>
+	</taskdef>
+
+	<taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="svn.classpath"/>
+
+	<target name="init" description="Set up project">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir.jdoc}" />
+		<mkdir dir="${build.dir.resources}" />
+
+		<echo message="Subversion export of: ${svn.url}" />
+		<svn>
+			<export force="true" srcurl="${svn.url}" revision="HEAD" destpath="${build.dir.resources}" />
+		</svn>
+	</target>
+
+	<target name="clean" description="Clean project">
+		<delete dir="${build.dir}" quiet="true" />
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="${xmlsource.dir}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<delete quiet="true">
+			<fileset dir="${xmllib.dir}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="deploy" description="Deploy jar file to ddi-indexingplatform project">
+		  <copy file="${xmllib.dir}/${xmljar.name}" tofile="../ddi-indexingplatform/lib/${xmljar.name}"/>
+	</target>
+
+	<target name="scomp" depends="init" description="Compiles a schema into xml beans classes and metadata">
+		<taskdef name="xmlbean" classname="org.apache.xmlbeans.impl.tool.XMLBean" classpathref="project.classpath" />
+		<xmlbean classgendir="${build.dir}" download="false" javasource="1.5" destfile="${xmllib.dir}/${xmljar.name}" 
+			srcgendir="${xmlsource.dir}" classpathref="project.classpath" verbose="true" 
+			memoryMaximumSize="${java.heap.max}" ignoreduplicatesinnamespaces="misc.extra">
+			<fileset dir="${build.dir.resources}">
+				<include name="**/*.xsd" />
+			</fileset>
+			<fileset dir="${source.dir}">
+				<include name="*.xsdconfig" />
+			</fileset>
+		</xmlbean>
+		<antcall target="update-jar"/>
+	</target>
+
+	<target name="update-jar" depends="javadoc" description="Updates the jar manifest and include javadoc">
+		<tstamp prefix="build_time">
+			<format property="TSTAMP" pattern="dd.MM.yyyy HH:mm:ss" />
+		</tstamp>
+		<jar destfile="${xmllib.dir}/${xmljar.name}" update="true">
+			<manifest>
+				<section name="Version-Info">
+					<attribute name="Version" value="${xmljar.version}" />
+					<attribute name="Built-Date" value="${build_time.TSTAMP} (dd.MM.yyyy HH:mm:ss)" />
+					<attribute name="Built-By" value="${user.name}" />
+				</section>
+			</manifest>
+			<!--fileset dir="${build.dir.jdoc}" /-->
+		</jar>
+		<!-- copy javadoc into jar file -->
+		<zip destfile="${xmllib.dir}/${xmljar.name}" update="true">
+    		<zipfileset dir="${build.dir.jdoc}" includes="**/*" prefix="javadoc"/>
+  		</zip>
+	</target>
+
+	<target name="javadoc" description="Compile javadoc for compiled schema code">
+		<javadoc sourcepath="${xmlsource.dir}" destdir="${build.dir.jdoc}" classpathref="project.classpath" splitindex="true" verbose="true">
+			<fileset dir="${xmlsource.dir}">
+				<include name="org/ddiallince/**/*" />
+				<exclude name="dk/dda/**/*" />
+			</fileset>
+		</javadoc>
+	</target>
+</project>
