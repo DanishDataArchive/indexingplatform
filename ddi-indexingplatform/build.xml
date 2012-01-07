@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project basedir="." default="test" name="DDA-IPF" xmlns:xdb="http://exist-db.org/ant">
+<project basedir="." default="echo-env" name="DDA-IPF" xmlns:xdb="http://exist-db.org/ant">
 	<!-- properties -->
 	<property environment="env" />
 	<property name="exist.home" value="${env.EXIST_HOME}" />
@@ -174,7 +174,7 @@
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- test										 -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<target name="test" depends="compile" description="Run local testcases, based as a mod of http://exist-db.org/testing/testing.html Note: eXist must NOT be running">
+	<target name="test-query" depends="compile" description="Run local testcases, based as a mod of http://exist-db.org/testing/testing.html Note: eXist must NOT be running">
 		<mkdir dir="${junit.results.dir}" />
 		<junit haltonfailure="false" printsummary="yes" showoutput="yes" maxmemory="512m">
 			<sysproperty key="exist.home" value="${exist.home}" />
