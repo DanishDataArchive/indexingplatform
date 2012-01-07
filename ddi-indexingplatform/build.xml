@@ -59,6 +59,19 @@
 		</fileset>
 	</path>
 
+	<path id="classpath.svn">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="classpath.xmlbeans">
+		<fileset dir="${lib.dir}">
+			<include name="xmlbeans/*.jar" />
+			<include name="dk.dda.indexingplatform.xmlbeans.jar" />
+		</fileset>
+	</path>
+
 	<!-- typedef -->
 	<typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
 		<classpath refid="classpath.core" />
@@ -70,6 +83,8 @@
 			<pathelement location="${lib.dir}/ant-contrib.jar" />
 		</classpath>
 	</taskdef>
+
+	<taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="classpath.svn" />
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- standard targets 							 -->
@@ -85,6 +100,15 @@
 		<echo message="xmldb.uri: ${xmldb.uri}" />
 	</target>
 
+	<target name="init" description="Checkout jars">
+		<mkdir dir="${basedir}/lib/xmlbeans" />
+		<echo message="Subversion export of: xmlbeans-2.5.0" />
+		<svn>
+			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/xmlbeans/2.5.0" 
+				revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
+		</svn>
+	</target>
+
 	<target name="compile" description="Compile source and testsource">
 		<mkdir dir="${build.classes.dir}" />
 		<javac destdir="${build.classes.dir}" fork="yes">
@@ -92,11 +116,14 @@
 				<path refid="classpath.core" />
 				<path refid="classpath.junit" />
 				<path refid="classpath.aspectj" />
+				<path refid="classpath.xmlbeans" />
 			</classpath>
 			<src path="${src.dir}" />
 			<src path="${testsrc.dir}" />
 		</javac>
-
+		<echo message="----" />
+		<echo message="If have not done -Remember to checkout the xmlbeans-2.5.0 via the 'init' target ;-)" />
+		<echo message="----" />
 	</target>
 
 	<target name="clean" description="Clean source and testsource builds">
@@ -182,18 +209,40 @@
 			<classpath refid="classpath.core" />
 			<classpath refid="classpath.junit" />
 			<classpath refid="classpath.aspectj" />
-
+			<classpath refid="classpath.xmlbeans" />
+			
 			<formatter type="plain" />
 			<formatter type="xml" />
 
 			<batchtest fork="yes" todir="${junit.results.dir}">
 				<fileset dir="${basedir}/testsrc">
-					<include name="**/*Test.java" />
+					<include name="dk./dda/exist/test/**/*Test.java" />
 				</fileset>
 			</batchtest>
 		</junit>
 	</target>
+	
+	<target name="test-junit" depends="compile" description="Run JUnit testcases Note: eXist MUST be running">
+		<mkdir dir="${junit.results.dir}" />
+		<junit haltonfailure="false" printsummary="yes" showoutput="yes" maxmemory="512m">
+			<sysproperty key="exist.home" value="${exist.home}" />
+			<sysproperty key="log4j.configuration" value="file://${basedir}/log4j.xml" />
+			<classpath refid="classpath.core" />
+			<classpath refid="classpath.junit" />
+			<classpath refid="classpath.aspectj" />
+			<classpath refid="classpath.xmlbeans" />
+			
+			<formatter type="plain" />
+			<formatter type="xml" />
 
+			<batchtest fork="yes" todir="${junit.results.dir}">
+				<fileset dir="${basedir}/testsrc">
+					<include name="dk/dda/indexingplatform/rest/**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
 	<target name="test-report" description="Generate HTML test reports">
 		<echo message="-----------------------------" />
 		<echo message="Creating reports, please wait" />
