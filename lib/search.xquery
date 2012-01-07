@@ -3,7 +3,6 @@ xquery version "1.0";
 module namespace ddi = "http://dda.dk/ddi";
 
 import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/lib/result-functions.xquery";(:"xmldb:exist:///db/dda/lib/result-functions.xquery":)
-(:import module namespace kwic="http://exist-db.org/xquery/kwic";:)
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -106,42 +105,6 @@ declare function local:queryVariable($search-string as xs:string) as element()* 
  :)
 declare function local:queryCategory($search-string as xs:string) as element()* {
     collection('/db/dda')//lp:Category[ft:query(r:Label, $search-string)]
-};
-
-(:~
- : Makes a LightXmlObjectList element containing the info based on the result list
- :
- : @author  Kemal Pajevic
- : @version 1.0
- : @param   $results the result list to process
- : @param   $hits-perpage  the number of hits to be shown per page
- : @param   $hit-start     number of the first hit to be shown on the page
- :)
-declare function local:buildLightXmlObjectList($results as element()*, $scope as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
-    let $result-count := count($results)
-    let $hit-end := if ($result-count lt $hits-perpage) then $result-count
-                    else $hit-start + $hits-perpage
-    let $number-of-pages :=  xs:integer(ceiling($result-count div $hits-perpage))
-    let $current-page := xs:integer(($hit-start + $hits-perpage) div $hits-perpage)
-
-    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
-        xmlns:rmd="http://dda.dk/ddi/result-metadata">
-        <rmd:ResultMetaData
-            result-count="{$result-count}"
-            hit-start="{$hit-start}"
-            hit-end="{$hit-end}"
-            hits-perpage="{$hits-perpage}"
-            number-of-pages="{$number-of-pages}"
-            current-page="{$current-page}"/>
-        {
-        for $result in $results[position() = $hit-start to $hit-end]
-        order by ft:score($result) descending
-            return result:buildResultListItem($result, $scope)
-        (:kwic:summarize($result, <config width="40"/>):)
-        }
-    </dl:LightXmlObjectList>
 };
 
 (:~
@@ -253,6 +216,41 @@ declare function ddi:lookupCategory($categoryId as xs:string, $scope as element(
 };
 
 (:~
+ : Makes a LightXmlObjectList element containing the info based on the result list
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $results the result list to process
+ : @param   $hits-perpage  the number of hits to be shown per page
+ : @param   $hit-start     number of the first hit to be shown on the page
+ :)
+declare function local:buildLightXmlObjectList($results as element()*, $scope as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+    let $result-count := count($results)
+    let $hit-end := if ($result-count lt $hits-perpage) then $result-count
+                    else $hit-start + $hits-perpage
+    let $number-of-pages :=  xs:integer(ceiling($result-count div $hits-perpage))
+    let $current-page := xs:integer(($hit-start + $hits-perpage) div $hits-perpage)
+
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:rmd="http://dda.dk/ddi/result-metadata">
+        <rmd:ResultMetaData
+            result-count="{$result-count}"
+            hit-start="{$hit-start}"
+            hit-end="{$hit-end}"
+            hits-perpage="{$hits-perpage}"
+            number-of-pages="{$number-of-pages}"
+            current-page="{$current-page}"/>
+        {
+        for $result in $results[position() = $hit-start to $hit-end]
+        (:order by ft:score($result) descending:)
+            return result:buildResultListItem($result, $scope)
+        }
+    </dl:LightXmlObjectList>
+};
+
+(:~
  : Makes a free-text search in all indexed elements and returns a list of LightXmlObject elements with the results
  :
  : @author  Kemal Pajevic
@@ -282,23 +280,25 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
 
     (: For each element type check if we wish to include it in our search (if it is included in the scope). :)
     let $studyUnitScope := if ($search-scope/s:StudyUnit) then local:queryStudyUnit($search-string) else ()
-    let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
+    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
+    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
     let $questionItemScope := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
     let $multipleQuestionItemScope := if ($search-scope/s:MultipleQuestionItem) then local:queryMultipleQuestionItem($search-string) else ()
-    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
-    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
+    let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
     let $categoryScope := if ($search-scope/s:Category) then local:queryCategory($search-string) else ()
     
-    let $results := 
-        $studyUnitScope            |
-        $variableScope             |
-        $questionItemScope         |
-        $multipleQuestionItemScope |
-        $universeScope             |
-        $conceptScope              |
+    let $results :=
+    (
+        $studyUnitScope            ,
+        $conceptScope              ,
+        $universeScope             ,
+        $questionItemScope         ,
+        $multipleQuestionItemScope ,
+        $variableScope             ,
         $categoryScope
+    )
 
-    return local:buildLightXmlObjectList($results, (), data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
+    return local:buildLightXmlObjectList($results, <s:Scope/>, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
 };
 
 (:~
