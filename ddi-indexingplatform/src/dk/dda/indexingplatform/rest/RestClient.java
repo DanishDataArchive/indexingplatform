@@ -1,9 +1,18 @@
 package dk.dda.indexingplatform.rest;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.Authenticator;
+import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
@@ -27,7 +36,7 @@ public class RestClient {
 	private static final QName qname = new QName("", "");
 	private static final String USER = "admin";
 	private static final String PASSWORD = "";
-public boolean logQuery = false;
+	public boolean logQuery = false;
 	private Service service;
 
 	public RestClient() {
@@ -47,7 +56,7 @@ public boolean logQuery = false;
 				Source.class, Service.Mode.MESSAGE);
 
 		// context
-		// TODO change to GET!
+		// TODO change to HTTP GET!
 		Map<String, Object> requestContext = dispatcher.getRequestContext();
 		requestContext.put(MessageContext.HTTP_REQUEST_METHOD, "POST");
 
@@ -57,7 +66,7 @@ public boolean logQuery = false;
 		return result;
 	}
 
-	public String getReturnString(RestTarget restTarget, String pox)
+	public String getAsString(RestTarget restTarget, String pox)
 			throws TransformerException {
 		return transform(get(restTarget, pox));
 	}
@@ -74,10 +83,41 @@ public boolean logQuery = false;
 		Transformer transformer = TransformerFactory.newInstance()
 				.newTransformer();
 		transformer.transform(source, new StreamResult(result));
-		
+
 		if (logQuery) {
 			System.out.println(result.toString());
 		}
 		return result.toString();
 	}
+
+	public String getUrn(String urn) throws MalformedURLException, IOException {
+		URLConnection connection = new URL(BASE_URL + RestTarget.URN_RESOLVE.getQuery()
+				+ "?urn=" + urn).openConnection();
+		connection.setRequestProperty("Accept-Charset", "UTF-8");
+		InputStream response = connection.getInputStream();
+		
+		return convertStreamToString(response);
+	}
+	
+	private String convertStreamToString(InputStream is)
+            throws IOException {     
+        if (is != null) {
+            Writer writer = new StringWriter();
+
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(
+                        new InputStreamReader(is, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } finally {
+                is.close();
+            }
+            return writer.toString();
+        } else {        
+            return "";
+        }
+    }
 }
