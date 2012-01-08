@@ -1,4 +1,0 @@
-- eXist does not support schema import
-  - no automatic validation of input/output
-  - no typing with custom types (in parameters or return)
-  - cannot use "instance of" or "typeswitch"
