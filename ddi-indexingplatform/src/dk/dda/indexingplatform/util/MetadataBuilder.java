@@ -3,40 +3,105 @@ package dk.dda.indexingplatform.util;
 import java.math.BigInteger;
 
 import org.apache.xmlbeans.XmlCursor;
-import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlCursor.TokenType;
+import org.apache.xmlbeans.XmlObject;
 
+import dk.dda.ddi.indexingplatform.advancedsearch.AdvancedSearchParametersDocument;
+import dk.dda.ddi.indexingplatform.advancedsearch.AdvancedSearchParametersType;
+import dk.dda.ddi.indexingplatform.scope.ScopeDocument;
 import dk.dda.ddi.indexingplatform.scope.ScopeType;
+import dk.dda.ddi.indexingplatform.searchmetadata.SearchMetaDataDocument;
 import dk.dda.ddi.indexingplatform.searchmetadata.SearchMetaDataType;
 import dk.dda.ddi.indexingplatform.simplesearch.SimpleSearchParametersDocument;
 import dk.dda.ddi.indexingplatform.simplesearch.SimpleSearchParametersType;
 
 public class MetadataBuilder {
 	/**
-	 * Constructs a simple search parameter with hits pr page: 10 and start hit: 1 
+	 * Constructs a basic simple search parameter with full search scope and
+	 * -meta data
+	 * 
 	 * @return simple search parameter
 	 */
 	public static SimpleSearchParametersDocument getSimpleSearchParameters() {
 		SimpleSearchParametersDocument doc = SimpleSearchParametersDocument.Factory
 				.newInstance();
+
 		SimpleSearchParametersType type = doc.addNewSimpleSearchParameters();
-
-		ScopeType scope = type.addNewScope();
-		scope.addNewCategory();
-		scope.addNewConcept();
-		scope.addNewMultipleQuestionItem();
-		scope.addNewQuestionItem();
-		scope.addNewStudyUnit();
-		scope.addNewUniverse();
-		scope.addNewVariable();
-
-		SearchMetaDataType searchMetaData = type.addNewSearchMetaData();
-		searchMetaData.setHitsPerpage(new BigInteger("10"));
-		searchMetaData.setHitStart(new BigInteger("0"));
-
+		type.setScope(getScope());
+		type.setSearchMetaData(getSearchMetaData());
 		return doc;
 	}
-	
+
+	/**
+	 * Constructs a basic advanced search parameter with full search scope and
+	 * -meta data
+	 * 
+	 * @return advanced search parameter
+	 */
+	public static AdvancedSearchParametersDocument getAdvancedSearchParametersDocument() {
+		AdvancedSearchParametersDocument doc = AdvancedSearchParametersDocument.Factory
+				.newInstance();
+
+		AdvancedSearchParametersType type = doc
+				.addNewAdvancedSearchParameters();
+		// type.setAbstractPurpose("");
+		// type.setCategory("");
+		// type.setConcept("");
+
+		// temporal coverage
+		// Calendar calFrom = Calendar.getInstance();
+		// calFrom.clear();
+		// calFrom.set(1970, 0, 0);
+		// type.setCoverageFrom(calFrom);
+		// Calendar calTo = Calendar.getInstance();
+		// type.setCoverageTo(calTo);
+
+		// type.setCreator("");
+		// type.setKindOfData("");
+		// type.setMultipleQuestionItem("");
+		// type.setQuestionItem("");
+		// type.setStudyId("");
+		// type.setTitle("");
+		// type.setTopicalCoverage("");
+		// type.setUniverse("");
+		// type.setVariable("");
+
+		type.setScope(getScope());
+		type.setSearchMetaData(getSearchMetaData());
+		return doc;
+	}
+
+	/**
+	 * Constructs a full search scope
+	 * 
+	 * @return scope
+	 */
+	public static ScopeType getScope() {
+		ScopeType type = ScopeDocument.Factory.newInstance().addNewScope();
+
+		type.addNewCategory();
+		type.addNewConcept();
+		type.addNewMultipleQuestionItem();
+		type.addNewQuestionItem();
+		type.addNewStudyUnit();
+		type.addNewUniverse();
+		type.addNewVariable();
+		return type;
+	}
+
+	/**
+	 * Constructs search meta data with hits pr. page: 10 and start hit: 1
+	 * 
+	 * @return search meta data
+	 */
+	public static SearchMetaDataType getSearchMetaData() {
+		SearchMetaDataType type = SearchMetaDataDocument.Factory.newInstance()
+				.addNewSearchMetaData();
+		type.setHitsPerpage(new BigInteger("10"));
+		type.setHitStart(new BigInteger("0"));
+		return type;
+	}
+
 	/**
 	 * Retrieve text on a mixed content element
 	 * 
@@ -45,10 +110,10 @@ public class MetadataBuilder {
 	 * @return text
 	 */
 	public static String getTextOnMixedElement(XmlObject xmlObject) {
-		if (xmlObject==null) { // guard
+		if (xmlObject == null) { // guard
 			return "";
 		}
-		
+
 		XmlCursor xmlCursor = xmlObject.newCursor();
 		// toLastAttribute does not skip namespaces - so continue
 		// until none empty TEXT token
@@ -76,7 +141,7 @@ public class MetadataBuilder {
 		xmlCursor.dispose();
 		return text;
 	}
-	
+
 	/**
 	 * Set text on a mixed content element at first position after attributs
 	 * 
