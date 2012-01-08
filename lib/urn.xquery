@@ -1,8 +1,14 @@
-module namespace urn = "http://dda.dk/ddi/urn";
-
+xquery version "1.0";
 
 (:~
- : Returns the element specified by an ID and version
+ : This module contains the functions used to find DDI elements by URN.
+ : The entry function for this module is <b> urn:resolveUrn</b>.<br /> 
+ : The rest of the functions are local and cannot be used externally.
+ :)
+module namespace urn = "http://dda.dk/ddi/urn";
+
+(:~
+ : Returns the DDI element specified by an ID and version
  :
  : @author  Kemal Pajevic
  : @version 1.0
@@ -14,7 +20,7 @@ declare function urn:resolveUrn($urn as xs:string) as element()* {
     (: We look up an identifiable element by the ID (token 4) and for each element it finds for that ID we compare its nearest version with the version specified in the URN (token 5) :)
     for $identifiableFromId in collection('/db/dda-urn')//*[ft:query(@id, $tokenizedUrn[4])]
         return
-            if (urn:findVersion($identifiableFromId) = $tokenizedUrn[5]) then
+            if (local:findVersion($identifiableFromId) = $tokenizedUrn[5]) then
                 $identifiableFromId
             else ()
 };
@@ -28,12 +34,12 @@ declare function urn:resolveUrn($urn as xs:string) as element()* {
  : @version 1.0
  : @param   $element the element for which we want to find the version
  :)
-declare function urn:findVersion($element as element()) as xs:string {
+declare function local:findVersion($element as element()) as xs:string {
     if ($element/@version) then
         $element/@version
     else
         let $parent := $element/..
         return if ($parent) then
-            urn:findVersion($parent)
+            local:findVersion($parent)
         else ()
 };
