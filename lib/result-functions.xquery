@@ -1,3 +1,12 @@
+xquery version "1.0";
+
+(:~
+ : This module contains the functions used to process results and is used by the search module.
+ : The entry function for this module is <b>result:buildResultListItem</b>.<br />
+ : Additionally, it is possible to find references for a specific DDI element using the <b>result:getReferences</b> function.
+ : This function is used by <b>result:buildResultListItem</b> and it is not necessary to call it manually.<br />
+ : The rest of the functions are local and cannot be used externally.
+ :)
 module namespace result = "http://dda.dk/ddi/result";
 
 import module namespace kwic="http://exist-db.org/xquery/kwic";
@@ -175,12 +184,14 @@ declare function result:buildResultListItem($result as element(), $scope as elem
     let $label := local:getLabel($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
+        (: Find and return the contexts where the matches were found with the matches highlighted. :)
+        (: Find and return the contexts where the matches were found with the matches highlighted. :)
         <Context>
         {
-            (:kwic:summarize($result, <config width="100"/>):)
             let $matches := util:expand($result)//exist:match
             for $ancestor in $matches/ancestor::*[1]
-                return kwic:get-summary($ancestor, $ancestor//exist:match[1], <config width="100"/>, ())
+                for $match in $ancestor//exist:match
+                    return kwic:get-summary($ancestor, $match, <config width="100"/>, ())
         }
         </Context>
         {$label}
@@ -189,6 +200,36 @@ declare function result:buildResultListItem($result as element(), $scope as elem
     </LightXmlObject>
 };
 
+(:~
+ : Returns a list of references for s specific element, i.e. the elements either referred by or referring to that element.
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $resultElement a DDI element
+ : @param   $scope the list of reference types we wish to return with the following format:<br/>
+ :<pre>
+ :    &lt;s:Scope&gt;
+ :        &lt;s:StudyUnit/&gt;<br/>
+ :        &lt;s:Variable/&gt;<br/>
+ :        &lt;s:QuestionItem/&gt;<br/>
+ :        &lt;s:MultipleQuestionItem/&gt;<br/>
+ :        &lt;s:Universe/&gt;<br/>
+ :        &lt;s:Concept/&gt;<br/>
+ :        &lt;s:Category/&gt;<br/>
+ :    &lt;/s:Scope&gt;<br/>
+ :</pre>
+ : Each child-element is optional and if it is present the search will for all found results return a list of references of the type specified by that element (if any exist).
+ : The child-elements have no type or content; only the existence is checked.<br/>
+ : If the scope is not specified the default list is used, which is:
+ :<pre>
+ :  For Variable:              &lt;s:Scope&gt;&lt;s:QuestionItem/&gt;&lt;s:MultipleQuestionItem/&gt;&lt;s:Universe/&gt;&lt;s:Concept/&gt;&lt;s:Category/&gt;&lt;s:RepresentationType/&gt;&lt;/s:Scope&gt;<br />
+ :  For QuestionItem:          &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;s:Universe/&gt;&lt;s:Concept/&gt;&lt;s:Category/&gt;&lt;s:DomainType/&gt;&lt;/s:Scope&gt;<br />
+ :  For MultipleQuestionItem:  &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;s:Universe/&gt;&lt;s:Concept/&gt;&lt;s:Category/&gt;&lt;/s:Scope&gt;<br />
+ :  For Universe:              &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;/s:Scope&gt;<br />
+ :  For Concept:               &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;s:QuestionItem/&gt;&lt;s:MultipleQuestionItem/&gt;&lt;/s:Scope&gt;<br />
+ :  For Category:              &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;s:QuestionItem/&gt;&lt;s:MultipleQuestionItem/&gt;&lt;/s:Scope&gt;<br />
+ :</pre>
+ :)
 declare function result:getReferences($resultElement as element(), $scope as element()) as element()* {
     let $resultElementId := string($resultElement/@id)
     let $resultElementName := local-name($resultElement)
