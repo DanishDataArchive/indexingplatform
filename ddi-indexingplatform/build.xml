@@ -102,9 +102,10 @@
 
 	<target name="init" description="Checkout jars">
 		<mkdir dir="${basedir}/lib/xmlbeans" />
-		<echo message="Subversion export of: xmlbeans-2.5.0" />
+		<echo message="Subversion export of: xmlbeans-2.5.0 and ddi-3-xmlbeans" />
 		<svn>
 			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/xmlbeans/2.5.0" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
+			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/generated/ddi-3-xmlbeans.jar" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
 		</svn>
 	</target>
 
