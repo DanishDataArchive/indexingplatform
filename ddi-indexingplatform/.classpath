@@ -24,9 +24,6 @@
 	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/exist-optional.jar"/>
 	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/tools/ant/lib/ant.jar"/>
 	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/test/junit-4.8.2.jar"/>
-	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/core/commons-io-2.1.jar"/>
-	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/core/slf4j-api-1.6.4.jar"/>
-	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/core/slf4j-log4j12-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/dk.dda.indexingplatform.xmlbeans.jar"/>
 	<classpathentry kind="lib" path="/lib-java/xmlbeans/2.5.0/jsr173_1.0_api.jar"/>
 	<classpathentry kind="lib" path="/lib-java/xmlbeans/2.5.0/resolver.jar"/>
@@ -34,5 +31,8 @@
 	<classpathentry kind="lib" path="/lib-java/xmlbeans/2.5.0/xbean.jar"/>
 	<classpathentry kind="lib" path="/lib-java/xmlbeans/2.5.0/xmlbeans-qname.jar"/>
 	<classpathentry kind="lib" path="/lib-java/xmlbeans/2.5.0/xmlpublic.jar"/>
+	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/core/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/core/slf4j-api-1.6.2.jar"/>
+	<classpathentry kind="lib" path="/home/ddajvj/app/eXist/eXist/lib/core/slf4j-log4j12-1.6.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
