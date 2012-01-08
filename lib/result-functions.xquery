@@ -1,5 +1,7 @@
 module namespace result = "http://dda.dk/ddi/result";
 
+import module namespace kwic="http://exist-db.org/xquery/kwic";
+
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
 declare namespace r="ddi:reusable:3_1";
@@ -173,6 +175,14 @@ declare function result:buildResultListItem($result as element(), $scope as elem
     let $label := local:getLabel($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
+        <Context>
+        {
+            (:kwic:summarize($result, <config width="100"/>):)
+            let $matches := util:expand($result)//exist:match
+            for $ancestor in $matches/ancestor::*[1]
+                return kwic:get-summary($ancestor, $ancestor//exist:match[1], <config width="100"/>, ())
+        }
+        </Context>
         {$label}
         {local:createStudyUnitCustom($result)}
         {result:getReferences($result, $scope)}

@@ -1,10 +1,11 @@
 import module namespace ddi = "http://dda.dk/ddi" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/lib/search.xquery";(:"xmldb:exist:///db/dda/lib/search.xquery":)
+import module namespace urn = "http://dda.dk/ddi/urn" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/lib/urn.xquery";
 
 let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"
  xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
  xmlns:s="http://dda.dk/ddi/scope"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <ssp:search-string>V114</ssp:search-string>
+    <ssp:search-string>indmeldelse</ssp:search-string>
     <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
     <s:Scope>
         <s:StudyUnit/>
@@ -45,14 +46,13 @@ let $advanced-search-parameters :=
             <s:Category/>
         </s:Scope>
     </asp:AdvancedSearchParameters>
-    
-return
-if(false()) then
-    ddi:simpleSearch($simple-search-parameters)
-else
-    ddi:advancedSearch($advanced-search-parameters)
 
-(:return ddi:test():)
+let $urn := "urn:ddi:dk.dda:quei-c5539352-4c17-42e7-b6b4-ea775ccc82fb:1.0.0"
+
+return ddi:simpleSearch($simple-search-parameters)
+(:return ddi:advancedSearch($advanced-search-parameters):)
+(:return urn:resolveUrn($urn):)
+
 (:ddi:lookupQuestion('quei-40b54010-32c6-4b7c-9f1e-6b8f662462c1'):)
 (:ddi:lookupVariable('vari-1-9db0a9d8-2fd3-425f-aaf2-67ddd0b677ef'):)
 (:ddi:lookupConcept('conc-695fdb22-4bf1-4359-9647-4a1c421593d1'):)
