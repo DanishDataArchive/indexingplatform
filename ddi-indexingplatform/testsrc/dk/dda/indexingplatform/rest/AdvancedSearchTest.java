@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import junit.framework.Assert;
 
 import org.ddialliance.ddieditor.model.lightxmlobject.LightXmlObjectListType;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import dk.dda.ddi.indexingplatform.advancedsearch.AdvancedSearchParametersDocument;
@@ -39,7 +40,7 @@ public class AdvancedSearchTest extends Testbase {
 
 	@Test
 	public void testTest() throws Exception {
-		// System.out.println(test);
+		restClient.logQuery = true;
 		LightXmlObjectListType result = restClient.getAsLightXmlObject(
 				RestTarget.ADVANCED_SEARCH, test);
 
@@ -49,12 +50,11 @@ public class AdvancedSearchTest extends Testbase {
 
 	@Test
 	public void abstractPurposeTest() throws Exception {
-		// restClient.logQuery = true;
+		restClient.logQuery = true;
 		AdvancedSearchParametersDocument doc = MetadataBuilder
 				.getAdvancedSearchParametersDocument();
 		doc.getAdvancedSearchParameters().setAbstractPurpose(
 				"udvalgstilknytning");
-		// System.out.println(doc);
 
 		LightXmlObjectListType result = restClient.getAsLightXmlObject(
 				RestTarget.ADVANCED_SEARCH, doc.getAdvancedSearchParameters()
@@ -70,7 +70,6 @@ public class AdvancedSearchTest extends Testbase {
 		AdvancedSearchParametersDocument doc = MetadataBuilder
 				.getAdvancedSearchParametersDocument();
 		doc.getAdvancedSearchParameters().setTopicalCoverage("Tillidserhverv");
-		System.out.println(doc);
 
 		LightXmlObjectListType result = restClient.getAsLightXmlObject(
 				RestTarget.ADVANCED_SEARCH, doc.getAdvancedSearchParameters()

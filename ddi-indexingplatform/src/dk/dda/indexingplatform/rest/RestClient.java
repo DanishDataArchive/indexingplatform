@@ -48,6 +48,10 @@ public class RestClient {
 	}
 
 	public Source get(RestTarget restTarget, String pox) {
+		if (logQuery) {
+			System.out.println(pox);
+		}
+		
 		// service
 		service = Service.create(qname);
 		service.addPort(qname, HTTPBinding.HTTP_BINDING,
