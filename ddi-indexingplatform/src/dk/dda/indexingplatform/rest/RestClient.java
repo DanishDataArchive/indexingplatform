@@ -47,6 +47,7 @@ public boolean logQuery = false;
 				Source.class, Service.Mode.MESSAGE);
 
 		// context
+		// TODO change to GET!
 		Map<String, Object> requestContext = dispatcher.getRequestContext();
 		requestContext.put(MessageContext.HTTP_REQUEST_METHOD, "POST");
 
