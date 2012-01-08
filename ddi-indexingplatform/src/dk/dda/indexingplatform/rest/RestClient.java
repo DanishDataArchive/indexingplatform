@@ -27,7 +27,7 @@ public class RestClient {
 	private static final QName qname = new QName("", "");
 	private static final String USER = "admin";
 	private static final String PASSWORD = "";
-
+public boolean logQuery = false;
 	private Service service;
 
 	public RestClient() {
@@ -73,6 +73,10 @@ public class RestClient {
 		Transformer transformer = TransformerFactory.newInstance()
 				.newTransformer();
 		transformer.transform(source, new StreamResult(result));
+		
+		if (logQuery) {
+			System.out.println(result.toString());
+		}
 		return result.toString();
 	}
 }
