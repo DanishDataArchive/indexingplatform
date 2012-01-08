@@ -9,10 +9,6 @@
         <folder name="denormalization">
             <file name="denormalization/denormalize.xquery"/>
         </folder>
-        <folder name="html">
-            <file name="html/advanced.xquery"/>
-            <file name="html/simple.xquery"/>
-        </folder>
         <folder name="index">
             <folder name="dda">
                 <file name="index/dda/collection.xconf"/>
