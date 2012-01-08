@@ -6,12 +6,16 @@ import org.ddialliance.ddi3.xml.xmlbeans.datacollection.QuestionItemType;
 import org.ddialliance.ddi3.xml.xmlbeans.reusable.IdentifiedStructuredStringType;
 import org.ddialliance.ddi3.xml.xmlbeans.studyunit.AbstractDocument;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import dk.dda.indexingplatform.util.MetadataBuilder;
 
 public class UrnTest extends Testbase {
+	@Test
+	public void dublicateElementInDDAUrnCollection() throws Exception {
+		Assert.fail("400 error code returned when same study unit file is loaded into collection!");
+	}
+		
 	@Test
 	public void versionableUrn() throws Exception {
 		String id = "quei-11f628da-15b3-4140-8735-a9811bddb733";
