@@ -102,6 +102,10 @@ public class MetadataBuilder {
 		return type;
 	}
 
+	public static String getUrn(String id, String version) {
+		return "urn:ddi:dk.dda:" + id + ":" + version;
+	}
+
 	/**
 	 * Retrieve text on a mixed content element
 	 * 
