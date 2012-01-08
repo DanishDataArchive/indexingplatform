@@ -104,8 +104,7 @@
 		<mkdir dir="${basedir}/lib/xmlbeans" />
 		<echo message="Subversion export of: xmlbeans-2.5.0" />
 		<svn>
-			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/xmlbeans/2.5.0" 
-				revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
+			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/xmlbeans/2.5.0" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
 		</svn>
 	</target>
 
@@ -210,7 +209,7 @@
 			<classpath refid="classpath.junit" />
 			<classpath refid="classpath.aspectj" />
 			<classpath refid="classpath.xmlbeans" />
-			
+
 			<formatter type="plain" />
 			<formatter type="xml" />
 
@@ -221,7 +220,7 @@
 			</batchtest>
 		</junit>
 	</target>
-	
+
 	<target name="test-junit" depends="compile" description="Run JUnit testcases Note: eXist MUST be running">
 		<mkdir dir="${junit.results.dir}" />
 		<junit haltonfailure="false" printsummary="yes" showoutput="yes" maxmemory="512m">
@@ -231,7 +230,7 @@
 			<classpath refid="classpath.junit" />
 			<classpath refid="classpath.aspectj" />
 			<classpath refid="classpath.xmlbeans" />
-			
+
 			<formatter type="plain" />
 			<formatter type="xml" />
 
@@ -242,7 +241,7 @@
 			</batchtest>
 		</junit>
 	</target>
-	
+
 	<target name="test-report" description="Generate HTML test reports">
 		<echo message="-----------------------------" />
 		<echo message="Creating reports, please wait" />
