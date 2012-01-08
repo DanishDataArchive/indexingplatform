@@ -6,6 +6,9 @@
         <options/>
     </meta>
     <projectTree name="DDA-IPF.xpr">
+        <folder name="denormalization">
+            <file name="denormalization/denormalize.xquery"/>
+        </folder>
         <folder name="html">
             <file name="html/advanced.xquery"/>
             <file name="html/simple.xquery"/>
@@ -23,7 +26,6 @@
             </folder>
         </folder>
         <folder name="lib">
-            <file name="lib/denormalization-functions.xquery"/>
             <file name="lib/result-functions.xquery"/>
             <file name="lib/search.xquery"/>
             <file name="lib/urn.xquery"/>

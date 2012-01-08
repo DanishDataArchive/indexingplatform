@@ -1,4 +1,10 @@
-(:module namespace denormalization = "http://dda.dk/ddi/denormalization";:)
+xquery version "1.0";
+
+(:~
+ : This file contains the functions for executing the denormalization of the DDI database into an additional collection (dda-denormalization).
+ : Utilization of this denormalized data greatly optimizes listing of references when performing a search.<br/>
+ : The denormalization process should be performed at a fixed interval in order to keep the data up to date.
+ :)
 
 declare namespace d="http://dda.dk/ddi/denormalized-ddi";
 
@@ -11,6 +17,13 @@ declare namespace lp="ddi:logicalproduct:3_1";
 
 declare namespace  xmldb="http://exist-db.org/xquery/xmldb";
 
+(:~
+ : Creates a XML document in the <b>dda-denormalization</b> collection for each of the DDI elements we wish to denormalize
+ : (if it already exists it will be overwritten) and populates it with reference lists for all every element.
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ :)
 declare function local:createDenormalizationDocuments() as item()* {
     xmldb:store('/db/dda-denormalization', "VariableList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
