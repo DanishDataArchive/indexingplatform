@@ -186,11 +186,10 @@ declare function result:buildResultListItem($result as element(), $scope as elem
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         <Context>
         {(: Find and return the contexts where the matches were found with the matches highlighted. :)
-(:            let $matches := util:expand($result)//exist:match
+            (:let $matches := util:expand($result)//exist:match
             for $ancestor in $matches/ancestor::*[1]
                 for $match in $ancestor//exist:match
                     return kwic:get-summary($ancestor, $match, <config width="100"/>, ()):)
-            
              let $matches := util:expand($result)//exist:match
              return $matches/ancestor::*[1]
         }
