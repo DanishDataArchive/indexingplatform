@@ -8,7 +8,7 @@ xquery version "1.0";
  :)
 module namespace ddi = "http://dda.dk/ddi";
 
-import module namespace result = "http://dda.dk/ddi/result" at "xmldb:exist:///db/dda/lib/result-functions.xquery";
+import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/lib/result-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -411,16 +411,26 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
             else ()
     
-    (: Use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
-    let $studyUnits :=
-        $studyFromId               intersect
-        $studyFromTitle            intersect
-        $studyFromTopicalCoverage  intersect
-        $studyFromSpatialCoverage  intersect
-        $studyFromAbstractPurpose  intersect
-        $studyFromCreator          intersect
-        $studyFromKindOfData       intersect
+    let $studyUnitUnion :=
+        $studyFromId               |
+        $studyFromTitle            |
+        $studyFromTopicalCoverage  |
+        $studyFromSpatialCoverage  |
+        $studyFromAbstractPurpose  |
+        $studyFromCreator          |
+        $studyFromKindOfData       |
         $studyFromTemporalCoverage
+    (: Use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
+    (: We use if-then-else to handle cases when one or more of the lists are empty (meaning that the entire intersection would be empty). :)
+    let $studyUnits :=
+        (if ($studyFromId) then $studyFromId else $studyUnitUnion)                            intersect
+        (if ($studyFromTitle) then $studyFromTitle else $studyUnitUnion)                      intersect
+        (if ($studyFromTopicalCoverage) then $studyFromTopicalCoverage else $studyUnitUnion)  intersect
+        (if ($studyFromSpatialCoverage) then $studyFromSpatialCoverage else $studyUnitUnion)  intersect
+        (if ($studyFromAbstractPurpose) then $studyFromAbstractPurpose else $studyUnitUnion)  intersect
+        (if ($studyFromCreator) then $studyFromCreator else $studyUnitUnion)                  intersect
+        (if ($studyFromKindOfData) then $studyFromKindOfData else $studyUnitUnion)            intersect
+        (if ($studyFromTemporalCoverage) then $studyFromTemporalCoverage else $studyUnitUnion)
     
     (: For each element type find out if we want to search of that type of element (if the parameter specifying the search-text for that element is set and not empty). :)
     let $variableSearch := if (data($search-parameters/asp:Variable)) then true() else false()
