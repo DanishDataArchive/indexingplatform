@@ -184,14 +184,15 @@ declare function result:buildResultListItem($result as element(), $scope as elem
     let $label := local:getLabel($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
-        (: Find and return the contexts where the matches were found with the matches highlighted. :)
-        (: Find and return the contexts where the matches were found with the matches highlighted. :)
         <Context>
-        {
-            let $matches := util:expand($result)//exist:match
+        {(: Find and return the contexts where the matches were found with the matches highlighted. :)
+(:            let $matches := util:expand($result)//exist:match
             for $ancestor in $matches/ancestor::*[1]
                 for $match in $ancestor//exist:match
-                    return kwic:get-summary($ancestor, $match, <config width="100"/>, ())
+                    return kwic:get-summary($ancestor, $match, <config width="100"/>, ()):)
+            
+             let $matches := util:expand($result)//exist:match
+             return $matches/ancestor::*[1]
         }
         </Context>
         {$label}
