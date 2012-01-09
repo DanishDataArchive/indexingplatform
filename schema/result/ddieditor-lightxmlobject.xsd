@@ -33,15 +33,17 @@
 
 	<xs:complexType name="LightXmlObjectType">
 		<xs:sequence>
+			<xs:element maxOccurs="1" name="Context" type="xs:anyType"
+				minOccurs="0" />
 			<xs:element maxOccurs="unbounded" name="Label" type="dl:LabelType"
 				minOccurs="0" />
 			<xs:element maxOccurs="unbounded" name="CustomList" type="dl:CustomListType"
 				minOccurs="0" />
 		</xs:sequence>
 		<xs:attribute name="element" use="required" type="xs:string" />
-		<xs:attribute name="id" use="required" type="xs:NCName" />
+		<xs:attribute name="id" use="required" type="xs:string" />
 		<xs:attribute name="version" use="optional" type="xs:string" />
-		<xs:attribute name="parentId" use="optional" type="xs:NCName" />
+		<xs:attribute name="parentId" use="optional" type="xs:string" />
 		<xs:attribute name="parentVersion" use="optional" type="xs:string" />
 	</xs:complexType>
 
