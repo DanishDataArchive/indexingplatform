@@ -14,15 +14,18 @@ module namespace urn = "http://dda.dk/ddi/urn";
  : @version 1.0
  : @param   $urn the URN address in the format urn:ddi:[agency].[sub_agency]:[id]:[version], for instance urn:ddi:dk.dda:quei-c5539352-4c17-42e7-b6b4-ea775ccc82fb:1.0.0
  :)
-declare function urn:resolveUrn($urn as xs:string) as element()* {
+declare function urn:resolveUrn($urn as xs:string) as element()? {
     (: First split the URN address in tokens seperated by ':' :)
     let $tokenizedUrn := tokenize($urn, ":")
     (: We look up an identifiable element by the ID (token 4) and for each element it finds for that ID we compare its nearest version with the version specified in the URN (token 5) :)
-    for $identifiableFromId in collection('/db/dda-urn')//*[ft:query(@id, $tokenizedUrn[4])]
-        return
+    let $allMatches :=
+        for $identifiableFromId in collection('/db/dda-urn')//*[ft:query(@id, $tokenizedUrn[4])]
+            return
             if (local:findVersion($identifiableFromId) = $tokenizedUrn[5]) then
                 $identifiableFromId
             else ()
+    (: If there were duplicates in the database (same id and version) just return the first :)
+    return $allMatches[1]
 };
 
 (:~
@@ -34,7 +37,7 @@ declare function urn:resolveUrn($urn as xs:string) as element()* {
  : @version 1.0
  : @param   $element the element for which we want to find the version
  :)
-declare function local:findVersion($element as element()) as xs:string {
+declare function local:findVersion($element as element()) as xs:string? {
     if ($element/@version) then
         $element/@version
     else
