@@ -33,6 +33,7 @@ import org.ddialliance.ddieditor.model.lightxmlobject.LightXmlObjectListType;
 
 public class RestClient {
 	private static final String BASE_URL = "http://localhost:8080/exist/rest/db/dda/rest/";
+	private static final String URN_URL = "http://localhost:8080/exist/rest/db/dda-urn/rest/";
 	private static final QName qname = new QName("", "");
 	private static final String USER = "admin";
 	private static final String PASSWORD = "";
@@ -51,7 +52,7 @@ public class RestClient {
 		if (logQuery) {
 			System.out.println(pox);
 		}
-		
+
 		// service
 		service = Service.create(qname);
 		service.addPort(qname, HTTPBinding.HTTP_BINDING,
@@ -95,33 +96,33 @@ public class RestClient {
 	}
 
 	public String getUrn(String urn) throws MalformedURLException, IOException {
-		URLConnection connection = new URL(BASE_URL + RestTarget.URN_RESOLVE.getQuery()
-				+ "?urn=" + urn).openConnection();
+		URLConnection connection = new URL(URN_URL
+				+ RestTarget.URN_RESOLVE.getQuery() + "?urn=" + urn)
+				.openConnection();
 		connection.setRequestProperty("Accept-Charset", "UTF-8");
 		InputStream response = connection.getInputStream();
-		
+
 		return convertStreamToString(response);
 	}
-	
-	private String convertStreamToString(InputStream is)
-            throws IOException {     
-        if (is != null) {
-            Writer writer = new StringWriter();
 
-            char[] buffer = new char[1024];
-            try {
-                Reader reader = new BufferedReader(
-                        new InputStreamReader(is, "UTF-8"));
-                int n;
-                while ((n = reader.read(buffer)) != -1) {
-                    writer.write(buffer, 0, n);
-                }
-            } finally {
-                is.close();
-            }
-            return writer.toString();
-        } else {        
-            return "";
-        }
-    }
+	private String convertStreamToString(InputStream is) throws IOException {
+		if (is != null) {
+			Writer writer = new StringWriter();
+
+			char[] buffer = new char[1024];
+			try {
+				Reader reader = new BufferedReader(new InputStreamReader(is,
+						"UTF-8"));
+				int n;
+				while ((n = reader.read(buffer)) != -1) {
+					writer.write(buffer, 0, n);
+				}
+			} finally {
+				is.close();
+			}
+			return writer.toString();
+		} else {
+			return "";
+		}
+	}
 }
