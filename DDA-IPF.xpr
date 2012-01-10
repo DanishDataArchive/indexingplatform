@@ -11,6 +11,7 @@
                 <file name="dda/index/collection.xconf"/>
             </folder>
             <folder name="lib">
+                <file name="dda/lib/context-functions.xquery"/>
                 <file name="dda/lib/result-functions.xquery"/>
                 <file name="dda/lib/search.xquery"/>
             </folder>
