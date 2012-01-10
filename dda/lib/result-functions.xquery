@@ -65,6 +65,26 @@ declare function local:createCustomLabel($nodes as element()*) as element()* {
 };
 
 (:~
+ : Returns the context of the matches found in the element, and highlights the matches
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $node the nodes which contains the matches
+ :)
+declare function local:getContext($node as element()) as element()* {
+    <Context>
+    {
+        (:let $matches := util:expand($node)//exist:match
+        for $ancestor in $matches/parent::*
+            for $match in $ancestor//exist:match
+                return kwic:get-summary($ancestor, $match, <config width="100"/>, ()):)
+         let $matches := util:expand($node)//exist:match
+         return data($matches/parent::*)
+    }
+    </Context>
+};
+
+(:~
  : Returns a Custom element containing the info about the StudyUnit 
  :
  : @author  Kemal Pajevic
@@ -181,20 +201,10 @@ declare function local:createCategoryCustomFromId($categoryId as xs:string) as e
  :)
 declare function result:buildResultListItem($result as element(), $scope as element()) as element() {
     let $result-name := local-name($result)
-    let $label := local:getLabel($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
-        <Context>
-        {(: Find and return the contexts where the matches were found with the matches highlighted. :)
-            (:let $matches := util:expand($result)//exist:match
-            for $ancestor in $matches/ancestor::*[1]
-                for $match in $ancestor//exist:match
-                    return kwic:get-summary($ancestor, $match, <config width="100"/>, ()):)
-             let $matches := util:expand($result)//exist:match
-             return $matches/ancestor::*[1]
-        }
-        </Context>
-        {$label}
+        {local:getContext($result)}
+        {local:getLabel($result)}
         {local:createStudyUnitCustom($result)}
         {result:getReferences($result, $scope)}
     </LightXmlObject>

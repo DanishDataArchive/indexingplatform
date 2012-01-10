@@ -6,47 +6,56 @@
         <options/>
     </meta>
     <projectTree name="DDA-IPF.xpr">
-        <folder name="denormalization">
-            <file name="denormalization/denormalize.xquery"/>
-        </folder>
-        <folder name="index">
-            <folder name="dda">
-                <file name="index/dda/collection.xconf"/>
+        <folder name="dda">
+            <folder name="index">
+                <file name="dda/index/collection.xconf"/>
             </folder>
-            <folder name="dda-denormalization">
-                <file name="index/dda-denormalization/collection.xconf"
+            <folder name="lib">
+                <file name="dda/lib/result-functions.xquery"/>
+                <file name="dda/lib/search.xquery"/>
+            </folder>
+            <folder name="rest">
+                <file name="dda/rest/advanced-search.xquery"/>
+                <file name="dda/rest/simple-search.xquery"/>
+            </folder>
+            <folder name="schema">
+                <folder name="result">
+                    <file
+                        name="dda/schema/result/ddieditor-lightxmlobject.xsd"/>
+                    <file name="dda/schema/result/result-metadata.xsd"/>
+                </folder>
+                <folder name="search">
+                    <file
+                        name="dda/schema/search/advanced-search-parameters.xsd"/>
+                    <file name="dda/schema/search/scope.xsd"/>
+                    <file name="dda/schema/search/search-metadata.xsd"/>
+                    <file
+                        name="dda/schema/search/simple-search-parameters.xsd"
+                    />
+                </folder>
+            </folder>
+        </folder>
+        <folder name="dda-denormalization">
+            <folder name="index">
+                <file name="dda-denormalization/index/collection.xconf"
                 />
             </folder>
-            <folder name="dda-urn">
-                <file name="index/dda-urn/collection.xconf"/>
-            </folder>
-        </folder>
-        <folder name="lib">
-            <file name="lib/result-functions.xquery"/>
-            <file name="lib/search.xquery"/>
-            <file name="lib/urn.xquery"/>
-        </folder>
-        <folder name="rest">
-            <file name="rest/advanced-search.xquery"/>
-            <file name="rest/simple-search.xquery"/>
-            <file name="rest/urn-resolution.xquery"/>
-        </folder>
-        <folder name="schema">
-            <folder name="denormalization">
-                <file name="schema/denormalization/denormalized-ddi.xsd"
-                />
-            </folder>
-            <folder name="result">
-                <file name="schema/result/ddieditor-lightxmlobject.xsd"/>
-                <file name="schema/result/result-metadata.xsd"/>
-            </folder>
-            <folder name="search">
+            <folder name="schema">
                 <file
-                    name="schema/search/advanced-search-parameters.xsd"/>
-                <file name="schema/search/search-metadata.xsd"/>
-                <file name="schema/search/scope.xsd"/>
-                <file name="schema/search/simple-search-parameters.xsd"
+                    name="dda-denormalization/schema/denormalized-ddi.xsd"
                 />
+            </folder>
+            <file name="dda-denormalization/denormalize.xquery"/>
+        </folder>
+        <folder name="dda-urn">
+            <folder name="index">
+                <file name="dda-urn/index/collection.xconf"/>
+            </folder>
+            <folder name="lib">
+                <file name="dda-urn/lib/urn.xquery"/>
+            </folder>
+            <folder name="rest">
+                <file name="dda-urn/rest/urn-resolution.xquery"/>
             </folder>
         </folder>
         <file name="test.xquery"/>
