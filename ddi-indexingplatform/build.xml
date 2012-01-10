@@ -7,12 +7,14 @@
 
 	<!-- xmldb properties are set in file build.properties-->
 	<property name="xmldb.uri" value="xmldb:exist://${xmldb.host}:${xmldb.port}/exist/xmlrpc/db" />
+	<property name="xmldb.uri.rest" value="http://${xmldb.host}:${xmldb.port}/exist/rest/db" />
 
 	<!-- directories -->
 	<property name="src.dir" value="${basedir}/src" />
 	<property name="src.resources.dir" value="${src.dir}/resources" />
 	<property name="testsrc.dir" value="${basedir}/testsrc" />
 	<property name="build.classes.dir" value="${basedir}/bin" />
+	<property name="build.collection" value="${basedir}/bin/collection" />
 	<property name="build.dir.jdoc" value="${build.classes.dir}/javadoc" />
 	<property name="junit.results.dir" value="${build.classes.dir}/junit-result" />
 	<property name="junit.report.dir" value="${build.classes.dir}/junit-report" />
@@ -72,19 +74,19 @@
 		</fileset>
 	</path>
 
-	<!-- typedef -->
-	<typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
-		<classpath refid="classpath.core" />
-	</typedef>
-
-	<!-- taskdef -->
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	<!-- taskdef  -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
 			<pathelement location="${lib.dir}/ant-contrib.jar" />
 		</classpath>
 	</taskdef>
 
 	<taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="classpath.svn" />
+
+	<!-- typedef -->
+	<typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
+		<classpath refid="classpath.core" />
+	</typedef>
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- standard targets 							 -->
@@ -104,9 +106,19 @@
 		<mkdir dir="${basedir}/lib/xmlbeans" />
 		<echo message="Subversion export of: xmlbeans-2.5.0 and ddi-3-xmlbeans" />
 		<svn>
-			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/xmlbeans/2.5.0" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
-			<export force="true" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/generated/ddi-3-xmlbeans.jar" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
+			<export force="false" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/xmlbeans/2.5.0" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
+			<export force="false" srcurl="http://ddieditor.googlecode.com/svn/trunk/lib-java/generated/ddi-3-xmlbeans.jar" revision="HEAD" destpath="${basedir}/lib/xmlbeans" />
 		</svn>
+
+		<mkdir dir="${build.collection}" />
+		<echo message="Subversion export of: ddi-indexingplatform" />
+		<for list="${coll.top}" param="coll.top">
+			<sequential>
+				<svn>
+					<export force="true" srcurl="${svn.url}/@{coll.top}" revision="HEAD" destpath="${build.collection}/@{coll.top}" />
+				</svn>
+			</sequential>
+		</for>
 	</target>
 
 	<target name="compile" description="Compile source and testsource">
@@ -140,54 +152,90 @@
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- exist setup     							 -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<target name="deploy-index" depends="compile" description="Sed collection.xconf with EXIST_HOME and copy to system/config/db/collection-name Note: eXist needs to be running">
-		<!-- sed with EXIST_HOME -->
-		<loadfile srcfile="${src.resources.dir}/collection.xconf" property="result">
-			<filterchain>
-				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
-					<param type="token" name="EXIST_HOME" value="${exist.home}" />
-				</filterreader>
-			</filterchain>
-		</loadfile>
-		<echo file="${build.classes.dir}/resources/collection.xconf">${result}</echo>
+	<target name="deploy-index" depends="compile" description="Deploy indexes Note: eXist needs to be running">
+		<!-- upload -->
+		<for list="${coll.top}" param="coll.top">
+			<sequential>
+				<echo message="-----------------------------" />
+				<echo message="Deploing index to: ${xmldb.uri}/system/config/db/@{coll.top}" />
+				<echo message="-----------------------------" />
+				<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/system/config/db/@{coll.top}" initdb="true" createcollection="true">
+					<fileset dir="${build.collection}/@{coll.top}/index">
+						<include name="collection.xconf" />
+					</fileset>
+				</xdb:store>
+			</sequential>
+		</for>
+	</target>
 
+	<target name="deploy-ws" description="Deploy web services Note: eXist needs to be running">
+		<!-- upload -->
+		<for list="${coll.top.ws}" param="coll.top.ws">
+			<sequential>
+				<echo message="-----------------------------" />
+				<echo message="Deploing ws to: ${xmldb.uri}/system/config/db/@{coll.top.ws}" />
+				<echo message="-----------------------------" />
+				<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/@{coll.top.ws}/lib" initdb="true" createcollection="true">
+					<fileset dir="${build.collection}/@{coll.top.ws}/lib">
+						<include name="*.*" />
+					</fileset>
+				</xdb:store>
+
+				<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/@{coll.top.ws}/rest" initdb="true" createcollection="true">
+					<fileset dir="${build.collection}/@{coll.top.ws}/rest">
+						<include name="*.*" />
+					</fileset>
+				</xdb:store>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="deploy-other" description="Deploy web services Note: eXist needs to be running">
 		<!-- upload -->
 		<echo message="-----------------------------" />
-		<echo message="Deploing index to: ${xmldb.uri}/system/config/db/${xmldb.coll}" />
+		<echo message="Deploing ws to: ${xmldb.uri}/system/config/db/@{coll.top.ws}" />
 		<echo message="-----------------------------" />
-		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/system/config/db/${xmldb.coll}" initdb="true" createcollection="true">
-			<fileset dir="${build.classes.dir}/resources">
-				<include name="collection.xconf" />
+		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/dda-denormalization" initdb="true" createcollection="true">
+			<fileset dir="${build.collection}/dda-denormalization">
+				<include name="*.xquery" />
 			</fileset>
 		</xdb:store>
+	</target>
+
+	<target name="deploy-all" depends="deploy-index, deploy-ws, deploy-other, import-xml, denormalize" description="Create indexingplatform -indexes, rest and other">
+		<echo message="Deploy all !!!" />
 	</target>
 
 	<target name="import-xml" description="Import into eXist XML files located in xml-import directory Note: eXist needs to be running">
 		<echo message="-----------------------------" />
-		<echo message="Importing XML from: ${xml.import.dir} to: ${xmldb.coll}" />
+		<echo message="Importing XML from: ${xml.import.dir} to: dda" />
 		<echo message="-----------------------------" />
-		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/${xmldb.coll}" initdb="true" createcollection="true">
+		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/dda" initdb="true" createcollection="true">
 			<fileset dir="${xml.import.dir}">
+				<exclude name="duplicate/**/*.xml" />
 				<include name="**/*.xml" />
 			</fileset>
 		</xdb:store>
+
+		<echo message="-----------------------------" />
+		<echo message="Importing XML from: ${xml.import.dir} to: dda-urn" />
+		<echo message="-----------------------------" />
+		<xdb:store user="${xmldb.user}" password="${xmldb.passwd}" uri="${xmldb.uri}/dda-urn" initdb="true" createcollection="true">
+			<fileset dir="${xml.import.dir}">
+				<include name="**/*.xml" />
+			</fileset>
+
+		</xdb:store>
 	</target>
 
-	<target name="remove-xml" description="Remove stored XML files by deleting collection Note: eXist needs to be running">
+	<target name="denormalize" depends="compile" description="Reindex collections Note: eXist needs to be running">
 		<echo message="-----------------------------" />
-		<echo message="Removing collection: ${xmldb.coll}" />
+		<echo message="Denormalize" />
 		<echo message="-----------------------------" />
-		<xdb:remove uri="${xmldb.uri}" collection="${xmldb.coll}" user="${xmldb.user}" password="${xmldb.passwd}" />
-	</target>
-
-	<target name="reindex" depends="compile" description="Reindex collection-name Note: eXist needs to be running">
-		<echo message="-----------------------------" />
-		<echo message="Reinding: ${xmldb.coll}" />
-		<echo message="-----------------------------" />
-		<java classname="dk.dda.exist.Reindex" fork="true">
+		<java classname="dk.dda.exist.Denormalize" fork="true">
 			<sysproperty key="log4j.configuration" value="file://${basedir}/log4j.xml" />
-			<arg value="${xmldb.uri}" />
-			<arg value="${xmldb.coll}" />
+			<arg value="${xmldb.uri.rest}" />
+			<arg value="/dda-denormalization/denormalize.xquery" />
 			<arg value="${xmldb.user}" />
 			<arg value="${xmldb.passwd}" />
 			<classpath>
@@ -196,6 +244,54 @@
 				<path refid="classpath.aspectj" />
 			</classpath>
 		</java>
+	</target>
+
+	<target name="reindex" depends="compile" description="Reindex collections Note: eXist needs to be running">
+		<for list="${coll.top}" param="coll.top">
+			<sequential>
+				<echo message="-----------------------------" />
+				<echo message="Reindexing: @{coll.top}" />
+				<echo message="-----------------------------" />
+				<java classname="dk.dda.exist.Reindex" fork="true">
+					<sysproperty key="log4j.configuration" value="file://${basedir}/log4j.xml" />
+					<arg value="${xmldb.uri}" />
+					<arg value="@{coll.top}" />
+					<arg value="${xmldb.user}" />
+					<arg value="${xmldb.passwd}" />
+					<classpath>
+						<path refid="classpath.core" />
+						<path refid="classpath.junit" />
+						<path refid="classpath.aspectj" />
+					</classpath>
+				</java>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="remove-coll" description="Remove stored XML files by deleting collection Note: eXist needs to be running">
+		<for list="${coll.top}" param="coll.top">
+			<sequential>
+				<echo message="-----------------------------" />
+				<echo message="Removing collection: @{coll.top}" />
+				<echo message="-----------------------------" />
+				<xdb:remove uri="${xmldb.uri}" collection="@{coll.top}" user="${xmldb.user}" password="${xmldb.passwd}" />
+			</sequential>
+		</for>
+	</target>
+
+	<target name="remove-index" description="Remove stored XML files by deleting collection Note: eXist needs to be running">
+		<for list="${coll.top}" param="coll.top">
+			<sequential>
+				<echo message="-----------------------------" />
+				<echo message="Removing collection: @{coll.top}" />
+				<echo message="----------------------------- " />
+				<xdb:remove uri="${xmldb.uri}" collection="/system/config/db/@{coll.top}" user="${xmldb.user}" password="${xmldb.passwd}" />
+			</sequential>
+		</for>
+	</target>
+
+	<target name="remove-all" depends="remove-index, remove-coll" description="Remove all indexingplatform -indexes, rest, uploaded xml">
+		<echo message="Remove all !!!" />
 	</target>
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
