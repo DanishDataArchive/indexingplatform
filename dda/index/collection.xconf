@@ -12,7 +12,6 @@
     
     <!-- Lucene index is configured below -->
     <lucene>
-      <analyzer id="st" class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
       <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
       <analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>
       
@@ -34,11 +33,12 @@
       <!--/i:DDIInstance/su:StudyUnit/su:KindOfData-->
       <text qname="su:KindOfData" analyzer="da" boost="1.0"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Label-->
-      <text match="//cc:Concept/r:Label" analyzer="da"/>
+      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/r:Label-->
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:Label-->
+      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/r:Label-->
+      <text match="r:Label" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Description-->
       <text qname="r:Description" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/r:Label-->
-      <text match="//cc:Universe/r:Label" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/cc:HumanReadable-->
       <text qname="cc:HumanReadable" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionItemName-->
@@ -50,14 +50,6 @@
       <text qname="dc:MultipleQuestionItemName" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:VariableName-->
       <text qname="lp:VariableName" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:Label-->
-      <text match="//lp:Variable/r:Label" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/r:Label-->
-      <text match="//lp:Category/r:Label" analyzer="da"/>
-      
-      <text qname="r:Label" analyzer="da"/>
-      <text qname="lp:Variable" analyzer="da"/>
-      
       
       <!-- Index for specific search -->
       <!--/i:DDIInstance/su:StudyUnit/r:UniverseReference/r:ID-->
@@ -97,8 +89,6 @@
     </lucene>
     
     <!-- Range indexes -->
-    <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:PublicationDate/r:SimpleDate-->
-    <create qname="r:SimpleDate" type="xs:dateTime"/>
     <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate-->
     <create qname="r:StartDate" type="xs:dateTime"/>
     <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate-->
