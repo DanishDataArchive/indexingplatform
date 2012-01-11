@@ -8,7 +8,7 @@ xquery version "1.0";
  :)
 module namespace ddi = "http://dda.dk/ddi";
 
-import module namespace result = "http://dda.dk/ddi/result" at "xmldb:exist:///db/dda/lib/result-functions.xquery";
+import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/dda/lib/result-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -26,91 +26,126 @@ declare namespace d="http://dda.dk/ddi/denormalized-ddi";
 
 (:~
  : Makes a free-text search in StudyUnit elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryStudyUnit($search-string as xs:string) as element()* {
-    collection('/db/dda')//su:StudyUnit[ft:query(@id, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
-    collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)]
+    let $list :=
+        collection('/db/dda')//su:StudyUnit[ft:query(@id, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
+        collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
  : Makes a free-text search in Concept elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryConcept($search-string as xs:string) as element()* {
-    collection('/db/dda')//cc:Concept[ft:query(r:Label, $search-string)] |
-    collection('/db/dda')//cc:Concept[ft:query(r:Description, $search-string)]
+    let $list :=
+        collection('/db/dda')//cc:Concept[ft:query(r:Label, $search-string)] |
+        collection('/db/dda')//cc:Concept[ft:query(r:Description, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
  : Makes a free-text search in Universe elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryUniverse($search-string as xs:string) as element()* {
-    collection('/db/dda')//cc:Universe[ft:query(r:Label, $search-string)] |
-    collection('/db/dda')//cc:Universe[ft:query(cc:HumanReadable, $search-string)]
+    let $list :=
+        collection('/db/dda')//cc:Universe[ft:query(r:Label, $search-string)] |
+        collection('/db/dda')//cc:Universe[ft:query(cc:HumanReadable, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
  : Makes a free-text search in QuestionItem elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryQuestionItem($search-string as xs:string) as element()* {
-    collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
-    collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    let $list :=
+        collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
+        collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
  : Makes a free-text search in MultipleQuestionItem elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryMultipleQuestionItem($search-string as xs:string) as element()* {
-    collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
-    collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    let $list :=
+        collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
+        collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
  : Makes a free-text search in Variable elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryVariable($search-string as xs:string) as element()* {
-    collection('/db/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] |
-    collection('/db/dda')//lp:Variable[ft:query(r:Label, $search-string)]
+    let $list :=
+        collection('/db/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] |
+        collection('/db/dda')//lp:Variable[ft:query(r:Label, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
  : Makes a free-text search in Category elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
  :
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
 declare function local:queryCategory($search-string as xs:string) as element()* {
-    collection('/db/dda')//lp:Category[ft:query(r:Label, $search-string)]
+    let $list :=
+        collection('/db/dda')//lp:Category[ft:query(r:Label, $search-string)]
+    for $element in $list
+        order by ft:score($element) descending
+        return $element
 };
 
 (:~
