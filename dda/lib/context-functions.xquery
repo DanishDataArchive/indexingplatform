@@ -27,7 +27,7 @@ declare function local:substring-between($text as xs:string, $match1 as xs:strin
             $startIndexMatch2All[1]
     let $startIndex := $startIndexMatch1 + string-length($match1)
     let $length := $startIndexMatch2 - $startIndex
-    return concat(string($startIndex), ", ", string($length), ", ",  substring($text, $startIndex, $length))(:substring($text, $startIndex, $length):)
+    return substring($text, $startIndex, $length)(:concat(string($startIndex), ", ", string($length), ", ",  substring($text, $startIndex, $length)):)
 };
 
 (:~
