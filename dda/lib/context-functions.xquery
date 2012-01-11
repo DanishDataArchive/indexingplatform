@@ -1,11 +1,43 @@
+xquery version "1.0";
+
+(:~
+ : This module contains the functions used to return the context of a match in an element. It is used by the result-functions module.
+ : The entry function for this module is <b>context:get-context</b>.
+ :)
+module namespace context = "http://dda.dk/ddi/context";
+
 import module namespace functx = "http://www.functx.com";
 
+(:~
+ : Returns the string which lies between two substrings of a string.
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $text the source string
+ : @param   $match1 the first substring
+ : @param   $match2 the second
+ :)
 declare function local:substring-between($text as xs:string, $match1 as xs:string, $match2 as xs:string) as xs:string {
-    let $startIndex := functx:index-of-string-first($text, $match1) + string-length($match1)
-    let $length := functx:index-of-string-first($text, $match2) - $startIndex
-    return substring($text, $startIndex, $length)
+    let $startIndexMatch1 := functx:index-of-string-first($text, $match1)
+    let $startIndexMatch2All := functx:index-of-string($text, $match2)
+    let $startIndexMatch2 :=
+        if ($startIndexMatch1 = $startIndexMatch2All[1]) then
+            $startIndexMatch2All[2]
+        else
+            $startIndexMatch2All[1]
+    let $startIndex := $startIndexMatch1 + string-length($match1)
+    let $length := $startIndexMatch2 - $startIndex
+    return concat(string($startIndex), ", ", string($length), ", ",  substring($text, $startIndex, $length))(:substring($text, $startIndex, $length):)
 };
 
+(:~
+ : Truncates a text on the right side so that it fits within a given maximum number of characters and appends "... " before the truncated text
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $text the text which needs to be truncated
+ : @param   $max the maximum number of characters returned
+ :)
 declare function local:truncate-previous($text as xs:string, $max as xs:int) as xs:string {
     if (string-length($text) gt $max) then
         let $startIndex := string-length($text) - $max + 1
@@ -15,6 +47,14 @@ declare function local:truncate-previous($text as xs:string, $max as xs:int) as 
         $text
 };
 
+(:~
+ : Truncates a text in the middle so that it fits within a given maximum number of characters and appends " ... " between the two truncated halfs
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $text the text which needs to be truncated
+ : @param   $max the maximum number of characters returned
+ :)
 declare function local:truncate-between($text as xs:string, $max as xs:int) as xs:string {
     if (string-length($text) gt $max) then
         let $stringFirstHalf := substring($text, 0, $max idiv 2)
@@ -25,6 +65,14 @@ declare function local:truncate-between($text as xs:string, $max as xs:int) as x
         $text
 };
 
+(:~
+ : Truncates a text on the left side so that it fits within a given maximum number of characters and appends " ..." after the truncated text
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $text the text which needs to be truncated
+ : @param   $max the maximum number of characters returned
+ :)
 declare function local:truncate-following($text as xs:string, $max as xs:int) as xs:string {
     if (string-length($text) gt $max) then
         let $stringAfter := substring($text, 0, $max)
@@ -33,7 +81,15 @@ declare function local:truncate-following($text as xs:string, $max as xs:int) as
         $text
 };
 
-declare function local:get-context($node as element(), $max as xs:int) as element() {
+(:~
+ : Returns the context of the matches found in the element, and highlights the matches
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $node the nodes which contains the matches
+ : @param   $max the maximum number of characters returned before, between og after matches
+ :)
+declare function context:get-context($node as element(), $max as xs:int) as element() {
     let $nodeString := normalize-space(string($node))
     let $matches := $node/exist:match
     let $nrOfMatches := count($matches)
@@ -65,7 +121,7 @@ declare function local:get-context($node as element(), $max as xs:int) as elemen
             
             (: Finally, if we are at the last match we will return the text after it, if there is any :)
             if($pos = $nrOfMatches) then
-                let $substringAfter := substring-after($nodeString, string($match))
+                let $substringAfter := functx:substring-after-last($nodeString, string($match))
                 return
                 if ($substringAfter) then
                     <span class="following">{local:truncate-following($substringAfter, $max)}</span>
@@ -75,10 +131,3 @@ declare function local:get-context($node as element(), $max as xs:int) as elemen
     }
     </p>
 };
-            
-let $node := <Creator xmlns="ddi:reusable:3_1" translated="false" translatable="true" xml:lang="da">text1 <exist:match xmlns:exist="http://exist.sourceforge.net/NS/exist">match1</exist:match> text2 <exist:match xmlns:exist="http://exist.sourceforge.net/NS/exist">match2</exist:match> text3 <exist:match xmlns:exist="http://exist.sourceforge.net/NS/exist">match3</exist:match> text4
-            </Creator>
-let $node1 := <Creator xmlns="ddi:reusable:3_1" translated="false" translatable="true" xml:lang="da">text1 <exist:match xmlns:exist="http://exist.sourceforge.net/NS/exist">match1</exist:match> text2</Creator>
-
-return local:get-context($node, 50)
-(:return local:truncate-following("There are various keywords in the order by clause that give you finer", 50):)
