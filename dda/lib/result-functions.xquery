@@ -9,7 +9,7 @@ xquery version "1.0";
  :)
 module namespace result = "http://dda.dk/ddi/result";
 
-import module namespace kwic="http://exist-db.org/xquery/kwic";
+import module namespace context = "http://dda.dk/ddi/context" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/dda/lib/context-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -71,18 +71,23 @@ declare function local:createCustomLabel($nodes as element()*) as element()* {
  : @version 1.0
  : @param   $node the nodes which contains the matches
  :)
-declare function local:getContext($node as element()) as element()* {
+declare function local:getContext($node as element()) as element() {
     <Context>
     {
-        (:let $matches := util:expand($node)//exist:match
-        for $ancestor in $matches/parent::*
-            for $match in $ancestor//exist:match
-                return kwic:get-summary($ancestor, $match, <config width="100"/>, ()):)
-         let $matches := util:expand($node)//exist:match
-         return data($matches/parent::*)
+        let $matches := util:expand($node)//exist:match
+        return
+        for $contextElement in $matches/parent::*
+            return
+            (:if(local-name($contextElement) eq 'Content') then
+                for $match in $contextElement//exist:match
+                    return kwic:get-summary($contextElement, $match, <config width="100"/>, ())
+            else:)
+            context:get-context($contextElement, 50)
     }
     </Context>
 };
+
+
 
 (:~
  : Returns a Custom element containing the info about the StudyUnit 
