@@ -1,5 +1,5 @@
-import module namespace ddi = "http://dda.dk/ddi" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/dda/lib/search.xquery";(:"xmldb:exist:///db/dda/lib/search.xquery":)
-import module namespace urn = "http://dda.dk/ddi/urn" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/dda-urn/lib/urn.xquery";
+import module namespace ddi = "http://dda.dk/ddi" at "xmldb:exist:///db/dda/lib/search.xquery";
+import module namespace urn = "http://dda.dk/ddi/urn" at "xmldb:exist:///db/dda-urn/lib/urn.xquery";
 
 declare namespace cc="ddi:conceptualcomponent:3_1";
 declare namespace r="ddi:reusable:3_1";
