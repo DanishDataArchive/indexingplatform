@@ -319,5 +319,5 @@ declare function result:getReferences($resultElement as element(), $scope as ele
             return local:createCategoryCustomFromId($categoryReference/@id)
         else ()
     
-    return $representationType | $domainType | $variables | $questionItems | $multipleQuestionItems | $universes | $concepts | $categories
+    return ($representationType, $domainType, $concepts, $universes, $questionItems, $multipleQuestionItems, $variables, $categories)
 };
