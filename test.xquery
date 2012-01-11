@@ -8,7 +8,7 @@ let $simple-search-parameters := <ssp:SimpleSearchParameters xmlns:smd="http://d
  xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
  xmlns:s="http://dda.dk/ddi/scope"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <ssp:search-string>indmeldelse AND begrundelse</ssp:search-string>
+    <ssp:search-string>indmeldelse and begrundelse</ssp:search-string>
     <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
     <s:Scope>
         <s:StudyUnit/>
