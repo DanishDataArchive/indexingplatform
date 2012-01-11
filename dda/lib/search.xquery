@@ -8,7 +8,7 @@ xquery version "1.0";
  :)
 module namespace ddi = "http://dda.dk/ddi";
 
-import module namespace result = "http://dda.dk/ddi/result" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/dda/lib/result-functions.xquery";
+import module namespace result = "http://dda.dk/ddi/result" at "xmldb:exist:///db/dda/lib/result-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";

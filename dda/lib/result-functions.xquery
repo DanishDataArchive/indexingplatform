@@ -9,7 +9,7 @@ xquery version "1.0";
  :)
 module namespace result = "http://dda.dk/ddi/result";
 
-import module namespace context = "http://dda.dk/ddi/context" at "file:///C:/Users/kp/Dropbox/DDA/DDA-IPF/dda/lib/context-functions.xquery";
+import module namespace context = "http://dda.dk/ddi/context" at "xmldb:exist:///db/dda/lib/context-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
