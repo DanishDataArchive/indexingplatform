@@ -1,0 +1,63 @@
+<project name="dda" default="list" basedir=".">
+    <description>
+        Build file for deployment of DDA Index Platform to an eXist DB.
+    </description>
+    
+  <!-- import default properties from file -->
+    <xmlproperty file="config.xml"/>
+
+    <!-- the path to the eXist installation directory -->
+    <!--property name="server.dir" value="C:\dda\eXist"/>-->
+
+    <path id="classpath.core">
+        <fileset dir="${config.serverdir}/lib/core">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${config.serverdir}/exist.jar"/>
+        <pathelement path="${config.serverdir}/exist-optional.jar"/>
+    </path>
+    
+    <typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
+        <classpath refid="classpath.core"/>
+    </typedef>
+
+ <target name="list" description="list the collections and resources" >
+    <xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collections="true" outputproperty="collections"
+      user="${config.username}" password="${config.password}"/>
+    <!--<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" resources="true" outputproperty="resources"
+      user="${config.username}" password="${config.password}"/>-->
+ </target>
+
+ <target name="deploy" depends="create-collections,upload-indexes" description="Creates the collections and uploads indexes">
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda"
+      user="${config.username}" password="${config.password}"/>
+ </target>
+ 
+  <target name="create-collections" description="Creates the DB collections">
+    <!-- create collections for storing the DB resources -->
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda" />
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda-denormalization" />
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda-urn" />
+ </target>
+ 
+ <target name="upload-indexes" description="Upload the index files (collection.xconf)">
+    <!-- create collections for storing the index files -->
+    <!--<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db" collection="dda" />
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db" collection="dda-denormalization" />
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db" collection="dda-urn" />-->
+    <!-- store the index files -->  
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda" createcollection="true" srcfile="../dda/index/collection.xconf"/>
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda-denormalization" createcollection="true" srcfile="../dda-denormalization/index/collection.xconf"/>
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf"/>
+ </target>
+
+</project>
