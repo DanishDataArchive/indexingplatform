@@ -60,8 +60,8 @@
  </target>
 
  <target name="uploadres" description="Upload the resources to the DB">
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createsubcollections="true"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda">
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda/data">
       <fileset dir="${config.resources-dir}">
         <include name="**/*.xml"/>
       </fileset>
@@ -69,8 +69,8 @@
  </target>
  
  <target name="uploadurnres" description="Upload the urn resources to the DB">
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createsubcollections="true"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda">
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-urn/data">
       <fileset dir="${config.urn-resources-dir}">
         <include name="**/*.xml"/>
       </fileset>
