@@ -10,11 +10,11 @@
     <!--property name="server.dir" value="C:\dda\eXist"/>-->
 
     <path id="classpath.core">
-        <fileset dir="${config.serverdir}/lib/core">
+        <fileset dir="${config.exist-dir}/lib/core">
             <include name="*.jar"/>
         </fileset>
-        <pathelement path="${config.serverdir}/exist.jar"/>
-        <pathelement path="${config.serverdir}/exist-optional.jar"/>
+        <pathelement path="${config.exist-dir}/exist.jar"/>
+        <pathelement path="${config.exist-dir}/exist-optional.jar"/>
     </path>
     
     <typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
@@ -28,9 +28,8 @@
       user="${config.username}" password="${config.password}"/>-->
  </target>
 
- <target name="deploy" depends="create-collections,upload-indexes" description="Creates the collections and uploads indexes">
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda"
-      user="${config.username}" password="${config.password}"/>
+ <target name="setup" depends="create-collections,upload-indexes" description="Creates the collections and uploads indexes">
+    
  </target>
  
   <target name="create-collections" description="Creates the DB collections">
@@ -58,6 +57,24 @@
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda-denormalization" createcollection="true" srcfile="../dda-denormalization/index/collection.xconf"/>
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf"/>
+ </target>
+
+ <target name="uploadres" description="Upload the resources to the DB">
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createsubcollections="true"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda">
+      <fileset dir="${config.resources-dir}">
+        <include name="**/*.xml"/>
+      </fileset>
+    </xdb:store>
+ </target>
+ 
+ <target name="uploadurnres" description="Upload the urn resources to the DB">
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createsubcollections="true"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda">
+      <fileset dir="${config.urn-resources-dir}">
+        <include name="**/*.xml"/>
+      </fileset>
+    </xdb:store>
  </target>
 
 </project>
