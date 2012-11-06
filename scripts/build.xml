@@ -3,6 +3,7 @@
         Build file for deployment of DDA Index Platform to an eXist DB.
     </description>
     
+    <property environment="env"/>
   <!-- import default properties from file -->
     <xmlproperty file="config.xml"/>
 
@@ -10,11 +11,11 @@
     <!--property name="server.dir" value="C:\dda\eXist"/>-->
 
     <path id="classpath.core">
-        <fileset dir="${config.exist-dir}/lib/core">
+        <fileset dir="${env.EXIST_HOME}/lib/core">
             <include name="*.jar"/>
         </fileset>
-        <pathelement path="${config.exist-dir}/exist.jar"/>
-        <pathelement path="${config.exist-dir}/exist-optional.jar"/>
+        <pathelement path="${env.EXIST_HOME}/exist.jar"/>
+        <pathelement path="${env.EXIST_HOME}/exist-optional.jar"/>
     </path>
     
     <typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
