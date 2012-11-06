@@ -25,32 +25,32 @@ declare namespace  xmldb="http://exist-db.org/xquery/xmldb";
  : @version 1.0
  :)
 declare function local:createDenormalizationDocuments() as item()* {
-    xmldb:store('/db/dda-denormalization', "VariableList.xml",
+    xmldb:store('/db/dda-denormalization/data', "VariableList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <VariableList />
         </DenormalizedDdi>
     ),
-    xmldb:store('/db/dda-denormalization', "QuestionItemList.xml",
+    xmldb:store('/db/dda-denormalization/data', "QuestionItemList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <QuestionItemList />
         </DenormalizedDdi>
     ),
-    xmldb:store('/db/dda-denormalization', "MultipleQuestionItemList.xml",
+    xmldb:store('/db/dda-denormalization/data', "MultipleQuestionItemList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <MultipleQuestionItemList />
         </DenormalizedDdi>
     ),
-    xmldb:store('/db/dda-denormalization', "UniverseList.xml",
+    xmldb:store('/db/dda-denormalization/data', "UniverseList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <UniverseList />
         </DenormalizedDdi>
     ),
-    xmldb:store('/db/dda-denormalization', "ConceptList.xml",
+    xmldb:store('/db/dda-denormalization/data', "ConceptList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ConceptList />
         </DenormalizedDdi>
     ),
-    xmldb:store('/db/dda-denormalization', "CategoryList.xml",
+    xmldb:store('/db/dda-denormalization/data', "CategoryList.xml",
         <DenormalizedDdi xmlns="http://dda.dk/ddi/denormalized-ddi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CategoryList />
         </DenormalizedDdi>
@@ -91,7 +91,7 @@ declare function local:listVariables() as node()* {
                         return <CategoryReference id="{$categoryId}"/>
                 }
             </Variable>
-    return update insert $dernormalizedVariables into collection('/db/dda-denormalization')//d:VariableList
+    return update insert $dernormalizedVariables into collection('/db/dda-denormalization/data')//d:VariableList
 };
 
 declare function local:listQuestionItems() as node()* {
@@ -127,7 +127,7 @@ declare function local:listQuestionItems() as node()* {
                         return <CategoryReference id="{$categoryId}"/>
                 }
             </QuestionItem>
-    return update insert $dernormalizedQuestionItems into collection('/db/dda-denormalization')//d:QuestionItemList
+    return update insert $dernormalizedQuestionItems into collection('/db/dda-denormalization/data')//d:QuestionItemList
 };
 
 declare function local:listMultipleQuestionItems() as node()* {
@@ -168,7 +168,7 @@ declare function local:listMultipleQuestionItems() as node()* {
                             return <CategoryReference id="{$categoryId}"/>
                 }
             </MultipleQuestionItem>
-    return update insert $dernormalizedMultipleQuestionItems into collection('/db/dda-denormalization')//d:MultipleQuestionItemList
+    return update insert $dernormalizedMultipleQuestionItems into collection('/db/dda-denormalization/data')//d:MultipleQuestionItemList
 };
 
 declare function local:listUniverses() as node()* {
@@ -210,7 +210,7 @@ declare function local:listUniverses() as node()* {
                             return <CategoryReference id="{$categoryId}"/>
                 }
             </Universe>
-    return update insert $dernormalizedUniverses into collection('/db/dda-denormalization')//d:UniverseList
+    return update insert $dernormalizedUniverses into collection('/db/dda-denormalization/data')//d:UniverseList
 };
 
 declare function local:listConcepts() as node()* {
@@ -248,7 +248,7 @@ declare function local:listConcepts() as node()* {
                             return <CategoryReference id="{$categoryId}"/>
                 }
             </Concept>
-    return update insert $dernormalizedConcepts into collection('/db/dda-denormalization')//d:ConceptList
+    return update insert $dernormalizedConcepts into collection('/db/dda-denormalization/data')//d:ConceptList
 };
 
 declare function local:listCategories() as node()* {
@@ -288,7 +288,7 @@ declare function local:listCategories() as node()* {
                         return <ConceptReference id="{$conceptId}"/>
                 }
             </Category>
-    return update insert $dernormalizedCategorys into collection('/db/dda-denormalization')//d:CategoryList
+    return update insert $dernormalizedCategorys into collection('/db/dda-denormalization/data')//d:CategoryList
 };
 
 local:createDenormalizationDocuments(),
