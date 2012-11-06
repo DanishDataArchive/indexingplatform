@@ -28,38 +28,66 @@
       user="${config.username}" password="${config.password}"/>-->
  </target>
 
- <target name="setup" depends="create-collections,upload-indexes" description="Creates the collections and uploads indexes">
-    
- </target>
- 
-  <target name="create-collections" description="Creates the DB collections">
-    <!-- create collections for storing the DB resources -->
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda" />
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda-denormalization" />
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collection="dda-urn" />
- </target>
- 
- <target name="upload-indexes" description="Upload the index files (collection.xconf)">
-    <!-- create collections for storing the index files -->
-    <!--<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db" collection="dda" />
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db" collection="dda-denormalization" />
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db" collection="dda-urn" />-->
+ <target name="deploy" depends="deploy-dda,deploy-urn" description="Deploys all the parts of the index platform" />
+
+ <target name="deploy-dda" description="Deploys the index platform">
     <!-- store the index files -->  
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda" createcollection="true" srcfile="../dda/index/collection.xconf"/>
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda-denormalization" createcollection="true" srcfile="../dda-denormalization/index/collection.xconf"/>
+    <!-- store the xquery function files -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda/lib" createcollection="true">
+      <fileset dir="../dda/lib">
+        <include name="*.xquery"/>
+      </fileset>
+    </xdb:store>
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-denormalization" createcollection="true">
+      <fileset dir="../dda-denormalization">
+        <include name="*.xquery"/>
+      </fileset>
+    </xdb:store>
+    <!-- store the restful interfaces -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda/rest" createcollection="true">
+      <fileset dir="../dda/rest">
+        <include name="*.xquery"/>
+      </fileset>
+    </xdb:store>
+    <!-- create collections for storing the DB resources -->
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda" collection="data" />
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-denormalization" collection="data" />
+ </target>
+ 
+ <target name="deploy-urn" description="Deploys the URN resolution">
+    <!-- store the index files -->
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf"/>
+    <!-- store the xquery function files -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-urn/lib" createcollection="true">
+      <fileset dir="../dda-urn/lib">
+        <include name="*.xquery"/>
+      </fileset>
+    </xdb:store>
+    <!-- store the restful interfaces -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-urn/rest" createcollection="true">
+      <fileset dir="../dda-urn/rest">
+        <include name="*.xquery"/>
+      </fileset>
+    </xdb:store>
+    <!-- create collections for storing the DB resources -->
+    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-urn" collection="data" />
  </target>
 
- <target name="uploadres" description="Upload the resources to the DB">
+
+ <target name="store" description="Upload the resources to the DB">
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda/data">
       <fileset dir="${config.resources-dir}">
@@ -68,7 +96,7 @@
     </xdb:store>
  </target>
  
- <target name="uploadurnres" description="Upload the urn resources to the DB">
+ <target name="store-urn" description="Upload the urn resources to the DB">
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/dda-urn/data">
       <fileset dir="${config.urn-resources-dir}">
