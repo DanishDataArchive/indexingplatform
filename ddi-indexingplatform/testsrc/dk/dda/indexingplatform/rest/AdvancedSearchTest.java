@@ -1,14 +1,11 @@
 package dk.dda.indexingplatform.rest;
 
-import static org.junit.Assert.*;
 import junit.framework.Assert;
 
 import org.ddialliance.ddieditor.model.lightxmlobject.LightXmlObjectListType;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import dk.dda.ddi.indexingplatform.advancedsearch.AdvancedSearchParametersDocument;
-import dk.dda.ddi.indexingplatform.simplesearch.SimpleSearchParametersDocument;
 import dk.dda.indexingplatform.util.MetadataBuilder;
 
 public class AdvancedSearchTest extends Testbase {
