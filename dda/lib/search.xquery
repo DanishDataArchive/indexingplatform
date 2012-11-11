@@ -8,7 +8,7 @@ xquery version "1.0";
  :)
 module namespace ddi = "http://dda.dk/ddi";
 
-import module namespace result = "http://dda.dk/ddi/result" at "xmldb:exist:///db/dda/lib/result-functions.xquery";
+import module namespace result = "http://dda.dk/ddi/result" at "xmldb:exist:///db/apps/dda/lib/result-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -34,14 +34,14 @@ declare namespace d="http://dda.dk/ddi/denormalized-ddi";
  :)
 declare function local:queryStudyUnit($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//su:StudyUnit[ft:query(@id, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
-        collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)]
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -57,8 +57,8 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
  :)
 declare function local:queryConcept($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//cc:Concept[ft:query(r:Label, $search-string)] |
-        collection('/db/dda')//cc:Concept[ft:query(r:Description, $search-string)]
+        collection('/db/apps/dda')//cc:Concept[ft:query(r:Label, $search-string)] |
+        collection('/db/apps/dda')//cc:Concept[ft:query(r:Description, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -74,8 +74,8 @@ declare function local:queryConcept($search-string as xs:string) as element()* {
  :)
 declare function local:queryUniverse($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//cc:Universe[ft:query(r:Label, $search-string)] |
-        collection('/db/dda')//cc:Universe[ft:query(cc:HumanReadable, $search-string)]
+        collection('/db/apps/dda')//cc:Universe[ft:query(r:Label, $search-string)] |
+        collection('/db/apps/dda')//cc:Universe[ft:query(cc:HumanReadable, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -91,8 +91,8 @@ declare function local:queryUniverse($search-string as xs:string) as element()* 
  :)
 declare function local:queryQuestionItem($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
-        collection('/db/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+        collection('/db/apps/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
+        collection('/db/apps/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -108,8 +108,8 @@ declare function local:queryQuestionItem($search-string as xs:string) as element
  :)
 declare function local:queryMultipleQuestionItem($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
-        collection('/db/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
+        collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
+        collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -125,8 +125,8 @@ declare function local:queryMultipleQuestionItem($search-string as xs:string) as
  :)
 declare function local:queryVariable($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] |
-        collection('/db/dda')//lp:Variable[ft:query(r:Label, $search-string)]
+        collection('/db/apps/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] |
+        collection('/db/apps/dda')//lp:Variable[ft:query(r:Label, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -142,7 +142,7 @@ declare function local:queryVariable($search-string as xs:string) as element()* 
  :)
 declare function local:queryCategory($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/dda')//lp:Category[ft:query(r:Label, $search-string)]
+        collection('/db/apps/dda')//lp:Category[ft:query(r:Label, $search-string)]
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -157,7 +157,7 @@ declare function local:queryCategory($search-string as xs:string) as element()* 
  : @param   $scope    list of types of references we wish to return for this QuestionItem, given as a Scope element. If empty, the default list will be used.
  :)
 declare function ddi:lookupQuestionItem($questionItemId as xs:string, $scope as element()) as element() {
-    let $questionItem := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
+    let $questionItem := collection('/db/apps/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -175,7 +175,7 @@ declare function ddi:lookupQuestionItem($questionItemId as xs:string, $scope as 
  : @param   $scope    list of types of references we wish to return for this MultipleQuestionItem, given as a Scope element. If empty, the default list will be used.
  :)
 declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:string, $scope as element()) as element() {
-    let $multipleQuestionItem := collection('/db/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
+    let $multipleQuestionItem := collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -193,7 +193,7 @@ declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:st
  : @param   $scope    list of types of references we wish to return for this Variable, given as a Scope element. If empty default, the list will be used.
  :)
 declare function ddi:lookupVariable($variableId as xs:string, $scope as element()) as element() {
-    let $variable := collection('/db/dda')//lp:Variable[ft:query(@id, $variableId)]
+    let $variable := collection('/db/apps/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -211,7 +211,7 @@ declare function ddi:lookupVariable($variableId as xs:string, $scope as element(
  : @param   $scope    list of types of references we wish to return for this Concept, given as a Scope element. If empty, the default list will be used.
  :)
 declare function ddi:lookupConcept($conceptId as xs:string, $scope as element()) as element() {
-    let $concept := collection('/db/dda')//cc:Concept[ft:query(@id, $conceptId)]
+    let $concept := collection('/db/apps/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -229,7 +229,7 @@ declare function ddi:lookupConcept($conceptId as xs:string, $scope as element())
  : @param   $scope    list of types of references we wish to return for this Universe, given as a Scope element. If empty, the default list will be used.
  :)
 declare function ddi:lookupUniverse($universeId as xs:string, $scope as element()) as element() {
-    let $universe := collection('/db/dda')//cc:Universe[ft:query(@id, $universeId)]
+    let $universe := collection('/db/apps/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -247,7 +247,7 @@ declare function ddi:lookupUniverse($universeId as xs:string, $scope as element(
  : @param   $scope    list of types of references we wish to return for this Category, given as a Scope element. If empty, the default list will be used.
  :)
 declare function ddi:lookupCategory($categoryId as xs:string, $scope as element()) as element() {
-    let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryId)]
+    let $category := collection('/db/apps/dda')//lp:Category[ft:query(@id, $categoryId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
@@ -401,32 +401,32 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $studyFromId :=
         if($search-parameters/asp:studyId) then
             let $studyId := string($search-parameters/asp:studyId)
-            return collection('/db/dda')//su:StudyUnit[ft:query(@id, $studyId)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $studyId)] else ()
     let $studyFromTitle :=
         if($search-parameters/asp:title) then
             let $studyTitle := string($search-parameters/asp:title)
-            return collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $studyTitle)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $studyTitle)] else ()
     let $studyFromTopicalCoverage :=
         if($search-parameters/asp:topicalCoverage) then
             let $studyTopicalCoverage := string($search-parameters/asp:topicalCoverage)
-            return collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $studyTopicalCoverage)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $studyTopicalCoverage)] else ()
     let $studyFromSpatialCoverage :=
         if($search-parameters/asp:spatialCoverage) then
             let $studySpatialCoverage := string($search-parameters/asp:spatialCoverage)
-            return collection('/db/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $studySpatialCoverage)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $studySpatialCoverage)] else ()
     let $studyFromAbstractPurpose :=
         if($search-parameters/asp:abstract-purpose) then
             let $studyAbstractPurpose := string($search-parameters/asp:abstract-purpose)
-            return collection('/db/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $studyAbstractPurpose)] | 
-                   collection('/db/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $studyAbstractPurpose)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $studyAbstractPurpose)] | 
+                   collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $studyAbstractPurpose)] else ()
     let $studyFromCreator :=
         if($search-parameters/asp:creator) then
             let $studyCreator := string($search-parameters/asp:creator)
-            return collection('/db/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $studyCreator)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $studyCreator)] else ()
     let $studyFromKindOfData :=
         if($search-parameters/asp:kindOfData) then
             let $studyKindOfData := string($search-parameters/asp:kindOfData)
-            return collection('/db/dda')//su:StudyUnit[ft:query(su:KindOfData, $studyKindOfData)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(su:KindOfData, $studyKindOfData)] else ()
     let $studyFromTemporalCoverage :=
         (: Is start-date for TemporalCoverage is entered ... :)
         if($search-parameters/asp:coverageFrom) then
@@ -434,16 +434,16 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             (: ... check if end-date also is entered. If so then find only those studies whose both start and end dates are within the specified interval (both dates including) :)
             return if($search-parameters/asp:coverageTo) then
                 let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
-                return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom and r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo] 
+                return collection('/db/apps/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom and r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo] 
             (: If no end-date is entered then find those studies whose start-date is later (or same) then the specified start-date. :)
             else
-                collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom]
+                collection('/db/apps/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate ge $studyFrom]
         (: If no start-date is entered ... :)
         else
             (: ... check if end-date is entered. If so then find those studies whose end-date is earlier (or same) then the specified end-date. :)
             if($search-parameters/asp:coverageTo) then
                 let $studyTo := dateTime($search-parameters/asp:coverageTo, xs:time('00:00:00.000+01:00'))
-                return collection('/db/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
+                return collection('/db/apps/dda')//su:StudyUnit[r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate le $studyTo]
             else ()
     
     let $studyUnitUnion :=
@@ -511,22 +511,22 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
                 (
                     for $variable in $variableResults
-                        let $denormalizedVariable := collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
+                        let $denormalizedVariable := collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
                         return if ($studyUnits[@id = $denormalizedVariable/@studyId]) then $variable else (),
                     for $questionItem in $questionItemResults
-                        let $denormalizedQuestionItem := collection('/db/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
+                        let $denormalizedQuestionItem := collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
                         return if ($studyUnits[@id = $denormalizedQuestionItem/@studyId]) then $questionItem else (),
                     for $multipleQuestionItem in $multipleQuestionItemResults
-                        let $denormalizedMultipleQuestionItem := collection('/db/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
+                        let $denormalizedMultipleQuestionItem := collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
                         return if ($studyUnits[@id = $denormalizedMultipleQuestionItem/@studyId]) then $multipleQuestionItem else (),
                     for $universe in $universeResults
-                        let $denormalizedUniverse := collection('/db/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
+                        let $denormalizedUniverse := collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
                         return if ($studyUnits[@id = $denormalizedUniverse/@studyId]) then $universe else (),
                     for $concept in $conceptResults
-                        let $denormalizedConcept := collection('/db/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
+                        let $denormalizedConcept := collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
                         return if ($studyUnits[@id = $denormalizedConcept/@studyId]) then $concept else (),
                     for $category in $categoryResults
-                        let $denormalizedCategory := collection('/db/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
+                        let $denormalizedCategory := collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
                         return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
                 )
                     

@@ -1,7 +1,6 @@
 xquery version "1.0";
 
-import module namespace urn = "http://dda.dk/ddi/urn" at
-"xmldb:exist:///db/dda-urn/lib/urn.xquery";
+import module namespace urn = "http://dda.dk/ddi/urn" at "xmldb:exist:///db/apps/dda-urn/lib/urn.xquery";
 
 (:declare option exist:serialize "method=xml media-type=text/html";:)
 

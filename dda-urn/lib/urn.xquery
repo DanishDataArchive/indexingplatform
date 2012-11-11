@@ -19,7 +19,7 @@ declare function urn:resolveUrn($urn as xs:string) as element()? {
     let $tokenizedUrn := tokenize($urn, ":")
     (: We look up an identifiable element by the ID (token 4) and for each element it finds for that ID we compare its nearest version with the version specified in the URN (token 5) :)
     let $allMatches :=
-        for $identifiableFromId in collection('/db/dda-urn')//*[ft:query(@id, $tokenizedUrn[4])]
+        for $identifiableFromId in collection('/db/apps/dda-urn')//*[ft:query(@id, $tokenizedUrn[4])]
             return
             if (local:findVersion($identifiableFromId) = $tokenizedUrn[5]) then
                 $identifiableFromId

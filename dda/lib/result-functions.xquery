@@ -9,7 +9,7 @@ xquery version "1.0";
  :)
 module namespace result = "http://dda.dk/ddi/result";
 
-import module namespace context = "http://dda.dk/ddi/context" at "xmldb:exist:///db/dda/lib/context-functions.xquery";
+import module namespace context = "http://dda.dk/ddi/context" at "xmldb:exist:///db/apps/dda/lib/context-functions.xquery";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -115,7 +115,7 @@ declare function local:createStudyUnitCustom($result as element()) as element() 
  : @param   $conceptId the ID of the Concept
  :)
 declare function local:createConceptCustomFromId($conceptId as xs:string) as element() {
-    let $concept := collection('/db/dda')//cc:Concept[ft:query(@id, $conceptId)]
+    let $concept := collection('/db/apps/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <CustomList type="Concept">
         <Custom option="id">{$conceptId}</Custom>
         {local:createCustomLabel($concept/r:Label)}
@@ -130,7 +130,7 @@ declare function local:createConceptCustomFromId($conceptId as xs:string) as ele
  : @param   $universeId the ID of the Universe
  :)
 declare function local:createUniverseCustomFromId($universeId as xs:string) as element() {
-    let $universe := collection('/db/dda')//cc:Universe[ft:query(@id, $universeId)]
+    let $universe := collection('/db/apps/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <CustomList type="Universe">
         <Custom option="id">{$universeId}</Custom>
         {local:createCustomLabel($universe/r:Label)}
@@ -145,7 +145,7 @@ declare function local:createUniverseCustomFromId($universeId as xs:string) as e
  : @param   $questionItemId the ID of the QuestionItem
  :)
 declare function local:createQuestionItemCustomFromId($questionItemId as xs:string) as element() {
-    let $questionItem := collection('/db/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
+    let $questionItem := collection('/db/apps/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
     return <CustomList type="QuestionItem">
         <Custom option="id">{data($questionItem/@id)}</Custom>
         {local:createCustomLabel($questionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
@@ -160,7 +160,7 @@ declare function local:createQuestionItemCustomFromId($questionItemId as xs:stri
  : @param   $multipleQuestionItemId the ID of the MultipleQuestionItem
  :)
 declare function local:createMultipleQuestionItemCustomFromId($multipleQuestionItemId as xs:string) as element() {
-    let $multipleQuestionItem := collection('/db/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
+    let $multipleQuestionItem := collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
     return <CustomList type="MultipleQuestionItem">
         <Custom option="id">{data($multipleQuestionItem/@id)}</Custom>
         {local:createCustomLabel($multipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
@@ -175,7 +175,7 @@ declare function local:createMultipleQuestionItemCustomFromId($multipleQuestionI
  : @param   $variableId the ID of the Variable
  :)
 declare function local:createVariableCustomFromId($variableId as xs:string) as element() {
-    let $variable := collection('/db/dda')//lp:Variable[ft:query(@id, $variableId)]
+    let $variable := collection('/db/apps/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <CustomList type="Variable">
         <Custom option="id">{data($variable/@id)}</Custom>
         {local:createCustomLabel($variable/r:Label)}
@@ -190,7 +190,7 @@ declare function local:createVariableCustomFromId($variableId as xs:string) as e
  : @param   $categoryId the ID of the Category
  :)
 declare function local:createCategoryCustomFromId($categoryId as xs:string) as element() {
-    let $category := collection('/db/dda')//lp:Category[ft:query(@id, $categoryId)]
+    let $category := collection('/db/apps/dda')//lp:Category[ft:query(@id, $categoryId)]
     return <CustomList type="Category">
         <Custom option="id">{data($category/@id)}</Custom>
         {local:createCustomLabel($category/r:Label)}
@@ -250,13 +250,13 @@ declare function result:getReferences($resultElement as element(), $scope as ele
     let $resultElementName := local-name($resultElement)
     (: Get a denormalized list of all elements referred by or referring to this element :)
     let $referenceList :=
-             if ($resultElementName eq 'StudyUnit') then collection('/db/dda-denormalization')//d:StudyUnit[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'Variable') then collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'QuestionItem') then collection('/db/dda-denormalization')//d:QuestionItem[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'MultipleQuestionItem') then collection('/db/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'Universe') then collection('/db/dda-denormalization')//d:Universe[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'Concept') then collection('/db/dda-denormalization')//d:Concept[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'Category') then collection('/db/dda-denormalization')//d:Category[ft:query(@id, $resultElementId)]
+             if ($resultElementName eq 'StudyUnit') then collection('/db/apps/dda-denormalization')//d:StudyUnit[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Variable') then collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'QuestionItem') then collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'MultipleQuestionItem') then collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Universe') then collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Concept') then collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $resultElementId)]
+        else if ($resultElementName eq 'Category') then collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $resultElementId)]
         else ()
 
     (: If the scope (list of types of referring elements) is set then use it. Otherwise fall back to a default list, specific for each element type. :)
