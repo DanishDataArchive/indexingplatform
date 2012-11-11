@@ -265,7 +265,7 @@ declare function ddi:lookupCategory($categoryId as xs:string, $scope as element(
  : @param   $hits-perpage  the number of hits to be shown per page
  : @param   $hit-start     number of the first hit to be shown on the page
  :)
-declare function local:buildLightXmlObjectList($results as element()*, $scope as element(), $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+declare function local:buildLightXmlObjectList($results as element()*, $scope as element()?, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
     let $result-count := count($results)
     let $hit-end := if ($result-count lt $hits-perpage) then $result-count
                     else $hit-start + $hits-perpage

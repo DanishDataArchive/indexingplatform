@@ -204,7 +204,7 @@ declare function local:createCategoryCustomFromId($categoryId as xs:string) as e
  : @version 1.0
  : @param   $result one element in the result list obtained by the query
  :)
-declare function result:buildResultListItem($result as element(), $scope as element()) as element() {
+declare function result:buildResultListItem($result as element(), $scope as element()?) as element() {
     let $result-name := local-name($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
@@ -245,7 +245,7 @@ declare function result:buildResultListItem($result as element(), $scope as elem
  :  For Category:              &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;s:QuestionItem/&gt;&lt;s:MultipleQuestionItem/&gt;&lt;/s:Scope&gt;<br />
  :</pre>
  :)
-declare function result:getReferences($resultElement as element(), $scope as element()) as element()* {
+declare function result:getReferences($resultElement as element(), $scope as element()?) as element()* {
     let $resultElementId := string($resultElement/@id)
     let $resultElementName := local-name($resultElement)
     (: Get a denormalized list of all elements referred by or referring to this element :)
