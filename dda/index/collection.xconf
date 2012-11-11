@@ -36,7 +36,7 @@
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/r:Label-->
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:Label-->
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/r:Label-->
-      <text match="r:Label" analyzer="da"/>
+      <text qname="r:Label" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Description-->
       <text qname="r:Description" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/cc:HumanReadable-->
