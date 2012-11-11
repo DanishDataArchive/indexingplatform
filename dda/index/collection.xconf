@@ -1,8 +1,5 @@
-<collection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd"
-  xmlns="http://exist-db.org/collection-config/1.0">
-  <index xmlns:i="ddi:instance:3_1" xmlns:dc="ddi:datacollection:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1"
-    xmlns:lp="ddi:logicalproduct:3_1" xmlns:cc="ddi:conceptualcomponent:3_1">
+<collection xmlns="http://exist-db.org/collection-config/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd">
+  <index xmlns:dc="ddi:datacollection:3_1" xmlns:r="ddi:reusable:3_1" xmlns:lp="ddi:logicalproduct:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:cc="ddi:conceptualcomponent:3_1" xmlns:i="ddi:instance:3_1">
     
     <!-- Disable the standard full text index -->
     <fulltext default="none" attributes="false"/>
@@ -24,6 +21,8 @@
       <text qname="r:Title" analyzer="da" boost="6.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TopicalCoverage/r:Keyword-->
       <text qname="r:Keyword" analyzer="da" boost="5.0"/>
+      <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TopicalCoverage/r:Subject-->
+      <text qname="r:Subject" analyzer="da" boost="5.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName-->
       <text qname="r:LevelName" analyzer="da" boost="4.0"/>
       <!--/i:DDIInstance/su:StudyUnit/su:Abstract/r:Content-->
