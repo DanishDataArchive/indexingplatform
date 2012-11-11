@@ -22,16 +22,16 @@
         <classpath refid="classpath.core"/>
     </typedef>
 
- <target name="list" description="list the collections and resources" >
+ <target name="list" description="List the collections and resources" >
     <xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collections="true" outputproperty="collections"
       user="${config.username}" password="${config.password}"/>
     <!--<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" resources="true" outputproperty="resources"
       user="${config.username}" password="${config.password}"/>-->
  </target>
 
- <target name="deploy" depends="deploy-dda,deploy-urn" description="Deploys all the parts of the index platform" />
+ <target name="deploy" depends="deploy-dda,deploy-urn" description="Deploy all the parts of the index platform" />
 
- <target name="deploy-dda" description="Deploys the index platform">
+ <target name="deploy-dda" description="Deploy the index platform">
     <!-- store the index files -->  
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda" createcollection="true" srcfile="../dda/index/collection.xconf"/>
@@ -64,7 +64,7 @@
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" collection="data" />
  </target>
  
- <target name="deploy-urn" description="Deploys the URN resolution">
+ <target name="deploy-urn" description="Deploy the URN resolution">
     <!-- store the index files -->
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf"/>
