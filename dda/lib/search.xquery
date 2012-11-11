@@ -482,7 +482,17 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
         $universeSearch             or
         $conceptSearch              or
         $categorySearch
-
+        
+    let $studyParametersEntered := $search-parameters/asp:studyId          or
+                                   $search-parameters/asp:title            or
+                                   $search-parameters/asp:topicalCoverage  or
+                                   $search-parameters/asp:spatialCoverage  or
+                                   $search-parameters/asp:abstract-purpose or
+                                   $search-parameters/asp:creator          or
+                                   $search-parameters/asp:kindOfData       or
+                                   $search-parameters/asp:coverageFrom     or
+                                   $search-parameters/asp:coverageTo
+                                   
     (: If any of the element-specific parameters are set than we are looking for specific elements, not just studies. :)
     (: In that case we do not return the list of studies acquired by the study-specific parameters, but the list of elements found by the element-specific parameters. :)
     (: We will query for a specific element type if (and only if) its parameter has been set. :)
@@ -496,30 +506,40 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             let $universeResults := if ($universeSearch) then local:queryUniverse($search-parameters/asp:Universe) else ()
             let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
             let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
-    
-            (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
-            return (
-                for $variable in $variableResults
-                    let $denormalizedVariable := collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
-                    return if ($studyUnits[@id = $denormalizedVariable/@studyId]) then $variable else (),
-                for $questionItem in $questionItemResults
-                    let $denormalizedQuestionItem := collection('/db/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
-                    return if ($studyUnits[@id = $denormalizedQuestionItem/@studyId]) then $questionItem else (),
-                for $multipleQuestionItem in $multipleQuestionItemResults
-                    let $denormalizedMultipleQuestionItem := collection('/db/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
-                    return if ($studyUnits[@id = $denormalizedMultipleQuestionItem/@studyId]) then $multipleQuestionItem else (),
-                for $universe in $universeResults
-                    let $denormalizedUniverse := collection('/db/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
-                    return if ($studyUnits[@id = $denormalizedUniverse/@studyId]) then $universe else (),
-                for $concept in $conceptResults
-                    let $denormalizedConcept := collection('/db/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
-                    return if ($studyUnits[@id = $denormalizedConcept/@studyId]) then $concept else (),
-                for $category in $categoryResults
-                    let $denormalizedCategory := collection('/db/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
-                    return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
-            )
-                
-        (: If no element-specific parameters are set than we return the studies (if any were found). :)
+            
+            return if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                (
+                    for $variable in $variableResults
+                        let $denormalizedVariable := collection('/db/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
+                        return if ($studyUnits[@id = $denormalizedVariable/@studyId]) then $variable else (),
+                    for $questionItem in $questionItemResults
+                        let $denormalizedQuestionItem := collection('/db/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
+                        return if ($studyUnits[@id = $denormalizedQuestionItem/@studyId]) then $questionItem else (),
+                    for $multipleQuestionItem in $multipleQuestionItemResults
+                        let $denormalizedMultipleQuestionItem := collection('/db/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
+                        return if ($studyUnits[@id = $denormalizedMultipleQuestionItem/@studyId]) then $multipleQuestionItem else (),
+                    for $universe in $universeResults
+                        let $denormalizedUniverse := collection('/db/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
+                        return if ($studyUnits[@id = $denormalizedUniverse/@studyId]) then $universe else (),
+                    for $concept in $conceptResults
+                        let $denormalizedConcept := collection('/db/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
+                        return if ($studyUnits[@id = $denormalizedConcept/@studyId]) then $concept else (),
+                    for $category in $categoryResults
+                        let $denormalizedCategory := collection('/db/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
+                        return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
+                )
+                    
+            (: If no element-specific parameters are set than we return the studies (if any were found). :)
+            else
+                (
+                    $variableResults,
+                    $questionItemResults,
+                    $multipleQuestionItemResults,
+                    $universeResults,
+                    $conceptResults,
+                    $categoryResults
+                 )
         else
             $studyUnits
 
