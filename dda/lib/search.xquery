@@ -507,6 +507,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
             let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
             
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
             return if ($studyParametersEntered) then
                 (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
                 (
@@ -530,7 +531,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                         return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
                 )
                     
-            (: If no element-specific parameters are set than we return the studies (if any were found). :)
+            (: If no study unit parameters were set then we just return all the found elements. :)
             else
                 (
                     $variableResults,
@@ -540,6 +541,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                     $conceptResults,
                     $categoryResults
                  )
+        (: If no element-specific parameters are set than we return the studies (if any were found). :)
         else
             $studyUnits
 
