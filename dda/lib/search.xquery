@@ -91,7 +91,6 @@ declare function local:queryUniverse($search-string as xs:string) as element()* 
  :)
 declare function local:queryQuestionItem($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/apps/dda')//dc:QuestionItem[ft:query(dc:QuestionItemName, $search-string)] |
         collection('/db/apps/dda')//dc:QuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
     for $element in $list
         order by ft:score($element) descending
