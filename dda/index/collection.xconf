@@ -40,8 +40,6 @@
       <text qname="r:Description" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/cc:HumanReadable-->
       <text qname="cc:HumanReadable" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionItemName-->
-      <text qname="dc:QuestionItemName" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <text qname="dc:Text" analyzer="da"/>
