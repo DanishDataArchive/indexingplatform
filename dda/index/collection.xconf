@@ -43,8 +43,6 @@
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <text qname="dc:Text" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:MultipleQuestionItemName-->
-      <text qname="dc:MultipleQuestionItemName" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:VariableName-->
       <text qname="lp:VariableName" analyzer="da"/>
       
