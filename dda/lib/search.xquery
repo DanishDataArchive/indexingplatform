@@ -32,6 +32,19 @@ declare namespace d="http://dda.dk/ddi/denormalized-ddi";
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
+declare function ddi:getDdiStudy($studyId as xs:string) as element()* {
+    let $study := collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $studyId)]
+    return $study/ancestor::i:DDIInstance
+};
+
+(:~
+ : Makes a free-text search in StudyUnit elements and returns the element(s) containing the match
+ : It also sorts the list by score in descending order
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $search-string the string that needs to be matched
+ :)
 declare function local:queryStudyUnit($search-string as xs:string) as element()* {
     let $list :=
         collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $search-string)] |
