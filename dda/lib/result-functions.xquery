@@ -52,8 +52,10 @@ declare function local:createLabel($nodes as element()*) as element()* {
         let $questionText := if ($node-name eq 'Text') then $node/ancestor-or-self::dc:QuestionText else ()
         return if ($node-name eq 'Text') then
             <Label lang="{data($questionText/@xml:lang)}">{data($node)}</Label>
-        else
+        else if ($node/@xml:lang) then
             <Label lang="{data($node/@xml:lang)}">{data($node)}</Label>
+        else
+            <Label>{data($node)}</Label>
 };
 
 (:~
