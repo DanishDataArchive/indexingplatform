@@ -95,7 +95,7 @@ declare function context:get-context($node as element(), $max as xs:int) as elem
     let $nrOfMatches := count($matches)
     
     return
-    <p>
+    <p class="context">
     {
     for $match at $pos in $matches
         return

@@ -7,12 +7,12 @@
     <LightXmlObject element="StudyUnit" id="25612" version="1.0.0"
         parentId="0da1fac8-e7b4-45a3-819a-9b4c3d18ee9f" parentVersion="1.0.0">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">... casestudier på virksomheder, der på forskellige </span>
                 <span class="hi">områder</span>
                 <span class="following"> er længst fremme med en udvikling af nye ...</span>
             </p>
-            <p>
+            <p class="context">
                 <span class="previous">... strukturer og organisationsfomer. Det valgte </span>
                 <span class="hi">område</span>
                 <span class="following"> er nyhedsarbejde.</span>
@@ -31,7 +31,7 @@
     <LightXmlObject element="StudyUnit" id="25612" version="1.0.0"
         parentId="8f85bf3f-887d-480d-9c6a-9245de3a47ee" parentVersion="1.0.0">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">... strukturer og organisationsfomer. Det valgte </span>
                 <span class="hi">område</span>
                 <span class="following"> er nyhedsarbejde, da nyhedsbranchen kan ses som
@@ -54,7 +54,7 @@
     <LightXmlObject element="StudyUnit" id="25642" version="1.0.0"
         parentId="7dae7709-2058-4d22-84c5-081316326669" parentVersion="1.0.0">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">... sidste. Langt de flesteholdningsundersøgelser på </span>
                 <span class="hi">området</span>
                 <span class="following"> fokuserer på holdningen til indvandrere uden at
@@ -73,7 +73,7 @@
     <LightXmlObject element="QuestionItem" id="quei-2549ddbd-ed16-484f-b279-70dc83360ab5"
         version="1.0.0" parentId="" parentVersion="">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">Eget </span>
                 <span class="hi">område</span>
             </p>
@@ -111,7 +111,7 @@
         version="1.0.0" parentId="ques-f4c88bbd-893a-4c3e-834a-1131c2a4bfd8"
         parentVersion="1.0.0">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">Tekniske </span>
                 <span class="hi">område</span>
             </p>
@@ -179,7 +179,7 @@
     <LightXmlObject element="QuestionItem" id="quei-53186733-192d-45f2-98b2-ea4744a0ad59"
         version="1.0.0" parentId="" parentVersion="">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">k. Har interesse for </span>
                 <span class="hi">området</span>
             </p>
@@ -212,7 +212,7 @@
     <LightXmlObject element="QuestionItem" id="quei-8079c12e-1833-4954-9a06-904ecdd43ace"
         version="1.0.0" parentId="" parentVersion="">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">3. Det tekniske </span>
                 <span class="hi">område</span>
             </p>
@@ -249,7 +249,7 @@
     <LightXmlObject element="QuestionItem" id="quei-7edbaa84-706a-48d9-8edd-fdaa2569cd64"
         version="1.0.0" parentId="" parentVersion="">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">4. Det sociale </span>
                 <span class="hi">område</span>
                 <span class="following"> - Dagpasning</span>
@@ -287,7 +287,7 @@
     <LightXmlObject element="QuestionItem" id="quei-d201e58f-d576-406d-ba6e-d19a66aa3059"
         version="1.0.0" parentId="" parentVersion="">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">5. Det sociale </span>
                 <span class="hi">område</span>
                 <span class="following"> - Familie</span>
@@ -325,7 +325,7 @@
     <LightXmlObject element="QuestionItem" id="quei-90827f14-3782-4966-8f37-43c952d03507"
         version="1.0.0" parentId="" parentVersion="">
         <Context>
-            <p>
+            <p class="context">
                 <span class="previous">6. Det sociale </span>
                 <span class="hi">område</span>
                 <span class="following"> - Ældre</span>

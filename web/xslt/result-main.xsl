@@ -11,6 +11,7 @@
         <head>
             <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
             <link rel="stylesheet" type="text/css" href="theme/style.css" />
+            <link rel="stylesheet" type="text/css" href="result.css" />
             <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml" />
             <link rel="shortcut icon" href="theme/favicon.ico"/>
             <!-- todo: abstract -->
