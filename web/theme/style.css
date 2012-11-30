@@ -67,6 +67,43 @@ h3.lp		{ font-family: verdana,arial,helvetica,sans-serif; color: #333; font-size
 				bolder;padding: 0px 0px 0px 0px }
 
 /* ************************************ */
+/* *** search                                    *** */
+/* ************************************ */
+h1.search		{ font-family: verdana,arial,helvetica,sans-serif; font-size: 14pt; color:#333; font-weight:normal; text-align: left;  padding: 0px; margin-top: 4px; margin-bottom:2px; margin-left: 10px;} 
+h2.search		{ font-family: verdana,arial,helvetica,sans-serif; color: #000080; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 4px; margin-bottom:4px; }
+h3.search		{ font-family: verdana,arial,helvetica,sans-serif; color: #333; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 6px; margin-bottom:2px; }
+
+strong.search		{ font-family: verdana,arial,helvetica,sans-serif; color: #000080; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 8px; margin-bottom:2px; }
+.searchoption           {vertical-align: middle}
+.searchsimpleinput  {margin-left: 10px; margin-right: 10px;}
+.searchadvanced  {font-weight:bold; color: #3e3f42;}
+p.context
+{
+    /*border-bottom-style:solid;
+    border-width:1px;
+    border-color:#333333;*/
+    padding:5px;
+}
+
+span.hi
+{
+    background-color:yellow;
+}
+
+.contextlink p		{ font-size: 8pt; color: #000080; }
+.contextlink a:link	{ color: #000080; background-color: transparent; text-decoration: underline; }
+.contextlink a:visited	{ color: #000; background-color: transparent; text-decoration: underline; }
+.contextlink a:active	{ color: #000080; background-color: transparent; text-decoration: underline; }
+.contextlink a:hover	{ color: #c97624; background-color: transparent; text-decoration: underline; }
+
+.study, study.p { font-family: Verdana; font-size: 8pt; color: #000;font-variant:small-caps }
+.study a			{ font-family: verdana,arial,helvetica,sans-serif; font-size: 8pt; color: #000; }
+.stydy a:link	{ color: #000; background-color: transparent; text-decoration: none; }
+.study a:visited	{ color: #000; background-color: transparent; text-decoration: none; }
+.study  a:active	{ color: #000; background-color: transparent; text-decoration: none; }
+.study a:hover	{ color: #c97624; background-color: transparent; text-decoration: none; }
+
+/* ************************************ */
 /* *** Specialeserede formateringer *** */
 /* ************************************ */
 

@@ -15,12 +15,7 @@
         </p>
         
         <xsl:for-each select="LightXmlObject">
-            <h3>
-                <xsl:variable name="url" select="concat('http://dda.dk/landingpage/', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
-                <a href="{$url}"><xsl:value-of select="CustomList[@type='StudyUnit']/Custom[@option='label']"/></a>
-            </h3>
-            
-            <p>
+            <!--p>
                 Fra
                 <xsl:call-template name="formatDate">
                     <xsl:with-param name="dateTime" select="CustomList[@type='StudyUnit']/Custom[@option='start']" />
@@ -29,14 +24,16 @@
                 <xsl:call-template name="formatDate">
                     <xsl:with-param name="dateTime" select="CustomList[@type='StudyUnit']/Custom[@option='end']" />
                 </xsl:call-template>
+            </p-->
+            <br/>
+            <p class="contextlink">
+                <xsl:variable name="url" select="concat('http://dda.dk/landingpage/', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+            <strong><xsl:value-of select="@element"/>:  </strong> <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>
+                <em><xsl:apply-templates select="Context"/></em>
             </p>
-            
-            <p>
-                Fundet i <b><xsl:value-of select="@element"/></b>: 
-                <i><xsl:value-of select="Label"/></i>
-            </p>
-            <p>
-                <xsl:apply-templates select="Context"/>
+            <p class="study">
+                <xsl:variable name="url2" select="concat('http://dda.dk/landingpage/', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+                <a class="study" href="{$url2}"><xsl:value-of select="CustomList[@type='StudyUnit']/Custom[@option='label']"/></a>
             </p>
             <br/>
         </xsl:for-each>			
