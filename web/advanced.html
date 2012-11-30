@@ -54,7 +54,7 @@
           <tr>
             <td class="header" valign="top">
               <p align="center">
-                <img src="theme/dda-header-graph-961.jpg" usemap="#Map" height="129" border="0" width="961" />
+                <img src="theme/dda-header-peak-961.jpg" usemap="#Map" height="129" border="0" width="961" />
                 <map name="Map">
                   <area shape="rect" coords="24, 11, 221, 121" href="http://samfund.dda.dk/dda/data-forside.asp"/>
                 </map>
@@ -98,55 +98,25 @@
                               <table id="table1" class="subnav" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tbody>
                                   <tr>
-                                    <td><a href="#primaryinvestigator">Primærundersøger</a></td>
+                                    <td><a href="#">Simple søgning</a></td>
                                   </tr>
                                   <tr>
                                     <td>&#160;</td>
                                   </tr>
                                   <tr>
-                                    <td><a href="#documentation">Dokumentation</a></td>
+                                    <td><a href="#">Hjælp til søgning</a></td>
                                   </tr>
                                   <tr>
                                     <td>&#160;</td>
                                   </tr>
                                   <tr>
-                                    <td><a href="#description">Beskrivelse</a></td>
+                                    <td><a href="#">Hjælp til søgeresultat</a></td>
                                   </tr>
                                   <tr>
                                     <td>&#160;</td>
                                   </tr>
                                   <tr>
-                                    <td><a href="#universe">Universe</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>&#160;</td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="#dataset">Datasæt</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>&#160;</td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="#method">Metode</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>&#160;</td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="#citation">Citation</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>&#160;</td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="#status">Adgang</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>&#160;</td>
-                                  </tr>
-                                  <tr>
-                                    <td><a href="#metadata">Metadata</a></td>
+                                    <td><a href="#universe">Teknisk information</a></td>
                                   </tr>
                                 </tbody>
                               </table></td>
@@ -164,73 +134,84 @@
                                   <tbody>
                                     <tr>
                                       <td>																	
-                                        <strong class="lp">Avanceret søgning</strong>
-                                      </td>
-                                      <td></td>
-                                      <td align="right"><form action="#"><input type="submit" class="lporderButton lporderText" value="Bestil Data" style="width:90px;" /></form></td>
+                                        <h1>Avanceret søgning</h1>
+                                      </td>                                   
                                     </tr>
                                   </tbody>
                                 </table>
     <form action="">
-      <table>
+      <table id="searchform">  
         <tr>
-          <td>Study ID</td>
-          <td><input type="text" name="studyId" size="40" /></td>
+          <td colspan="2"><h2 class="search">Studieinformation</h2></td>
         </tr>
         <tr>
-          <td>Title</td>
+          <td class="searchadvanced">Title</td>
           <td><input type="text" name="title" size="40" /></td>
         </tr>
         <tr>
-          <td>Topical Coverage</td>
-          <td>
-            <input type="text" name="topicalCoverage" size="40" />
-            <input type="checkbox" name="subject" checked="checked" />Subject
-            <input type="checkbox" name="subject" checked="keyword" />Keyword
-          </td>
-        </tr>
-        <tr>
-          <td>Spatial Coverage</td>
-          <td><input type="text" name="spatialCoverage" size="40" /></td>
-        </tr>
-        <tr>
-          <td>Abstract/Purpose</td>
+          <td class="searchadvanced">Abstract/Purpose</td>
           <td><input type="text" name="abstract-purpose" size="40" /></td>
         </tr>
         <tr>
-          <td>Creator</td>
+          <td class="searchadvanced">Creator</td>
           <td><input type="text" name="creator" size="40" /></td>
         </tr>
         <tr>
-          <td>KindOfData</td>
+          <td class="searchadvanced">Topical Coverage</td>
+          <td>
+            <input type="text" name="topicalCoverage" size="40" />
+            <!--<input type="checkbox" name="subject" checked="checked" />Subject
+            <input type="checkbox" name="subject" checked="keyword" />Keyword-->
+          </td>
+        </tr>
+        <tr>
+          <td class="searchadvanced">Spatial Coverage</td>
+          <td><input type="text" name="spatialCoverage" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="searchadvanced">KindOfData</td>
           <td><input type="text" name="kindOfData" size="40" /></td>
         </tr>
         <tr>
-          <td>Temporal Coverage</td>
+          <td class="searchadvanced">Temporal Coverage</td>
           <td><input type="text" name="coverageFrom" size="17" /> <input type="text" name="coverageTo" size="16" /></td>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
+          <td colspan="2"><h2 class="search">Studieinformation på variable niveau</h2></td>
         </tr>
         <tr>
-          <td>Concept</td>
+          <td class="searchadvanced">Question</td>
+          <td><input type="text" name="question" size="40" /></td>
+        </tr>
+          <tr>
+            <td class="searchadvanced">Variable</td>
+            <td><input type="text" name="variable" size="40" /></td>
+          </tr>
+        <tr>
+          <td class="searchadvanced">Category</td>
+          <td><input type="text" name="category" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="searchadvanced">Concept</td>
           <td><input type="text" name="concept" size="40" /></td>
         </tr>
         <tr>
-          <td>Universe</td>
+          <td class="searchadvanced">Universe</td>
           <td><input type="text" name="universe" size="40" /></td>
         </tr>
         <tr>
-          <td>Question</td>
-          <td><input type="text" name="question" size="40" /></td>
+          <td colspan="2">
+            <h2 class="search">Søgeresultat</h2>
+            <input class="searchoption"  type="checkbox" name="studyUnit" checked="checked" /><span>Studiebeskrivelse</span>
+            <input class="searchoption"  type="checkbox" name="question" checked="checked" />Spørgsmål
+            <input class="searchoption" type="checkbox" name="variable" checked="checked" />Variabler
+            <input class="searchoption" type="checkbox" name="category" checked="checked" />Kategorier
+            <input class="searchoption" type="checkbox" name="concept" checked="checked" />Koncepter
+            <input class="searchoption" type="checkbox" name="universe" checked="checked" />Universer
+          </td>
         </tr>
         <tr>
-          <td>Variable</td>
-          <td><input type="text" name="variable" size="40" /></td>
-        </tr>
-        <tr>
-          <td>Category</td>
-          <td><input type="text" name="category" size="40" /></td>
+          <td>&#160;</td>
         </tr>
         <tr>
           <td colspan="2"><input type="submit" /></td>

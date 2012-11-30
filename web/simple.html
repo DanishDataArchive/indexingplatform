@@ -54,7 +54,7 @@
                     <tr>
                         <td class="header" valign="top">
                             <p align="center">
-                                <img src="theme/dda-header-graph-961.jpg" usemap="#Map" height="129" border="0" width="961" />
+                                <img src="theme/dda-header-peak-961.jpg" usemap="#Map" height="129" border="0" width="961" />
                                 <map name="Map">
                                     <area shape="rect" coords="24, 11, 221, 121" href="http://samfund.dda.dk/dda/data-forside.asp"/>
                                 </map>
@@ -96,57 +96,27 @@
                                                         <td valign="top" width="15">&#160;</td>
                                                         <td valign="top">
                                                             <table id="table1" class="subnav" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                <tbody>
+                                                                <tbody>                                                                    
                                                                     <tr>
-                                                                        <td><a href="#primaryinvestigator">Primærundersøger</a></td>
+                                                                        <td><a href="#">Avanceret søgning</a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>&#160;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td><a href="#documentation">Dokumentation</a></td>
+                                                                        <td><a href="#">Hjælp til søgning</a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>&#160;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td><a href="#description">Beskrivelse</a></td>
+                                                                        <td><a href="#">Hjælp til søgeresultat</a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>&#160;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td><a href="#universe">Universe</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#dataset">Datasæt</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#method">Metode</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#citation">Citation</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#status">Adgang</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#metadata">Metadata</a></td>
+                                                                        <td><a href="#">Teknisk information</a></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table></td>
@@ -155,38 +125,47 @@
                                             </table></td>
                                         <td valign="top" width="580">
                                             <div align="center">
+                                                <form action="http://duckduckgo.com">
                                                 <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
                                                     <!--org width 530 -->
                                                     <tbody>
                                                         <tr>
                                                             <td valign="top">
-                                                                <table id="idandorder" border="0" cellpadding="0" cellspacing="0" width="700">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>																	
-                                                                                <strong class="lp">Simpel søgning</strong>
-                                                                            </td>
-                                                                            <td></td>
-                                                                            <td align="right"><form action="#"><input type="submit" class="lporderButton lporderText" value="Bestil Data" style="width:90px;" /></form></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-        <form action="">
-            <input type="text" name="search-string" size="80" />
-            <input type="submit" />
-            <br />
-            <input type="checkbox" name="studyUnit" checked="checked" />Study unit
-            <input type="checkbox" name="concept" checked="checked" />Concept
-            <input type="checkbox" name="universe" checked="checked" />Universe
-            <input type="checkbox" name="question" checked="checked" />Question
-            <input type="checkbox" name="variable" checked="checked" />Variable
-            <input type="checkbox" name="category" checked="checked" />Category
-        </form>
-
+                                                                <h1 class="search">Søg efter data</h1>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td align="right">                                                                                                                             
+                                                                <strong class="search">Søgeresultat: </strong>
+                                                                <input class="searchoption"  type="checkbox" name="studyUnit" checked="checked" /><span>Studiebeskrivelse</span>
+                                                                <input class="searchoption"  type="checkbox" name="question"  checked="checked" />Spørgsmål
+                                                                <input class="searchoption" type="checkbox" name="variable" checked="checked" />Variabler
+                                                                <input class="searchoption" type="checkbox" name="category" checked="checked" />Kategorier
+                                                                <input class="searchoption" type="checkbox" name="concept" checked="checked" />Koncepter
+                                                                <input class="searchoption" type="checkbox" name="universe" checked="checked" />Universer
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                &#160;
+                                                            </td>
+                                                        </tr>
+                                                            <td>     
+                                                                <input class="searchsimpleinput" type="text" name="q" size="80" />  
+                                                             </td>
+                                                        </tr><tr>
+                                                            <td>
+                                                                &#160;
+                                                            </td>
+                                                        </tr> 
+                                                            <tr>
+                                                                <td align="center">     
+                                                                    <input type="submit" value="Søg i data"/>  
+                                                                </td>
+                                                            </tr>
                                                     </tbody>
-                                                </table>
+                                                </table>                                                    
+                                                </form>
                                             </div></td>
                                         <!--td class="mainrightborder" valign="top" width="200">
 									<table id="table6" class="mainright" width="100%">
