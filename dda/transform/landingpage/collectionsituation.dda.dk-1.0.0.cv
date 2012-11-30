@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+  <Annotation>
+    <Description xml:lang="en">
+      <h:p>CV defining circumstances in the data collection situation</h:p>
+    </Description>
+    <AppInfo>
+      <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
+      <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName xml:lang="en">DDACollectionSituation</ShortName>
+    <LongName xml:lang="en">DDA Collection Situation</LongName>
+    <Version>1.0.0</Version>
+    <CanonicalUri>uri:collectionsituation.dda.dk</CanonicalUri>
+    <CanonicalVersionUri>uri:collectionsituation.dda.dk-1.0.0</CanonicalVersionUri>
+    <LocationUri>http://www.dda.dk/cv/collectionsituation.dda.dk-1.0.0.cv</LocationUri>
+    <Agency>
+      <ShortName>Danish Data Archive</ShortName>
+      <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
+      <Identifier>DDA</Identifier>
+    </Agency>
+  </Identification>
+  <ColumnSet>
+    <Column Id="code" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The code that identifies the value</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>code</ShortName>
+      <LongName xml:lang="en">Identifing code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="term" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The term accociated with the code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>term</ShortName>
+      <LongName xml:lang="en">Term of the code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="description" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>Description of the term and code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>description</ShortName>
+      <LongName xml:lang="en">Description</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="ddacode" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>DDA specific code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>ddacode</ShortName>
+      <LongName xml:lang="en">DDA identifing code</LongName>
+      <Data Type="int"/>
+    </Column>
+    <Key Id="Key-code">
+      <ShortName>Key-code</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CoorporationOfRespondent</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Respondentens samarbejdsvilje</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coorporation of respondent</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Respondentens samarbejdsvilje</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coorporation of respondent</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>TimeligLengthOfInterview</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Timelig length of interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Varighed af interview</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Timelig length of interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Varighed af interview</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>NumberOfActualVisits</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Faktisk antal besøg</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Number of actual visits</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Faktisk antal besøg</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Number of actual visits</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>DataCollectorIdentified</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Data collector identified</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dataindsamleren identificeret</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Data collector identified</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dataindsamleren identificeret</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CharacteristicsOfDataCollector</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dataindsamlerens egenskaber</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Characteristics of data collector</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dataindsamlerens egenskaber</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Characteristics of data collector</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PresenceOfOtherPeople</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Andre personers tilstedeværelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Presence of other people</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Andre personers tilstedeværelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Presence of other people</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PhysicalGeographicalLocation</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Physical/ geographical location</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Fysisk/ geografisk placering</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Physical/ geographical location</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Fysisk/ geografisk placering</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>7</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SpecialCircumstances</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Særlige omstændigheder</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Special circumstances</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Særlige omstændigheder</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Special circumstances</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>8</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ObservationConditions</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Observation conditions</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Observationsbetingelser</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Observation conditions</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Observationsbetingelser</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>9</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SchemaTestUsed</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Skema/ test anvendt</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Schema/ test used</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Skema/ test anvendt</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Schema/ test used</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>10</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Other</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>99</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>

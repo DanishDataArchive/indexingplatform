@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+  <Annotation>
+    <Description xml:lang="en">
+      <h:p>CV defining the types of data DDA holds in its collections</h:p>
+    </Description>
+    <AppInfo>
+      <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
+      <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName xml:lang="en">DDAKindOfData</ShortName>
+    <LongName xml:lang="en">DDA Kind of Data</LongName>
+    <Version>1.0.0</Version>
+    <CanonicalUri>urn:kindofdata.dda.dk</CanonicalUri>
+    <CanonicalVersionUri>urn:kindofdata.dda.dk-1.0.0</CanonicalVersionUri>
+    <LocationUri>http://www.dda.dk/cv/kindofdata.dda.dk-1.0.0.cv</LocationUri>
+    <Agency>
+      <ShortName>Danish Data Archive</ShortName>
+      <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
+      <Identifier>DDA</Identifier>
+    </Agency>
+  </Identification>
+  <ColumnSet>
+    <Column Id="code" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The code that identifies the value</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>code</ShortName>
+      <LongName xml:lang="en">Identifing code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="term" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The term accociated with the code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>term</ShortName>
+      <LongName xml:lang="en">Term of the code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="description" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>Description of the term and code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>description</ShortName>
+      <LongName xml:lang="en">Description</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="ddacode" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>DDA specific code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>ddacode</ShortName>
+      <LongName xml:lang="en">DDA identifing code</LongName>
+      <Data Type="int"/>
+    </Column>
+    <Key Id="Key-code">
+      <ShortName>Key-code</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>survey</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Spørgeskemaundersøgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Survey Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Spørgeskemaundersøgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Survey Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>censusdata</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Folketællinger</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Census Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Folketællinger</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Census Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>statistics</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Statistik</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Statistical Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Statistik</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Statistical Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>egislativerollcalls</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Legislative Roll Call Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Parlamentsafstemninger</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Legislative Roll Call Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Parlamentsafstemninger</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>sychologicaltest</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Psykologisk test</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Psychological test</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Psykologisk test</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Psychological test</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>clinicaldata</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Clinical Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Kliniske data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Clinical Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Kliniske data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>textualdata</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Textual Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Tekstdata</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Textual Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Tekstdata</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>7</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>codedtextualdata</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kodede tekstdata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded Textual Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kodede tekstdata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded Textual Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>8</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>codeddocuments</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kodede dokumenter</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded Documents</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kodede dokumenter</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded Documents</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>9</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>registerdata</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Registerdata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Register Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Registerdata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Register Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>10</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>qualitativedata</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kvalitative data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Qualitative Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kvalitative data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Qualitative Data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>11</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>other</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>99</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>
