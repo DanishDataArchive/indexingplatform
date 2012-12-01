@@ -10,11 +10,20 @@ declare function local:main() as node()? {
 
     let $study := ddi:getDdiStudy(request:get-parameter("studyid", "0"))
     let $metadataStylesheet := doc("/db/apps/dda/transform/metadata/DdiStudyUnit_To_DdaMetadata.xsl")
-    let $landingpageStylesheet := doc("/db/apps/dda/transform/landingpage/lp-main.xsl")
+    let $landingpageStylesheet := doc("/db/apps/dda/transform/landingpage/lp-main.xsl")    
+    let $httpAcceptLanguage := data(request:get-header('Accept-Language'))
+    let $parameterLanguage := data(request:get-parameter("lang", "n/a"))
+        
+    let $lang := if($parameterLanguage = 'da')
+        then 'da'
+    else if ($parameterLanguage = 'en')
+        then 'en'
+    else if (fn:contains($httpAcceptLanguage, 'da'))
+        then 'da'
+    else 'en'
     
     let $params := <parameters>
-            <param name="lang" value="{data(request:get-parameter("lang", "da"))}"/>
-            <param name="http-Accept-Language" value="{ data(request:get-header('Accept-Language'))}"/>
+            <param name="lang" value="{$lang}"/>            
         </parameters>
 
     let $metadataResultXml := transform:transform($study, $metadataStylesheet, $params)
