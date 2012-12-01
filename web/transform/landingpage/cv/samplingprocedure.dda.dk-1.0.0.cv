@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+  <Annotation>
+    <Description xml:lang="en">
+      <h:p>CV defining sampling procedures</h:p>
+    </Description>
+    <AppInfo>
+      <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
+      <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName xml:lang="en">DDASamplingProcedure</ShortName>
+    <LongName xml:lang="en">DDA Sampling Procedure</LongName>
+    <Version>1.0.0</Version>
+    <CanonicalUri>samplingprocedure.dda.dk</CanonicalUri>
+    <CanonicalVersionUri>uri:samplingprocedure.dda.dk-1.0.0</CanonicalVersionUri>
+    <LocationUri>http://www.dda.dk/cv/samplingprocedure.dda.dk-1.0.0.cv</LocationUri>
+    <Agency>
+      <ShortName>Danish Data Archive</ShortName>
+      <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
+      <Identifier>DDA</Identifier>
+    </Agency>
+  </Identification>
+  <ColumnSet>
+    <Column Id="code" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The code that identifies the value</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>code</ShortName>
+      <LongName xml:lang="en">Identifing code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="term" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The term accociated with the code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>term</ShortName>
+      <LongName xml:lang="en">Term of the code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="description" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>Description of the term and code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>description</ShortName>
+      <LongName xml:lang="en">Description</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="ddacode" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>DDA specific code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>ddacode</ShortName>
+      <LongName xml:lang="en">DDA identifing code</LongName>
+      <Data Type="int"/>
+    </Column>
+    <Key Id="Key-code">
+      <ShortName>Key-code</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>nosample</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">No Sampling/ Total Universe)</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Totaltælling</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">No Sampling/ Total Universe)</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Totaltælling</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>quotasample</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Quota Sample</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Kvoteudvælgelse</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Quota Sample</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Kvoteudvælgelse</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>simplerandomsample</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Simpel tilfældig udvælgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Simple Random Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Simpel tilfældig udvælgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Simple Random Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>stratifiedrandomsample</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Stratificeret tilfældig udvælgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Stratified Random Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Stratificeret tilfældig udvælgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Stratified Random Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>areaclustersample</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Klyngeudvælgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Area Cluster Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Klyngeudvælgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Area Cluster Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>multistagesample</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Flertrins udvælgelsesmetode</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Multi Stage Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Flertrins udvælgelsesmetode</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Multi Stage Sample</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>other</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>99</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>
