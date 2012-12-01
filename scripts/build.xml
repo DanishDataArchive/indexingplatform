@@ -7,15 +7,12 @@
   <!-- import default properties from file -->
     <xmlproperty file="config.xml"/>
 
-    <!-- the path to the eXist installation directory -->
-    <!--property name="server.dir" value="C:\dda\eXist"/>-->
-
     <path id="classpath.core">
-        <fileset dir="${env.EXIST_HOME}/lib/core">
+        <fileset dir="${config.exist-dir}/lib/core">
             <include name="*.jar"/>
         </fileset>
-        <pathelement path="${env.EXIST_HOME}/exist.jar"/>
-        <pathelement path="${env.EXIST_HOME}/exist-optional.jar"/>
+        <pathelement path="${config.exist-dir}/exist.jar"/>
+        <pathelement path="${config.exist-dir}/exist-optional.jar"/>
     </path>
     
     <typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
@@ -29,7 +26,7 @@
       user="${config.username}" password="${config.password}"/>-->
  </target>
 
- <target name="deploy" depends="deploy-dda,deploy-urn" description="Deploy all the parts of the index platform" />
+ <target name="deploy" depends="deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
 
  <target name="deploy-dda" description="Deploy the index platform">
     <!-- store the index files -->  
@@ -69,6 +66,30 @@
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda" collection="data" />
     <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" collection="data" />
+ </target>
+  
+ <target name="deploy-web" description="Deploy the web interface">
+   <!-- store the rest files -->
+   <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+     uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
+     <fileset dir="../web">
+       <include name="**/*.xquery"/>
+     </fileset>
+   </xdb:store>
+    <!-- store the xslt files -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform" createcollection="true" createsubcollections="true">
+      <fileset dir="../web/transform">
+        <include name="**/*.*"/>
+      </fileset>
+    </xdb:store>
+    <!-- store the theme files -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true" createsubcollections="true">
+      <fileset dir="../web/theme">
+        <include name="**/*.*"/>
+      </fileset>
+    </xdb:store>
  </target>
  
  <target name="deploy-urn" description="Deploy the URN resolution">
