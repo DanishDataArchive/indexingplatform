@@ -1,1 +1,152 @@
-<LandingPageLabels><Label id="principalinvestigator"><LabelText xml:lang="da">Primærundersøger</LabelText><LabelText xml:lang="en">PrincipalInvestigator</LabelText></Label><Label id="documentation"><LabelText xml:lang="da">Dokumentation</LabelText><LabelText xml:lang="en">Documentation</LabelText></Label><Label id="description"><LabelText xml:lang="da">Beskrivelse</LabelText><LabelText xml:lang="en">Description</LabelText></Label><Label id="purpose"><LabelText xml:lang="da">Formål</LabelText><LabelText xml:lang="en">Purpose</LabelText></Label><Label id="abstract"><LabelText xml:lang="da">Abstract</LabelText><LabelText xml:lang="en">Abstract</LabelText></Label><Label id="keywords"><LabelText xml:lang="da">Nøgleord</LabelText><LabelText xml:lang="en">Keywords</LabelText></Label><Label id="classification"><LabelText xml:lang="da">Klassifikation</LabelText><LabelText xml:lang="en">Classification</LabelText></Label><Label id="universe"><LabelText xml:lang="da">Universe</LabelText><LabelText xml:lang="en">Universe</LabelText></Label><Label id="geographiccoverage"><LabelText xml:lang="da">Geografisk afgrænsning</LabelText><LabelText xml:lang="en">Geographic Coverage</LabelText></Label><Label id="dataset"><LabelText xml:lang="da">Datasæt</LabelText><LabelText xml:lang="en">Data set</LabelText></Label><Label id="askfordata"><LabelText xml:lang="da">Bestil data</LabelText><LabelText xml:lang="en">Ask for data</LabelText></Label><Label id="variables"><LabelText xml:lang="da">Variabler</LabelText><LabelText xml:lang="en">Variables</LabelText></Label><Label id="respondenter"><LabelText xml:lang="da">Respondenter</LabelText><LabelText xml:lang="en">todo</LabelText></Label><Label id="respondenter_numberunits"><LabelText xml:lang="da">I datasæt</LabelText><LabelText xml:lang="en">In data set</LabelText></Label><Label id="respondenter_samplenumberunits"><LabelText xml:lang="da">Oprindelig stikprøve</LabelText><LabelText xml:lang="en">Original sample</LabelText></Label><Label id="method"><LabelText xml:lang="da">Metode</LabelText><LabelText xml:lang="en">Method</LabelText></Label><Label id="studytype"><LabelText xml:lang="da">Studietype</LabelText><LabelText xml:lang="en">Study Class</LabelText></Label><Label id="testtype"><LabelText xml:lang="da">Testtype</LabelText><LabelText xml:lang="en">Test type</LabelText></Label><Label id="timemethod"><LabelText xml:lang="da">Tidsdimension</LabelText><LabelText xml:lang="en">Time dimension</LabelText></Label><Label id="numberofquestions"><LabelText xml:lang="da">Antal spørgsmål</LabelText><LabelText xml:lang="en">Number of questions</LabelText></Label><Label id="datacollection"><LabelText xml:lang="da">Dataindsamling</LabelText><LabelText xml:lang="en">Data collection</LabelText></Label><Label id="samplingprocedure"><LabelText xml:lang="da">Udvælgelsesprocedurer</LabelText><LabelText xml:lang="en">Sampling procedure</LabelText></Label><Label id="modeofcollection"><LabelText xml:lang="da">Indsamlingsmetode</LabelText><LabelText xml:lang="en">Mode of collection</LabelText></Label><Label id="datacollector"><LabelText xml:lang="da">Indsamler</LabelText><LabelText xml:lang="en">Data Collector</LabelText></Label><Label id="temporalcoverage"><LabelText xml:lang="da">Indsamlingsperiode</LabelText><LabelText xml:lang="en">Temporal coverage</LabelText></Label><Label id="temporalcoverage_startdate"><LabelText xml:lang="da">Start</LabelText><LabelText xml:lang="en">Start</LabelText></Label><Label id="temporalcoverage_enddate"><LabelText xml:lang="da">Slut</LabelText><LabelText xml:lang="en">End</LabelText></Label><Label id="citation"><LabelText xml:lang="da">Citation</LabelText><LabelText xml:lang="en">Citation</LabelText></Label><Label id="persistentidentifier"><LabelText xml:lang="da">Persistent identifikation</LabelText><LabelText xml:lang="en">Persistent identifier</LabelText></Label><Label id="archiveinfo"><LabelText xml:lang="da">Arkiv information</LabelText><LabelText xml:lang="en">Archive information</LabelText></Label><Label id="recieveddate"><LabelText xml:lang="da">Modtaget</LabelText><LabelText xml:lang="en">Recieved</LabelText></Label><Label id="publisheddate"><LabelText xml:lang="da">Publiseret</LabelText><LabelText xml:lang="en">Published</LabelText></Label><Label id="access"><LabelText xml:lang="da">Adgang</LabelText><LabelText xml:lang="en">Access</LabelText></Label><Label id="studystate"><LabelText xml:lang="da">Studiestatus</LabelText><LabelText xml:lang="en">Study state</LabelText></Label><Label id="restrictions"><LabelText xml:lang="da">Restriktioner</LabelText><LabelText xml:lang="en">Restrictions</LabelText></Label><Label id="accessconditions"><LabelText xml:lang="da">Adgangskriterier</LabelText><LabelText xml:lang="en">Access conditions</LabelText></Label><Label id=""><LabelText xml:lang="da"/><LabelText xml:lang="en"/></Label></LandingPageLabels>
+<?xml version="1.0" encoding="UTF-8"?>
+<LandingPageLabels>
+    <Label id="principalinvestigator">
+        <LabelText xml:lang="da">Primærundersøger</LabelText>
+        <LabelText xml:lang="en">Principal Investigator</LabelText>
+    </Label>
+    <Label id="documentation">
+        <LabelText xml:lang="da">Dokumentation</LabelText>
+        <LabelText xml:lang="en">Documentation</LabelText>
+    </Label>
+    <Label id="description">
+        <LabelText xml:lang="da">Beskrivelse</LabelText>
+        <LabelText xml:lang="en">Description</LabelText>
+    </Label>
+    <Label id="purpose">
+        <LabelText xml:lang="da">Formål</LabelText>
+        <LabelText xml:lang="en">Purpose</LabelText>
+    </Label>
+    <Label id="abstract">
+        <LabelText xml:lang="da">Abstract</LabelText>
+        <LabelText xml:lang="en">Abstract</LabelText>
+    </Label>
+    <Label id="keywords">
+        <LabelText xml:lang="da">Nøgleord</LabelText>
+        <LabelText xml:lang="en">Keywords</LabelText>
+    </Label>
+    <Label id="classification">
+        <LabelText xml:lang="da">Klassifikation</LabelText>
+        <LabelText xml:lang="en">Classification</LabelText>
+    </Label>
+    <Label id="universe">
+        <LabelText xml:lang="da">Universe</LabelText>
+        <LabelText xml:lang="en">Universe</LabelText>
+    </Label>    
+    <Label id="geographiccoverage">
+        <LabelText xml:lang="da">Geografisk afgrænsning</LabelText>
+        <LabelText xml:lang="en">Geographic Coverage</LabelText>
+    </Label>
+    <Label id="dataset">
+        <LabelText xml:lang="da">Datasæt</LabelText>
+        <LabelText xml:lang="en">Data set</LabelText>
+    </Label>
+    <Label id="askfordata">
+        <LabelText xml:lang="da">Bestil data</LabelText>
+        <LabelText xml:lang="en">Ask for data</LabelText>
+    </Label>
+    <Label id="variables">
+        <LabelText xml:lang="da">Variabler</LabelText>
+        <LabelText xml:lang="en">Variables</LabelText>
+    </Label>
+    <Label id="respondenter">
+        <LabelText xml:lang="da">Respondenter</LabelText>
+        <LabelText xml:lang="en">todo</LabelText>
+    </Label>
+    <Label id="respondenter_numberunits">
+        <LabelText xml:lang="da">I datasæt</LabelText>
+        <LabelText xml:lang="en">In data set</LabelText>
+    </Label>
+    <Label id="respondenter_samplenumberunits">
+        <LabelText xml:lang="da">Oprindelig stikprøve</LabelText>
+        <LabelText xml:lang="en">Original sample</LabelText>
+    </Label>
+    <Label id="method">
+        <LabelText xml:lang="da">Metode</LabelText>
+        <LabelText xml:lang="en">Method</LabelText>
+    </Label>
+    <Label id="studytype">
+        <LabelText xml:lang="da">Studietype</LabelText>
+        <LabelText xml:lang="en">Study Class</LabelText>
+    </Label>
+    <Label id="testtype">
+        <LabelText xml:lang="da">Testtype</LabelText>
+        <LabelText xml:lang="en">Test type</LabelText>
+    </Label>
+    <Label id="timemethod">
+        <LabelText xml:lang="da">Tidsdimension</LabelText>
+        <LabelText xml:lang="en">Time dimension</LabelText>
+    </Label>
+    <Label id="numberofquestions">
+        <LabelText xml:lang="da">Antal spørgsmål</LabelText>
+        <LabelText xml:lang="en">Number of questions</LabelText>
+    </Label>
+    <Label id="datacollection">
+        <LabelText xml:lang="da">Dataindsamling</LabelText>
+        <LabelText xml:lang="en">Data collection</LabelText>
+    </Label>
+    <Label id="samplingprocedure">
+        <LabelText xml:lang="da">Udvælgelsesprocedurer</LabelText>
+        <LabelText xml:lang="en">Sampling procedure</LabelText>
+    </Label>
+    <Label id="modeofcollection">
+        <LabelText xml:lang="da">Indsamlingsmetode</LabelText>
+        <LabelText xml:lang="en">Mode of collection</LabelText>
+    </Label>
+    <Label id="datacollector">
+        <LabelText xml:lang="da">Indsamler</LabelText>
+        <LabelText xml:lang="en">Data Collector</LabelText>
+    </Label>
+    <Label id="temporalcoverage">
+        <LabelText xml:lang="da">Indsamlingsperiode</LabelText>
+        <LabelText xml:lang="en">Temporal coverage</LabelText>
+    </Label>
+    <Label id="temporalcoverage_startdate">
+        <LabelText xml:lang="da">Start</LabelText>
+        <LabelText xml:lang="en">Start</LabelText>
+    </Label>
+    <Label id="temporalcoverage_enddate">
+        <LabelText xml:lang="da">Slut</LabelText>
+        <LabelText xml:lang="en">End</LabelText>
+    </Label>
+    <Label id="citation">
+        <LabelText xml:lang="da">Citation</LabelText>
+        <LabelText xml:lang="en">Citation</LabelText>
+    </Label>
+    <Label id="persistentidentifier">
+        <LabelText xml:lang="da">Persistent identifikation</LabelText>
+        <LabelText xml:lang="en">Persistent identifier</LabelText>
+    </Label>
+    <Label id="archiveinfo">
+        <LabelText xml:lang="da">Arkiv information</LabelText>
+        <LabelText xml:lang="en">Archive information</LabelText>
+    </Label> 
+    <Label id="recieveddate">
+        <LabelText xml:lang="da">Modtaget</LabelText>
+        <LabelText xml:lang="en">Recieved</LabelText>
+    </Label>
+    <Label id="publisheddate">
+        <LabelText xml:lang="da">Publiseret</LabelText>
+        <LabelText xml:lang="en">Published</LabelText>
+    </Label>
+    <Label id="access">
+        <LabelText xml:lang="da">Adgang</LabelText>
+        <LabelText xml:lang="en">Access</LabelText>
+    </Label>
+    <Label id="studystate">
+        <LabelText xml:lang="da">Studiestatus</LabelText>
+        <LabelText xml:lang="en">Study state</LabelText>
+    </Label>
+    <Label id="restrictions">
+        <LabelText xml:lang="da">Restriktioner</LabelText>
+        <LabelText xml:lang="en">Restrictions</LabelText>
+    </Label>
+    <Label id="accessconditions">
+        <LabelText xml:lang="da">Adgangskriterier</LabelText>
+        <LabelText xml:lang="en">Access conditions</LabelText>
+    </Label>
+    <Label id="">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en"></LabelText>
+    </Label>
+    
+</LandingPageLabels>
