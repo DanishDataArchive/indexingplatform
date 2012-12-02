@@ -1,0 +1,107 @@
+<?xml-stylesheet href="http://localhost:8080/exist/rest/db/apps/xsltforms/xsltforms.xsl" type="text/xsl"?>
+<?xsltforms-options debug="no"?>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    >
+    <head>
+        <title>Simpel søgning</title>
+        
+        <xf:model>
+            <xf:instance id="ssp">
+                <ssp:SimpleSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"
+                    xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
+                    xmlns:s="http://dda.dk/ddi/scope"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <ssp:search-string />
+                    <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
+                    <s:Scope>
+                        <s:StudyUnit/>
+                        <s:Variable/>
+                        <s:QuestionItem/>
+                        <s:MultipleQuestionItem/>
+                        <s:Universe/>
+                        <s:Concept/>
+                        <s:Category/>
+                    </s:Scope>
+                </ssp:SimpleSearchParameters>
+            </xf:instance>
+            <xf:instance id="work">
+                <work xmlns="">
+                    <StudyUnit>true</StudyUnit>
+                    <Variable>true</Variable>
+                    <QuestionItem>true</QuestionItem>
+                    <MultipleQuestionItem>true</MultipleQuestionItem>
+                    <Universe>true</Universe>
+                    <Concept>true</Concept>
+                    <Category>true</Category>
+                </work>
+            </xf:instance>
+            <xf:bind nodeset="instance('work')/StudyUnit" type="xs:boolean" />
+            <xf:bind nodeset="instance('work')/Variable" type="xs:boolean" />
+            <xf:bind nodeset="instance('work')/QuestionItem" type="xs:boolean" />
+            <xf:bind nodeset="instance('work')/MultipleQuestionItem" type="xs:boolean" />
+            <xf:bind nodeset="instance('work')/Universe" type="xs:boolean" />
+            <xf:bind nodeset="instance('work')/Concept" type="xs:boolean" />
+            <xf:bind nodeset="instance('work')/Category" type="xs:boolean" />
+            
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:StudyUnit" relevant="instance('work')/StudyUnit=true()" />
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:Variable" relevant="instance('work')/Variable=true()" />
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:QuestionItem" relevant="instance('work')/QuestionItem=true()" />
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:MultipleQuestionItem" relevant="instance('work')/MultipleQuestionItem=true()" />
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:Universe" relevant="instance('work')/Universe=true()" />
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:Concept" relevant="instance('work')/Concept=true()" />
+            <xf:bind nodeset="instance('ssp')/s:Scope/s:Category" relevant="instance('work')/Category=true()" />
+            
+            <xf:action ev:event="xforms-ready">
+                <xf:setfocus control="search-field"/>
+            </xf:action>
+            
+            <xf:submission id="search" ref="instance('ssp')" relevant="true" method="post" action="http://localhost:8080/exist/rest/db/apps/web/simple-search.xquery" />
+            <!--<xf:submission id="search" ref="instance('ssp')" relevant="true" method="put" action="ssp.xml"/>-->
+        </xf:model>
+    </head>
+    
+    <body>
+        <p>Søg efter data</p>
+        <xf:input ref="instance('work')/StudyUnit" incremental="false">
+            <xf:label>StudyUnit:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Variable" incremental="false">
+            <xf:label>Variable:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/QuestionItem" incremental="false">
+            <xf:label>QuestionItem:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/MultipleQuestionItem" incremental="false">
+            <xf:label>MultipleQuestionItem:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Universe" incremental="false">
+            <xf:label>Universe:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Concept" incremental="false">
+            <xf:label>Concept:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Category" incremental="false">
+            <xf:label>Category:</xf:label>
+        </xf:input>
+        <br/>
+        <xf:input id="search-field" ref="instance('ssp')/ssp:search-string" incremental="false">
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:submit submission="search">
+            <xf:label>Søg</xf:label>
+        </xf:submit>
+    </body>
+</html>
