@@ -27,12 +27,12 @@
             </p-->
             <br/>
             <p class="contextlink">
-                <xsl:variable name="url" select="concat('http://dda.dk/landingpage/', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+                <xsl:variable name="url" select="concat('landingpage.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
             <strong><xsl:value-of select="@element"/>:  </strong> <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>
                 <em><xsl:apply-templates select="Context"/></em>
             </p>
             <p class="study">
-                <xsl:variable name="url2" select="concat('http://dda.dk/landingpage/', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+                <xsl:variable name="url2" select="concat('landingpage.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
                 <a class="study" href="{$url2}"><xsl:value-of select="CustomList[@type='StudyUnit']/Custom[@option='label']"/></a>
             </p>
             <br/>
