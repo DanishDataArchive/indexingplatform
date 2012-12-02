@@ -74,6 +74,7 @@
      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
      <fileset dir="../web">
        <include name="**/*.xquery"/>
+       <include name="**/*.xml"/>
      </fileset>
    </xdb:store>
     <!-- store the xslt files -->
