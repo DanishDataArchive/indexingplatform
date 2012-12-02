@@ -91,6 +91,9 @@
         <include name="**/*.*"/>
       </fileset>
     </xdb:store>
+   <!-- store the XSLTForms config file -->
+   <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+     uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/xsltforms" srcfile="../xsltforms/config.xsl"/>
  </target>
  
  <target name="deploy-urn" description="Deploy the URN resolution">
