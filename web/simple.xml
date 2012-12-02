@@ -270,41 +270,38 @@
                                                   </tr>
                                                   </tbody>
                                                   </table>
+                                                      
+                                                      
                                                   <h1>Søg efter data</h1>
                                                   <strong class="search">Søgeresultat: </strong>
                                                   <xf:input ref="instance('work')/StudyUnit"
                                                   incremental="false">
-                                                  <xf:label>Studiebeskrivelse:</xf:label>
                                                   </xf:input>
-                                                  <span> | </span>
+                                                      <span>Studiebeskrivelse </span>
                                                   <xf:input ref="instance('work')/QuestionItem"
                                                   incremental="false">
-                                                  <xf:label>Spørgsmål:</xf:label>
                                                   </xf:input>
-                                                  <span> | </span>
+                                                      <span>Spørgsmål </span>
                                                   <!--<xf:input ref="instance('work')/MultipleQuestionItem" incremental="false">
             <xf:label>MultipleQuestionItem:</xf:label>
         </xf:input>
         <span> | </span>-->
                                                   <xf:input ref="instance('work')/Variable"
                                                   incremental="false">
-                                                  <xf:label>Variabler:</xf:label>
                                                   </xf:input>
-                                                  <span> | </span>
+                                                      <span>Variabler </span>
                                                   <xf:input ref="instance('work')/Category"
                                                   incremental="false">
-                                                  <xf:label>Kategorier:</xf:label>
                                                   </xf:input>
-                                                  <span> | </span>
+                                                      <span>Kategorier </span>
                                                   <xf:input ref="instance('work')/Concept"
                                                   incremental="false">
-                                                  <xf:label>Concept:</xf:label>
                                                   </xf:input>
-                                                  <span> | </span>
+                                                      <span>Concept </span>
                                                   <xf:input ref="instance('work')/Universe"
                                                   incremental="false">
-                                                  <xf:label>Universe:</xf:label>
                                                   </xf:input>
+                                                      <span>Universe </span>
                                                   <br />
                                                   <br />
                                                   <xf:input id="search-field"
