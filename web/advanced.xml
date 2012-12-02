@@ -1,0 +1,241 @@
+<?xml-stylesheet href="http://localhost:8080/exist/rest/db/apps/xsltforms/xsltforms.xsl" type="text/xsl"?>
+<?xsltforms-options debug="no"?>
+
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    >
+    <head>
+        <title>Avanceret søgning</title>
+        
+        <xf:model>
+            <xf:instance id="asp">
+                <asp:AdvancedSearchParameters xmlns:sm="http://dda.dk/ddi/search-metadata"
+                    xmlns:s="http://dda.dk/ddi/scope"
+                    xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <!--<asp:studyId/>-->
+                    <asp:title/>
+                    <asp:topicalCoverage/>
+                    <asp:spatialCoverage/>
+                    <asp:abstract-purpose/>
+                    <asp:creator/>
+                    <asp:kindOfData/>
+                    <asp:coverageFrom/>
+                    <asp:coverageTo/>
+                    <asp:Variable/>
+                    <asp:QuestionItem/>
+                    <!--<asp:MultipleQuestionItem/>-->
+                    <asp:Universe/>
+                    <asp:Concept/>
+                    <asp:Category/>
+                    <sm:SearchMetaData hits-perpage="10" hit-start="0"/>
+                    <s:Scope>
+                        <s:StudyUnit/>
+                        <s:Variable/>
+                        <s:QuestionItem/>
+                        <s:MultipleQuestionItem/>
+                        <s:Universe/>
+                        <s:Concept/>
+                        <s:Category/>
+                    </s:Scope>
+                </asp:AdvancedSearchParameters>
+            </xf:instance>
+            <xf:instance id="work">
+                <work xmlns="">
+                    <StudyUnit>true</StudyUnit>
+                    <Variable>true</Variable>
+                    <QuestionItem>true</QuestionItem>
+                    <MultipleQuestionItem>true</MultipleQuestionItem>
+                    <Universe>true</Universe>
+                    <Concept>true</Concept>
+                    <Category>true</Category>
+                </work>
+            </xf:instance>
+            
+            <xf:bind nodeset="instance('asp')/asp:title" relevant="instance('asp')/asp:title!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:topicalCoverage" relevant="instance('asp')/asp:topicalCoverage!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:spatialCoverage" relevant="instance('asp')/asp:spatialCoverage!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:abstract-purpose" relevant="instance('asp')/asp:abstract-purpose!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:creator" relevant="instance('asp')/asp:creator!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:kindOfData" relevant="instance('asp')/asp:kindOfData!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:coverageFrom" relevant="instance('asp')/asp:coverageFrom!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:coverageTo" relevant="instance('asp')/asp:coverageTo!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:Variable" relevant="instance('asp')/asp:Variable!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:QuestionItem" relevant="instance('asp')/asp:QuestionItem!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:Universe" relevant="instance('asp')/asp:Universe!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:Concept" relevant="instance('asp')/asp:Concept!=''"/>
+            <xf:bind nodeset="instance('asp')/asp:Category" relevant="instance('asp')/asp:Category!=''"/>
+            
+            <xf:bind nodeset="instance('asp')/asp:coverageFrom" type="xs:date"/>
+            <xf:bind nodeset="instance('asp')/asp:coverageTo" type="xs:date"/>
+            
+            <xf:bind nodeset="instance('work')/StudyUnit" type="xs:boolean"/>
+            <xf:bind nodeset="instance('work')/Variable" type="xs:boolean"/>
+            <xf:bind nodeset="instance('work')/QuestionItem" type="xs:boolean"/>
+            <xf:bind nodeset="instance('work')/MultipleQuestionItem" type="xs:boolean"/>
+            <xf:bind nodeset="instance('work')/Universe" type="xs:boolean"/>
+            <xf:bind nodeset="instance('work')/Concept" type="xs:boolean"/>
+            <xf:bind nodeset="instance('work')/Category" type="xs:boolean"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:StudyUnit" relevant="instance('work')/StudyUnit=true()"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Variable" relevant="instance('work')/Variable=true()"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:QuestionItem" relevant="instance('work')/QuestionItem=true()"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:MultipleQuestionItem" relevant="instance('work')/QuestionItem=true()"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Universe" relevant="instance('work')/Universe=true()"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Concept" relevant="instance('work')/Concept=true()"/>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Category" relevant="instance('work')/Category=true()"/>
+            <xf:action ev:event="xforms-ready">
+                <xf:setfocus control="topicalCoverage-field"/>
+                <xf:setfocus control="spatialCoverage-field"/>
+                <xf:setfocus control="abstract-purpose-field"/>
+                <xf:setfocus control="creator-field"/>
+                <xf:setfocus control="kindOfData-field"/>
+                <xf:setfocus control="coverageFrom-field"/>
+                <xf:setfocus control="coverageTo-field"/>
+                <xf:setfocus control="Variable-field"/>
+                <xf:setfocus control="QuestionItem-field"/>
+                <xf:setfocus control="Universe-field"/>
+                <xf:setfocus control="Concept-field"/>
+                <xf:setfocus control="Category-field"/>
+                <xf:setfocus control="title-field"/>
+            </xf:action>
+            <xf:submission id="search" ref="instance('asp')" relevant="true" method="post" action="http://localhost:8080/exist/rest/db/apps/web/advanced-search.xquery"/>
+            <!--<xf:submission id="search" ref="instance('asp')" relevant="true" method="put" action="asp.xml"/>-->
+        </xf:model>
+    </head>
+    <body>
+        <h1>Avanceret søgning</h1>
+        
+        <h2 class="search">Studieinformation</h2>
+        
+        <xf:input id="title-field" ref="instance('asp')/asp:title" incremental="false">
+            <xf:label>Title</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="abstract-purpose-field" ref="instance('asp')/asp:abstract-purpose" incremental="false">
+            <xf:label>Abstract/Purpose</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="creator-field" ref="instance('asp')/asp:creator" incremental="false">
+            <xf:label>Creator</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="topicalCoverage-field" ref="instance('asp')/asp:topicalCoverage" incremental="false">
+            <xf:label>Topical Coverage</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="spatialCoverage-field" ref="instance('asp')/asp:spatialCoverage" incremental="false">
+            <xf:label>Spatial Coverage</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="kindOfData-field" ref="instance('asp')/asp:kindOfData" incremental="false">
+            <xf:label>KindOfData</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="coverageFrom-field" ref="instance('asp')/asp:coverageFrom" incremental="false">
+            <xf:label>Temporal Coverage</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <xf:input id="coverageTo-field" ref="instance('asp')/asp:coverageTo" incremental="false">
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        
+        <h2 class="search">Studieinformation på variable niveau</h2>
+        
+        <xf:input id="QuestionItem-field" ref="instance('asp')/asp:QuestionItem" incremental="false">
+            <xf:label>Question</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="Variable-field" ref="instance('asp')/asp:Variable" incremental="false">
+            <xf:label>Variable</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="Category-field" ref="instance('asp')/asp:Category" incremental="false">
+            <xf:label>Category</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="Concept-field" ref="instance('asp')/asp:Concept" incremental="false">
+            <xf:label>Concept</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        <xf:input id="Universe-field" ref="instance('asp')/asp:Universe" incremental="false">
+            <xf:label>Universe</xf:label>
+            <xf:action ev:event="DOMActivate">
+                <xf:send submission="search"/>
+            </xf:action>
+        </xf:input>
+        <br/>
+        
+        <h2 class="search">Søgeresultat</h2>
+        
+        <xf:input ref="instance('work')/StudyUnit" incremental="false">
+            <xf:label>Studiebeskrivelse:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/QuestionItem" incremental="false">
+            <xf:label>Spørgsmål:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <!--<xf:input ref="instance('work')/MultipleQuestionItem" incremental="false">
+            <xf:label>MultipleQuestionItem:</xf:label>
+        </xf:input>
+        <span> | </span>-->
+        <xf:input ref="instance('work')/Variable" incremental="false">
+            <xf:label>Variabler:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Category" incremental="false">
+            <xf:label>Kategorier:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Concept" incremental="false">
+            <xf:label>Koncepter:</xf:label>
+        </xf:input>
+        <span> | </span>
+        <xf:input ref="instance('work')/Universe" incremental="false">
+            <xf:label>Universer:</xf:label>
+        </xf:input>
+        <br/>
+        <br/>
+        <xf:submit submission="search">
+            <xf:label>Indsend</xf:label>
+        </xf:submit>
+    </body>
+</html>
