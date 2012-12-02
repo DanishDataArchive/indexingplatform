@@ -2,11 +2,8 @@
 <?xsltforms-options debug="no"?>
 <?css-conversion no?>
 
-<html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:xf="http://www.w3.org/2002/xforms"
-    xmlns:ev="http://www.w3.org/2001/xml-events"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <head>
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
         <link rel="stylesheet" type="text/css" href="theme/style.css" />
@@ -15,7 +12,7 @@
             href="http://samfund.dda.dk/dda/nyheder.xml" />
         <link rel="shortcut icon" href="theme/favicon.ico" />
         <title>Avanceret søgning</title>
-        
+
         <xf:model>
             <xf:instance id="asp">
                 <asp:AdvancedSearchParameters xmlns:sm="http://dda.dk/ddi/search-metadata"
@@ -23,29 +20,29 @@
                     xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                     <!--<asp:studyId/>-->
-                    <asp:title/>
-                    <asp:topicalCoverage/>
-                    <asp:spatialCoverage/>
-                    <asp:abstract-purpose/>
-                    <asp:creator/>
-                    <asp:kindOfData/>
-                    <asp:coverageFrom/>
-                    <asp:coverageTo/>
-                    <asp:Variable/>
-                    <asp:QuestionItem/>
+                    <asp:title></asp:title>
+                    <asp:topicalCoverage></asp:topicalCoverage>
+                    <asp:spatialCoverage></asp:spatialCoverage>
+                    <asp:abstract-purpose></asp:abstract-purpose>
+                    <asp:creator></asp:creator>
+                    <asp:kindOfData></asp:kindOfData>
+                    <asp:coverageFrom></asp:coverageFrom>
+                    <asp:coverageTo></asp:coverageTo>
+                    <asp:Variable></asp:Variable>
+                    <asp:QuestionItem></asp:QuestionItem>
                     <!--<asp:MultipleQuestionItem/>-->
-                    <asp:Universe/>
-                    <asp:Concept/>
-                    <asp:Category/>
-                    <sm:SearchMetaData hits-perpage="10" hit-start="0"/>
+                    <asp:Universe></asp:Universe>
+                    <asp:Concept></asp:Concept>
+                    <asp:Category></asp:Category>
+                    <sm:SearchMetaData hits-perpage="10" hit-start="0"></sm:SearchMetaData>
                     <s:Scope>
-                        <s:StudyUnit/>
-                        <s:Variable/>
-                        <s:QuestionItem/>
-                        <s:MultipleQuestionItem/>
-                        <s:Universe/>
-                        <s:Concept/>
-                        <s:Category/>
+                        <s:StudyUnit></s:StudyUnit>
+                        <s:Variable></s:Variable>
+                        <s:QuestionItem></s:QuestionItem>
+                        <s:MultipleQuestionItem></s:MultipleQuestionItem>
+                        <s:Universe></s:Universe>
+                        <s:Concept></s:Concept>
+                        <s:Category></s:Category>
                     </s:Scope>
                 </asp:AdvancedSearchParameters>
             </xf:instance>
@@ -60,60 +57,80 @@
                     <Category>true</Category>
                 </work>
             </xf:instance>
-            
-            <xf:bind nodeset="instance('asp')/asp:title" relevant="instance('asp')/asp:title!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:topicalCoverage" relevant="instance('asp')/asp:topicalCoverage!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:spatialCoverage" relevant="instance('asp')/asp:spatialCoverage!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:abstract-purpose" relevant="instance('asp')/asp:abstract-purpose!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:creator" relevant="instance('asp')/asp:creator!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:kindOfData" relevant="instance('asp')/asp:kindOfData!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:coverageFrom" relevant="instance('asp')/asp:coverageFrom!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:coverageTo" relevant="instance('asp')/asp:coverageTo!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:Variable" relevant="instance('asp')/asp:Variable!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:QuestionItem" relevant="instance('asp')/asp:QuestionItem!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:Universe" relevant="instance('asp')/asp:Universe!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:Concept" relevant="instance('asp')/asp:Concept!=''"/>
-            <xf:bind nodeset="instance('asp')/asp:Category" relevant="instance('asp')/asp:Category!=''"/>
-            
-            <xf:bind nodeset="instance('asp')/asp:coverageFrom" type="xs:date"/>
-            <xf:bind nodeset="instance('asp')/asp:coverageTo" type="xs:date"/>
-            
-            <xf:bind nodeset="instance('work')/StudyUnit" type="xs:boolean"/>
-            <xf:bind nodeset="instance('work')/Variable" type="xs:boolean"/>
-            <xf:bind nodeset="instance('work')/QuestionItem" type="xs:boolean"/>
-            <xf:bind nodeset="instance('work')/MultipleQuestionItem" type="xs:boolean"/>
-            <xf:bind nodeset="instance('work')/Universe" type="xs:boolean"/>
-            <xf:bind nodeset="instance('work')/Concept" type="xs:boolean"/>
-            <xf:bind nodeset="instance('work')/Category" type="xs:boolean"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:StudyUnit" relevant="instance('work')/StudyUnit=true()"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:Variable" relevant="instance('work')/Variable=true()"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:QuestionItem" relevant="instance('work')/QuestionItem=true()"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:MultipleQuestionItem" relevant="instance('work')/QuestionItem=true()"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:Universe" relevant="instance('work')/Universe=true()"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:Concept" relevant="instance('work')/Concept=true()"/>
-            <xf:bind nodeset="instance('asp')/s:Scope/s:Category" relevant="instance('work')/Category=true()"/>
+
+            <xf:bind nodeset="instance('asp')/asp:title" relevant="instance('asp')/asp:title!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:topicalCoverage"
+                relevant="instance('asp')/asp:topicalCoverage!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:spatialCoverage"
+                relevant="instance('asp')/asp:spatialCoverage!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:abstract-purpose"
+                relevant="instance('asp')/asp:abstract-purpose!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:creator"
+                relevant="instance('asp')/asp:creator!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:kindOfData"
+                relevant="instance('asp')/asp:kindOfData!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:coverageFrom"
+                relevant="instance('asp')/asp:coverageFrom!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:coverageTo"
+                relevant="instance('asp')/asp:coverageTo!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:Variable"
+                relevant="instance('asp')/asp:Variable!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:QuestionItem"
+                relevant="instance('asp')/asp:QuestionItem!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:Universe"
+                relevant="instance('asp')/asp:Universe!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:Concept"
+                relevant="instance('asp')/asp:Concept!=''"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:Category"
+                relevant="instance('asp')/asp:Category!=''"></xf:bind>
+
+            <xf:bind nodeset="instance('asp')/asp:coverageFrom" type="xs:date"></xf:bind>
+            <xf:bind nodeset="instance('asp')/asp:coverageTo" type="xs:date"></xf:bind>
+
+            <xf:bind nodeset="instance('work')/StudyUnit" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('work')/Variable" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('work')/QuestionItem" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('work')/MultipleQuestionItem" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('work')/Universe" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('work')/Concept" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('work')/Category" type="xs:boolean"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:StudyUnit"
+                relevant="instance('work')/StudyUnit=true()"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Variable"
+                relevant="instance('work')/Variable=true()"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:QuestionItem"
+                relevant="instance('work')/QuestionItem=true()"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:MultipleQuestionItem"
+                relevant="instance('work')/QuestionItem=true()"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Universe"
+                relevant="instance('work')/Universe=true()"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Concept"
+                relevant="instance('work')/Concept=true()"></xf:bind>
+            <xf:bind nodeset="instance('asp')/s:Scope/s:Category"
+                relevant="instance('work')/Category=true()"></xf:bind>
             <xf:action ev:event="xforms-ready">
-                <xf:setfocus control="topicalCoverage-field"/>
-                <xf:setfocus control="spatialCoverage-field"/>
-                <xf:setfocus control="abstract-purpose-field"/>
-                <xf:setfocus control="creator-field"/>
-                <xf:setfocus control="kindOfData-field"/>
-                <xf:setfocus control="coverageFrom-field"/>
-                <xf:setfocus control="coverageTo-field"/>
-                <xf:setfocus control="Variable-field"/>
-                <xf:setfocus control="QuestionItem-field"/>
-                <xf:setfocus control="Universe-field"/>
-                <xf:setfocus control="Concept-field"/>
-                <xf:setfocus control="Category-field"/>
-                <xf:setfocus control="title-field"/>
+                <xf:setfocus control="topicalCoverage-field"></xf:setfocus>
+                <xf:setfocus control="spatialCoverage-field"></xf:setfocus>
+                <xf:setfocus control="abstract-purpose-field"></xf:setfocus>
+                <xf:setfocus control="creator-field"></xf:setfocus>
+                <xf:setfocus control="kindOfData-field"></xf:setfocus>
+                <xf:setfocus control="coverageFrom-field"></xf:setfocus>
+                <xf:setfocus control="coverageTo-field"></xf:setfocus>
+                <xf:setfocus control="Variable-field"></xf:setfocus>
+                <xf:setfocus control="QuestionItem-field"></xf:setfocus>
+                <xf:setfocus control="Universe-field"></xf:setfocus>
+                <xf:setfocus control="Concept-field"></xf:setfocus>
+                <xf:setfocus control="Category-field"></xf:setfocus>
+                <xf:setfocus control="title-field"></xf:setfocus>
             </xf:action>
-            <xf:submission id="search" ref="instance('asp')" relevant="true" method="post" action="http://localhost:8080/exist/rest/db/apps/web/advanced-search.xquery"/>
+            <xf:submission id="search" ref="instance('asp')" relevant="true" method="post"
+                action="http://localhost:8080/exist/rest/db/apps/web/advanced-search.xquery"></xf:submission>
             <!--<xf:submission id="search" ref="instance('asp')" relevant="true" method="put" action="asp.xml"/>-->
         </xf:model>
     </head>
     <body>
-        
-        
+
+
         <div align="center">
             <table id="table1" class="frametable" border="0" cellpadding="0" cellspacing="0"
                 width="962">
@@ -127,37 +144,37 @@
                                         <tr>
                                             <td>
                                                 <div align="right">
-                                                    <table id="table1" height="100%" border="0"
-                                                        cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="center"> &#160;</td>
-                                                                <td align="center" width="35">&#160;</td>
-                                                                <td align="center">&#160;</td>
-                                                                <td align="center">&#160;</td>
-                                                                <td align="center" width="35">&#160;</td>
-                                                                <td align="center"><a class="navi" target="_blank"
-                                                                    href="http://www.sa.dk/">Om Statens
-                                                                    Arkiver</a></td>
-                                                                <td align="center" width="35">&#160;</td>
-                                                                <td align="center"><a class="navi"
-                                                                    href="http://samfund.dda.dk/dda/om-dda.asp">Om
-                                                                    os</a></td>
-                                                                <td align="center" width="35">&#160; </td>
-                                                                <td align="center"><a class="navi" id="kontakt"
-                                                                    href="http://samfund.dda.dk/dda/kontakt.asp"
-                                                                    >Kontakt</a></td>
-                                                                <td width="35">&#160;</td>
-                                                                <td align="center">&#160;</td>
-                                                                <td align="center" width="35">&#160;</td>
-                                                                <td align="center"><a class="navi" id="forside-en"
-                                                                    href="http://samfund.dda.dk/dda/default-en.asp"
-                                                                    >English</a></td>
-                                                                <td align="center" width="20">
-                                                                    <p align="center"> &#160; </p></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                  <table id="table1" height="100%" border="0"
+                                                  cellpadding="0" cellspacing="0">
+                                                  <tbody>
+                                                  <tr>
+                                                  <td align="center"> &#160;</td>
+                                                  <td align="center" width="35">&#160;</td>
+                                                  <td align="center">&#160;</td>
+                                                  <td align="center">&#160;</td>
+                                                  <td align="center" width="35">&#160;</td>
+                                                  <td align="center"><a class="navi" target="_blank"
+                                                  href="http://www.sa.dk/">Om Statens
+                                                  Arkiver</a></td>
+                                                  <td align="center" width="35">&#160;</td>
+                                                  <td align="center"><a class="navi"
+                                                  href="http://samfund.dda.dk/dda/om-dda.asp">Om
+                                                  os</a></td>
+                                                  <td align="center" width="35">&#160; </td>
+                                                  <td align="center"><a class="navi" id="kontakt"
+                                                  href="http://samfund.dda.dk/dda/kontakt.asp"
+                                                  >Kontakt</a></td>
+                                                  <td width="35">&#160;</td>
+                                                  <td align="center">&#160;</td>
+                                                  <td align="center" width="35">&#160;</td>
+                                                  <td align="center"><a class="navi" id="forside-en"
+                                                  href="http://samfund.dda.dk/dda/default-en.asp"
+                                                  >English</a></td>
+                                                  <td align="center" width="20">
+                                                  <p align="center"> &#160; </p></td>
+                                                  </tr>
+                                                  </tbody>
+                                                  </table>
                                                 </div></td>
                                         </tr>
                                     </tbody>
@@ -184,33 +201,33 @@
                                     <tbody>
                                         <tr>
                                             <td align="center"><a class="navi"
-                                                href="http://samfund.dda.dk/dda/data-bruge.asp"
-                                                >Søg og bestil data</a></td>
+                                                  href="http://samfund.dda.dk/dda/data-bruge.asp"
+                                                  >Søg og bestil data</a></td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center" width="35">&#160;</td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center"><a class="navi" id="afleveredata"
-                                                    href="http://samfund.dda.dk/dda/data-aflevere.asp"
-                                                    > Aflever data</a></td>
+                                                  href="http://samfund.dda.dk/dda/data-aflevere.asp"
+                                                  > Aflever data</a></td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center" width="35">&#160;</td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center"><a class="navi"
-                                                    href="http://samfund.dda.dk/dda/ddasamfund/om-ddasamfund.asp"
-                                                    >DDA Samfund</a></td>
+                                                  href="http://samfund.dda.dk/dda/ddasamfund/om-ddasamfund.asp"
+                                                  >DDA Samfund</a></td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center" width="35">
                                                 <p align="center"> &#160; </p></td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center"><a class="navi"
-                                                    href="http://samfund.dda.dk/dda/ddasundhed/omddasundhed.asp"
-                                                    > DDA Sundhed</a></td>
+                                                  href="http://samfund.dda.dk/dda/ddasundhed/omddasundhed.asp"
+                                                  > DDA Sundhed</a></td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center" width="35">&#160;</td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center"><a class="navi"
-                                                    href="http://samfund.dda.dk/dda/internationalt-samarbejde.asp"
-                                                    > Internationalt</a></td>
+                                                  href="http://samfund.dda.dk/dda/internationalt-samarbejde.asp"
+                                                  > Internationalt</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -225,227 +242,300 @@
                                         <td class="mainleftborder" valign="top" width="200">
                                             <table id="table5" class="mainleft" width="100%">
                                                 <tbody>
-                                                    <tr>
-                                                        <td valign="top" width="15">&#160;</td>
-                                                        <td valign="top">
-                                                            <table id="table1" class="subnav" border="0"
-                                                                cellpadding="0" cellspacing="0" width="100%">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td><a href="#primaryinvestigator"
-                                                                            >Primærundersøger</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#documentation"
-                                                                            >Dokumentation</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#description">Beskrivelse</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#universe">Universe</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#dataset">Datasæt</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#method">Metode</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#citation">Citation</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#status">Adgang</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>&#160;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><a href="#metadata">Metadata</a></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table></td>
-                                                    </tr>
+                                                  <tr>
+                                                  <td valign="top" width="15">&#160;</td>
+                                                  <td valign="top">
+                                                  <table id="table1" class="subnav" border="0"
+                                                  cellpadding="0" cellspacing="0" width="100%">
+                                                  <tbody>
+                                                  <tr>
+                                                  <td><a href="#primaryinvestigator"
+                                                  >Primærundersøger</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#documentation"
+                                                  >Dokumentation</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#description">Beskrivelse</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#universe">Universe</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#dataset">Datasæt</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#method">Metode</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#citation">Citation</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#status">Adgang</a></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><a href="#metadata">Metadata</a></td>
+                                                  </tr>
+                                                  </tbody>
+                                                  </table></td>
+                                                  </tr>
                                                 </tbody>
                                             </table></td>
                                         <td valign="top" width="580">
                                             <div align="center">
                                                 <table id="printContent" border="0" cellpadding="0"
-                                                    cellspacing="0" width="700">
-                                                    <!--org width 530 -->
-                                                    <tbody>
-                                                        <tr>
-                                                            <td valign="top">
-                                                                <table id="idandorder" border="0" cellpadding="0"
-                                                                    cellspacing="0" width="700">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td> </td>
-                                                                            <td></td>
-                                                                            <td align="right"></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-        
-        
-        <h1>Avanceret søgning</h1>
-        
-        <h2 class="search">Studieinformation</h2>
-        
-        <xf:input id="title-field" ref="instance('asp')/asp:title" incremental="false">
-            <xf:label>Title</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="abstract-purpose-field" ref="instance('asp')/asp:abstract-purpose" incremental="false">
-            <xf:label>Abstract/Purpose</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="creator-field" ref="instance('asp')/asp:creator" incremental="false">
-            <xf:label>Creator</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="topicalCoverage-field" ref="instance('asp')/asp:topicalCoverage" incremental="false">
-            <xf:label>Topical Coverage</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="spatialCoverage-field" ref="instance('asp')/asp:spatialCoverage" incremental="false">
-            <xf:label>Spatial Coverage</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="kindOfData-field" ref="instance('asp')/asp:kindOfData" incremental="false">
-            <xf:label>KindOfData</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="coverageFrom-field" ref="instance('asp')/asp:coverageFrom" incremental="false">
-            <xf:label>Temporal Coverage</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <xf:input id="coverageTo-field" ref="instance('asp')/asp:coverageTo" incremental="false">
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        
-        <h2 class="search">Studieinformation på variable niveau</h2>
-        
-        <xf:input id="QuestionItem-field" ref="instance('asp')/asp:QuestionItem" incremental="false">
-            <xf:label>Question</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="Variable-field" ref="instance('asp')/asp:Variable" incremental="false">
-            <xf:label>Variable</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="Category-field" ref="instance('asp')/asp:Category" incremental="false">
-            <xf:label>Category</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="Concept-field" ref="instance('asp')/asp:Concept" incremental="false">
-            <xf:label>Concept</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        <xf:input id="Universe-field" ref="instance('asp')/asp:Universe" incremental="false">
-            <xf:label>Universe</xf:label>
-            <xf:action ev:event="DOMActivate">
-                <xf:send submission="search"/>
-            </xf:action>
-        </xf:input>
-        <br/>
-        
-        <h2 class="search">Søgeresultat</h2>
-        
-        <xf:input ref="instance('work')/StudyUnit" incremental="false">
-            <xf:label>Studiebeskrivelse:</xf:label>
-        </xf:input>
-        <span> | </span>
-        <xf:input ref="instance('work')/QuestionItem" incremental="false">
-            <xf:label>Spørgsmål:</xf:label>
-        </xf:input>
-        <span> | </span>
-        <!--<xf:input ref="instance('work')/MultipleQuestionItem" incremental="false">
-            <xf:label>MultipleQuestionItem:</xf:label>
-        </xf:input>
-        <span> | </span>-->
-        <xf:input ref="instance('work')/Variable" incremental="false">
-            <xf:label>Variabler:</xf:label>
-        </xf:input>
-        <span> | </span>
-        <xf:input ref="instance('work')/Category" incremental="false">
-            <xf:label>Kategorier:</xf:label>
-        </xf:input>
-        <span> | </span>
-        <xf:input ref="instance('work')/Concept" incremental="false">
-            <xf:label>Koncepter:</xf:label>
-        </xf:input>
-        <span> | </span>
-        <xf:input ref="instance('work')/Universe" incremental="false">
-            <xf:label>Universer:</xf:label>
-        </xf:input>
-        <br/>
-        <br/>
-        <xf:submit submission="search">
-            <xf:label>Indsend</xf:label>
-        </xf:submit>
-    
-    
-    
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
+                                                  cellspacing="0" width="700">
+                                                  <!--org width 530 -->
+                                                  <tbody>
+                                                  <tr>
+                                                  <td valign="top">
+                                                  <table id="idandorder" border="0" cellpadding="0"
+                                                  cellspacing="0" width="700">
+                                                  <tbody>
+                                                  <tr>
+                                                  <td> </td>
+                                                  <td></td>
+                                                  <td align="right"></td>
+                                                  </tr>
+                                                  </tbody>
+                                                  </table>
+                                                      
+                                                  <h1>Avanceret søgning</h1>
+                                                      
+                                                      <table id="searchform">  
+                                                          <tr>
+                                                              <td colspan="2"><h2 class="search">Studieinformation</h2></td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Title</td>
+                                                              <td>
+                                                  <xf:input id="title-field"
+                                                  ref="instance('asp')/asp:title"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Abstract/Purpose</td>
+                                                              <td>
+                                                  <xf:input id="abstract-purpose-field"
+                                                  ref="instance('asp')/asp:abstract-purpose"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Creator</td>
+                                                              <td>
+                                                  <xf:input id="creator-field"
+                                                  ref="instance('asp')/asp:creator"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Topical Coverage</td>
+                                                              <td>
+                                                                  
+                                                  <xf:input id="topicalCoverage-field"
+                                                  ref="instance('asp')/asp:topicalCoverage"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Spatial Coverage</td>
+                                                              <td>
+                                                  <xf:input id="spatialCoverage-field"
+                                                  ref="instance('asp')/asp:spatialCoverage"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">KindOfData</td>
+                                                              <td>
+                                                  <xf:input id="kindOfData-field"
+                                                  ref="instance('asp')/asp:kindOfData"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Temporal Coverage</td>
+                                                              <td>
+                                                  <xf:input id="coverageFrom-field"
+                                                  ref="instance('asp')/asp:coverageFrom"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                  <xf:input id="coverageTo-field"
+                                                  ref="instance('asp')/asp:coverageTo"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td colspan="2"><h2 class="search">Studieinformation på variable niveau</h2></td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Question</td>
+                                                              <td>
+                                                  <xf:input id="QuestionItem-field"
+                                                  ref="instance('asp')/asp:QuestionItem"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Variable</td>
+                                                              <td>
+                                                  <xf:input id="Variable-field"
+                                                  ref="instance('asp')/asp:Variable"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Category</td>
+                                                              <td>
+                                                  <xf:input id="Category-field"
+                                                  ref="instance('asp')/asp:Category"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Concept</td>
+                                                              <td>
+                                                  <xf:input id="Concept-field"
+                                                  ref="instance('asp')/asp:Concept"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="searchadvanced">Universe</td>
+                                                              <td>
+                                                  <xf:input id="Universe-field"
+                                                  ref="instance('asp')/asp:Universe"
+                                                  incremental="false">
+                                                  <xf:action ev:event="DOMActivate">
+                                                  <xf:send submission="search"></xf:send>
+                                                  </xf:action>
+                                                  </xf:input>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td colspan="2">
+                                                                  <h2 class="search">Søgeresultat</h2>
+                                                      <xf:input ref="instance('work')/StudyUnit"
+                                                          incremental="false">
+                                                      </xf:input>
+                                                      <span>Studiebeskrivelse </span>
+                                                      <xf:input ref="instance('work')/QuestionItem"
+                                                          incremental="false">
+                                                      </xf:input>
+                                                      <span>Spørgsmål </span>
+                                                      <!--<xf:input ref="instance('work')/MultipleQuestionItem" incremental="false">
+                                                  <xf:label>MultipleQuestionItem:</xf:label>
+                                                  </xf:input>
+                                                  <span> | </span>-->
+                                                      <xf:input ref="instance('work')/Variable"
+                                                          incremental="false">
+                                                      </xf:input>
+                                                      <span>Variabler </span>
+                                                      <xf:input ref="instance('work')/Category"
+                                                          incremental="false">
+                                                      </xf:input>
+                                                      <span>Kategorier </span>
+                                                      <xf:input ref="instance('work')/Concept"
+                                                          incremental="false">
+                                                      </xf:input>
+                                                      <span>Concept </span>
+                                                      <xf:input ref="instance('work')/Universe"
+                                                          incremental="false">
+                                                      </xf:input>
+                                                      <span>Universe </span>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td>&#160;</td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td colspan="2">
+                                                  <xf:submit submission="search">
+                                                  <xf:label>Indsend</xf:label>
+                                                  </xf:submit>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                      
+                                                                  
+                                                                  
+                                                  </td>
+                                                  </tr>
+                                                  </tbody>
                                                 </table>
                                             </div></td>
                                         <!--td class="mainrightborder" valign="top" width="200">
@@ -472,10 +562,10 @@
                                         <tr>
                                             <td>
                                                 <p align="center">
-                                                    <font color="#FFFFFF">Dansk Data Arkiv&#160;
-                                                        -&#160; Islandsgade 10&#160; -&#160; 5000 Odense
-                                                        C&#160; -&#160; Tlf: 66113010&#160; -&#160; Fax:
-                                                        66113060&#160; -&#160; mailbox@dda.dk</font>
+                                                  <font color="#FFFFFF">Dansk Data Arkiv&#160;
+                                                  -&#160; Islandsgade 10&#160; -&#160; 5000 Odense
+                                                  C&#160; -&#160; Tlf: 66113010&#160; -&#160; Fax:
+                                                  66113060&#160; -&#160; mailbox@dda.dk</font>
                                                 </p></td>
                                         </tr>
                                     </tbody>
@@ -485,6 +575,6 @@
                 </tbody>
             </table>
         </div>
-        
+
     </body>
 </html>
