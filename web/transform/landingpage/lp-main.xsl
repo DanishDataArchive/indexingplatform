@@ -11,12 +11,10 @@
     <xsl:template match="*">
         <html>
             <head>
-                <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
                 <link rel="stylesheet" type="text/css" href="theme/style.css" />
                 <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml" />
                 <link rel="shortcut icon" href="theme/favicon.ico"/>
-                <!-- todo: abstract -->
-                <meta name="description" content="{ns1:Descriptions/ns1:Description[ns1:Type='purpose']/ns1:Content[@xml:lang=$lang]/text()}"/>
+                <meta name="description" content="{ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()}"/>
                 <title>
                     <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
                 </title>

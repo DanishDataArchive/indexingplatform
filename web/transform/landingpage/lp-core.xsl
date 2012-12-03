@@ -20,11 +20,12 @@
     
     <xsl:template name="lp-core-content">
      <xsl:param name="lang" />
-        <div itemscope="itemscope" itemtype="http://schema.org/Dataset">
+        <div xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" itemscope="itemscope" itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
         <h1 class="lp">
-            <span itemprop="name">
+            <span itemprop="name" property="dcterms:title">
             <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
             </span>
+            <span property="dcterms:language" content="da"/>
         </h1>
         <a name="primaryinvestigator"/>
         <h2 class="lp">
@@ -57,13 +58,13 @@
                 select="$labels/LandingPageLabels/Label[@id='purpose']/LabelText[@xml:lang=$lang]/text()"
             />
             </h3><xsl:value-of
-                select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='purpose']/ns1:Content[@xml:lang=$lang]/text()"/>
+                select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang]/text()"/>
             <h3 class="lp">
             <xsl:value-of select="$labels/LandingPageLabels/Label[@id='abstract']/LabelText[@xml:lang=$lang]/text()" />
         </h3>
-        <span itemprop="description">
+            <span itemprop="description" property="dcterms:description">
             <xsl:value-of
-                select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='abstract']/ns1:Content[@xml:lang=$lang]/text()"
+                select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()"
             />
         </span>
         <h3 class="lp">
@@ -74,7 +75,7 @@
             <xsl:for-each select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword">
                 <a href="#">
                     <span itemprop="keyword">
-                        <span itemscope="itemscope" itemtype="http://schema.org/Text"><xsl:value-of select="text()"/></span>,
+                        <span itemscope="itemscope" itemtype="http://schema.org/Text" property="dcat:keyword"><xsl:value-of select="text()"/></span>,
                     </span>
                 </a>
             </xsl:for-each>
@@ -105,7 +106,7 @@
                 select="$labels/LandingPageLabels/Label[@id='geographiccoverage']/LabelText[@xml:lang=$lang]/text()"
             />
         </h3>
-        <!-- todo: http://dbpedia.org/resource/Denmark -->        
+            <span rel="dcterms:spatial" resource="http://dbpedia.org/resource/Denmark"/>   
         <xsl:value-of select=
             "concat(translate(substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label,1,1), $vLower, $vUpper),
             substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label, 2),
@@ -231,18 +232,19 @@
             <xsl:value-of select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"/>
             <br />
         </p>
-        <span itemprop="temporal">
-            <h3 class="lp">
+        <span itemprop="temporal" rel="dcterms:temporal">
+            <span typeof="dcterms:periodOfTime" about="dcterms:temporal">
+            <h3 class="lp" property="dcterms:name">
                 <xsl:value-of
                     select="$labels/LandingPageLabels/Label[@id='temporalcoverage']/LabelText[@xml:lang=$lang]/text()"
                 />
             </h3>
-            <strong class="lp">            
+            <strong class="lp">
                 <xsl:value-of
                     select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_startdate']/LabelText[@xml:lang=$lang]/text(), ': ')"
-                />
-            </strong>
-            <span itemprop="startDate">
+                />              
+            </strong>            
+            <span itemprop="startDate" property="dcterms:start">
                 <xsl:value-of select="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:StartDate"/>
             </span>
             <br />
@@ -251,9 +253,10 @@
                     select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_enddate']/LabelText[@xml:lang=$lang]/text(), ': ')"
                 />
             </strong>
-            <span itemprop="endDate">
+            <span itemprop="endDate" property="dcterms:end">
                 <xsl:value-of select="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:EndDate"/>
             </span>
+        </span>
         </span>
         <br />
         <a name="citation"></a>
@@ -264,7 +267,7 @@
         </h2>
         <xsl:value-of select="concat(ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:FirstName, ', ')" />
             <em><xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>, </em> 
-            <xsl:value-of select="ns1:Archive"/>, <xsl:value-of select="substring-before(ns1:PublicationDate, '-')"/>. 1 datafil: 
+            <span rel="dcterms:publisher"><span typeof="foaf:Organization" about="dcterms:publisher"><span property="dcterms:title"><xsl:value-of select="ns1:Archive"/></span></span></span>, <xsl:value-of select="substring-before(ns1:PublicationDate, '-')"/>. 1 datafil: 
             <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, 
             <a href="#">doi:10.5072/<xsl:value-of select="concat('DDA-', $studyId)"/></a>            
         <h3 class="lp">
@@ -276,7 +279,7 @@
             <strong class="lp">URL: </strong><a href="#">http://dda.dk/catalogue/<xsl:value-of select="$studyId"/></a><br />
         </p>
         <p class="lp">
-            <strong class="lp">DOI: </strong><a href="#">doi:10.5072/<xsl:value-of select="concat('DDA-', $studyId)"/></a> 
+            <strong class="lp">DOI: </strong><span property="dcterms:identifier" content="{ concat('doi:10.5072/DDA-', $studyId) }"/><a href="#">doi:10.5072/<xsl:value-of select="concat('DDA-', $studyId)"/></a> 
         </p>
         <h3 class="lp">
             <xsl:value-of
@@ -294,8 +297,8 @@
                     select="concat($labels/LandingPageLabels/Label[@id='publisheddate']/LabelText[@xml:lang=$lang]/text(), ': ')"
                     />
             </strong>
-            <span itemprop="datePublished">
-                <xsl:value-of select="substring-before(ns1:PublicationDate/text(), 'T')"/>
+            <span itemprop="datePublished" property="dcterms:issued">
+                <xsl:value-of select="ns1:PublicationDate"/>
             </span>
             
         <a name="status"></a>
