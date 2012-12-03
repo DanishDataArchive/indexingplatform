@@ -71,11 +71,11 @@
             <xsl:value-of
                 select="$labels/LandingPageLabels/Label[@id='keywords']/LabelText[@xml:lang=$lang]/text()"
             />
-        </h3> <span class="lplink">
+        </h3> <span class="lplink" property="dcat:keyword">
             <xsl:for-each select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword">
                 <a href="#">
                     <span itemprop="keyword">
-                        <span itemscope="itemscope" itemtype="http://schema.org/Text" property="dcat:keyword"><xsl:value-of select="text()"/></span>,
+                        <span itemscope="itemscope" itemtype="http://schema.org/Text"><xsl:value-of select="text()"/></span>,
                     </span>
                 </a>
             </xsl:for-each>
