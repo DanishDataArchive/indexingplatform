@@ -96,7 +96,7 @@ span.hi
 .contextlink a:active	{ color: #000080; background-color: transparent; text-decoration: underline; }
 .contextlink a:hover	{ color: #c97624; background-color: transparent; text-decoration: underline; }
 
-.study, study.p { font-family: Verdana; font-size: 8pt; color: #000;font-variant:small-caps }
+.study, study.p { font-family: Verdana; font-size: 8pt; color: #000;font-variant:small-caps; text-decoration: none;}
 .study a			{ font-family: verdana,arial,helvetica,sans-serif; font-size: 8pt; color: #000; }
 .stydy a:link	{ color: #000; background-color: transparent; text-decoration: none; }
 .study a:visited	{ color: #000; background-color: transparent; text-decoration: none; }

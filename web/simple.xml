@@ -130,7 +130,7 @@
                     <tr>
                         <td class="header" valign="top">
                             <p align="center">
-                                <img src="theme/dda-header-graph-961.jpg" usemap="#Map" height="129"
+                                <img src="theme/dda-header-peak-961.jpg" usemap="#Map" height="129"
                                     border="0" width="961" />
                                 <map name="Map">
                                     <area shape="rect" coords="24, 11, 221, 121"
@@ -147,7 +147,7 @@
                                     <tbody>
                                         <tr>
                                             <td align="center"><a class="navi"
-                                                  href="http://samfund.dda.dk/dda/data-bruge.asp"
+                                                href="http://localhost:8080/exist/rest/apps/web/simple.xml"
                                                   >Søg og bestil data</a></td>
                                             <td style="border-style: none; border-width: medium"
                                                 align="center" width="35">&#160;</td>
@@ -195,57 +195,27 @@
                                                   cellpadding="0" cellspacing="0" width="100%">
                                                   <tbody>
                                                   <tr>
-                                                  <td><a href="#primaryinvestigator"
-                                                  >Primærundersøger</a></td>
+                                                      <td><a href="http://localhost:8080/exist/rest/apps/web/advanced.xml"
+                                                      >Avanceret søgning</a></td>
                                                   </tr>
                                                   <tr>
                                                   <td>&#160;</td>
                                                   </tr>
                                                   <tr>
-                                                  <td><a href="#documentation"
-                                                  >Dokumentation</a></td>
+                                                  <td><a href="#"
+                                                      >Hjælp til søgning</a></td>
                                                   </tr>
                                                   <tr>
                                                   <td>&#160;</td>
                                                   </tr>
                                                   <tr>
-                                                  <td><a href="#description">Beskrivelse</a></td>
+                                                      <td><a href="#">Hjælp til søgeresultat</a></td>
                                                   </tr>
                                                   <tr>
                                                   <td>&#160;</td>
                                                   </tr>
                                                   <tr>
-                                                  <td><a href="#universe">Universe</a></td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td>&#160;</td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td><a href="#dataset">Datasæt</a></td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td>&#160;</td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td><a href="#method">Metode</a></td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td>&#160;</td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td><a href="#citation">Citation</a></td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td>&#160;</td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td><a href="#status">Adgang</a></td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td>&#160;</td>
-                                                  </tr>
-                                                  <tr>
-                                                  <td><a href="#metadata">Metadata</a></td>
+                                                      <td><a href="#universe">Teknisk information</a></td>
                                                   </tr>
                                                   </tbody>
                                                   </table></td>

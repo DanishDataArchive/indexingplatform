@@ -26,9 +26,17 @@
                 </xsl:call-template>
             </p-->
             <br/>
-            <p class="contextlink">
-                <xsl:variable name="url" select="concat('landingpage.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
-            <strong><xsl:value-of select="@element"/>:  </strong> <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>
+            <p class="contextlink">               
+                
+            <strong><xsl:value-of select="@element"/>:  </strong> 
+                <xsl:if test="@element!='StudyUnit'">
+                    <xsl:variable name="url" select="concat('codebook.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'], '#', @id, '.', @version)"/>
+                    <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>
+                </xsl:if>
+                <xsl:if test="@element='StudyUnit'">
+                    <xsl:variable name="url" select="concat('landingpage.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+                    <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>        
+                </xsl:if>
                 <em><xsl:apply-templates select="Context"/></em>
             </p>
             <p class="study">

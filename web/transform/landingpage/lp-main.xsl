@@ -77,7 +77,7 @@
                                         <table id="table1" height="100%" border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
                                                 <tr>
-                                                    <td align="center"><a class="navi" href="http://samfund.dda.dk/dda/data-bruge.asp">Søg og bestil data</a></td>
+                                                    <td align="center"><a class="navi" href="http://localhost:8080/exist/rest/apps/web/simple.xml">Søg og bestil data</a></td>
                                                     <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
                                                     <td style="border-style: none; border-width: medium" align="center"><a class="navi" id="afleveredata" href="http://samfund.dda.dk/dda/data-aflevere.asp"> Aflever data</a></td>
                                                     <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
