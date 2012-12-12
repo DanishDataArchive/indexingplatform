@@ -1,0 +1,40 @@
+
+// DONE
+* XSLTForms 
+* Listning af søgeresulatat via XSLT
+
+// TODO
+* HTML simplificer søge og resultat filer 
+** via asp include header footer
+
+* XSLTForm i18n på en
+
+* Søgeresultat 
+* i18n
+* Antal resultater på resultatsiden
+* Bladre
+* Bestil knap/ checkboxes
+** http://ddd.dda.dk/qbank/emne/bestilling_emne.asp
+* Søgeformularen vises i søgeresultatet med valgte entries simpel og advanced placeres i bunden af søge resultatet
+
+* Søgeresultat nuværende med detaljer som scroll ned jquery
+** http://jsfiddle.net/wGbh5/199/
+
+* SearchResult vendt efter studiet
+** Studie title 2 spørgsmål, 4 variabler etc
+
+* Eng indeksering og søgning
+** Undersøges om der er mulighed er flere analysers
+
+* Landingpage søgning
+** MK via Jquery
+
+* HAProxy
+** DDA installet
+** MK tester login i eXist
+
+* eXist
+** login
+** evt opsætning af flere brugere
+
+
