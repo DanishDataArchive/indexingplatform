@@ -178,6 +178,11 @@
             </strong>
             <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier" />
             <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>   
+            <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]">
+                , <em>
+                    <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
+                </em>
+            </xsl:if>
             <br />
         </p>
         <p class="lp">
@@ -187,7 +192,12 @@
                 />                
             </strong>
             <xsl:variable name="timeMethodId" select="ns1:Methodology/ns1:TimeMethod/ns1:TimeMethodIdentifier" />
-            <xsl:value-of select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>       
+            <xsl:value-of select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>     
+            <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]">
+                , <em>
+                    <xsl:value-of select="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"/>
+                </em>
+            </xsl:if>            
             <br />
         </p>
         <p class="lp">
@@ -196,8 +206,13 @@
                     select="concat($labels/LandingPageLabels/Label[@id='samplingprocedure']/LabelText[@xml:lang=$lang]/text(), ': ')"
                 />  
             </strong>
-            <xsl:variable name="samplingProcedureId" select="ns1:DataCollection/ns1:SamplingProcedure/ns1:SamplingProcedureIdentifier" />
+            <xsl:variable name="samplingProcedureId" select="ns1:Methodology/ns1:SamplingProcedure/ns1:SamplingProcedureIdentifier" />
             <xsl:value-of select="$samplingprocedureCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$samplingProcedureId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>       
+            <xsl:if test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]">
+                , <em>
+                    <xsl:value-of select="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"/>
+                </em>
+            </xsl:if>
             <br />
         </p>
         <p class="lp">        
@@ -220,7 +235,12 @@
                 />  
             </strong>
             <xsl:variable name="modeOfCollectionId" select="ns1:DataCollection/ns1:ModeOfCollection/ns1:ModeOfCollectionIdentifier" />
-            <xsl:value-of select="$dataCollectionModeCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$modeOfCollectionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>       
+            <xsl:value-of select="$dataCollectionModeCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$modeOfCollectionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+            <xsl:if test="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]">
+                , <em>
+                    <xsl:value-of select="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()"/>
+                </em>
+            </xsl:if>
             <br />
         </p>
         <p class="lp">
@@ -239,6 +259,7 @@
                     select="$labels/LandingPageLabels/Label[@id='temporalcoverage']/LabelText[@xml:lang=$lang]/text()"
                 />
             </h3>
+            <!-- todo: udskriv noter (todo: de er ikke med i metadata: tilføj dem) -->
             <strong class="lp">
                 <xsl:value-of
                     select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_startdate']/LabelText[@xml:lang=$lang]/text(), ': ')"
@@ -269,7 +290,7 @@
             <em><xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>, </em> 
             <span rel="dcterms:publisher"><span typeof="foaf:Organization" about="dcterms:publisher"><span property="dcterms:title"><xsl:value-of select="ns1:Archive"/></span></span></span>, <xsl:value-of select="substring-before(ns1:PublicationDate, '-')"/>. 1 datafil: 
             <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, 
-            <a href="#">doi:10.5072/<xsl:value-of select="concat('DDA-', $studyId)"/></a>            
+            <a href="#"><xsl:value-of select="concat('http://dx.doi.org/10.5279/DK-DDA-', $studyId)"/></a>            
         <h3 class="lp">
             <xsl:value-of
                 select="concat($labels/LandingPageLabels/Label[@id='persistentidentifier']/LabelText[@xml:lang=$lang]/text(), ': ')"
@@ -279,7 +300,7 @@
             <strong class="lp">URL: </strong><a href="#">http://dda.dk/catalogue/<xsl:value-of select="$studyId"/></a><br />
         </p>
         <p class="lp">
-            <strong class="lp">DOI: </strong><span property="dcterms:identifier" content="{ concat('doi:10.5072/DDA-', $studyId) }"/><a href="#">doi:10.5072/<xsl:value-of select="concat('DDA-', $studyId)"/></a> 
+            <strong class="lp">DOI: </strong><span property="dcterms:identifier" content="{ concat('http://dx.doi.org/10.5279/DK-DDA-', $studyId) }"/><a href="#">http://dx.doi.org/10.5279/DK-DDA-<xsl:value-of select="$studyId"/></a> 
         </p>
         <h3 class="lp">
             <xsl:value-of
@@ -332,7 +353,7 @@
         <xsl:value-of select="$accessConditionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$conditionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
         <br />
             
-        <!-- todo: contruct metedata -->
+        <!-- todo: contruct metadata -->
         <a name="metadata"></a>													
         <h2 class="lp">Metadata</h2>
             <p class="lp">

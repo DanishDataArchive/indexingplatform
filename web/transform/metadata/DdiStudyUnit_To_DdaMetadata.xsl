@@ -36,9 +36,8 @@
             <PIDs>
                 <PID>
                     <ID> 
-                        <!-- temporary test example DOI-->
-                        <xsl:value-of select="concat('doi:10.5072/DDA-', @id)"/>
-                        <!-- todo: probably use this: <xsl:value-of select="ns2:Citation/ns2:InternationalIdentifier[type='DOI']" />-->
+                        <!-- todo: probably use value from DDI document at ns2:Citation/ns2:InternationalIdentifier[type='DOI'] />-->
+                        <xsl:value-of select="concat('http://dx.doi.org/10.5279/DK-DDA-', @id)"/>
                     </ID>
                     <PIDType>DOI</PIDType>
                 </PID>
@@ -276,6 +275,15 @@
             <EndDate>
                 <xsl:value-of select="substring-before(ns2:ReferenceDate/ns2:EndDate/text(),'T')" />
             </EndDate>
+            <!-- todo: er dette en acceptabel løsning? Der er kun en overordnet note og ikke en note for både start og end date. -->
+            <xsl:variable name="temporalCoverageId" select="@id" />
+            <xsl:if test="//ns2:Note/ns2:Relationship/ns2:RelatedToReference/ns2:ID=$temporalCoverageId">
+                <xsl:for-each select="//ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$temporalCoverageId]">
+                    <Description xml:lang="{ns2:Content/@xml:lang}">
+                        <xsl:value-of select="ns2:Content"/>
+                    </Description>
+                </xsl:for-each>
+            </xsl:if>
         </TemporalCoverage>
     </xsl:template>
            
@@ -336,10 +344,20 @@
                     codeListID="urn:datacollectionmethodology.dda.dk" codeListName="DDADataCollectionMethodology" 
                     codeListSchemeURN="urn:datacollectionmethodology.dda.dk-1.0.0" 
                     codeListURN="urn:datacollectionmethodology.dda.dk-1.0.0" codeListVersionID="1.0.0">
-                    <xsl:value-of select="ns8:Methodology/ns8:DataCollectionMethodology[1]/ns2:UserID"/>
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[1]/ns2:UserID"/>
                 </TestTypeIdentifier>     
-                <!-- todo: der er ingen relateret note i test data.. -->
-                <Description>todo: notes related to dataCollectionMethodology</Description>
+                <xsl:variable name="testTypeDaId">                
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[ns2:Content/@xml:lang='da']/@id"/>
+                </xsl:variable>
+                <xsl:variable name="testTypeEnId">                
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[ns2:Content/@xml:lang='en']/@id"/>
+                </xsl:variable>
+                <Description xml:lang='da'>
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$testTypeDaId]/ns2:Content"/>
+                </Description>
+                <Description xml:lang='en'>
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$testTypeEnId]/ns2:Content"/>
+                </Description>    
             </TestType>            
             <TimeMethod>
                 <TimeMethodIdentifier codeListAgencyName="dda.dk" 
@@ -411,7 +429,6 @@
                 <xsl:variable name="modeOfCollectionEnId">                
                     <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[ns2:Content/@xml:lang='en']/@id"/>
                 </xsl:variable>
-                <!-- todo: Note data mangler for ids i test data -->
                 <Description xml:lang='da'>
                     <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$modeOfCollectionDaId]/ns2:Content/text() "/>
                 </Description>
