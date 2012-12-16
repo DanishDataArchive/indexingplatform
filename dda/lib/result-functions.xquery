@@ -125,6 +125,7 @@ declare function local:createConceptCustomFromId($conceptId as xs:string) as ele
     let $concept := collection('/db/apps/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <CustomList type="Concept">
         <Custom option="id">{$conceptId}</Custom>
+        <Custom option="version">{data($concept/@version)}</Custom>
         {local:createCustomLabel($concept/r:Label)}
     </CustomList>
 };
@@ -140,6 +141,7 @@ declare function local:createUniverseCustomFromId($universeId as xs:string) as e
     let $universe := collection('/db/apps/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <CustomList type="Universe">
         <Custom option="id">{$universeId}</Custom>
+        <Custom option="version">{data($universe/@version)}</Custom>
         {local:createCustomLabel($universe/r:Label)}
     </CustomList>
 };
@@ -155,6 +157,7 @@ declare function local:createQuestionItemCustomFromId($questionItemId as xs:stri
     let $questionItem := collection('/db/apps/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
     return <CustomList type="QuestionItem">
         <Custom option="id">{data($questionItem/@id)}</Custom>
+        <Custom option="version">{data($questionItem/@version)}</Custom>
         {local:createCustomLabel($questionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
     </CustomList>
 };
@@ -170,6 +173,7 @@ declare function local:createMultipleQuestionItemCustomFromId($multipleQuestionI
     let $multipleQuestionItem := collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
     return <CustomList type="MultipleQuestionItem">
         <Custom option="id">{data($multipleQuestionItem/@id)}</Custom>
+        <Custom option="version">{data($multipleQuestionItem/@version)}</Custom>
         {local:createCustomLabel($multipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text)}
     </CustomList>
 };
@@ -185,6 +189,7 @@ declare function local:createVariableCustomFromId($variableId as xs:string) as e
     let $variable := collection('/db/apps/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <CustomList type="Variable">
         <Custom option="id">{data($variable/@id)}</Custom>
+        <Custom option="version">{data($variable/@version)}</Custom>
         {local:createCustomLabel($variable/r:Label)}
     </CustomList>
 };
@@ -200,6 +205,7 @@ declare function local:createCategoryCustomFromId($categoryId as xs:string) as e
     let $category := collection('/db/apps/dda')//lp:Category[ft:query(@id, $categoryId)]
     return <CustomList type="Category">
         <Custom option="id">{data($category/@id)}</Custom>
+        <Custom option="version">{data($category/@version)}</Custom>
         {local:createCustomLabel($category/r:Label)}
     </CustomList>
 };
