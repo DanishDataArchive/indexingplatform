@@ -14,6 +14,29 @@
             <link rel="stylesheet" type="text/css" href="theme/result.css" />
             <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml" />
             <link rel="shortcut icon" href="theme/favicon.ico"/>
+            
+            <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js' />
+            
+            <script type='text/javascript'>//<![CDATA[ 
+                $(function(){
+                // Hide all the elements in the DOM that have a class of "box"
+                $('.box').hide();
+                
+                // Make sure all the elements with a class of "clickme" are visible and bound
+                // with a click event to toggle the "box" state
+                $('.more_details').each(function() {
+                    $(this).show(0).on('click', function(e) {
+                        // This is only needed if your using an anchor to target the "box" elements
+                        e.preventDefault();
+                        
+                        // Find the next "box" element in the DOM
+                        $(this).next('.box').slideToggle('fast');
+                    });
+                });
+                
+                });//]]>
+            </script>
+            
             <!-- todo: abstract -->
             <!--<meta name="description" content="{ns1:Descriptions/ns1:Description[ns1:Type='purpose']/ns1:Content[@xml:lang=$lang]/text()}"/>-->
             <title>

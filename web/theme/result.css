@@ -10,3 +10,26 @@ span.hi
 {
     background-color:yellow;
 }
+
+.more_details {
+    background-color: #eee;
+    border-radius: 4px;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.more_details:hover {
+    text-decoration: underline;
+}
+
+.box {
+    background-color: #fff;
+    border-radius: 4px;
+    color: #333;
+    margin: 5px 0;
+    padding: 5px 10px;
+    width: auto;
+}

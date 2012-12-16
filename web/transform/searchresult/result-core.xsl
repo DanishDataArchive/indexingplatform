@@ -15,6 +15,7 @@
         </p>
         
         <xsl:for-each select="LightXmlObject">
+            <xsl:variable name="studyId" select="CustomList[@type='StudyUnit']/Custom[@option='id']" />
             <!--p>
                 Fra
                 <xsl:call-template name="formatDate">
@@ -30,26 +31,82 @@
                 
             <strong><xsl:value-of select="@element"/>:  </strong> 
                 <xsl:if test="@element!='StudyUnit'">
-                    <xsl:variable name="url" select="concat('codebook.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'], '#', @id, '.', @version)"/>
+                    <xsl:variable name="url" select="concat('codebook.xquery?studyid=', $studyId, '#', @id, '.', @version)"/>
                     <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>
                 </xsl:if>
                 <xsl:if test="@element='StudyUnit'">
-                    <xsl:variable name="url" select="concat('landingpage.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+                    <xsl:variable name="url" select="concat('landingpage.xquery?studyid=', $studyId)"/>
                     <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>        
                 </xsl:if>
                 <em><xsl:apply-templates select="Context"/></em>
             </p>
             <p class="study">
-                <xsl:variable name="url2" select="concat('landingpage.xquery?studyid=', CustomList[@type='StudyUnit']/Custom[@option='id'])"/>
+                <xsl:variable name="url2" select="concat('landingpage.xquery?studyid=', $studyId)"/>
                 <a class="study" href="{$url2}"><xsl:value-of select="CustomList[@type='StudyUnit']/Custom[@option='label']"/></a>
             </p>
             <br/>
+            
+            <xsl:variable name="questionItems" select="CustomList[@type='QuestionItem' or @type='MultipleQuestionItem']"/>
+            <xsl:if test="count($questionItems) &gt; 0">
+                <xsl:call-template name="moreElements">
+                    <xsl:with-param name="title" select="'Spørgsmål'" />
+                    <xsl:with-param name="elements" select="$questionItems" />
+                    <xsl:with-param name="studyId" select="$studyId" />
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:variable name="variables" select="CustomList[@type='Variable']"/>
+            <xsl:if test="count($variables) &gt; 0">
+                <xsl:call-template name="moreElements">
+                    <xsl:with-param name="title" select="'Variabler'" />
+                    <xsl:with-param name="elements" select="$variables" />
+                    <xsl:with-param name="studyId" select="$studyId" />
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:variable name="categories" select="CustomList[@type='Category']"/>
+            <xsl:if test="count($categories) &gt; 0">
+                <xsl:call-template name="moreElements">
+                    <xsl:with-param name="title" select="'Kategorier'" />
+                    <xsl:with-param name="elements" select="$categories" />
+                    <xsl:with-param name="studyId" select="$studyId" />
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:variable name="concepts" select="CustomList[@type='Concept']"/>
+            <xsl:if test="count($concepts) &gt; 0">
+                <xsl:call-template name="moreElements">
+                    <xsl:with-param name="title" select="'Concept'" />
+                    <xsl:with-param name="elements" select="$concepts" />
+                    <xsl:with-param name="studyId" select="$studyId" />
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:variable name="universes" select="CustomList[@type='Universe']"/>
+            <xsl:if test="count($universes) &gt; 0">
+                <xsl:call-template name="moreElements">
+                    <xsl:with-param name="title" select="'Universe'" />
+                    <xsl:with-param name="elements" select="$universes" />
+                    <xsl:with-param name="studyId" select="$studyId" />
+                </xsl:call-template>
+            </xsl:if>
         </xsl:for-each>			
 
     </xsl:template>
     
     <xsl:template match="Context">
             <xsl:copy-of select="*" />
+    </xsl:template>
+    
+    <xsl:template name="moreElements">
+        <xsl:param name="title" />
+        <xsl:param name="elements" />
+        <xsl:param name="studyId" />
+        <a href="#" class="more_details"><xsl:value-of select="$title"/></a>
+        <div class="box">
+            <ul>
+                <xsl:for-each select="$elements">
+                    <xsl:variable name="url" select="concat('codebook.xquery?studyid=', $studyId, '#', Custom[@option='id'], '.', Custom[@option='version'])"/>
+                    <li><a class="contextlink" href="{$url}"><xsl:value-of select="Custom[@option='label']"/></a></li>
+                </xsl:for-each>
+            </ul>
+        </div>
     </xsl:template>
     
     <xsl:template name="formatDate">
