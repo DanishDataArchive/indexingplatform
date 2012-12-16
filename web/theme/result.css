@@ -11,7 +11,7 @@ span.hi
     background-color:yellow;
 }
 
-.more_details {
+.referencedElementsTitle {
     background-color: #eee;
     border-radius: 4px;
     color: #666;
@@ -21,11 +21,11 @@ span.hi
     text-decoration: none;
 }
 
-.more_details:hover {
+.referencedElementsTitle:hover {
     text-decoration: underline;
 }
 
-.box {
+.referencedElementsList {
     background-color: #fff;
     border-radius: 4px;
     color: #333;
