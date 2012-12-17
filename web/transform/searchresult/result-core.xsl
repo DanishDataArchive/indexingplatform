@@ -29,7 +29,26 @@
             <br/>
             <p class="contextlink">               
                 
-            <strong><xsl:value-of select="@element"/>:  </strong> 
+            <strong>
+                <xsl:if test="@element = 'StudyUnit'">
+                    Studie:
+                </xsl:if>
+                <xsl:if test="@element = 'QuestionItem' or @element = 'MultipleQuestionItem'">
+                    Spørgsmål:
+                </xsl:if>
+                <xsl:if test="@element = 'Variable'">
+                    Variabel:
+                </xsl:if>
+                <xsl:if test="@element = 'Category'">
+                    Kategorie:
+                </xsl:if>
+                <xsl:if test="@element = 'Concept'">
+                    Koncept:
+                </xsl:if>
+                <xsl:if test="@element = 'Universe'">
+                    Univers:
+                </xsl:if>
+            </strong> 
                 <xsl:if test="@element!='StudyUnit'">
                     <xsl:variable name="url" select="concat('codebook.xquery?studyid=', $studyId, '#', @id, '.', @version)"/>
                     <a class="contextlink" href="{$url}"><xsl:value-of select="Label"/></a>
@@ -73,7 +92,7 @@
             <xsl:variable name="concepts" select="CustomList[@type='Concept']"/>
             <xsl:if test="count($concepts) &gt; 0">
                 <xsl:call-template name="referencedElements">
-                    <xsl:with-param name="title" select="'Concept'" />
+                    <xsl:with-param name="title" select="'Koncepter'" />
                     <xsl:with-param name="elements" select="$concepts" />
                     <xsl:with-param name="studyId" select="$studyId" />
                 </xsl:call-template>
@@ -81,7 +100,7 @@
             <xsl:variable name="universes" select="CustomList[@type='Universe']"/>
             <xsl:if test="count($universes) &gt; 0">
                 <xsl:call-template name="referencedElements">
-                    <xsl:with-param name="title" select="'Universe'" />
+                    <xsl:with-param name="title" select="'Universer'" />
                     <xsl:with-param name="elements" select="$universes" />
                     <xsl:with-param name="studyId" select="$studyId" />
                 </xsl:call-template>
@@ -117,4 +136,5 @@
         <xsl:variable name="day" select="substring-after(substring-after($date, '-'), '-')" />
         <xsl:value-of select="concat($day, '.', $month, '.', $year)" />
     </xsl:template>
+    
 </xsl:stylesheet>
