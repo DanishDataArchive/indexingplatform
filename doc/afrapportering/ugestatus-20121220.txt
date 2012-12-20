@@ -1,0 +1,63 @@
+=Next meeting=
+* Aftalt at tale sammen d. 27 dec - status
+** JVJ vender tilbage mht. tidspunkt
+
+=DONE=
+* XSLTForms 
+* Listning af søgeresulatat via XSLT
+
+=TODO=
+==HTML simplificer søge og resultat filer== 
+* via asp include header footer
+
+==XSLTForm==
+* i18n på en
+
+==Søgeresultat== 
+* i18n
+** laves som xml
+
+==Antal resultater på resultatsiden==
+* OK
+
+==Bladre funktion==
+* Vis næste sider i søgeresulat
+
+==Bestil knap/ checkboxes==
+** http://ddd.dda.dk/qbank/emne/bestilling_emne.asp
+** Beta 
+
+==Søgeformularen vises i søgeresultatet med valgte entries==
+* Simpel placering i toppen af søge resultatet
+* Advanced placeres i bunden af søge resultatet
+
+==Søgeresultat nuværende med detaljer som scroll ned jquery==
+* http://jsfiddle.net/wGbh5/199/
+** Nu i beta -> design ændres
+** Skal testes i Linux-Firefox
+** Win7 - Explore
+** MacOX - Safari
+** Chrome
+
+==SearchResult vendt efter studiet==
+* Studie title 2 spørgsmål, 4 variabler etc
+
+==Engelsk indeksering og søgning==
+* Undersøges om der er mulighed er flere analysers
+* TODO Next
+
+==Landingpage søgning==
+* MK via Jquery
+
+==HAProxy - MK==
+* DDA installet
+* OK login i eXist
+* Redirects via regx ok
+* Beta config vidregivet til DDA admin
+** UNI-C skal åbne hullet i firewall -ifbm juledagene kan dette tage noget tid
+
+==eXist==
+* Evt opsætning af flere brugere
+* Mulighed for at logge søge ord ?
+
+
