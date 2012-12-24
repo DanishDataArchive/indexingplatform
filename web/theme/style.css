@@ -33,9 +33,9 @@ BR, P	{ margin-top: 0px; margin-bottom: 0px; }
 B 		{ color: #333; font-weight: bold; }
 
 a			{ font-family: verdana,arial,helvetica,sans-serif; font-size: 8pt; color: #ec7c0c; }
-a:link		{ color: #ec7c0c; text-decoration: underline; }
-a:visited	{ color: #ec7c0c; text-decoration: underline; }
-a:active 	{ color: #ec7c0c; text-decoration: underline; }
+a:link		{ color: #ec7c0c; text-decoration: none; }
+a:visited	{ color: #ec7c0c; text-decoration: none; }
+a:active 	{ color: #ec7c0c; text-decoration: none; }
 a:hover		{ color: #666; text-decoration: none; }
 
 /* ************************************ */

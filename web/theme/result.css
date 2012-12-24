@@ -1,3 +1,18 @@
+div.result
+{
+    background-color:#fff;
+    padding: 10px 10px;
+    margin: 10px 0;
+}
+
+div.alternate
+{
+    background-color:#eee;
+    border-radius: 4px;
+    padding: 10px 10px;
+    margin: 10px 0;
+}
+
 p.context
 {
     /*border-bottom-style:solid;
@@ -8,28 +23,28 @@ p.context
 
 span.hi
 {
-    background-color:yellow;
+    background-color:#ffff99;
 }
 
-.referencedElementsTitle {
-    background-color: #eee;
+/*.referencedElementsTitle {
+    background-color: #fff;
     border-radius: 4px;
     color: #666;
     display: block;
     margin-bottom: 5px;
     padding: 5px 10px;
     text-decoration: none;
-}
+}*/
 
-.referencedElementsTitle:hover {
+/*.referencedElementsTitle:hover {
     text-decoration: underline;
-}
+}*/
 
-.referencedElementsList {
+/*.referencedElementsList {
     background-color: #fff;
     border-radius: 4px;
     color: #333;
     margin: 5px 0;
     padding: 5px 10px;
     width: auto;
-}
+}*/
