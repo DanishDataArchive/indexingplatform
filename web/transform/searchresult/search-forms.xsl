@@ -21,7 +21,7 @@
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">StudyUnit</xsl:attribute>
                                     <xsl:if
-                                        test="(s:Scope/s:StudyUnit) or (not(ssp:SimpleSearchParameters))">
+                                        test="s:Scope/s:StudyUnit">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element>
@@ -31,7 +31,7 @@
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">QuestionItem</xsl:attribute>
                                     <xsl:if
-                                        test="(s:Scope/s:QuestionItem) or (s:Scope/s:MultipleQuestionItem) or (not(ssp:SimpleSearchParameters))">
+                                        test="(s:Scope/s:QuestionItem) or (s:Scope/s:MultipleQuestionItem)">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element> Spørgsmål <xsl:element name="input">
@@ -39,7 +39,7 @@
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">Variable</xsl:attribute>
                                     <xsl:if
-                                        test="(s:Scope/s:Variable) or (not(ssp:SimpleSearchParameters))">
+                                        test="s:Scope/s:Variable">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element> Variabler <xsl:element name="input">
@@ -47,7 +47,7 @@
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">Category</xsl:attribute>
                                     <xsl:if
-                                        test="(s:Scope/s:Category) or (not(ssp:SimpleSearchParameters))">
+                                        test="s:Scope/s:Category">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element> Kategorier <xsl:element name="input">
@@ -55,7 +55,7 @@
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">Concept</xsl:attribute>
                                     <xsl:if
-                                        test="(s:Scope/s:Concept) or (not(ssp:SimpleSearchParameters))">
+                                        test="s:Scope/s:Concept">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element> Koncepter <xsl:element name="input">
@@ -63,7 +63,7 @@
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">Universe</xsl:attribute>
                                     <xsl:if
-                                        test="(s:Scope/s:Universe) or (not(ssp:SimpleSearchParameters))">
+                                        test="s:Scope/s:Universe">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element> Universer </td>
@@ -111,25 +111,37 @@
                     <tr>
                         <td class="searchadvanced">Title</td>
                         <td>
-                            <input type="text" name="title" size="40"/>
+                            <xsl:variable name="title">
+                                <xsl:value-of select="asp:title/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="title" size="40" value="{$title}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Abstract/Purpose</td>
                         <td>
-                            <input type="text" name="abstract-purpose" size="40"/>
+                            <xsl:variable name="abstract-purpose">
+                                <xsl:value-of select="asp:abstract-purpose/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="abstract-purpose" size="40" value="{$abstract-purpose}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Creator</td>
                         <td>
-                            <input type="text" name="creator" size="40"/>
+                            <xsl:variable name="creator">
+                                <xsl:value-of select="asp:creator/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="creator" size="40" value="{$creator}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Topical Coverage</td>
                         <td>
-                            <input type="text" name="topicalCoverage" size="40"/>
+                            <xsl:variable name="topicalCoverage">
+                                <xsl:value-of select="asp:topicalCoverage/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="topicalCoverage" size="40" value="{$topicalCoverage}"/>
                             <!--<input type="checkbox" name="subject" checked="checked" />Subject
             <input type="checkbox" name="subject" checked="keyword" />Keyword-->
                         </td>
@@ -137,20 +149,32 @@
                     <tr>
                         <td class="searchadvanced">Spatial Coverage</td>
                         <td>
-                            <input type="text" name="spatialCoverage" size="40"/>
+                            <xsl:variable name="spatialCoverage">
+                                <xsl:value-of select="asp:spatialCoverage/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="spatialCoverage" size="40" value="{$spatialCoverage}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">KindOfData</td>
                         <td>
-                            <input type="text" name="kindOfData" size="40"/>
+                            <xsl:variable name="kindOfData">
+                                <xsl:value-of select="asp:kindOfData/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="kindOfData" size="40" value="{$kindOfData}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Temporal Coverage</td>
                         <td>
-                            <input type="text" name="coverageFrom" size="17"/>
-                            <input type="text" name="coverageTo" size="16"/>
+                            <xsl:variable name="coverageFrom">
+                                <xsl:value-of select="asp:coverageFrom/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="coverageFrom" size="17" value="{$coverageFrom}"/>
+                            <xsl:variable name="coverageTo">
+                                <xsl:value-of select="asp:coverageTo/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="coverageTo" size="16" value="{$coverageTo}"/>
                         </td>
                     </tr>
                     <tr>
@@ -161,47 +185,111 @@
                     <tr>
                         <td class="searchadvanced">Question</td>
                         <td>
-                            <input type="text" name="QuestionItem" size="40"/>
+                            <xsl:variable name="QuestionItem">
+                                <xsl:value-of select="asp:QuestionItem/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="QuestionItem" size="40" value="{$QuestionItem}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Variable</td>
                         <td>
-                            <input type="text" name="Variable" size="40"/>
+                            <xsl:variable name="Variable">
+                                <xsl:value-of select="asp:Variable/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="Variable" size="40" value="{$Variable}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Category</td>
                         <td>
-                            <input type="text" name="Category" size="40"/>
+                            <xsl:variable name="Category">
+                                <xsl:value-of select="asp:Category/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="Category" size="40" value="{$Category}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Concept</td>
                         <td>
-                            <input type="text" name="Concept" size="40"/>
+                            <xsl:variable name="Concept">
+                                <xsl:value-of select="asp:Concept/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="Concept" size="40" value="{$Concept}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="searchadvanced">Universe</td>
                         <td>
-                            <input type="text" name="Universe" size="40"/>
+                            <xsl:variable name="Universe">
+                                <xsl:value-of select="asp:Universe/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="Universe" size="40" value="{$Universe}"/>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <h2 class="search">Søgeresultat</h2>
-                            <input class="searchoption" type="checkbox" name="StudyUnitChecked" checked="checked"/>
-                            <span>Studiebeskrivelse</span>
-                            <input class="searchoption" type="checkbox" name="QuestionItemChecked" checked="checked"/>
+                            
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">StudyUnitChecked</xsl:attribute>
+                                <xsl:if
+                                    test="s:Scope/s:StudyUnit">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
+                            Studiebeskrivelse
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">QuestionItemChecked</xsl:attribute>
+                                <xsl:if
+                                    test="(s:Scope/s:QuestionItem) or (s:Scope/s:MultipleQuestionItem)">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
                             Spørgsmål
-                            <input class="searchoption" type="checkbox" name="VariableChecked" checked="checked"/>
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">VariableChecked</xsl:attribute>
+                                <xsl:if
+                                    test="s:Scope/s:Variable">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
                             Variabler
-                            <input class="searchoption" type="checkbox" name="CategoryChecked" checked="checked"/>
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">CategoryChecked</xsl:attribute>
+                                <xsl:if
+                                    test="s:Scope/s:Category">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
                             Kategorier
-                            <input class="searchoption" type="checkbox" name="ConceptChecked" checked="checked"/>
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">ConceptChecked</xsl:attribute>
+                                <xsl:if
+                                    test="s:Scope/s:Concept">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
                             Koncepter
-                            <input class="searchoption" type="checkbox" name="UniverseChecked" checked="checked"/>
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">UniverseChecked</xsl:attribute>
+                                <xsl:if
+                                    test="s:Scope/s:Universe">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
                             Universer
                         </td>
                     </tr>

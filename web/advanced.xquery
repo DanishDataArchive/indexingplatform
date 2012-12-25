@@ -27,8 +27,6 @@ declare function local:main() as node()? {
         if (request:get-parameter('Concept', ())) then <asp:Concept>{request:get-parameter('Concept', ())}</asp:Concept> else (),
         if (request:get-parameter('Universe', ())) then <asp:Universe>{request:get-parameter('Universe', ())}</asp:Universe> else ()
      }
-        <asp:Variable>STUDIENUMMER</asp:Variable>
-        <asp:QuestionItem>studiesituation</asp:QuestionItem>
         <sm:SearchMetaData hits-perpage="10" hit-start="0"/>
         <s:Scope>
         {
