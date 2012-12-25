@@ -3,17 +3,17 @@
     <head>
         <style type="text/css">
             body {
-                font:10px arial,sans-serif;
+            font:10px arial,sans-serif;
             }
             .larger {
-                font:12px arial,sans-serif;
+            font:12px arial,sans-serif;
             }
             .grey {
-                color:#808080;
+            color:#808080;
             }
             h1 {
-                font:25px arial,sans-serif;
-                font-weight:bold;
+            font:25px arial,sans-serif;
+            font-weight:bold;
             }
             <!--
                 a:link { color: #9e4928; }
@@ -31,13 +31,13 @@
         <script type="text/javascript">
             /*<![CDATA[*/
             $(document).ready(function(){
-                // Load the serialized strings from the local storage and parse them into arrays
-                var studyIDs = JSON.parse(localStorage.getItem('studyIDs'));
-                var studyTitles = JSON.parse(localStorage.getItem('studyTitles'));
-                // For every study in the arrays add a row in the table containing the list of studies
-                for(i=0; i<studyIDs.length; i++) {
-                    $('#studyList').append("<tr><td>" + studyIDs[i] + "</td><td>" + studyTitles[i] + "</td></tr>");
-                }
+            // Load the serialized strings from the local storage and parse them into arrays
+            var studyIDs = JSON.parse(localStorage.getItem('studyIDs'));
+            var studyTitles = JSON.parse(localStorage.getItem('studyTitles'));
+            // For every study in the arrays add a row in the table containing the list of studies
+            for(i=0; i<studyIDs.length; i++) {
+            $('#studyList').append("<tr><td>" + studyIDs[i] + "</td><td>" + studyTitles[i] + "</td></tr>");
+            }
             });
             /*]]>*/
         </script>
@@ -69,63 +69,63 @@
                         hvortil data tænkes anvendt) &nbsp;</span>
                     
                     <table width="98%" border="0" cellspacing="0" cellpadding="3">
-                            <tr>
-                                <td height="18" width="18%"><b>Din
-                                    titel og navn: <br/>
-                                </b> &nbsp;&nbsp;</td>
-                                <td valign="top" height="18" width="82%">
-                                    <input type="text" name="textfield6" size="80" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="31" width="18%"><b>Adresse:
-                                    <br/>
-                                </b></td>
-                                <td valign="top" height="31" width="82%">
-                                    <input type="text" name="textfield62" size="80" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="16" width="18%"><b>E-mail:
-                                    <br/>
-                                </b></td>
-                                <td valign="top" height="16" width="82%">
-                                    <input type="text" name="textfield63" size="80" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="21" width="18%"><b>Telefon:
-                                </b></td>
-                                <td valign="top" height="21" width="82%">
-                                    <input type="text" name="textfield64" size="80" />
-                                </td>
-                            </tr>
-                        </table>
-                        <img src="groenstreg.gif" width="780" height="1" alt="" />
-                        
-                        <table id="studyList" border="0" width="98%" cellspacing="0">
-                            <tr>
-                                <td width="95"><b>Studienr.</b></td>
-                                <td width="540"><b>Studiets
-                                    titel:</b></td>
-                            </tr>
-                        </table>
-                        <img alt="" src="groenstreg.gif" width="780" height="1" />
+                        <tr>
+                            <td height="18" width="18%"><b>Din
+                                titel og navn: <br/>
+                            </b> &nbsp;&nbsp;</td>
+                            <td valign="top" height="18" width="82%">
+                                <input type="text" name="textfield6" size="80" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="31" width="18%"><b>Adresse:
+                                <br/>
+                            </b></td>
+                            <td valign="top" height="31" width="82%">
+                                <input type="text" name="textfield62" size="80" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="16" width="18%"><b>E-mail:
+                                <br/>
+                            </b></td>
+                            <td valign="top" height="16" width="82%">
+                                <input type="text" name="textfield63" size="80" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="21" width="18%"><b>Telefon:
+                            </b></td>
+                            <td valign="top" height="21" width="82%">
+                                <input type="text" name="textfield64" size="80" />
+                            </td>
+                        </tr>
+                    </table>
+                    <img src="groenstreg.gif" width="780" height="1" alt="" />
+                    
+                    <table id="studyList" border="0" width="98%" cellspacing="0">
+                        <tr>
+                            <td width="95"><b>Studienr.</b></td>
+                            <td width="540"><b>Studiets
+                                titel:</b></td>
+                        </tr>
+                    </table>
+                    <img alt="" src="groenstreg.gif" width="780" height="1" />
                     
                     <table width="98%" border="0" cellspacing="0" cellpadding="3">
                         <tr>
                             <td height="27"><b>Ønsket
                                 dataformat: </b>
-                                    <input type="checkbox" name="checkbox" value="checkbox" />
-                                    SPSS
-                                        <input type="checkbox" name="checkbox2" value="checkbox" />
-                                        SAS 
-                                   <input type="checkbox" name="checkbox4" value="checkbox" />
-                                    STATA
-                                    <input type="checkbox" name="checkbox5" value="checkbox" />
-                                    R
-                                    <input type="checkbox" name="checkbox3" value="checkbox" />
-                                    Tabulator-separeret fil
+                                <input type="checkbox" name="checkbox" value="checkbox" />
+                                SPSS
+                                <input type="checkbox" name="checkbox2" value="checkbox" />
+                                SAS 
+                                <input type="checkbox" name="checkbox4" value="checkbox" />
+                                STATA
+                                <input type="checkbox" name="checkbox5" value="checkbox" />
+                                R
+                                <input type="checkbox" name="checkbox3" value="checkbox" />
+                                Tabulator-separeret fil
                                 <p>DDA henleder opmærksomheden på, at brugeren med sin underskrift på 
                                     bestillingsblanketten og i øvrigt ved ibrugtagning af materialet har<br/>
                                     forpligtet sig til at overholde følgende betingelser for anvendelse af 
@@ -175,8 +175,8 @@
                         Jeg forpligter mig ved min underskrift til at overholde nedenstående betingelser. 
                     </span>
                     
-                        <br/>
-                        <br/>
+                    <br/>
+                    <br/>
                     
                     <p><span class="larger">Dato og underskrift: ............................................................................................ 
                         <br/>
@@ -184,7 +184,7 @@
                         <span class="larger"><b>DDA:</b> <br/>
                             Kopi af denne bestilling er tilsendt adgangsgivende myndighed. Der er anvendt den anførte 
                             adressering og brevet er afsendt på nedenstående dato: </span><br/>
-                                <br/>
+                        <br/>
                     </p>
                     <p><span class="larger">Dato og initialer: .................................................................................................<br/>
                         <img src="groenstreg.gif" width="780" height="1" alt="" /><br/>
@@ -204,5 +204,8 @@
                     <center>
                         <span class="grey">© Dansk Data Arkiv, Islandsgade 10, 5000 Odense C</span>
                     </center>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>
