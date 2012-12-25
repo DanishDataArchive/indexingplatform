@@ -2,10 +2,12 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:dl="ddieditor-lightobject"
     xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
+    xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
     version="1.0">
     <xsl:import href="search-forms.xsl"/>
     <xsl:import href="result-core.xsl"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
+    <xsl:param name="type"/>
     <xsl:param name="lang"/>
     <xsl:template match="dl:LightXmlObjectList">
         <html>
@@ -176,7 +178,14 @@
                                                 </td>
                                                 <td valign="top" width="580">
                                                     
-                                                    <xsl:apply-templates select="ssp:SimpleSearchParameters"/>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$type='advanced'">
+                                                            <xsl:apply-templates select="asp:AdvancedSearchParameters"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:apply-templates select="ssp:SimpleSearchParameters"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                     
                                                     <div align="center">
                                                         <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
