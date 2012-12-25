@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:dl="ddieditor-lightobject" xmlns:rmd="http://dda.dk/ddi/result-metadata" targetNamespace="ddieditor-lightobject"
+	xmlns:dl="ddieditor-lightobject" xmlns:rmd="http://dda.dk/ddi/result-metadata" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:asp="http://dda.dk/ddi/advanced-search-parameters" targetNamespace="ddieditor-lightobject"
 	elementFormDefault="unqualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://dda.dk/ddi/result-metadata" schemaLocation="result-metadata.xsd"/>
+	<xs:import namespace="http://dda.dk/ddi/simple-search-parameters" schemaLocation="../search/simple-search-parameters.xsd"/>
+	<xs:import namespace="http://dda.dk/ddi/advanced-search-parameters" schemaLocation="../search/advanced-search-parameters.xsd"/>
 
 	<xs:complexType name="LightXmlObjectListType">
 		<xs:sequence>
+			<xs:element ref="ssp:SimpleSearchParameters" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="asp:AdvancedSearchParameters" minOccurs="0" maxOccurs="1" />
 			<xs:element ref="rmd:ResultMetaData" minOccurs="0" maxOccurs="1" />
 			<xs:element name="LightXmlObject" type="dl:LightXmlObjectType"
 				maxOccurs="unbounded" minOccurs="0" />

@@ -84,6 +84,13 @@
         <include name="**/*.*"/>
       </fileset>
     </xdb:store>
+    <!-- store the JavaScript files -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true" createsubcollections="true">
+      <fileset dir="../web/js">
+        <include name="**/*.*"/>
+      </fileset>
+    </xdb:store>
     <!-- store the theme files -->
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
       uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true" createsubcollections="true">
@@ -91,9 +98,13 @@
         <include name="**/*.*"/>
       </fileset>
     </xdb:store>
-   <!-- store the XSLTForms config file -->
+   <!-- store the order form files -->
    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-     uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/xsltforms" srcfile="../xsltforms/config.xsl"/>
+     uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/order" createcollection="true">
+     <fileset dir="../web/order">
+       <include name="**/*.*"/>
+     </fileset>
+   </xdb:store>
  </target>
  
  <target name="deploy-urn" description="Deploy the URN resolution">

@@ -277,7 +277,7 @@ declare function ddi:lookupCategory($categoryId as xs:string, $scope as element(
  : @param   $hits-perpage  the number of hits to be shown per page
  : @param   $hit-start     number of the first hit to be shown on the page
  :)
-declare function local:buildLightXmlObjectList($results as element()*, $scope as element()?, $hits-perpage as xs:integer, $hit-start as xs:integer) as element() {
+declare function local:buildLightXmlObjectList($results as element()*, $scope as element()?, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element()) as element() {
     let $result-count := count($results)
     let $hit-end := if ($result-count lt $hits-perpage) then $result-count
                     else $hit-start + $hits-perpage
@@ -288,6 +288,7 @@ declare function local:buildLightXmlObjectList($results as element()*, $scope as
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:rmd="http://dda.dk/ddi/result-metadata">
+        {$search-parameters}
         <rmd:ResultMetaData
             result-count="{$result-count}"
             hit-start="{$hit-start}"
@@ -362,7 +363,7 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
         $categoryScope
     )
 
-    return local:buildLightXmlObjectList($results, (), data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
+    return local:buildLightXmlObjectList($results, (), data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters)
 };
 
 (:~
@@ -558,5 +559,5 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             $studyUnits
 
     let $search-metadata := $search-parameters/smd:SearchMetaData
-    return local:buildLightXmlObjectList($results, $search-parameters/s:Scope, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start))
+    return local:buildLightXmlObjectList($results, $search-parameters/s:Scope, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters)
 };
