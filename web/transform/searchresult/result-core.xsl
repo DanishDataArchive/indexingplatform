@@ -87,10 +87,15 @@
                 </xsl:if>
 
                 <p class="study">
+                    <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" />
+                    <input type="hidden" name="studyId[]" value="{$studyId}" />
+                    <xsl:variable name="title"
+                        select="CustomList[@type='StudyUnit']/Custom[@option='label']"/>
+                    <input type="hidden" name="studyTitle[]" value="{$title}" />
                     <xsl:variable name="url2"
                         select="concat('landingpage.xquery?studyid=', $studyId)"/>
                     <a class="study" href="{$url2}">
-                        <xsl:value-of select="CustomList[@type='StudyUnit']/Custom[@option='label']" />
+                        <xsl:value-of select="$title"/>
                     </a>
                 </p>
             </div>

@@ -40,6 +40,52 @@
                 });//]]>
             </script>
             
+            <script language="javascript" type="text/javascript">
+                /*<![CDATA[*/
+            function createOrder() {
+                // We are using local storage to pass data to the order page
+                // If data was already stored remove it
+                localStorage.removeItem('studyIDs');
+                localStorage.removeItem('studyTitles');
+                
+                var chosenStudies = document.order.elements["studyChosen[]"];
+                var studyIdElements = document.order.elements["studyId[]"];
+                var studyTitleElements = document.order.elements["studyTitle[]"];
+                var studyIDs = new Array();;
+                var studyTitles = new Array();;
+                
+                for(i=0; i<chosenStudies.length; i++) {
+                    // Find every study that was selected
+                    if(chosenStudies[i].checked) {
+                        // Check if study was already added to the list to avoid duplicates
+                        if($.inArray(studyIdElements[i].value, studyIDs) == -1) {
+                            // Add the study ID and title to the lists
+                            studyIDs.push(studyIdElements[i].value);
+                            studyTitles.push(studyTitleElements[i].value);
+                        }
+                    }
+                }
+                // Serialize the arrays to strings and store them into local storage
+                localStorage.setItem('studyIDs', JSON.stringify(studyIDs));
+                localStorage.setItem('studyTitles', JSON.stringify(studyTitles));
+                
+                window.open("order/order.html", "_blank");
+            }
+            
+            function toggleSubmitButton() {
+                var chosenStudies = document.order.elements["studyChosen[]"];
+                var submitButton = document.order.elements["submit_order"];
+                for(i=0; i<chosenStudies.length; i++) {
+                    if(chosenStudies[i].checked) {
+                        submitButton.disabled = false;
+                        return;
+                    }
+                }
+                submitButton.disabled = true;
+            }
+            /*]]>*/
+            </script>
+            
             <!-- todo: abstract -->
             <!--<meta name="description" content="{ns1:Descriptions/ns1:Description[ns1:Type='purpose']/ns1:Content[@xml:lang=$lang]/text()}"/>-->
             <title>
@@ -179,7 +225,7 @@
                                                                                     </td>
                                                                                     <td></td>
                                                                                     <td align="right">
-                                                                                        <input type="submit" class="lporderButton lporderText" value="Bestil Data" style="width:90px;" />
+                                                                                        <input name="submit_order" type="button" class="lporderButton lporderText" value="Bestil Data" style="width:90px;" disabled="disabled" onclick="createOrder()" />
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
