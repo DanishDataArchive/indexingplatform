@@ -20,43 +20,43 @@ $(function(){
 });
 
 function createOrder() {
-// We are using local storage to pass data to the order page
-// If data was already stored remove it
-localStorage.removeItem('studyIDs');
-localStorage.removeItem('studyTitles');
-
-var chosenStudies = document.order.elements["studyChosen[]"];
-var studyIdElements = document.order.elements["studyId[]"];
-var studyTitleElements = document.order.elements["studyTitle[]"];
-var studyIDs = new Array();;
-var studyTitles = new Array();;
-
-for(i=0; i<chosenStudies.length; i++) {
-    // Find every study that was selected
-    if(chosenStudies[i].checked) {
-        // Check if study was already added to the list to avoid duplicates
-        if($.inArray(studyIdElements[i].value, studyIDs) == -1) {
-            // Add the study ID and title to the lists
-            studyIDs.push(studyIdElements[i].value);
-            studyTitles.push(studyTitleElements[i].value);
+    // We are using local storage to pass data to the order page
+    // If data was already stored remove it
+    localStorage.removeItem('studyIDs');
+    localStorage.removeItem('studyTitles');
+    
+    var chosenStudies = document.getElementsByName("studyChosen[]");
+    var studyIdElements = document.getElementsByName("studyId[]");
+    var studyTitleElements = document.getElementsByName("studyTitle[]");
+    var studyIDs = new Array();;
+    var studyTitles = new Array();;
+    
+    for(i=0; i<chosenStudies.length; i++) {
+        // Find every study that was selected
+        if(chosenStudies[i].checked) {
+            // Check if study was already added to the list to avoid duplicates
+            if($.inArray(studyIdElements[i].value, studyIDs) == -1) {
+                // Add the study ID and title to the lists
+                studyIDs.push(studyIdElements[i].value);
+                studyTitles.push(studyTitleElements[i].value);
+            }
         }
     }
-}
-// Serialize the arrays to strings and store them into local storage
-localStorage.setItem('studyIDs', JSON.stringify(studyIDs));
-localStorage.setItem('studyTitles', JSON.stringify(studyTitles));
-
+    // Serialize the arrays to strings and store them into local storage
+    localStorage.setItem('studyIDs', JSON.stringify(studyIDs));
+    localStorage.setItem('studyTitles', JSON.stringify(studyTitles));
+    
 window.open("order/order.html", "_blank");
 }
 
 function toggleSubmitButton() {
-var chosenStudies = document.order.elements["studyChosen[]"];
-var submitButton = document.order.elements["submit_order"];
-for(i=0; i<chosenStudies.length; i++) {
-    if(chosenStudies[i].checked) {
-        submitButton.disabled = false;
-        return;
+    var chosenStudies = document.getElementsByName("studyChosen[]");
+    var submitButton = document.getElementsByName("submit_order")[0];
+    for(i=0; i<chosenStudies.length; i++) {
+        if(chosenStudies[i].checked) {
+            submitButton.disabled = false;
+            return;
+        }
     }
-}
-submitButton.disabled = true;
+    submitButton.disabled = true;
 }

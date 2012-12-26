@@ -1,0 +1,22 @@
+body {
+    font:10px arial,sans-serif;
+}
+
+.larger {
+    font:12px arial,sans-serif;
+}
+
+.grey {
+    color:#808080;
+}
+
+h1 {
+   font:25px arial,sans-serif;
+   font-weight:bold;
+}
+
+/*
+a:link { color: #9e4928; }
+a:hover { color: ; 9e4928;}
+a:visited { color: #9e4928; }
+*/
