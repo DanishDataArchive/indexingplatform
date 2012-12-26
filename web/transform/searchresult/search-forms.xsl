@@ -5,7 +5,7 @@
     xmlns:asp="http://dda.dk/ddi/advanced-search-parameters">
     <xsl:template match="ssp:SimpleSearchParameters">
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form method="post" action="simple.xquery">
+            <form id="searchform" method="post" action="simple.xquery">
                 <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
                     <tbody>
                         <tr>
@@ -85,7 +85,8 @@
                         </tr>
                         <tr>
                             <td align="left">
-                                <input type="submit" value="Søg i data"/>
+                                <input type="submit" value="Søg i data" class="lporderButton lporderText"/>&#160;
+                                <input type="button" value="Nulstil" class="lporderButton lporderText" onclick="resetForm()"/>
                             </td>
                         </tr>
                     </tbody>
@@ -96,7 +97,7 @@
 
     <xsl:template match="asp:AdvancedSearchParameters">
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form method="post" action="advanced.xquery">
+            <form id="searchform" method="post" action="advanced.xquery">
                 <table id="searchform">
                     <tr>
                         <td colspan="2">
@@ -298,7 +299,8 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit"/>
+                            <input type="submit" value="Søg i data" class="lporderButton lporderText"/>&#160;
+                            <input type="button" value="Nulstil" class="lporderButton lporderText" onclick="resetForm()"/>
                         </td>
                     </tr>
                 </table>

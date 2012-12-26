@@ -60,3 +60,8 @@ function toggleSubmitButton() {
     }
     submitButton.disabled = true;
 }
+
+function resetForm($form) {
+    $('#searchform').find('input:text').val('');
+    $('#searchform').find('input:checkbox').prop('checked', true);
+}
