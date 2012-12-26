@@ -65,3 +65,8 @@ function resetForm($form) {
     $('#searchform').find('input:text').val('');
     $('#searchform').find('input:checkbox').prop('checked', true);
 }
+
+function changeHitStart(hitStart) {
+    $('input[name=hit-start]').val(hitStart);
+    $('#searchform').submit();
+}

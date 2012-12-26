@@ -3,6 +3,7 @@
     xmlns:dl="ddieditor-lightobject"
     xmlns:ssp="http://dda.dk/ddi/simple-search-parameters"
     xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
+    xmlns:rmd="http://dda.dk/ddi/result-metadata"
     version="1.0">
     <xsl:import href="search-forms.xsl"/>
     <xsl:import href="result-core.xsl"/>
@@ -194,6 +195,7 @@
                                                                 <tr>
                                                                     <td valign="top">
                                                                         <form method="post" name="order" action="order.html" target="_blank">
+                                                                            <xsl:if test="rmd:ResultMetaData/@result-count &gt; 0">
                                                                             <table id="idandorder" border="0" cellpadding="0" cellspacing="0" width="700">
                                                                                 <tbody>
                                                                                     <tr>
@@ -207,11 +209,26 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
+                                                                            <p> Viser resultater <xsl:value-of select="rmd:ResultMetaData/@hit-start"/> til
+                                                                                <xsl:value-of select="rmd:ResultMetaData/@hit-end"/> af <xsl:value-of
+                                                                                    select="rmd:ResultMetaData/@result-count"/> i alt. </p>
                                                                             <div id="resultList">
                                                                                 <xsl:call-template name="result-core-content">
                                                                                     <xsl:with-param name="lang" select="$lang"/>
                                                                                 </xsl:call-template>
                                                                             </div>
+                                                                            <p align="center">
+                                                                                <xsl:variable name="prevHitStart" select="rmd:ResultMetaData/@hit-start - rmd:ResultMetaData/@hits-perpage"/>
+                                                                                <xsl:if test="rmd:ResultMetaData/@current-page &gt; 1">
+                                                                                    <a href="#" onclick="changeHitStart({$prevHitStart})">Forrige</a>
+                                                                                </xsl:if>
+                                                                                &#160;
+                                                                                <xsl:variable name="nextHitStart" select="rmd:ResultMetaData/@hit-start + rmd:ResultMetaData/@hits-perpage"/>
+                                                                                <xsl:if test="rmd:ResultMetaData/@current-page &lt; rmd:ResultMetaData/@number-of-pages">
+                                                                                    <a href="#" onclick="changeHitStart({$nextHitStart})">Næste</a>
+                                                                                </xsl:if>
+                                                                            </p>
+                                                                            </xsl:if>
                                                                         </form>
                                                                     </td>
                                                                 </tr>

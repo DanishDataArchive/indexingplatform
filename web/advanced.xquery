@@ -42,7 +42,7 @@ declare function local:main() as node()? {
             if (request:get-parameter('Concept', ())) then <asp:Concept>{request:get-parameter('Concept', ())}</asp:Concept> else (),
             if (request:get-parameter('Universe', ())) then <asp:Universe>{request:get-parameter('Universe', ())}</asp:Universe> else ()
          }
-            <sm:SearchMetaData hits-perpage="10" hit-start="1"/>
+            <sm:SearchMetaData hits-perpage="10" hit-start="{request:get-parameter('hit-start', 1)}"/>
             <s:Scope>
             {
                 if (request:get-parameter('StudyUnitChecked', ())) then <s:StudyUnit/> else (),

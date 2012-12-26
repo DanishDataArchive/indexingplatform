@@ -89,6 +89,24 @@
                                 <input type="button" value="Nulstil" class="lporderButton lporderText" onclick="resetForm()"/>
                             </td>
                         </tr>
+                        <tr>
+                            <td align="left">
+                                Pr. side:
+                                <select id="hits-perpage">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <xsl:element name="input">
+                                    <xsl:attribute name="type">text</xsl:attribute>
+                                    <xsl:attribute name="name">hit-start</xsl:attribute>
+                                    <xsl:attribute name="value">
+                                        <xsl:value-of select="smd:SearchMetaData/@hit-start"/>
+                                    </xsl:attribute>
+                                </xsl:element>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </form>
@@ -301,6 +319,24 @@
                         <td colspan="2">
                             <input type="submit" value="Søg i data" class="lporderButton lporderText"/>&#160;
                             <input type="button" value="Nulstil" class="lporderButton lporderText" onclick="resetForm()"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            Resultater pr. side:
+                            <select id="hits-perpage">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">text</xsl:attribute>
+                                <xsl:attribute name="name">hit-start</xsl:attribute>
+                                <xsl:attribute name="value">
+                                    <xsl:value-of select="smd:SearchMetaData/@hit-start"/>
+                                </xsl:attribute>
+                            </xsl:element>
                         </td>
                     </tr>
                 </table>
