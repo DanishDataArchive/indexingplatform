@@ -99,7 +99,7 @@
                                     <option value="100">100</option>
                                 </select>
                                 <xsl:element name="input">
-                                    <xsl:attribute name="type">text</xsl:attribute>
+                                    <xsl:attribute name="type">hidden</xsl:attribute>
                                     <xsl:attribute name="name">hit-start</xsl:attribute>
                                     <xsl:attribute name="value">
                                         <xsl:value-of select="smd:SearchMetaData/@hit-start"/>
@@ -331,7 +331,7 @@
                                 <option value="100">100</option>
                             </select>
                             <xsl:element name="input">
-                                <xsl:attribute name="type">text</xsl:attribute>
+                                <xsl:attribute name="type">hidden</xsl:attribute>
                                 <xsl:attribute name="name">hit-start</xsl:attribute>
                                 <xsl:attribute name="value">
                                     <xsl:value-of select="smd:SearchMetaData/@hit-start"/>
