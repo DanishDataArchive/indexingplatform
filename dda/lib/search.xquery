@@ -279,8 +279,10 @@ declare function ddi:lookupCategory($categoryId as xs:string, $scope as element(
  :)
 declare function ddi:buildLightXmlObjectList($results as element()*, $scope as element()?, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element()) as element() {
     let $result-count := count($results)
-    let $hit-end := if ($result-count lt $hits-perpage) then $result-count
-                    else $hit-start + $hits-perpage
+    let $hit-end := if ($result-count lt $hits-perpage) then $result-count - 1
+                    else $hit-start + $hits-perpage - 1
+    let $hit-end-corrected := if ($result-count lt $hit-end) then $result-count
+                    else $hit-end
     let $number-of-pages :=  xs:integer(ceiling($result-count div $hits-perpage))
     let $current-page := xs:integer(($hit-start + $hits-perpage) div $hits-perpage)
 
@@ -292,7 +294,7 @@ declare function ddi:buildLightXmlObjectList($results as element()*, $scope as e
         <rmd:ResultMetaData
             result-count="{$result-count}"
             hit-start="{$hit-start}"
-            hit-end="{$hit-end}"
+            hit-end="{$hit-end-corrected}"
             hits-perpage="{$hits-perpage}"
             number-of-pages="{$number-of-pages}"
             current-page="{$current-page}"/>

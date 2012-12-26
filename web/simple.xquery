@@ -15,7 +15,7 @@ declare function local:main() as node()? {
             xmlns:s="http://dda.dk/ddi/scope"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ssp:search-string>{request:get-parameter('search-string', '')}</ssp:search-string>
-            <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
+            <smd:SearchMetaData hits-perpage="10" hit-start="{request:get-parameter('hit-start', 1)}"/>
             <s:Scope>
             {
                 if (request:get-parameter('StudyUnit', ())) then <s:StudyUnit/> else (),
@@ -33,7 +33,7 @@ declare function local:main() as node()? {
         xmlns:s="http://dda.dk/ddi/scope"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <ssp:search-string></ssp:search-string>
-        <smd:SearchMetaData hits-perpage="10" hit-start="0"/>
+        <smd:SearchMetaData hits-perpage="10" hit-start="1"/>
         <s:Scope>
             <s:StudyUnit/>
             <s:Variable/>
@@ -51,7 +51,7 @@ declare function local:main() as node()? {
     if($searchSubmitted) then
         ddi:simpleSearch($search-parameters)
     else
-        ddi:buildLightXmlObjectList((), (), 10, 0, $search-parameters)
+        ddi:buildLightXmlObjectList((), (), 10, 1, $search-parameters)
     
     let $params := <parameters>
             <param name="type" value="simple"/>
