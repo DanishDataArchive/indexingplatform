@@ -15,7 +15,7 @@ declare function local:main() as node()? {
             xmlns:s="http://dda.dk/ddi/scope"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ssp:search-string>{request:get-parameter('search-string', '')}</ssp:search-string>
-            <smd:SearchMetaData hits-perpage="10" hit-start="{request:get-parameter('hit-start', 1)}"/>
+            <smd:SearchMetaData hits-perpage="{request:get-parameter('hits-perpage', 10)}" hit-start="{request:get-parameter('hit-start', 1)}"/>
             <s:Scope>
             {
                 if (request:get-parameter('StudyUnit', ())) then <s:StudyUnit/> else (),
