@@ -20,6 +20,8 @@
                 <link rel="shortcut icon" href="theme/favicon.ico"/>
                 
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+                <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
                 <script src="js/search-result.js" type="text/javascript"></script>
                             
             <!-- todo: abstract -->

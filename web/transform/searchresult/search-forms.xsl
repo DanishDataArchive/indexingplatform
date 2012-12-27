@@ -211,14 +211,11 @@
                     <tr>
                         <td class="searchadvanced">Temporal Coverage</td>
                         <td>
-                            <xsl:variable name="coverageFrom">
-                                <xsl:value-of select="asp:coverageFrom/text()"/>
-                            </xsl:variable>
+                            <xsl:variable name="coverageFrom" select="asp:coverageFrom/text()"/>
                             <input type="text" name="coverageFrom" size="17" value="{$coverageFrom}"/>
-                            <xsl:variable name="coverageTo">
-                                <xsl:value-of select="asp:coverageTo/text()"/>
-                            </xsl:variable>
-                            <input type="text" name="coverageTo" size="16" value="{$coverageTo}"/>
+                            <xsl:variable name="coverageTo" select="asp:coverageTo/text()"/>
+                            <input type="text" name="coverageTo" size="17" value="{$coverageTo}"/>
+                            (yyyy-mm-dd)
                         </td>
                     </tr>
                     <tr>
@@ -392,5 +389,13 @@
                 </table>
             </form>
         </div>
+    </xsl:template>
+    
+    <xsl:template name="formatDate">
+        <xsl:param name="date"/>
+        <xsl:variable name="year" select="substring-before($date, '-')"/>
+        <xsl:variable name="month" select="substring-before(substring-after($date, '-'), '-')"/>
+        <xsl:variable name="day" select="substring-after(substring-after($date, '-'), '-')"/>
+        <xsl:value-of select="concat($day, '-', $month, '-', $year)"/>
     </xsl:template>
 </xsl:stylesheet>

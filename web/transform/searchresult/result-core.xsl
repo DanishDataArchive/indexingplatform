@@ -9,18 +9,8 @@
             <div class="result">
                 <xsl:variable name="studyId"
                     select="CustomList[@type='StudyUnit']/Custom[@option='id']"/>
-                <!--p>
-                Fra
-                <xsl:call-template name="formatDate">
-                    <xsl:with-param name="dateTime" select="CustomList[@type='StudyUnit']/Custom[@option='start']" />
-                </xsl:call-template>
-                til
-                <xsl:call-template name="formatDate">
-                    <xsl:with-param name="dateTime" select="CustomList[@type='StudyUnit']/Custom[@option='end']" />
-                </xsl:call-template>
-            </p-->
+                
                 <p class="contextlink">
-
                     <strong>
                         <xsl:variable name="elementType" select="@element"/>
                         <xsl:value-of
@@ -126,14 +116,4 @@
             </ul>
         </xsl:if>
     </xsl:template>
-
-    <xsl:template name="formatDate">
-        <xsl:param name="dateTime"/>
-        <xsl:variable name="date" select="substring-before($dateTime, 'T')"/>
-        <xsl:variable name="year" select="substring-before($date, '-')"/>
-        <xsl:variable name="month" select="substring-before(substring-after($date, '-'), '-')"/>
-        <xsl:variable name="day" select="substring-after(substring-after($date, '-'), '-')"/>
-        <xsl:value-of select="concat($day, '.', $month, '.', $year)"/>
-    </xsl:template>
-
 </xsl:stylesheet>

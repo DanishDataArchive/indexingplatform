@@ -70,3 +70,17 @@ function changeHitStart(hitStart) {
     $('input[name=hit-start]').val(hitStart);
     $('#searchform').submit();
 }
+
+$(function() {
+    var options =
+    {
+        dateFormat: "yy-mm-dd",
+        dayNamesMin: [ "Sø", "Ma", "Ti", "On", "To", "Fr", "Lø" ],
+        monthNames: [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ],
+        nextText: "Næste",
+        prevText: "Forrige"
+    }
+    $.datepicker.setDefaults(options);
+    $('input[name=coverageFrom]').datepicker();
+    $('input[name=coverageTo]').datepicker();
+});
