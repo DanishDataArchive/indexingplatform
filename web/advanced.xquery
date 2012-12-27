@@ -20,6 +20,8 @@ declare function local:main() as node()? {
                             request:get-parameter('Category', ()) or
                             request:get-parameter('Concept', ()) or
                             request:get-parameter('Universe', ())
+                          
+    let $hits-perpage := request:get-parameter('hits-perpage', 10)
                             
     let $search-parameters :=
     if($searchSubmitted) then
@@ -42,7 +44,7 @@ declare function local:main() as node()? {
             if (request:get-parameter('Concept', ())) then <asp:Concept>{request:get-parameter('Concept', ())}</asp:Concept> else (),
             if (request:get-parameter('Universe', ())) then <asp:Universe>{request:get-parameter('Universe', ())}</asp:Universe> else ()
          }
-            <sm:SearchMetaData hits-perpage="{request:get-parameter('hits-perpage', 10)}" hit-start="{request:get-parameter('hit-start', 1)}"/>
+            <sm:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="{request:get-parameter('hit-start', 1)}"/>
             <s:Scope>
             {
                 if (request:get-parameter('StudyUnitChecked', ())) then <s:StudyUnit/> else (),
@@ -74,7 +76,7 @@ declare function local:main() as node()? {
            <asp:Universe/>
            <asp:Concept/>
            <asp:Category/>
-           <sm:SearchMetaData hits-perpage="10" hit-start="1"/>
+           <sm:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1"/>
            <s:Scope>
                <s:StudyUnit/>
                <s:Variable/>
@@ -92,7 +94,7 @@ declare function local:main() as node()? {
     if($searchSubmitted) then
         ddi:advancedSearch($search-parameters)
     else
-        ddi:buildLightXmlObjectList((), (), 10, 1, $search-parameters)
+        ddi:buildLightXmlObjectList((), (), $hits-perpage, 1, $search-parameters)
     
     let $params := <parameters>
             <param name="type" value="advanced"/>

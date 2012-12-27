@@ -8,6 +8,7 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 
 declare function local:main() as node()? {
     let $searchSubmitted := request:get-parameter('search-string', ())
+    let $hits-perpage := request:get-parameter('hits-perpage', 10)
     let $search-parameters :=
     if($searchSubmitted) then
         <ssp:SimpleSearchParameters xmlns:smd="http://dda.dk/ddi/search-metadata"
@@ -15,7 +16,7 @@ declare function local:main() as node()? {
             xmlns:s="http://dda.dk/ddi/scope"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ssp:search-string>{request:get-parameter('search-string', '')}</ssp:search-string>
-            <smd:SearchMetaData hits-perpage="{request:get-parameter('hits-perpage', 10)}" hit-start="{request:get-parameter('hit-start', 1)}"/>
+            <smd:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="{request:get-parameter('hit-start', 1)}"/>
             <s:Scope>
             {
                 if (request:get-parameter('StudyUnit', ())) then <s:StudyUnit/> else (),
@@ -33,7 +34,7 @@ declare function local:main() as node()? {
         xmlns:s="http://dda.dk/ddi/scope"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <ssp:search-string></ssp:search-string>
-        <smd:SearchMetaData hits-perpage="10" hit-start="1"/>
+        <smd:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1"/>
         <s:Scope>
             <s:StudyUnit/>
             <s:Variable/>
@@ -51,7 +52,7 @@ declare function local:main() as node()? {
     if($searchSubmitted) then
         ddi:simpleSearch($search-parameters)
     else
-        ddi:buildLightXmlObjectList((), (), 10, 1, $search-parameters)
+        ddi:buildLightXmlObjectList((), (), $hits-perpage, 1, $search-parameters)
     
     let $params := <parameters>
             <param name="type" value="simple"/>
