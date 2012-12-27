@@ -279,7 +279,7 @@ declare function ddi:lookupCategory($categoryId as xs:string, $scope as element(
  :)
 declare function ddi:buildLightXmlObjectList($results as element()*, $scope as element()?, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element()) as element() {
     let $result-count := count($results)
-    let $hit-end := if ($result-count lt $hits-perpage) then $result-count - 1
+    let $hit-end := if ($result-count lt $hits-perpage) then $result-count
                     else $hit-start + $hits-perpage - 1
     let $hit-end-corrected := if ($result-count lt $hit-end) then $result-count
                     else $hit-end
