@@ -67,11 +67,13 @@ function resetForm($form) {
 }
 
 function validateFields() {
-	if (!isValidDate($('input[name=coverageFrom]').val())) {
+    var coverageFrom = $('input[name=coverageFrom]').val();
+	if (coverageFrom.length > 0 && !isValidDate(coverageFrom)) {
 	  alert("Startdato er ikke gyldigt.\nFormatet skal være YYYY-MM-DD.")
 	  return false; 
 	}
-	if (!isValidDate($('input[name=coverageTo]').val())) {
+	var coverageTo = $('input[name=coverageFrom]').val();
+	if (coverageTo.length > 0 && !isValidDate(coverageTo)) {
 	  alert("Slutdato er ikke gyldigt.\nFormatet skal være YYYY-MM-DD.")
 	  return false; 
 	}
