@@ -92,37 +92,9 @@
                         <tr>
                             <td align="left">
                                 Pr. side:
-                                <xsl:variable name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"></xsl:variable>
-                                <select name="hits-perpage" onchange="this.form.submit()">
-                                    <xsl:element name="option">
-                                        <xsl:attribute name="value">10</xsl:attribute>
-                                        <xsl:if test="$hits-perpage = 10">
-                                            <xsl:attribute name="selected">selected</xsl:attribute>
-                                        </xsl:if>
-                                        10
-                                    </xsl:element>
-                                    <xsl:element name="option">
-                                        <xsl:attribute name="value">25</xsl:attribute>
-                                        <xsl:if test="$hits-perpage = 25">
-                                            <xsl:attribute name="selected">selected</xsl:attribute>
-                                        </xsl:if>
-                                        25
-                                    </xsl:element>
-                                    <xsl:element name="option">
-                                        <xsl:attribute name="value">50</xsl:attribute>
-                                        <xsl:if test="$hits-perpage = 50">
-                                            <xsl:attribute name="selected">selected</xsl:attribute>
-                                        </xsl:if>
-                                        50
-                                    </xsl:element>
-                                    <xsl:element name="option">
-                                        <xsl:attribute name="value">100</xsl:attribute>
-                                        <xsl:if test="$hits-perpage = 100">
-                                            <xsl:attribute name="selected">selected</xsl:attribute>
-                                        </xsl:if>
-                                        100
-                                    </xsl:element>
-                                </select>
+                                <xsl:call-template name="construct-hits-perpage">
+                                    <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
+                                </xsl:call-template>
                                 <xsl:element name="input">
                                     <xsl:attribute name="type">hidden</xsl:attribute>
                                     <xsl:attribute name="name">hit-start</xsl:attribute>
@@ -346,37 +318,9 @@
                     <tr>
                         <td align="left">
                             Pr. side:
-                            <xsl:variable name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"></xsl:variable>
-                            <select name="hits-perpage" onchange="this.form.submit()">
-                                <xsl:element name="option">
-                                    <xsl:attribute name="value">10</xsl:attribute>
-                                    <xsl:if test="$hits-perpage = 10">
-                                        <xsl:attribute name="selected">selected</xsl:attribute>
-                                    </xsl:if>
-                                    10
-                                </xsl:element>
-                                <xsl:element name="option">
-                                    <xsl:attribute name="value">25</xsl:attribute>
-                                    <xsl:if test="$hits-perpage = 25">
-                                        <xsl:attribute name="selected">selected</xsl:attribute>
-                                    </xsl:if>
-                                    25
-                                </xsl:element>
-                                <xsl:element name="option">
-                                    <xsl:attribute name="value">50</xsl:attribute>
-                                    <xsl:if test="$hits-perpage = 50">
-                                        <xsl:attribute name="selected">selected</xsl:attribute>
-                                    </xsl:if>
-                                    50
-                                </xsl:element>
-                                <xsl:element name="option">
-                                    <xsl:attribute name="value">100</xsl:attribute>
-                                    <xsl:if test="$hits-perpage = 100">
-                                        <xsl:attribute name="selected">selected</xsl:attribute>
-                                    </xsl:if>
-                                    100
-                                </xsl:element>
-                            </select>
+                            <xsl:call-template name="construct-hits-perpage">
+                                <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
+                            </xsl:call-template>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">hidden</xsl:attribute>
                                 <xsl:attribute name="name">hit-start</xsl:attribute>
@@ -389,6 +333,40 @@
                 </table>
             </form>
         </div>
+    </xsl:template>
+    
+    <xsl:template name="construct-hits-perpage">
+        <xsl:param name="hits-perpage"/>
+        <select name="hits-perpage" onchange="this.form.submit()">
+            <xsl:element name="option">
+                <xsl:attribute name="value">50</xsl:attribute>
+                <xsl:if test="$hits-perpage = 50">
+                    <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+                50
+            </xsl:element>
+            <xsl:element name="option">
+                <xsl:attribute name="value">100</xsl:attribute>
+                <xsl:if test="$hits-perpage = 100">
+                    <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+                100
+            </xsl:element>
+            <xsl:element name="option">
+                <xsl:attribute name="value">300</xsl:attribute>
+                <xsl:if test="$hits-perpage = 300">
+                    <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+                300
+            </xsl:element>
+            <xsl:element name="option">
+                <xsl:attribute name="value">500</xsl:attribute>
+                <xsl:if test="$hits-perpage = 500">
+                    <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+                500
+            </xsl:element>
+        </select>
     </xsl:template>
     
     <xsl:template name="formatDate">
