@@ -181,14 +181,9 @@
                                                 </td>
                                                 <td valign="top" width="580">
                                                     
-                                                    <xsl:choose>
-                                                        <xsl:when test="$type='advanced'">
-                                                            <xsl:apply-templates select="asp:AdvancedSearchParameters"/>
-                                                        </xsl:when>
-                                                        <xsl:otherwise>
+                                                        <xsl:if test="$type='simple'">
                                                             <xsl:apply-templates select="ssp:SimpleSearchParameters"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
+                                                        </xsl:if>
                                                     
                                                     <div align="center">
                                                         <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
@@ -237,6 +232,11 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    
+                                                    <xsl:if test="$type='advanced'">
+                                                        <xsl:apply-templates select="asp:AdvancedSearchParameters"/>
+                                                    </xsl:if>
+                                                    
                                                 </td>
                                             <!--td class="mainrightborder" valign="top" width="200">
 									<table id="table6" class="mainright" width="100%">
