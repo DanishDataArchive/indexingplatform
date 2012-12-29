@@ -35,7 +35,7 @@ declare function local:main() as node()? {
         xmlns:s="http://dda.dk/ddi/scope"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <ssp:search-string></ssp:search-string>
-        <smd:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1" lang={$lang}/>
+        <smd:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1" lang="{$lang}"/>
         <s:Scope>
             <s:StudyUnit/>
             <s:Variable/>
