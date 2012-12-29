@@ -6,6 +6,9 @@ $(document).ready(function(){
     for(i=0; i<studyIDs.length; i++) {
         $('#studyList').append("<tr><td>" + studyIDs[i] + "</td><td>" + studyTitles[i] + "</td></tr>");
     }
+    // Clear local storage
+    localStorage.removeItem('studyIDs');
+    localStorage.removeItem('studyTitles');
 });
 
 var _gaq = _gaq || [];
