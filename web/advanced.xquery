@@ -7,7 +7,8 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
         doctype-system=http://www.w3.org/TR/loose.dtd";
 
 declare function local:main() as node()? {
-    let $searchSubmitted := request:get-parameter('title', ()) or
+    let $searchSubmitted := request:get-parameter('studyId', ()) or
+                            request:get-parameter('title', ()) or
                             request:get-parameter('topicalCoverage', ()) or
                             request:get-parameter('spatialCoverage', ()) or
                             request:get-parameter('abstract-purpose', ()) or
@@ -31,6 +32,7 @@ declare function local:main() as node()? {
          xmlns:asp="http://dda.dk/ddi/advanced-search-parameters"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
          {
+            if (request:get-parameter('studyId', ())) then <asp:studyId>{request:get-parameter('studyId', ())}</asp:studyId> else (),
             if (request:get-parameter('title', ())) then <asp:title>{request:get-parameter('title', ())}</asp:title> else (),
             if (request:get-parameter('topicalCoverage', ())) then <asp:topicalCoverage>{request:get-parameter('topicalCoverage', ())}</asp:topicalCoverage> else (),
             if (request:get-parameter('spatialCoverage', ())) then <asp:spatialCoverage>{request:get-parameter('spatialCoverage', ())}</asp:spatialCoverage> else (),

@@ -125,6 +125,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="searchadvanced">Studie ID</td>
+                        <td>
+                            <xsl:variable name="studyId">
+                                <xsl:value-of select="asp:studyId/text()"/>
+                            </xsl:variable>
+                            <input type="text" name="studyId" size="40" value="{$studyId}"/>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="searchadvanced">Title</td>
                         <td>
                             <xsl:variable name="title">
