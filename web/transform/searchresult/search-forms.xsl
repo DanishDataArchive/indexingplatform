@@ -140,7 +140,7 @@
 
     <xsl:template match="asp:AdvancedSearchParameters">
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form id="searchform" method="post" action="advanced.xquery">
+            <form id="searchform" method="post" action="advanced.xquery" onsubmit="return validateFields()">
                 <table id="searchform">
                     <tr>
                         <td colspan="2">
