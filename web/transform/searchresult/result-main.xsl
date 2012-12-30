@@ -27,7 +27,7 @@
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
                 <script src="js/search-result.js" type="text/javascript"></script>
                 <title>
-                    <xsl:value-of select="$labels[@id='html-title']/LabelText[@xml:lang=$lang]"/>
+                    <xsl:value-of select="$labels[@id='html-title']/LabelText[@xml:lang=$lang]/text()"/>
                 </title>
             </head>
             <body>
@@ -64,24 +64,24 @@
                                                                                     <tr>
                                                                                         <td>
                                                                                             <strong class="lp">
-                                                                                                <xsl:value-of select="$labels[@id='html-search-results']/LabelText[@xml:lang=$lang]"/>
+                                                                                                <xsl:value-of select="$labels[@id='html-search-results']/LabelText[@xml:lang=$lang]/text()"/>
                                                                                             </strong>
                                                                                         </td>
                                                                                         <td/>
                                                                                         <td align="right">
-                                                                                            <input name="submit_order" type="button" class="lporderButton lporderText" value="{$labels[@id='html-order-data']/LabelText[@xml:lang=$lang]}" style="width:90px;" disabled="disabled" onclick="createOrder()"/>
+                                                                                            <input name="submit_order" type="button" class="lporderButton lporderText" value="{$labels[@id='html-order-data']/LabelText[@xml:lang=$lang]/text()}" style="width:90px;" disabled="disabled" onclick="createOrder()"/>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
                                                                                 <p>
-                                                                                    <xsl:value-of select="$labels[@id='html-showing-results']/LabelText[@xml:lang=$lang]"/><xsl:text> </xsl:text>
+                                                                                    <xsl:value-of select="$labels[@id='html-showing-results']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
                                                                                     <xsl:value-of select="rmd:ResultMetaData/@hit-start"/><xsl:text> </xsl:text>
-                                                                                    <xsl:value-of select="$labels[@id='html-to']/LabelText[@xml:lang=$lang]"/><xsl:text> </xsl:text>
+                                                                                    <xsl:value-of select="$labels[@id='html-to']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
                                                                                     <xsl:value-of select="rmd:ResultMetaData/@hit-end"/><xsl:text> </xsl:text>
-                                                                                    <xsl:value-of select="$labels[@id='html-of']/LabelText[@xml:lang=$lang]"/><xsl:text> </xsl:text>
+                                                                                    <xsl:value-of select="$labels[@id='html-of']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
                                                                                     <xsl:value-of select="rmd:ResultMetaData/@result-count"/><xsl:text> </xsl:text>
-                                                                                    <xsl:value-of select="$labels[@id='html-total']/LabelText[@xml:lang=$lang]"/>.
+                                                                                    <xsl:value-of select="$labels[@id='html-total']/LabelText[@xml:lang=$lang]/text()"/>.
                                                                                 </p>
                                                                             <div id="resultList">
                                                                                 <xsl:call-template name="result-core-content">
@@ -92,7 +92,7 @@
                                                                                 <xsl:variable name="prevHitStart" select="rmd:ResultMetaData/@hit-start - rmd:ResultMetaData/@hits-perpage"/>
                                                                                 <xsl:if test="rmd:ResultMetaData/@current-page &gt; 1">
                                                                                     <a href="#" onclick="changeHitStart({$prevHitStart})">
-                                                                                        <xsl:value-of select="$labels[@id='html-prev']/LabelText[@xml:lang=$lang]"/>
+                                                                                        <xsl:value-of select="$labels[@id='html-prev']/LabelText[@xml:lang=$lang]/text()"/>
                                                                                     </a>
                                                                                 </xsl:if>
                                                                                 &#160;
@@ -100,7 +100,7 @@
                                                                                 <xsl:variable name="nextHitStart" select="rmd:ResultMetaData/@hit-start + rmd:ResultMetaData/@hits-perpage"/>
                                                                                 <xsl:if test="rmd:ResultMetaData/@current-page &lt; rmd:ResultMetaData/@number-of-pages">
                                                                                     <a href="#" onclick="changeHitStart({$nextHitStart})">
-                                                                                        <xsl:value-of select="$labels[@id='html-next']/LabelText[@xml:lang=$lang]"/>
+                                                                                        <xsl:value-of select="$labels[@id='html-next']/LabelText[@xml:lang=$lang]/text()"/>
                                                                                     </a>
                                                                                 </xsl:if>
                                                                             </p>

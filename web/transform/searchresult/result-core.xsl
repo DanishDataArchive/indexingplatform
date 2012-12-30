@@ -13,7 +13,7 @@
                 <p class="contextlink">
                     <strong>
                         <xsl:variable name="elementType" select="@element"/>
-                        <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular"/>: </strong>
+                        <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>: </strong>
                     <xsl:if test="@element!='StudyUnit'">
                         <xsl:variable name="url"
                             select="concat('codebook.xquery?studyid=', $studyId, '#', @id, '.', @version)"/>
@@ -35,7 +35,7 @@
 
                 <xsl:if test="@element!='StudyUnit'">
                     <a href="#" class="referencedElementsTitle">
-                        <xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]"/>
+                        <xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]/text()"/>
                     </a>
                         <div class="referencedElementsList">
                             <xsl:call-template name="referencedElements">
@@ -102,7 +102,7 @@
         <xsl:variable name="referencedElements" select="CustomList[@type=$referencedType]"/>
         <xsl:if test="count($referencedElements) &gt; 0">
             <strong>
-                <xsl:value-of select="$labels[@id=$referencedType]/LabelText[@xml:lang=$lang]/Plural"/>
+                <xsl:value-of select="$labels[@id=$referencedType]/LabelText[@xml:lang=$lang]/Plural/text()"/>
             </strong>
             <ul type="square">
                 <xsl:for-each select="$referencedElements">
