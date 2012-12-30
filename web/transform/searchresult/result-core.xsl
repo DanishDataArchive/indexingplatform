@@ -13,9 +13,7 @@
                 <p class="contextlink">
                     <strong>
                         <xsl:variable name="elementType" select="@element"/>
-                        <xsl:value-of
-                            select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular"
-                        />: </strong>
+                        <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular"/>: </strong>
                     <xsl:if test="@element!='StudyUnit'">
                         <xsl:variable name="url"
                             select="concat('codebook.xquery?studyid=', $studyId, '#', @id, '.', @version)"/>

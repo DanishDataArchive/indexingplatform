@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SearchResultLabels>
+    <!-- result-main.xsl -->
     <Label id="html-title">
         <LabelText xml:lang="da">DDI søgning</LabelText>
         <LabelText xml:lang="en">DDI Search</LabelText>
@@ -36,6 +37,92 @@
         <LabelText xml:lang="da">Næste</LabelText>
         <LabelText xml:lang="en">Next</LabelText>
     </Label>
+    
+    <!-- search-forms.xsl -->
+    <!-- simple search -->
+    <Label id="html-search-data">
+        <LabelText xml:lang="da">Søg efter data</LabelText>
+        <LabelText xml:lang="en">Search Data</LabelText>
+    </Label>
+    <Label id="html-search-result">
+        <LabelText xml:lang="da">Søg i</LabelText>
+        <LabelText xml:lang="en">Search in</LabelText>
+    </Label>
+    <Label id="study-info">
+        <LabelText xml:lang="da">Studieinformation</LabelText>
+        <LabelText xml:lang="en">Study information</LabelText>
+    </Label>
+    <Label id="html-search">
+        <LabelText xml:lang="da">Søg</LabelText>
+        <LabelText xml:lang="en">Search</LabelText>
+    </Label>
+    <Label id="html-reset">
+        <LabelText xml:lang="da">Nulstil</LabelText>
+        <LabelText xml:lang="en">Reset</LabelText>
+    </Label>
+    <Label id="html-results-perpage">
+        <LabelText xml:lang="da">Pr. side</LabelText>
+        <LabelText xml:lang="en">Hits per page</LabelText>
+    </Label>
+    <!-- advanced search -->
+    <Label id="html-advanced-search">
+        <LabelText xml:lang="da">Avanceret søgning</LabelText>
+        <LabelText xml:lang="en">Advanced Search</LabelText>
+    </Label>
+    <Label id="form-study-id">
+        <LabelText xml:lang="da">Studie ID</LabelText>
+        <LabelText xml:lang="en">Study ID</LabelText>
+    </Label>
+    <Label id="form-title">
+        <LabelText xml:lang="da">Titel</LabelText>
+        <LabelText xml:lang="en">Title</LabelText>
+    </Label>
+    <Label id="form-abstract-purpose">
+        <LabelText xml:lang="da">Abstract/Purpose</LabelText>
+        <LabelText xml:lang="en">Abstract/Purpose</LabelText>
+    </Label>
+    <Label id="form-creator">
+        <LabelText xml:lang="da">Creator</LabelText>
+        <LabelText xml:lang="en">Creator</LabelText>
+    </Label>
+    <Label id="form-topical">
+        <LabelText xml:lang="da">Topical Coverage</LabelText>
+        <LabelText xml:lang="en">Topical Coverage</LabelText>
+    </Label>
+    <Label id="form-spatial">
+        <LabelText xml:lang="da">Spatial Coverage</LabelText>
+        <LabelText xml:lang="en">Spatial Coverage</LabelText>
+    </Label>
+    <Label id="form-kindofdata">
+        <LabelText xml:lang="da">KindOfData</LabelText>
+        <LabelText xml:lang="en">KindOfData</LabelText>
+    </Label>
+    <Label id="form-temporal">
+        <LabelText xml:lang="da">Temporal Coverage</LabelText>
+        <LabelText xml:lang="en">Temporal Coverage</LabelText>
+    </Label>
+    <Label id="form-from">
+        <LabelText xml:lang="da">fra</LabelText>
+        <LabelText xml:lang="en">from</LabelText>
+    </Label>
+    <Label id="form-to">
+        <LabelText xml:lang="da">til</LabelText>
+        <LabelText xml:lang="en">to</LabelText>
+    </Label>
+    <Label id="form-date-format">
+        <LabelText xml:lang="da">åååå-mm-dd</LabelText>
+        <LabelText xml:lang="en">yyyy-mm-dd</LabelText>
+    </Label>
+    <Label id="form-variable-level">
+        <LabelText xml:lang="da">Studieinformation på variabel niveau</LabelText>
+        <LabelText xml:lang="en">Study information at variable level</LabelText>
+    </Label>
+    <Label id="form-include-references">
+        <LabelText xml:lang="da">Medtag referencer</LabelText>
+        <LabelText xml:lang="en">Include references</LabelText>
+    </Label>
+    
+    <!-- result-core.xsl -->
     <Label id="html-details">
         <LabelText xml:lang="da">Detaljer</LabelText>
         <LabelText xml:lang="en">Details</LabelText>
@@ -45,7 +132,7 @@
         <LabelText xml:lang="en">Order study</LabelText>
     </Label>
     
-    
+    <!-- search-forms.xsl and result-core.xsl -->
     <Label id="StudyUnit">
         <LabelText xml:lang="da">
             <Singular>Studie</Singular>
@@ -93,7 +180,7 @@
         </LabelText>
         <LabelText xml:lang="en">
             <Singular>Category</Singular>
-            <Plural>Categorys</Plural>
+            <Plural>Categories</Plural>
         </LabelText>
     </Label>
     <Label id="Concept">
