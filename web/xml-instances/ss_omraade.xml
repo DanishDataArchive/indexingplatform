@@ -1,11 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dl:LightXmlObjectList xmlns:rmd="http://dda.dk/ddi/result-metadata"
-    xmlns:dl="ddieditor-lightobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd">
-    <rmd:ResultMetaData result-count="51" hit-start="0" hit-end="10" hits-perpage="10"
-        number-of-pages="6" current-page="1"/>
-    <LightXmlObject element="StudyUnit" id="25612" version="1.0.0"
-        parentId="0da1fac8-e7b4-45a3-819a-9b4c3d18ee9f" parentVersion="1.0.0">
+<dl:LightXmlObjectList xmlns:rmd="http://dda.dk/ddi/result-metadata" xmlns:dl="ddieditor-lightobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd">
+    <ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata">
+        <ssp:search-string>område</ssp:search-string>
+        <smd:SearchMetaData hits-perpage="10" hit-start="1"/>
+        <s:Scope>
+            <s:StudyUnit/>
+            <s:Variable/>
+            <s:QuestionItem/>
+            <s:MultipleQuestionItem/>
+            
+            <s:Concept/>
+            <s:Category/>
+        </s:Scope>
+    </ssp:SimpleSearchParameters>
+    <rmd:ResultMetaData result-count="51" hit-start="1" hit-end="10" hits-perpage="10" number-of-pages="6" current-page="2"/>
+    <LightXmlObject element="StudyUnit" id="25612" version="1.0.0" parentId="0da1fac8-e7b4-45a3-819a-9b4c3d18ee9f" parentVersion="1.0.0">
         <Context>
             <p class="context">
                 <span class="previous">... casestudier på virksomheder, der på forskellige </span>
@@ -22,20 +30,17 @@
         <CustomList type="StudyUnit">
             <Custom option="id">25612</Custom>
             <Custom option="version">1.0.0</Custom>
-            <Custom option="label" value="da">Nyt arbejdsliv og arbejdsmiljø i nyhedsarbejde,
-                2007</Custom>
+            <Custom option="label" value="da">Nyt arbejdsliv og arbejdsmiljø i nyhedsarbejde, 2007</Custom>
             <Custom option="start">2007-10-01T00:00:00.000+02:00</Custom>
             <Custom option="end">2007-12-31T00:00:00.000+01:00</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="StudyUnit" id="25612" version="1.0.0"
-        parentId="8f85bf3f-887d-480d-9c6a-9245de3a47ee" parentVersion="1.0.0">
+    <LightXmlObject element="StudyUnit" id="25612" version="1.0.0" parentId="8f85bf3f-887d-480d-9c6a-9245de3a47ee" parentVersion="1.0.0">
         <Context>
             <p class="context">
                 <span class="previous">... strukturer og organisationsfomer. Det valgte </span>
                 <span class="hi">område</span>
-                <span class="following"> er nyhedsarbejde, da nyhedsbranchen kan ses som
-                    ...</span>
+                <span class="following"> er nyhedsarbejde, da nyhedsbranchen kan ses som ...</span>
             </p>
         </Context>
         <Label lang="da">Nyt arbejdsliv og arbejdsmiljø i nyhedsarbejde, 2007</Label>
@@ -43,22 +48,18 @@
         <CustomList type="StudyUnit">
             <Custom option="id">25612</Custom>
             <Custom option="version">1.0.0</Custom>
-            <Custom option="label" value="da">Nyt arbejdsliv og arbejdsmiljø i nyhedsarbejde,
-                2007</Custom>
-            <Custom option="label" value="en">New work life and work environment in news work,
-                2007</Custom>
+            <Custom option="label" value="da">Nyt arbejdsliv og arbejdsmiljø i nyhedsarbejde, 2007</Custom>
+            <Custom option="label" value="en">New work life and work environment in news work, 2007</Custom>
             <Custom option="start">2007-10-01T00:00:00.000+02:00</Custom>
             <Custom option="end">2007-12-31T00:00:00.000+01:00</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="StudyUnit" id="25642" version="1.0.0"
-        parentId="7dae7709-2058-4d22-84c5-081316326669" parentVersion="1.0.0">
+    <LightXmlObject element="StudyUnit" id="25642" version="1.0.0" parentId="7dae7709-2058-4d22-84c5-081316326669" parentVersion="1.0.0">
         <Context>
             <p class="context">
                 <span class="previous">... sidste. Langt de flesteholdningsundersøgelser på </span>
                 <span class="hi">området</span>
-                <span class="following"> fokuserer på holdningen til indvandrere uden at
-                    ...</span>
+                <span class="following"> fokuserer på holdningen til indvandrere uden at ...</span>
             </p>
         </Context>
         <Label lang="da">Danskerne, islam og muslimer, 2010</Label>
@@ -70,8 +71,7 @@
             <Custom option="end">2010-12-30T00:00:00.000+01:00</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-2549ddbd-ed16-484f-b279-70dc83360ab5"
-        version="1.0.0" parentId="" parentVersion="">
+    <LightXmlObject element="QuestionItem" id="quei-2549ddbd-ed16-484f-b279-70dc83360ab5" version="1.0.0" parentId="" parentVersion="">
         <Context>
             <p class="context">
                 <span class="previous">Eget </span>
@@ -82,8 +82,7 @@
         <CustomList type="StudyUnit">
             <Custom option="id">24819</Custom>
             <Custom option="version">1.0.0</Custom>
-            <Custom option="label" value="da">Analyse af kandidatstuderendes og dimittenders
-                jobfokus, 2010</Custom>
+            <Custom option="label" value="da">Analyse af kandidatstuderendes og dimittenders jobfokus, 2010</Custom>
             <Custom option="start">2009-08-01T00:00:00.000+02:00</Custom>
             <Custom option="end">2009-11-30T00:00:00.000+01:00</Custom>
         </CustomList>
@@ -92,24 +91,26 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-de823e22-d6b0-47fd-ab29-e5b1f18b220e</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Jobfokus</Custom>
         </CustomList>
         <CustomList type="Variable">
             <Custom option="id">vari-8464b419-8083-40bd-a92c-5385e7e99a3c</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label">14 Søgt job i eget nærområde</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-a68e3c92-9426-436e-99b4-235132e96bdf</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Ikke nævnt</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-4edb9754-78ef-4073-980d-85ae104a6e15</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Nævnt</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-53ec51d5-c2e3-4f8f-8813-b3645bc97189"
-        version="1.0.0" parentId="ques-f4c88bbd-893a-4c3e-834a-1131c2a4bfd8"
-        parentVersion="1.0.0">
+    <LightXmlObject element="QuestionItem" id="quei-53ec51d5-c2e3-4f8f-8813-b3645bc97189" version="1.0.0" parentId="ques-f4c88bbd-893a-4c3e-834a-1131c2a4bfd8" parentVersion="1.0.0">
         <Context>
             <p class="context">
                 <span class="previous">Tekniske </span>
@@ -129,55 +130,66 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-f3668df3-0f27-41d9-983b-95cd25cde695</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Baggrund og karriere</Custom>
         </CustomList>
         <CustomList type="Variable">
             <Custom option="id">vari-b495bfea-dd11-4c11-98f4-2f495fb56b15</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label">TEKNISK OMRÅDE</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-69355d0b-441f-4283-b4f4-a18eb996542a</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Teknisk chef/direktør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-2ae08ee0-0b30-4ca2-b348-381544a6af90</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Afdelingsleder</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-b9c889e8-e01e-48a3-b478-9cdf33f39342</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Vicekommunaldirektør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-4ff8c4e8-57f4-41e6-adc8-8e995031387a</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Kommuneingeniør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-1fdbad38-525c-4f66-8c48-021df257913b</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Forvaltningschef/direktør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-651cad45-c695-4b1c-b149-5006e4e9a84e</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Øvrige chefer</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-6bffa63f-c4fd-4ba1-9383-278533047d87</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Teknik- og miljøchef/direktør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-1b49d10d-6240-4416-93de-5a6fe3c8e24c</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Økonomichef/direktør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-9e233a7c-39e3-4e47-9d4b-d69ef7e81a57</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Stadsingeniør</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-de174ebf-04ba-430e-8ff0-60792d5344ba</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Direktør</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-53186733-192d-45f2-98b2-ea4744a0ad59"
-        version="1.0.0" parentId="" parentVersion="">
+    <LightXmlObject element="QuestionItem" id="quei-53186733-192d-45f2-98b2-ea4744a0ad59" version="1.0.0" parentId="" parentVersion="">
         <Context>
             <p class="context">
                 <span class="previous">k. Har interesse for </span>
@@ -197,20 +209,21 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-edb1d861-1b23-44fa-8232-bb5cc66d9701</Custom>
-            <Custom option="label" value="da">De næste spørgsmål handler om motivation og valg
-                af uddannelse</Custom>
+            <Custom option="version">1.0.0</Custom>
+            <Custom option="label" value="da">De næste spørgsmål handler om motivation og valg af uddannelse</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-fa1dfc73-26c2-43fe-b71e-bbc68319d80f</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Nævnt</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-e10dd668-e157-499a-b1c4-f73be91aa8f4</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Uoplyst</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-8079c12e-1833-4954-9a06-904ecdd43ace"
-        version="1.0.0" parentId="" parentVersion="">
+    <LightXmlObject element="QuestionItem" id="quei-8079c12e-1833-4954-9a06-904ecdd43ace" version="1.0.0" parentId="" parentVersion="">
         <Context>
             <p class="context">
                 <span class="previous">3. Det tekniske </span>
@@ -230,24 +243,26 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-f3668df3-0f27-41d9-983b-95cd25cde695</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Baggrund og karriere</Custom>
         </CustomList>
         <CustomList type="Variable">
             <Custom option="id">vari-bcc5a3e5-2bba-497b-8d96-a5075e97afed</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label">DET TEKNISKE OMRÅDE</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-d9067266-2a7e-40c4-87c8-9799fdb29ecd</Custom>
-            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m.
-                forvaltningschefansvar</Custom>
+            <Custom option="version">1.0.0</Custom>
+            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m. forvaltningschefansvar</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-e5c8fb16-b2ae-4eab-b977-cb9a469e40de</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Nævnt</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-7edbaa84-706a-48d9-8edd-fdaa2569cd64"
-        version="1.0.0" parentId="" parentVersion="">
+    <LightXmlObject element="QuestionItem" id="quei-7edbaa84-706a-48d9-8edd-fdaa2569cd64" version="1.0.0" parentId="" parentVersion="">
         <Context>
             <p class="context">
                 <span class="previous">4. Det sociale </span>
@@ -268,24 +283,26 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-f3668df3-0f27-41d9-983b-95cd25cde695</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Baggrund og karriere</Custom>
         </CustomList>
         <CustomList type="Variable">
             <Custom option="id">vari-ad53d1cf-d421-4b71-9e90-b65a6d99bcad</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label">DET SOCIALE OMRÅDE - DAGPASNING</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-d9067266-2a7e-40c4-87c8-9799fdb29ecd</Custom>
-            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m.
-                forvaltningschefansvar</Custom>
+            <Custom option="version">1.0.0</Custom>
+            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m. forvaltningschefansvar</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-e5c8fb16-b2ae-4eab-b977-cb9a469e40de</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Nævnt</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-d201e58f-d576-406d-ba6e-d19a66aa3059"
-        version="1.0.0" parentId="" parentVersion="">
+    <LightXmlObject element="QuestionItem" id="quei-d201e58f-d576-406d-ba6e-d19a66aa3059" version="1.0.0" parentId="" parentVersion="">
         <Context>
             <p class="context">
                 <span class="previous">5. Det sociale </span>
@@ -306,24 +323,26 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-f3668df3-0f27-41d9-983b-95cd25cde695</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Baggrund og karriere</Custom>
         </CustomList>
         <CustomList type="Variable">
             <Custom option="id">vari-5817e39e-d944-49c9-98b1-58d6ca9f1f3f</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label">DET SOCIALE OMRÅDE - FAMILIE</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-d9067266-2a7e-40c4-87c8-9799fdb29ecd</Custom>
-            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m.
-                forvaltningschefansvar</Custom>
+            <Custom option="version">1.0.0</Custom>
+            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m. forvaltningschefansvar</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-e5c8fb16-b2ae-4eab-b977-cb9a469e40de</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Nævnt</Custom>
         </CustomList>
     </LightXmlObject>
-    <LightXmlObject element="QuestionItem" id="quei-90827f14-3782-4966-8f37-43c952d03507"
-        version="1.0.0" parentId="" parentVersion="">
+    <LightXmlObject element="QuestionItem" id="quei-90827f14-3782-4966-8f37-43c952d03507" version="1.0.0" parentId="" parentVersion="">
         <Context>
             <p class="context">
                 <span class="previous">6. Det sociale </span>
@@ -344,21 +363,23 @@
         </CustomList>
         <CustomList type="Concept">
             <Custom option="id">conc-f3668df3-0f27-41d9-983b-95cd25cde695</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Baggrund og karriere</Custom>
         </CustomList>
         <CustomList type="Variable">
             <Custom option="id">vari-c6cd1f71-8e50-4efa-9ca1-1ec008b49218</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label">DET SOCIALE OMRÅDE - ÆLDRE</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-d9067266-2a7e-40c4-87c8-9799fdb29ecd</Custom>
-            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m.
-                forvaltningschefansvar</Custom>
+            <Custom option="version">1.0.0</Custom>
+            <Custom option="label" value="da">Ikke nævnt/ikke kommunaldirektører m. forvaltningschefansvar</Custom>
         </CustomList>
         <CustomList type="Category">
             <Custom option="id">cat-e5c8fb16-b2ae-4eab-b977-cb9a469e40de</Custom>
+            <Custom option="version">1.0.0</Custom>
             <Custom option="label" value="da">Nævnt</Custom>
         </CustomList>
     </LightXmlObject>
 </dl:LightXmlObjectList>
-
