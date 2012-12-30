@@ -6,6 +6,7 @@
     xmlns:rmd="http://dda.dk/ddi/result-metadata"
     version="1.0">
     <xsl:import href="search-forms.xsl"/>
+    <xsl:import href="result-html-fragments.xsl"/>
     <xsl:import href="result-core.xsl"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="type"/>
@@ -35,150 +36,17 @@
                 <div align="center">
                     <table id="table1" class="frametable" border="0" cellpadding="0" cellspacing="0" width="962">
                         <tbody>
-                            <tr>
-                                <td class="topmenu" valign="top">
-                                    <div align="center">
-                                        <table id="table3" class="greylabel" height="30" border="0" cellpadding="0" cellspacing="0" width="961">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div align="right">
-                                                            <table id="table1" height="100%" border="0" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center"> &#160;</td>
-                                                                        <td align="center" width="35">&#160;</td>
-                                                                        <td align="center">&#160;</td>
-                                                                        <td align="center">&#160;</td>
-                                                                        <td align="center" width="35">&#160;</td>
-                                                                        <td align="center">
-                                                                            <a class="navi" target="_blank" href="http://www.sa.dk/">Om Statens Arkiver</a>
-                                                                        </td>
-                                                                        <td align="center" width="35">&#160;</td>
-                                                                        <td align="center">
-                                                                            <a class="navi" href="http://samfund.dda.dk/dda/om-dda.asp">Om os</a>
-                                                                        </td>
-                                                                        <td align="center" width="35">&#160; </td>
-                                                                        <td align="center">
-                                                                            <a class="navi" id="kontakt" href="http://samfund.dda.dk/dda/kontakt.asp">Kontakt</a>
-                                                                        </td>
-                                                                        <td width="35">&#160;</td>
-                                                                        <td align="center">&#160;</td>
-                                                                        <td align="center" width="35">&#160;</td>
-                                                                        <td align="center">
-                                                                            <a class="navi" id="forside-en" href="http://samfund.dda.dk/dda/default-en.asp">English</a>
-                                                                        </td>
-                                                                        <td align="center" width="20">
-                                                                            <p align="center">
-                                                                            &#160;
-                                                                        </p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="header" valign="top">
-                                    <p align="center">
-                                        <img src="theme/dda-header-peak-961.jpg" usemap="#Map" height="129" border="0" width="961"/>
-                                        <map name="Map">
-                                            <area shape="rect" coords="24, 11, 221, 121" href="http://samfund.dda.dk/dda/data-forside.asp"/>
-                                        </map>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="greylabel" height="30" valign="center">
-                                    <div align="center">
-                                    <!--table border="0" id="table1" cellspacing="0" cellpadding="0" height="24" style="border-collapse: collapse; border-width: 0px" class="greylabel" height="30"-->
-                                        <table id="table1" height="100%" border="0" cellpadding="0" cellspacing="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td align="center">
-                                                        <a class="navi" href="http://localhost:8080/exist/rest/apps/web/simple.xml">Søg og bestil data</a>
-                                                    </td>
-                                                    <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
-                                                    <td style="border-style: none; border-width: medium" align="center">
-                                                        <a class="navi" id="afleveredata" href="http://samfund.dda.dk/dda/data-aflevere.asp"> Aflever data</a>
-                                                    </td>
-                                                    <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
-                                                    <td style="border-style: none; border-width: medium" align="center">
-                                                        <a class="navi" href="http://samfund.dda.dk/dda/ddasamfund/om-ddasamfund.asp">DDA Samfund</a>
-                                                    </td>
-                                                    <td style="border-style: none; border-width: medium" align="center" width="35">
-                                                        <p align="center">
-                                                        &#160;
-                                                    </p>
-                                                    </td>
-                                                    <td style="border-style: none; border-width: medium" align="center">
-                                                        <a class="navi" href="http://samfund.dda.dk/dda/ddasundhed/omddasundhed.asp"> DDA Sundhed</a>
-                                                    </td>
-                                                    <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
-                                                    <td style="border-style: none; border-width: medium" align="center">
-                                                        <a class="navi" href="http://samfund.dda.dk/dda/internationalt-samarbejde.asp"> Internationalt</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
+                            <xsl:call-template name="result-header-top">
+                                <xsl:with-param name="lang" select="$lang"/>
+                            </xsl:call-template>
                             <tr>
                                 <td mainframe="" valign="top">
                                     <table id="table2" class="main" border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tbody>
                                             <tr>
-                                                <td class="mainleftborder" valign="top" width="200">
-                                                    <table id="table5" class="mainleft" width="100%">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td valign="top" width="15">&#160;</td>
-                                                                <td valign="top">
-                                                                    <table id="table1" class="subnav" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="http://localhost:8080/exist/rest/apps/web/simple.xml">Simple søgning</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>&#160;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="#">Hjælp til søgning</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>&#160;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="#">Hjælp til søgeresultat</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>&#160;</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="#">Teknisk information</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
+                                                <xsl:call-template name="result-header-leftmenu">
+                                                    <xsl:with-param name="lang" select="$lang"/>
+                                                </xsl:call-template>
                                                 <td valign="top" width="580">
                                                     
                                                         <xsl:if test="$type='simple'">
@@ -220,6 +88,7 @@
                                                                                     <a href="#" onclick="changeHitStart({$prevHitStart})">Forrige</a>
                                                                                 </xsl:if>
                                                                                 &#160;
+                                                                                
                                                                                 <xsl:variable name="nextHitStart" select="rmd:ResultMetaData/@hit-start + rmd:ResultMetaData/@hits-perpage"/>
                                                                                 <xsl:if test="rmd:ResultMetaData/@current-page &lt; rmd:ResultMetaData/@number-of-pages">
                                                                                     <a href="#" onclick="changeHitStart({$nextHitStart})">Næste</a>
@@ -251,33 +120,38 @@
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="bottomspacer" valign="top">&#160;</td>
-                            </tr>
-                            <tr>
-                                <td class="footerframe" valign="top">
-                                    <div align="center">
-                                        <table id="table1" class="greylabel" border="0" cellpadding="0" cellspacing="0" width="961">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p align="center">
-                                                            <font color="#FFFFFF">Dansk Data Arkiv&#160;
-                                                            -&#160; Islandsgade 10&#160; -&#160; 5000 Odense C&#160;
-                                                            -&#160; Tlf: 66113010&#160; -&#160; Fax: 66113060&#160;
-                                                            -&#160; mailbox@dda.dk</font>
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
+                            
+                            <xsl:call-template name="result-footer-content">
+                                <xsl:with-param name="lang" select="$lang"/>
+                            </xsl:call-template>
+                            
                         </tbody>
                     </table>
                 </div>
             </body>
         </html>
+    </xsl:template>
+    
+    <xsl:template name="for.loop">
+        <xsl:param name="i"/>
+        <xsl:param name="count"/>
+        
+        <!--begin_: Line_by_Line_Output -->
+        <xsl:if test="$i &lt;= $count">
+            <b><xsl:value-of select="$i" />.</b>Hello world!
+        </xsl:if>
+        
+        <!--begin_: RepeatTheLoopUntilFinished-->
+        <xsl:if test="$i &lt;= $count">
+            <xsl:call-template name="for.loop">
+                <xsl:with-param name="i">
+                    <xsl:value-of select="$i + 1"/>
+                </xsl:with-param>
+                <xsl:with-param name="count">
+                    <xsl:value-of select="$count"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        
     </xsl:template>
 </xsl:stylesheet>
