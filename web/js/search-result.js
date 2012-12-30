@@ -69,18 +69,28 @@ function resetForm($form) {
 function validateFields() {
     var coverageFrom = $('input[name=coverageFrom]').val();
 	if (coverageFrom.length > 0 && !isValidDate(coverageFrom)) {
-	  alert("Startdato er ikke gyldigt.\nFormatet skal være YYYY-MM-DD.")
-	  return false; 
-	}
-	var coverageTo = $('input[name=coverageFrom]').val();
-	if (coverageTo.length > 0 && !isValidDate(coverageTo)) {
-	  alert("Slutdato er ikke gyldigt.\nFormatet skal være YYYY-MM-DD.")
-	  return false; 
+	    if(lang == 'en') {
+	        alert("Start date is not valid.\nThe format must be YYYY-MM-DD.");
+        }
+	    else {
+	        alert("Startdato er ikke gyldigt.\nFormatet skal være ÅÅÅÅ-MM-DD.");
+        }
+	    return false; 
+    }
+    var coverageTo = $('input[name=coverageTo]').val();
+    if (coverageTo.length > 0 && !isValidDate(coverageTo)) {
+	    if(lang == 'en') {
+	        alert("End date is not valid.\nThe format must be YYYY-MM-DD.");
+        }
+	    else {
+	        alert("Slutdato er ikke gyldigt.\nFormatet skal være ÅÅÅÅ-MM-DD.");
+        }
+        return false; 
 	}
 	return true;
 }
 
-function isValidDate(date) {console.log(date);
+function isValidDate(date) {
   var matches = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
   if (matches == null) return false;
   var y = matches[1];
@@ -98,13 +108,20 @@ function changeHitStart(hitStart) {
 }
 
 $(function() {
-    var options =
-    {
-        dateFormat: "yy-mm-dd",
-        dayNamesMin: [ "Sø", "Ma", "Ti", "On", "To", "Fr", "Lø" ],
-        monthNames: [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ],
-        nextText: "Næste",
-        prevText: "Forrige"
+    var options;
+    if(lang == 'en') {
+        options = {
+            dateFormat: "yy-mm-dd"
+        }
+    }
+    else {
+        options = {
+            dateFormat: "yy-mm-dd",
+            dayNamesMin: [ "Sø", "Ma", "Ti", "On", "To", "Fr", "Lø" ],
+            monthNames: [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ],
+            nextText: "Næste",
+            prevText: "Forrige"
+        }
     }
     $.datepicker.setDefaults(options);
     $('input[name=coverageFrom]').datepicker();
