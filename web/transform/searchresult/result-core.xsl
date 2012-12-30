@@ -2,13 +2,15 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
+    
+    <xsl:key name="kStudyByID" match="CustomList[@type='StudyUnit']" use="Custom[@option='id']/@option" />
+    <xsl:key name="kElementByStudy" match="/" use="@id"/>
 
     <xsl:template name="result-core-content">
         <xsl:param name="lang"/>
         <xsl:for-each select="LightXmlObject">
             <div class="result">
-                <xsl:variable name="studyId"
-                    select="CustomList[@type='StudyUnit']/Custom[@option='id']"/>
+                <xsl:variable name="studyId" select="CustomList[@type='StudyUnit']/Custom[@option='id']"/>
                 
                 <p class="contextlink">
                     <strong>
@@ -90,7 +92,17 @@
         </xsl:for-each>
 
     </xsl:template>
-
+    
+    <xsl:template name="result-core-content-grouped">
+        <xsl:param name="lang"/>
+        <xsl:for-each select="CustomList[@type='StudyUnit'][generate-id() = generate-id(key('kStudyByID',Custom[@option='id'])[1])]">
+            <h1>Test <xsl:value-of select="."/></h1>
+            <xsl:for-each select="key('kElementByStudy', .)">
+                <p><xsl:value-of select="."/></p>
+            </xsl:for-each>
+        </xsl:for-each>
+    </xsl:template>
+    
     <xsl:template match="Context">
         <xsl:copy-of select="*"/>
     </xsl:template>

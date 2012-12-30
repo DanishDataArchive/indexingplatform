@@ -10,6 +10,7 @@
     <xsl:import href="result-core.xsl"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="type"/>
+    <xsl:param name="grouped"/>
     <xsl:param name="lang"/>
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
     
@@ -87,9 +88,18 @@
                                                                                     <xsl:value-of select="$labels[@id='html-total']/LabelText[@xml:lang=$lang]/text()"/>.
                                                                                 </p>
                                                                             <div id="resultList">
-                                                                                <xsl:call-template name="result-core-content">
-                                                                                    <xsl:with-param name="lang" select="$lang"/>
-                                                                                </xsl:call-template>
+                                                                                <xsl:choose>
+                                                                                    <xsl:when test="$grouped">
+                                                                                        <xsl:call-template name="result-core-content-grouped">
+                                                                                            <xsl:with-param name="lang" select="$lang"/>
+                                                                                        </xsl:call-template>
+                                                                                    </xsl:when>
+                                                                                    <xsl:otherwise>
+                                                                                        <xsl:call-template name="result-core-content">
+                                                                                            <xsl:with-param name="lang" select="$lang"/>
+                                                                                        </xsl:call-template>
+                                                                                    </xsl:otherwise>
+                                                                                </xsl:choose>
                                                                             </div>
                                                                             <p align="center">
                                                                                 <xsl:variable name="prevHitStart" select="rmd:ResultMetaData/@hit-start - rmd:ResultMetaData/@hits-perpage"/>
