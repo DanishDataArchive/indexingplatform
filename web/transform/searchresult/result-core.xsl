@@ -3,8 +3,7 @@
 
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
     
-    <xsl:key name="kStudyByID" match="CustomList[@type='StudyUnit']" use="Custom[@option='id']/@option" />
-    <xsl:key name="kElementByStudy" match="/" use="@id"/>
+    <xsl:key name="kStudyByID" match="//CustomList[@type='StudyUnit']" use="Custom[@option='id']" />
 
     <xsl:template name="result-core-content">
         <xsl:param name="lang"/>
@@ -12,66 +11,9 @@
             <div class="result">
                 <xsl:variable name="studyId" select="CustomList[@type='StudyUnit']/Custom[@option='id']"/>
                 
-                <p class="contextlink">
-                    <strong>
-                        <xsl:variable name="elementType" select="@element"/>
-                        <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>: </strong>
-                    <xsl:if test="@element!='StudyUnit'">
-                        <xsl:variable name="url"
-                            select="concat('codebook.xquery?studyid=', $studyId, '#', @id, '.', @version)"/>
-                        <a class="contextlink" href="{$url}">
-                            <xsl:value-of select="Label"/>
-                        </a>
-                    </xsl:if>
-                    <xsl:if test="@element='StudyUnit'">
-                        <xsl:variable name="url"
-                            select="concat('landingpage.xquery?studyid=', $studyId)"/>
-                        <a class="contextlink" href="{$url}">
-                            <xsl:value-of select="Label"/>
-                        </a>
-                    </xsl:if>
-                    <em>
-                        <xsl:apply-templates select="Context"/>
-                    </em>
-                </p>
-
-                <xsl:if test="@element!='StudyUnit'">
-                    <a href="#" class="referencedElementsTitle">
-                        <xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]/text()"/>
-                    </a>
-                        <div class="referencedElementsList">
-                            <xsl:call-template name="referencedElements">
-                                <xsl:with-param name="referencedType" select="'QuestionItem'"/>
-                                <xsl:with-param name="studyId" select="$studyId"/>
-                                <xsl:with-param name="lang" select="$lang"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="referencedElements">
-                                <xsl:with-param name="referencedType" select="'MultipleQuestionItem'"/>
-                                <xsl:with-param name="studyId" select="$studyId"/>
-                                <xsl:with-param name="lang" select="$lang"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="referencedElements">
-                                <xsl:with-param name="referencedType" select="'Variable'"/>
-                                <xsl:with-param name="studyId" select="$studyId"/>
-                                <xsl:with-param name="lang" select="$lang"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="referencedElements">
-                                <xsl:with-param name="referencedType" select="'Category'"/>
-                                <xsl:with-param name="studyId" select="$studyId"/>
-                                <xsl:with-param name="lang" select="$lang"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="referencedElements">
-                                <xsl:with-param name="referencedType" select="'Concept'"/>
-                                <xsl:with-param name="studyId" select="$studyId"/>
-                                <xsl:with-param name="lang" select="$lang"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="referencedElements">
-                                <xsl:with-param name="referencedType" select="'Universe'"/>
-                                <xsl:with-param name="studyId" select="$studyId"/>
-                                <xsl:with-param name="lang" select="$lang"/>
-                            </xsl:call-template>
-                        </div>
-                </xsl:if>
+                <xsl:call-template name="element-info">
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                </xsl:call-template>
 
                 <xsl:variable name="title" select="CustomList[@type='StudyUnit']/Custom[@option='label']"/>
                 <div class="study" style="float:left;">
@@ -81,13 +23,11 @@
                         <xsl:value-of select="$title"/>
                     </a>
                 </div>
-                <div style="float:right;">
-                    <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]"/>
-                    <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" />
-                    <input type="hidden" name="studyId[]" value="{$studyId}" />
-                    <input type="hidden" name="studyTitle[]" value="{$title}" />
-                </div>
-                <div style="clear:both;"/>
+                <xsl:call-template name="order-box">
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="title" select="$title"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
             </div>
         </xsl:for-each>
 
@@ -95,12 +35,118 @@
     
     <xsl:template name="result-core-content-grouped">
         <xsl:param name="lang"/>
-        <xsl:for-each select="CustomList[@type='StudyUnit'][generate-id() = generate-id(key('kStudyByID',Custom[@option='id'])[1])]">
-            <h1>Test <xsl:value-of select="."/></h1>
-            <xsl:for-each select="key('kElementByStudy', .)">
-                <p><xsl:value-of select="."/></p>
-            </xsl:for-each>
+        <xsl:for-each select="//CustomList[generate-id(.) = generate-id(key('kStudyByID',Custom[@option='id'])[1])]">
+            <div class="result">
+                <xsl:variable name="studyId" select="Custom[@option='id']" />
+                <xsl:variable name="title" select="Custom[@option='label' and @value=$lang]" />
+                <div class="studyLarge" style="float:left;">
+                    <xsl:variable name="url2"
+                        select="concat('landingpage.xquery?studyid=', $studyId)"/>
+                    <a class="studyLarge" href="{$url2}">
+                        <xsl:value-of select="$title"/>
+                    </a>
+                </div>
+                <xsl:call-template name="order-box">
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="title" select="$title"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+                <div style="clear: both;"></div>
+                <br/>
+                <xsl:for-each select="//CustomList[@type='StudyUnit']/Custom[@option='id' and text()=$studyId]/../..">
+                    <xsl:call-template name="element-info">
+                        <xsl:with-param name="studyId" select="$studyId"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="references">
+                        <xsl:with-param name="studyId" select="$studyId"/>
+                        <xsl:with-param name="lang" select="$lang"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </div>
         </xsl:for-each>
+    </xsl:template>
+    
+    <xsl:template name="element-info">
+        <xsl:param name="studyId"/>
+        <p class="contextlink">
+            <strong>
+                <xsl:variable name="elementType" select="@element"/>
+                <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>: </strong>
+            <xsl:if test="@element!='StudyUnit'">
+                <xsl:variable name="url"
+                    select="concat('codebook.xquery?studyid=', $studyId, '#', @id, '.', @version)"/>
+                <a class="contextlink" href="{$url}">
+                    <xsl:value-of select="Label"/>
+                </a>
+            </xsl:if>
+            <xsl:if test="@element='StudyUnit'">
+                <xsl:variable name="url"
+                    select="concat('landingpage.xquery?studyid=', $studyId)"/>
+                <a class="contextlink" href="{$url}">
+                    <xsl:value-of select="Label"/>
+                </a>
+            </xsl:if>
+            <em>
+                <xsl:apply-templates select="Context"/>
+            </em>
+        </p>
+    </xsl:template>
+    
+    <xsl:template name="references">
+        <xsl:param name="studyId"/>
+        <xsl:param name="lang"/>
+        <xsl:if test="@element!='StudyUnit'">
+            <br/>
+            <a href="#" class="referencedElementsTitle">
+                <strong><xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]/text()"/></strong>
+            </a>
+            <div class="referencedElementsList">
+                <br/>
+                <xsl:call-template name="referencedElements">
+                    <xsl:with-param name="referencedType" select="'QuestionItem'"/>
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+                <xsl:call-template name="referencedElements">
+                    <xsl:with-param name="referencedType" select="'MultipleQuestionItem'"/>
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+                <xsl:call-template name="referencedElements">
+                    <xsl:with-param name="referencedType" select="'Variable'"/>
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+                <xsl:call-template name="referencedElements">
+                    <xsl:with-param name="referencedType" select="'Category'"/>
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+                <xsl:call-template name="referencedElements">
+                    <xsl:with-param name="referencedType" select="'Concept'"/>
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+                <xsl:call-template name="referencedElements">
+                    <xsl:with-param name="referencedType" select="'Universe'"/>
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="order-box">
+        <xsl:param name="studyId"/>
+        <xsl:param name="title"/>
+        <xsl:param name="lang"/>
+        <div style="float:right;">
+            <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]"/>
+            <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" />
+            <input type="hidden" name="studyId[]" value="{$studyId}" />
+            <input type="hidden" name="studyTitle[]" value="{$title}" />
+        </div>
+        <div style="clear:both;"/>
     </xsl:template>
     
     <xsl:template match="Context">

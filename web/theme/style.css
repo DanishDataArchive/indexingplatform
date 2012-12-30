@@ -100,8 +100,15 @@ span.hi
 .study a			{ font-family: verdana,arial,helvetica,sans-serif; font-size: 8pt; color: #000; }
 .stydy a:link	{ color: #000; background-color: transparent; text-decoration: none; }
 .study a:visited	{ color: #000; background-color: transparent; text-decoration: none; }
-.study  a:active	{ color: #000; background-color: transparent; text-decoration: none; }
+.study a:active	{ color: #000; background-color: transparent; text-decoration: none; }
 .study a:hover	{ color: #c97624; background-color: transparent; text-decoration: none; }
+
+.studyLarge, studyLarge.p { font-family: Verdana; font-size: 10pt; color: #000080;font-variant:small-caps; text-decoration: none; font-weight:bold;}
+.studyLarge a			{ font-family: verdana,arial,helvetica,sans-serif; font-size: 10pt; color: #000080; font-weight:bold;}
+.studyLarge a:link	{ color: #000080; background-color: transparent; text-decoration: none; }
+.studyLarge a:visited	{ color: #000080; background-color: transparent; text-decoration: none; }
+.studyLarge a:active	{ color: #000080; background-color: transparent; text-decoration: none; }
+.studyLarge a:hover	{ color: #c97624; background-color: transparent; text-decoration: none; }
 
 /* ************************************ */
 /* *** Specialeserede formateringer *** */
