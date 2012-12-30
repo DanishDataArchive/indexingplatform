@@ -1,71 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SearchResultLabels>
-    <Singular>
-        <Label id="StudyUnit">
-            <LabelText xml:lang="da">Studie</LabelText>
-            <LabelText xml:lang="en">Study</LabelText>
-        </Label>
-        <Label id="QuestionItem">
-            <LabelText xml:lang="da">Spørgsmål</LabelText>
-            <LabelText xml:lang="en">Question</LabelText>
-        </Label>
-        <Label id="MultipleQuestionItem">
-            <LabelText xml:lang="da">Spørgsmål</LabelText>
-            <LabelText xml:lang="en">Question</LabelText>
-        </Label>
-        <Label id="Variable">
-            <LabelText xml:lang="da">Variable</LabelText>
-            <LabelText xml:lang="en">Variabel</LabelText>
-        </Label>
-        <Label id="Category">
-            <LabelText xml:lang="da">Kategorie</LabelText>
-            <LabelText xml:lang="en">Category</LabelText>
-        </Label>
-        <Label id="Concept">
-            <LabelText xml:lang="da">Koncept</LabelText>
-            <LabelText xml:lang="en">Concept</LabelText>
-        </Label>
-        <Label id="Universe">
-            <LabelText xml:lang="da">Univers</LabelText>
-            <LabelText xml:lang="en">Universe</LabelText>
-        </Label>
-        <Label id="">
-            <LabelText xml:lang="da"></LabelText>
-            <LabelText xml:lang="en"></LabelText>
-        </Label>
-    </Singular>
-    <Plural>
-        <Label id="StudyUnit">
-            <LabelText xml:lang="da">Studier</LabelText>
-            <LabelText xml:lang="en">Studies</LabelText>
-        </Label>
-        <Label id="QuestionItem">
-            <LabelText xml:lang="da">Spørgsmål</LabelText>
-            <LabelText xml:lang="en">Questions</LabelText>
-        </Label>
-        <Label id="MultipleQuestionItem">
-            <LabelText xml:lang="da">Spørgsmål</LabelText>
-            <LabelText xml:lang="en">Questions</LabelText>
-        </Label>
-        <Label id="Variable">
-            <LabelText xml:lang="da">Variabler</LabelText>
-            <LabelText xml:lang="en">Variabels</LabelText>
-        </Label>
-        <Label id="Category">
-            <LabelText xml:lang="da">Kategorier</LabelText>
-            <LabelText xml:lang="en">Categorys</LabelText>
-        </Label>
-        <Label id="Concept">
-            <LabelText xml:lang="da">Koncepter</LabelText>
-            <LabelText xml:lang="en">Concepts</LabelText>
-        </Label>
-        <Label id="Universe">
-            <LabelText xml:lang="da">Universer</LabelText>
-            <LabelText xml:lang="en">Universes</LabelText>
-        </Label>
-        <Label id="">
-            <LabelText xml:lang="da"></LabelText>
-            <LabelText xml:lang="en"></LabelText>
-        </Label>
-    </Plural>
+    <Label id="html-title">
+        <LabelText xml:lang="da">DDI søgning</LabelText>
+        <LabelText xml:lang="en">DDI Search</LabelText>
+    </Label>
+    <Label id="html-order-data">
+        <LabelText xml:lang="da">Bestil Data</LabelText>
+        <LabelText xml:lang="en">Order Data</LabelText>
+    </Label>
+    <Label id="html-search-results">
+        <LabelText xml:lang="da">Søgeresultater</LabelText>
+        <LabelText xml:lang="en">Search Results</LabelText>
+    </Label>
+    <Label id="html-showing-results">
+        <LabelText xml:lang="da">Viser resultater</LabelText>
+        <LabelText xml:lang="en">Showing results</LabelText>
+    </Label>
+    <Label id="html-to">
+        <LabelText xml:lang="da">til</LabelText>
+        <LabelText xml:lang="en">to</LabelText>
+    </Label>
+    <Label id="html-of">
+        <LabelText xml:lang="da">af</LabelText>
+        <LabelText xml:lang="en">of</LabelText>
+    </Label>
+    <Label id="html-total">
+        <LabelText xml:lang="da">i alt</LabelText>
+        <LabelText xml:lang="en">total</LabelText>
+    </Label>
+    <Label id="html-prev">
+        <LabelText xml:lang="da">Forrige</LabelText>
+        <LabelText xml:lang="en">Prev</LabelText>
+    </Label>
+    <Label id="html-next">
+        <LabelText xml:lang="da">Næste</LabelText>
+        <LabelText xml:lang="en">Next</LabelText>
+    </Label>
+    <Label id="html-details">
+        <LabelText xml:lang="da">Detaljer</LabelText>
+        <LabelText xml:lang="en">Details</LabelText>
+    </Label>
+    <Label id="html-order-study">
+        <LabelText xml:lang="da">Bestil studie</LabelText>
+        <LabelText xml:lang="en">Order study</LabelText>
+    </Label>
+    
+    
+    <Label id="StudyUnit">
+        <LabelText xml:lang="da">
+            <Singular>Studie</Singular>
+            <Plural>Studier</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Study</Singular>
+            <Plural>Studies</Plural>
+        </LabelText>
+    </Label>
+    <Label id="QuestionItem">
+        <LabelText xml:lang="da">
+            <Singular>Spørgsmål</Singular>
+            <Plural>Spørgsmål</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Question</Singular>
+            <Plural>Questions</Plural>
+        </LabelText>
+    </Label>
+    <Label id="MultipleQuestionItem">
+        <LabelText xml:lang="da">
+            <Singular>Spørgsmål</Singular>
+            <Plural>Spørgsmål</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Question</Singular>
+            <Plural>Questions</Plural>
+        </LabelText>
+    </Label>
+    <Label id="Variable">
+        <LabelText xml:lang="da">
+            <Singular>Variabel</Singular>
+            <Plural>Variabler</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Variable</Singular>
+            <Plural>Variabels</Plural>
+        </LabelText>
+    </Label>
+    <Label id="Category">
+        <LabelText xml:lang="da">
+            <Singular>Kategorie</Singular>
+            <Plural>Kategorier</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Category</Singular>
+            <Plural>Categorys</Plural>
+        </LabelText>
+    </Label>
+    <Label id="Concept">
+        <LabelText xml:lang="da">
+            <Singular>Koncept</Singular>
+            <Plural>Koncepter</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Concept</Singular>
+            <Plural>Concepts</Plural>
+        </LabelText>
+    </Label>
+    <Label id="Universe">
+        <LabelText xml:lang="da">
+            <Singular>Univers</Singular>
+            <Plural>Universer</Plural>
+        </LabelText>
+        <LabelText xml:lang="en">
+            <Singular>Universe</Singular>
+            <Plural>Universes</Plural>
+        </LabelText>
+    </Label>
+    <Label id="">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en"></LabelText>
+    </Label>
 </SearchResultLabels>

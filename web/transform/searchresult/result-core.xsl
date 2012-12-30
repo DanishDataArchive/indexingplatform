@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-    <xsl:variable name="labels" select="document('result-labels.xml')"/>
+    <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
 
     <xsl:template name="result-core-content">
         <xsl:param name="lang"/>
@@ -14,7 +14,7 @@
                     <strong>
                         <xsl:variable name="elementType" select="@element"/>
                         <xsl:value-of
-                            select="$labels/SearchResultLabels/Singular/Label[@id=$elementType]/LabelText[@xml:lang=$lang]/text()"
+                            select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"
                         />: </strong>
                     <xsl:if test="@element!='StudyUnit'">
                         <xsl:variable name="url"
@@ -36,7 +36,9 @@
                 </p>
 
                 <xsl:if test="@element!='StudyUnit'">
-                    <a href="#" class="referencedElementsTitle">Detaljer</a>
+                    <a href="#" class="referencedElementsTitle">
+                        <xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]"/>
+                    </a>
                         <div class="referencedElementsList">
                             <xsl:call-template name="referencedElements">
                                 <xsl:with-param name="referencedType" select="'QuestionItem'"/>
@@ -80,7 +82,7 @@
                     </a>
                 </div>
                 <div style="float:right;">
-                    Bestil studie
+                    <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]"/>
                     <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" />
                     <input type="hidden" name="studyId[]" value="{$studyId}" />
                     <input type="hidden" name="studyTitle[]" value="{$title}" />
@@ -103,7 +105,7 @@
         <xsl:if test="count($referencedElements) &gt; 0">
             <strong>
                 <xsl:value-of
-                    select="$labels/SearchResultLabels/Plural/Label[@id=$referencedType]/LabelText[@xml:lang=$lang]/text()"
+                    select="$labels[@id=$referencedType]/LabelText[@xml:lang=$lang]/Plural/text()"
                 />
             </strong>
             <ul type="square">
