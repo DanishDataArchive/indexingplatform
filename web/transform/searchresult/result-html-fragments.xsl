@@ -50,16 +50,16 @@
                             <table border="0" width="" id="table1" cellspacing="0" cellpadding="0" height="24">
                                 <tr>
                                     <td align="center">
-                                        <a class="globalnav" id="findedata" href="data-finde-en.asp">Finding data</a></td>
+                                        <a class="navi" id="findedata" href="data-finde-en.asp">Finding data</a></td>
                                     <td align="center" width="35">&#160;</td>
                                     <td align="center">
-                                        <a class="globalnav" id="bestilledata" href="data-bestille-en.asp">Ordering data</a></td>
+                                        <a class="navi" id="bestilledata" href="data-bestille-en.asp">Ordering data</a></td>
                                     <td align="center" width="35">&#160;</td>
-                                    <td align="center"><a href="data-aflevere-en.asp" class="globalnav" id="afleveredata">Submitting data</a></td>
+                                    <td align="center"><a href="data-aflevere-en.asp" class="navi" id="afleveredata">Submitting data</a></td>
                                     <td align="center" width="35">&#160;</td>
-                                    <td align="center"><a href="internationalt-samarbejde-en.asp" class="globalnav" id="internationalt">International co-operation</a></td>
+                                    <td align="center"><a href="internationalt-samarbejde-en.asp" class="navi" id="internationalt">International co-operation</a></td>
                                     <td align="center" width="35">&#160;</td>
-                                    <td align="center"><a href="forskning-en.asp" class="globalnav" id="forskning">Research</a></td>
+                                    <td align="center"><a href="forskning-en.asp" class="navi" id="forskning">Research</a></td>
                                 </tr>
                             </table>
                         </div>
