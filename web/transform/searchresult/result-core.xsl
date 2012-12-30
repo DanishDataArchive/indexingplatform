@@ -14,7 +14,7 @@
                     <strong>
                         <xsl:variable name="elementType" select="@element"/>
                         <xsl:value-of
-                            select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"
+                            select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular"
                         />: </strong>
                     <xsl:if test="@element!='StudyUnit'">
                         <xsl:variable name="url"
@@ -104,9 +104,7 @@
         <xsl:variable name="referencedElements" select="CustomList[@type=$referencedType]"/>
         <xsl:if test="count($referencedElements) &gt; 0">
             <strong>
-                <xsl:value-of
-                    select="$labels[@id=$referencedType]/LabelText[@xml:lang=$lang]/Plural/text()"
-                />
+                <xsl:value-of select="$labels[@id=$referencedType]/LabelText[@xml:lang=$lang]/Plural"/>
             </strong>
             <ul type="square">
                 <xsl:for-each select="$referencedElements">
