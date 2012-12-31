@@ -141,7 +141,7 @@
         <xsl:param name="title"/>
         <xsl:param name="lang"/>
         <div style="float:right;">
-            <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]"/>
+            <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]/text()"/>
             <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" />
             <input type="hidden" name="studyId[]" value="{$studyId}" />
             <input type="hidden" name="studyTitle[]" value="{$title}" />

@@ -7,6 +7,7 @@
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
     
     <xsl:template match="ssp:SimpleSearchParameters">
+        <xsl:param name="grouped"/>
         <div style="margin-left:25px; margin-bottom:20px;">
             <form id="searchform" method="post" action="simple.xquery">
                 <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
@@ -104,17 +105,17 @@
                         </tr>
                         <tr>
                             <td align="left">
-                                <xsl:value-of select="$labels[@id='html-results-perpage']/LabelText[@xml:lang=$lang]/text()"/>:
                                 <xsl:call-template name="construct-hits-perpage">
                                     <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
+                                    <xsl:with-param name="hit-start" select="smd:SearchMetaData/@hit-start"/>
                                 </xsl:call-template>
-                                <xsl:element name="input">
-                                    <xsl:attribute name="type">hidden</xsl:attribute>
-                                    <xsl:attribute name="name">hit-start</xsl:attribute>
-                                    <xsl:attribute name="value">
-                                        <xsl:value-of select="smd:SearchMetaData/@hit-start"/>
-                                    </xsl:attribute>
-                                </xsl:element>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <xsl:call-template name="construct-grouped">
+                                    <xsl:with-param name="grouped" select="$grouped"/>
+                                </xsl:call-template>
                             </td>
                         </tr>
                     </tbody>
@@ -124,6 +125,7 @@
     </xsl:template>
 
     <xsl:template match="asp:AdvancedSearchParameters">
+        <xsl:param name="grouped"/>
         <div style="margin-left:25px; margin-bottom:20px;">
             <form id="searchform" method="post" action="advanced.xquery" onsubmit="return validateFields()">
                 <table id="searchform">
@@ -337,17 +339,17 @@
                     </tr>
                     <tr>
                         <td align="left">
-                            <xsl:value-of select="$labels[@id='html-results-perpage']/LabelText[@xml:lang=$lang]/text()"/>:
                             <xsl:call-template name="construct-hits-perpage">
                                 <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
+                                <xsl:with-param name="hit-start" select="smd:SearchMetaData/@hit-start"/>
                             </xsl:call-template>
-                            <xsl:element name="input">
-                                <xsl:attribute name="type">hidden</xsl:attribute>
-                                <xsl:attribute name="name">hit-start</xsl:attribute>
-                                <xsl:attribute name="value">
-                                    <xsl:value-of select="smd:SearchMetaData/@hit-start"/>
-                                </xsl:attribute>
-                            </xsl:element>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" colspan="2">
+                            <xsl:call-template name="construct-grouped">
+                                <xsl:with-param name="grouped" select="$grouped"/>
+                            </xsl:call-template>
                         </td>
                     </tr>
                 </table>
@@ -357,6 +359,8 @@
     
     <xsl:template name="construct-hits-perpage">
         <xsl:param name="hits-perpage"/>
+        <xsl:param name="hit-start"/>
+        <xsl:value-of select="$labels[@id='html-results-perpage']/LabelText[@xml:lang=$lang]/text()"/>:
         <select name="hits-perpage" onchange="this.form.submit()">
             <xsl:element name="option">
                 <xsl:attribute name="value">50</xsl:attribute>
@@ -387,6 +391,27 @@
                 500
             </xsl:element>
         </select>
+        <xsl:element name="input">
+            <xsl:attribute name="type">hidden</xsl:attribute>
+            <xsl:attribute name="name">hit-start</xsl:attribute>
+            <xsl:attribute name="value">
+                <xsl:value-of select="$hit-start"/>
+            </xsl:attribute>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template name="construct-grouped">
+        <xsl:param name="grouped"/>
+        <xsl:element name="input">
+            <xsl:attribute name="type">checkbox</xsl:attribute>
+            <xsl:attribute name="class">searchoption</xsl:attribute>
+            <xsl:attribute name="name">grouped</xsl:attribute>
+            <xsl:attribute name="onchange">this.form.submit()</xsl:attribute>
+            <xsl:if test="$grouped">
+                <xsl:attribute name="checked">checked</xsl:attribute>
+            </xsl:if>
+        </xsl:element>
+        <xsl:value-of select="$labels[@id='html-grouping']/LabelText[@xml:lang=$lang]/text()"/>
     </xsl:template>
     
     <xsl:template name="formatDate">

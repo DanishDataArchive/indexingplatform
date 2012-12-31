@@ -64,6 +64,10 @@
         <LabelText xml:lang="da">Pr. side</LabelText>
         <LabelText xml:lang="en">Hits per page</LabelText>
     </Label>
+    <Label id="html-grouping">
+        <LabelText xml:lang="da">Grupér resultater efter studie (gælder kun for synlige resultater).</LabelText>
+        <LabelText xml:lang="en">Group results by study (applies only to visible results).</LabelText>
+    </Label>
     <!-- advanced search -->
     <Label id="html-advanced-search">
         <LabelText xml:lang="da">Avanceret søgning</LabelText>

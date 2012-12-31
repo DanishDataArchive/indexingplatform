@@ -99,8 +99,11 @@ declare function local:main() as node()? {
     else
         ddi:buildLightXmlObjectList((), (), $hits-perpage, 1, $search-parameters)
     
+    let $grouped := request:get-parameter('grouped', ())
+    
     let $params := <parameters>
             <param name="type" value="advanced"/>
+            <param name="grouped" value="{$grouped}"/>
             <param name="lang" value="{$lang}"/>
         </parameters>
     

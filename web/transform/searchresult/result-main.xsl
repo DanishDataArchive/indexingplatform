@@ -52,7 +52,9 @@
                                                 <td valign="top" width="580">
                                                     
                                                         <xsl:if test="$type='simple'">
-                                                            <xsl:apply-templates select="ssp:SimpleSearchParameters"/>
+                                                            <xsl:apply-templates select="ssp:SimpleSearchParameters">
+                                                                <xsl:with-param name="grouped" select="$grouped"/>
+                                                            </xsl:apply-templates>
                                                         </xsl:if>
                                                     
                                                     <div align="center">
@@ -126,7 +128,9 @@
                                                     </div>
                                                     
                                                     <xsl:if test="$type='advanced'">
-                                                        <xsl:apply-templates select="asp:AdvancedSearchParameters"/>
+                                                        <xsl:apply-templates select="asp:AdvancedSearchParameters">
+                                                            <xsl:with-param name="grouped" select="$grouped"/>
+                                                        </xsl:apply-templates>
                                                     </xsl:if>
                                                     
                                                 </td>
