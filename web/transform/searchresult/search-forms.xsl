@@ -9,7 +9,7 @@
     <xsl:template match="ssp:SimpleSearchParameters">
         <xsl:param name="grouped"/>
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form id="searchform" method="post" action="simple.xquery">
+            <form id="searchform" method="post" action="simple.xquery" onsubmit="return validateFields()">
                 <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
                     <tbody>
                         <tr>

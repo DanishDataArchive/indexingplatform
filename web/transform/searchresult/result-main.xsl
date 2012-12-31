@@ -30,6 +30,7 @@
                 </script>
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
                 <script src="js/search-result.js" type="text/javascript"></script>
+                <script src="js/input-validation.js" type="text/javascript"></script>
                 <title>
                     <xsl:value-of select="$labels[@id='html-title']/LabelText[@xml:lang=$lang]/text()"/>
                 </title>

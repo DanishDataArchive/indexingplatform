@@ -67,42 +67,6 @@ function resetForm($form) {
     $('input[name=grouped]').removeProp('checked');
 }
 
-function validateFields() {
-    var coverageFrom = $('input[name=coverageFrom]').val();
-	if (coverageFrom.length > 0 && !isValidDate(coverageFrom)) {
-	    if(lang == 'en') {
-	        alert("Start date is not valid.\nThe format must be YYYY-MM-DD.");
-        }
-	    else {
-	        alert("Startdato er ikke gyldigt.\nFormatet skal være ÅÅÅÅ-MM-DD.");
-        }
-	    return false; 
-    }
-    var coverageTo = $('input[name=coverageTo]').val();
-    if (coverageTo.length > 0 && !isValidDate(coverageTo)) {
-	    if(lang == 'en') {
-	        alert("End date is not valid.\nThe format must be YYYY-MM-DD.");
-        }
-	    else {
-	        alert("Slutdato er ikke gyldigt.\nFormatet skal være ÅÅÅÅ-MM-DD.");
-        }
-        return false; 
-	}
-	return true;
-}
-
-function isValidDate(date) {
-  var matches = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
-  if (matches == null) return false;
-  var y = matches[1];
-  var m = Number(matches[2]) - 1;
-  var d = Number(matches[3]);
-  var composedDate = new Date(y, m, d);
-  return composedDate.getDate() == d &&
-         composedDate.getMonth() == m &&
-         composedDate.getFullYear() == y;
-}
-
 function changeHitStart(hitStart) {
     $('input[name=hit-start]').val(hitStart);
     $('#searchform').submit();
