@@ -14,6 +14,11 @@
                 <xsl:call-template name="element-info">
                     <xsl:with-param name="studyId" select="$studyId"/>
                 </xsl:call-template>
+                
+                <xsl:call-template name="references">
+                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
+                </xsl:call-template>
 
                 <xsl:variable name="title" select="CustomList[@type='StudyUnit']/Custom[@option='label']"/>
                 <div class="study" style="float:left;">
