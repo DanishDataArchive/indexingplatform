@@ -119,20 +119,21 @@ function invalidWildcardUse(str, wildcard) {
 }
 
 function invalidLogicalOperatorUse(str, operator) {
-    var startIndex = 0, length = operator.length;
-    while ((index = str.indexOf(operator, startIndex)) > -1) {
-        var stringBefore = $.trim(str.substring(0, index));
-        // if there is nothing (but whitespaces) before the operator
-        if(stringBefore.length == 0) return true;
-        var stringAfter = $.trim(str.substring(index+length, str.length));
-        // if there is nothing (but whitespaces) after the operator
-        if(stringAfter.length == 0) return true;
-        // if there is another AND or OR operator before the operator
-        if(stringBefore.endsWith("AND") || stringBefore.endsWith("OR")) return true;
-        // if there is another AND or OR operator after the operator
-        if(stringAfter.startsWith("AND") || stringAfter.startsWith("OR")) return true;
-        
-        startIndex = index + length;
+    // split the string into words (trim leading and trailing whitespaces first)
+    var words = $.trim(str).split(/\s+/);
+    for(var i=0; i<words.length; i++) {
+        // find all occurrences of the operator
+        if(words[i] == operator) {
+            // if it is the first or last word (i.e. it doesn't have an parameter on each side)
+            if(i == 0 || i == words.length-1)
+                return true;
+            // if any of its neighbours is an logical operator as well
+            if(words[i-1] == "AND" || words[i-1] == "OR" || words[i+1] == "AND" || words[i+1] == "OR")
+                return true;
+            // if there is an incorrect parentheses before or after the operator
+            if(words[i-1].endsWith("(") || words[i+1].startsWith(")"))
+                return true;
+        }
     }
     return false;
 }
