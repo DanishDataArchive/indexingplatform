@@ -269,16 +269,6 @@
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
-                                <xsl:attribute name="name">StudyUnitChecked</xsl:attribute>
-                                <xsl:if
-                                    test="s:Scope/s:StudyUnit">
-                                    <xsl:attribute name="checked">checked</xsl:attribute>
-                                </xsl:if>
-                            </xsl:element>
-                            <xsl:value-of select="$labels[@id='study-info']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
-                            <xsl:element name="input">
-                                <xsl:attribute name="type">checkbox</xsl:attribute>
-                                <xsl:attribute name="class">searchoption</xsl:attribute>
                                 <xsl:attribute name="name">QuestionItemChecked</xsl:attribute>
                                 <xsl:if
                                     test="(s:Scope/s:QuestionItem) or (s:Scope/s:MultipleQuestionItem)">
