@@ -50,12 +50,18 @@
                                                     <xsl:with-param name="lang" select="$lang"/>
                                                 </xsl:call-template>
                                                 <td valign="top" width="580">
-                                                    
-                                                        <xsl:if test="$type='simple'">
+                                                    <xsl:choose>
+                                                        <xsl:when test="$type='advanced'">
+                                                            <xsl:apply-templates select="asp:AdvancedSearchParameters">
+                                                                <xsl:with-param name="grouped" select="$grouped"/>
+                                                            </xsl:apply-templates>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
                                                             <xsl:apply-templates select="ssp:SimpleSearchParameters">
                                                                 <xsl:with-param name="grouped" select="$grouped"/>
                                                             </xsl:apply-templates>
-                                                        </xsl:if>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                     
                                                     <div align="center">
                                                         <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
@@ -126,13 +132,6 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    
-                                                    <xsl:if test="$type='advanced'">
-                                                        <xsl:apply-templates select="asp:AdvancedSearchParameters">
-                                                            <xsl:with-param name="grouped" select="$grouped"/>
-                                                        </xsl:apply-templates>
-                                                    </xsl:if>
-                                                    
                                                 </td>
                                             <!--td class="mainrightborder" valign="top" width="200">
 									<table id="table6" class="mainright" width="100%">
