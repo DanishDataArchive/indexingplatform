@@ -64,6 +64,7 @@ function toggleSubmitButton() {
 function resetForm($form) {
     $('#searchform').find('input:text').val('');
     $('#searchform').find('input:checkbox').prop('checked', true);
+    $('input[name=grouped]').removeProp('checked');
 }
 
 function validateFields() {
