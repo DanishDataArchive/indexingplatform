@@ -102,7 +102,7 @@
         <xsl:param name="lang"/>
         <xsl:if test="@element!='StudyUnit'">
             <br/>
-            <a href="#" class="referencedElementsTitle">
+            <a href="javascript:;" class="referencedElementsTitle">
                 <strong><xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]/text()"/></strong>
             </a>
             <div class="referencedElementsList">
