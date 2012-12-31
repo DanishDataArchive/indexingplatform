@@ -133,6 +133,11 @@
                                                                                             </a>
                                                                                         </xsl:if>
                                                                                     </p>
+                                                                                    <div align="right">
+                                                                                        <a href="#">
+                                                                                            <xsl:value-of select="$labels[@id='html-to-top']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                        </a>
+                                                                                    </div>
                                                                                 </xsl:when>
                                                                                 <xsl:otherwise>
                                                                                     <p>

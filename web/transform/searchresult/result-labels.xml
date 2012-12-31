@@ -37,6 +37,10 @@
         <LabelText xml:lang="da">Næste</LabelText>
         <LabelText xml:lang="en">Next</LabelText>
     </Label>
+    <Label id="html-to-top">
+        <LabelText xml:lang="da">Til toppen</LabelText>
+        <LabelText xml:lang="en">To top</LabelText>
+    </Label>
     <Label id="html-noresults">
         <LabelText xml:lang="da">Ingen resultater.</LabelText>
         <LabelText xml:lang="en">No matches found.</LabelText>
