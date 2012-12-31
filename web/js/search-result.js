@@ -73,8 +73,10 @@ function submitForm(form) {
 }
 
 function changeHitStart(hitStart) {
-    $('input[name=hit-start]').val(hitStart);
-    $('#searchform').submit();
+    if(validateFields()) {
+        $('input[name=hit-start]').val(hitStart);
+        $('#searchform').submit();
+    }
 }
 
 $(function() {
