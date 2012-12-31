@@ -119,7 +119,13 @@
                                                                                             </a>
                                                                                         </xsl:if>
                                                                                         &#160;
-                                                                                        
+                                                                                        <xsl:call-template name="pages-links">
+                                                                                            <xsl:with-param name="page" select="1"/>
+                                                                                            <xsl:with-param name="numberOfPages" select="rmd:ResultMetaData/@number-of-pages"/>
+                                                                                            <xsl:with-param name="currentPage" select="rmd:ResultMetaData/@current-page"/>
+                                                                                            <xsl:with-param name="hitsPerpage" select="rmd:ResultMetaData/@hits-perpage"/>
+                                                                                        </xsl:call-template>
+                                                                                        &#160;
                                                                                         <xsl:variable name="nextHitStart" select="rmd:ResultMetaData/@hit-start + rmd:ResultMetaData/@hits-perpage"/>
                                                                                         <xsl:if test="rmd:ResultMetaData/@current-page &lt; rmd:ResultMetaData/@number-of-pages">
                                                                                             <a href="#" onclick="changeHitStart({$nextHitStart})">
@@ -166,24 +172,35 @@
         </html>
     </xsl:template>
     
-    <xsl:template name="for.loop">
-        <xsl:param name="i"/>
-        <xsl:param name="count"/>
-        
+    <xsl:template name="pages-links">
+        <xsl:param name="page"/>
+        <xsl:param name="numberOfPages"/>
+        <xsl:param name="currentPage"/>
+        <xsl:param name="hitsPerpage"/>
         <!--begin_: Line_by_Line_Output -->
-        <xsl:if test="$i &lt;= $count">
-            <b><xsl:value-of select="$i" />.</b>Hello world!
+        <xsl:if test="$page &lt;= $numberOfPages">
+            <xsl:if test="($page &gt;= $currentPage - 5) and ($page &lt;= $currentPage + 5)">
+             <xsl:choose>
+                 <xsl:when test="$page = $currentPage">
+                     <b><xsl:value-of select="$page" /></b>
+                 </xsl:when>
+                 <xsl:otherwise>
+                     <xsl:variable name="newHitStart" select="$hitsPerpage * $page - $hitsPerpage + 1"/>
+                     <a href="#" onclick="changeHitStart({$newHitStart})">
+                         <xsl:value-of select="$page" />
+                     </a>
+                 </xsl:otherwise>
+             </xsl:choose>
+             <xsl:text> </xsl:text>
+            </xsl:if>
         </xsl:if>
-        
         <!--begin_: RepeatTheLoopUntilFinished-->
-        <xsl:if test="$i &lt;= $count">
-            <xsl:call-template name="for.loop">
-                <xsl:with-param name="i">
-                    <xsl:value-of select="$i + 1"/>
-                </xsl:with-param>
-                <xsl:with-param name="count">
-                    <xsl:value-of select="$count"/>
-                </xsl:with-param>
+        <xsl:if test="$page &lt;= $numberOfPages">
+            <xsl:call-template name="pages-links">
+                <xsl:with-param name="page" select="$page + 1"/>
+                <xsl:with-param name="numberOfPages" select="$numberOfPages"/>
+                <xsl:with-param name="currentPage" select="$currentPage"/>
+                <xsl:with-param name="hitsPerpage" select="$hitsPerpage"/>
             </xsl:call-template>
         </xsl:if>
         
