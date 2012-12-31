@@ -163,12 +163,12 @@
     </Label>
     <Label id="MultipleQuestionItem">
         <LabelText xml:lang="da">
-            <Singular>Spørgsmål</Singular>
-            <Plural>Spørgsmål</Plural>
+            <Singular>Spørgsmålbatteri</Singular>
+            <Plural>Spørgsmålbatterier</Plural>
         </LabelText>
         <LabelText xml:lang="en">
-            <Singular>Question</Singular>
-            <Plural>Questions</Plural>
+            <Singular>Multiple Question</Singular>
+            <Plural>Multiple Questions</Plural>
         </LabelText>
     </Label>
     <Label id="Variable">
