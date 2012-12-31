@@ -67,6 +67,11 @@ function resetForm($form) {
     $('input[name=grouped]').removeProp('checked');
 }
 
+function submitForm(form) {
+    if(validateFields())
+        form.submit();
+}
+
 function changeHitStart(hitStart) {
     $('input[name=hit-start]').val(hitStart);
     $('#searchform').submit();

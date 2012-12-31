@@ -361,7 +361,7 @@
         <xsl:param name="hits-perpage"/>
         <xsl:param name="hit-start"/>
         <xsl:value-of select="$labels[@id='html-results-perpage']/LabelText[@xml:lang=$lang]/text()"/>:
-        <select name="hits-perpage" onchange="this.form.submit()">
+        <select name="hits-perpage" onchange="submitForm(this.form)">
             <xsl:element name="option">
                 <xsl:attribute name="value">50</xsl:attribute>
                 <xsl:if test="$hits-perpage = 50">
@@ -406,7 +406,7 @@
             <xsl:attribute name="type">checkbox</xsl:attribute>
             <xsl:attribute name="class">searchoption</xsl:attribute>
             <xsl:attribute name="name">grouped</xsl:attribute>
-            <xsl:attribute name="onchange">this.form.submit()</xsl:attribute>
+            <xsl:attribute name="onchange">submitForm(this.form)</xsl:attribute>
             <xsl:if test="$grouped">
                 <xsl:attribute name="checked">checked</xsl:attribute>
             </xsl:if>
