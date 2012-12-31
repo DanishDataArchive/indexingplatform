@@ -74,7 +74,7 @@ function submitForm(form) {
 
 function changeHitStart(hitStart) {
     if(validateFields()) {
-        $('input[name=hit-start]').val(hitStart);
+        $('#searchform').append('<input type="hidden" name="hit-start" value="' + hitStart + '" />');
         $('#searchform').submit();
     }
 }

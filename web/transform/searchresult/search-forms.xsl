@@ -391,13 +391,6 @@
                 500
             </xsl:element>
         </select>
-        <xsl:element name="input">
-            <xsl:attribute name="type">hidden</xsl:attribute>
-            <xsl:attribute name="name">hit-start</xsl:attribute>
-            <xsl:attribute name="value">
-                <xsl:value-of select="$hit-start"/>
-            </xsl:attribute>
-        </xsl:element>
     </xsl:template>
     
     <xsl:template name="construct-grouped">
