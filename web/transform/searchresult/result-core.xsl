@@ -107,6 +107,48 @@
             </a>
             <div class="referencedElementsList">
                 <br/>
+                <xsl:if test="CustomList[@type='DomainType']">
+                    <strong>
+                        <xsl:value-of select="$labels[@id='DomainType']/LabelText[@xml:lang=$lang]/text()"/>
+                    </strong>
+                    <ul type="square">
+                        <xsl:for-each select="CustomList[@type='DomainType']">
+                            <!--<xsl:variable name="url"
+                                select="concat('codebook.xquery?studyid=', $studyId, '#', Custom[@option='id'], '.', Custom[@option='version'])"/>-->
+                            <li>
+                                <!--<a class="contextlink" href="{$url}">-->
+                                <xsl:variable name="domainType" select="Custom/text()"/>
+                                <xsl:value-of select="$labels[@id=$domainType]/LabelText[@xml:lang=$lang]/text()"/>
+                                <!--</a>-->
+                                <xsl:if test="Custom[@option='type'] = 'NumericDomain'">
+                                    - <em><xsl:value-of select="Custom/@value"/></em>
+                                </xsl:if>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+                
+                <xsl:if test="CustomList[@type='RepresentationType']">
+                    <strong>
+                        <xsl:value-of select="$labels[@id='RepresentationType']/LabelText[@xml:lang=$lang]/text()"/>
+                    </strong>
+                    <ul type="square">
+                        <xsl:for-each select="CustomList[@type='RepresentationType']">
+                            <!--<xsl:variable name="url"
+                                select="concat('codebook.xquery?studyid=', $studyId, '#', Custom[@option='id'], '.', Custom[@option='version'])"/>-->
+                            <li>
+                                <!--<a class="contextlink" href="{$url}">-->
+                                <xsl:variable name="representationType" select="Custom/text()"/>
+                                <xsl:value-of select="$labels[@id=$representationType]/LabelText[@xml:lang=$lang]/text()"/>
+                                <!--</a>-->
+                                <xsl:if test="Custom[@option='type'] = 'NumericRepresentation'">
+                                    - <em><xsl:value-of select="Custom/@value"/></em>
+                                </xsl:if>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+                
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'QuestionItem'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>

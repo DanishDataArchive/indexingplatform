@@ -215,6 +215,38 @@
             <Plural>Universes</Plural>
         </LabelText>
     </Label>
+    <Label id="DomainType">
+        <LabelText xml:lang="da">Domænetype</LabelText>
+        <LabelText xml:lang="en">Domain Type</LabelText>
+    </Label>
+    <Label id="CodeDomain">
+        <LabelText xml:lang="da">Kodedomæne</LabelText>
+        <LabelText xml:lang="en">Code Domain</LabelText>
+    </Label>
+    <Label id="TextDomain">
+        <LabelText xml:lang="da">Tekstdomæne</LabelText>
+        <LabelText xml:lang="en">Text Domain</LabelText>
+    </Label>
+    <Label id="NumericDomain">
+        <LabelText xml:lang="da">Numerisk domæne</LabelText>
+        <LabelText xml:lang="en">Numeric Domain</LabelText>
+    </Label>
+    <Label id="RepresentationType">
+        <LabelText xml:lang="da">Representationstype</LabelText>
+        <LabelText xml:lang="en">Representation Type</LabelText>
+    </Label>
+    <Label id="TextRepresentation">
+        <LabelText xml:lang="da">Tekstrepresentation</LabelText>
+        <LabelText xml:lang="en">Text Representation</LabelText>
+    </Label>
+    <Label id="NumericRepresentation">
+        <LabelText xml:lang="da">Numerisk representation</LabelText>
+        <LabelText xml:lang="en">Numeric Representation</LabelText>
+    </Label>
+    <Label id="CodeRepresentation">
+        <LabelText xml:lang="da">Koderepresentation</LabelText>
+        <LabelText xml:lang="en">Code Representation</LabelText>
+    </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>
         <LabelText xml:lang="en"></LabelText>
