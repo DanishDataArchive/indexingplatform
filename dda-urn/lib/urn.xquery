@@ -7,6 +7,8 @@ xquery version "1.0";
  :)
 module namespace urn = "http://dda.dk/ddi/urn";
 
+declare namespace su="ddi:studyunit:3_1";
+
 (:~
  : Returns the DDI element specified by an ID and version
  :
@@ -27,6 +29,31 @@ declare function urn:resolveUrn($urn as xs:string) as element()? {
     (: If there were duplicates in the database (same id and version) just return the first :)
     return $allMatches[1]
 };
+
+(:~
+ : Returns a list of LightXmlObject element containing the existing versions of a study.
+ : It looks both in the main database and the URN database and returns all found versions for the given study.
+ : The result 'id' attribute of the LightXmlObject object contains the study ID, the 'version' attribute contains the version
+ : and the 'element' attribute contains main-db|urn-db spedifying in which database the result was found.
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $studyId the ID of the study
+ :)
+declare function urn:getStudyVersions($studyId as xs:string) as element()? {
+    <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:rmd="http://dda.dk/ddi/result-metadata">
+        {
+        let $study := collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $studyId)]
+        return <LightXmlObject element="main-db" id="{data($study/@id)}" version="{data($study/@version)}" />,
+        for $study in collection('/db/apps/dda-urn')//su:StudyUnit[ft:query(@id, $studyId)]
+            return <LightXmlObject element="urn-db" id="{data($study/@id)}" version="{data($study/@version)}" />
+        }
+    </dl:LightXmlObjectList>
+};
+
 
 (:~
  : Returns the nearest version for the given element.
