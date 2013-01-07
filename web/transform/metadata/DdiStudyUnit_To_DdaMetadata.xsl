@@ -4,6 +4,7 @@
     xmlns:ns3="ddi:archive:3_1" xmlns:ns4="ddi:physicalinstance:3_1" 
     xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns6="ddi:physicalinstance:3_1"
     xmlns:ns7="ddi:logicalproduct:3_1" xmlns:ns8="ddi:datacollection:3_1"
+    xmlns:n9 ="http://www.w3.org/1999/xhtml"
     xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" 
     xmlns:ddi-cv="urn:ddi-cv"
     exclude-result-prefixes="ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv"
@@ -189,7 +190,7 @@
                     <Type>Purpose</Type>
                     <xsl:for-each select="ns1:Purpose">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:value-of select="ns2:Content/text()"/>
+                            <xsl:copy-of select="ns2:Content/*"/>
                         </Content>  
                     </xsl:for-each>        
                 </StudyDescription>
@@ -199,7 +200,7 @@
                     <Type>Abstract</Type>
                     <xsl:for-each select="ns1:Abstract">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:value-of select="ns2:Content/text()"/>
+                            <xsl:copy-of select="ns2:Content/*"/>
                         </Content>  
                     </xsl:for-each>
                 </StudyDescription>
