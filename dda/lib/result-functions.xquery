@@ -217,14 +217,14 @@ declare function local:createCategoryCustomFromId($categoryId as xs:string) as e
  : @version 1.0
  : @param   $result one element in the result list obtained by the query
  :)
-declare function result:buildResultListItem($result as element(), $scope as element()?) as element() {
+declare function result:buildResultListItem($result as element()) as element() {
     let $result-name := local-name($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
         {local:getContext($result)}
         {local:getLabel($result)}
         {local:createStudyUnitCustom($result)}
-        {result:getReferences($result, $scope)}
+        {result:getReferences($result)}
     </LightXmlObject>
 };
 
@@ -258,7 +258,7 @@ declare function result:buildResultListItem($result as element(), $scope as elem
  :  For Category:              &lt;s:Scope&gt;&lt;s:Variable/&gt;&lt;s:QuestionItem/&gt;&lt;s:MultipleQuestionItem/&gt;&lt;/s:Scope&gt;<br />
  :</pre>
  :)
-declare function result:getReferences($resultElement as element(), $scope as element()?) as element()* {
+declare function result:getReferences($resultElement as element()) as element()* {
     let $resultElementId := string($resultElement/@id)
     let $resultElementName := local-name($resultElement)
     (: Get a denormalized list of all elements referred by or referring to this element :)
@@ -274,15 +274,13 @@ declare function result:getReferences($resultElement as element(), $scope as ele
 
     (: If the scope (list of types of referring elements) is set then use it. Otherwise fall back to a default list, specific for each element type. :)
     let $referenceScope :=
-        if ($scope) then $scope
-        else
-                 if ($resultElementName eq 'Variable') then <s:Scope><s:QuestionItem/><s:MultipleQuestionItem/><s:Universe/><s:Concept/><s:Category/><s:RepresentationType/></s:Scope>
-            else if ($resultElementName eq 'QuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/><s:DomainType/></s:Scope>
-            else if ($resultElementName eq 'MultipleQuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/></s:Scope>
-            else if ($resultElementName eq 'Universe') then <s:Scope><s:Variable/></s:Scope>
-            else if ($resultElementName eq 'Concept') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
-            else if ($resultElementName eq 'Category') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
-            else ()
+             if ($resultElementName eq 'Variable') then <s:Scope><s:QuestionItem/><s:MultipleQuestionItem/><s:Universe/><s:Concept/><s:Category/><s:RepresentationType/></s:Scope>
+        else if ($resultElementName eq 'QuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/><s:DomainType/></s:Scope>
+        else if ($resultElementName eq 'MultipleQuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/></s:Scope>
+        else if ($resultElementName eq 'Universe') then <s:Scope><s:Variable/></s:Scope>
+        else if ($resultElementName eq 'Concept') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
+        else if ($resultElementName eq 'Category') then <s:Scope><s:Variable/><s:QuestionItem/><s:MultipleQuestionItem/></s:Scope>
+        else ()
 
     (: For each reference type check if we wish to show it (if it is in scope) and if so create it as a Custom element. :)
     (: RepresentationType is not really a reference, but we wish to show it for variables. :)

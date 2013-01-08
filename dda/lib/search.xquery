@@ -166,15 +166,14 @@ declare function local:queryCategory($search-string as xs:string) as element()* 
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $questionItemId    the ID of the QuestionItem
- : @param   $scope    list of types of references we wish to return for this QuestionItem, given as a Scope element. If empty, the default list will be used.
  :)
-declare function ddi:lookupQuestionItem($questionItemId as xs:string, $scope as element()) as element() {
+declare function ddi:lookupQuestionItem($questionItemId as xs:string) as element() {
     let $questionItem := collection('/db/apps/dda')//dc:QuestionItem[ft:query(@id, $questionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($questionItem, $scope)}
+            {result:buildResultListItem($questionItem)}
     </dl:LightXmlObjectList>
 };
 
@@ -184,15 +183,14 @@ declare function ddi:lookupQuestionItem($questionItemId as xs:string, $scope as 
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $multipleQuestionItemId    the ID of the MultipleQuestionItem
- : @param   $scope    list of types of references we wish to return for this MultipleQuestionItem, given as a Scope element. If empty, the default list will be used.
  :)
-declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:string, $scope as element()) as element() {
+declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:string) as element() {
     let $multipleQuestionItem := collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(@id, $multipleQuestionItemId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($multipleQuestionItem, $scope)}
+            {result:buildResultListItem($multipleQuestionItem)}
     </dl:LightXmlObjectList>
 };
 
@@ -202,15 +200,14 @@ declare function ddi:lookupMultipleQuestionItem($multipleQuestionItemId as xs:st
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $variableId    the ID of the Variable
- : @param   $scope    list of types of references we wish to return for this Variable, given as a Scope element. If empty default, the list will be used.
  :)
-declare function ddi:lookupVariable($variableId as xs:string, $scope as element()) as element() {
+declare function ddi:lookupVariable($variableId as xs:string) as element() {
     let $variable := collection('/db/apps/dda')//lp:Variable[ft:query(@id, $variableId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($variable, $scope)}
+            {result:buildResultListItem($variable)}
     </dl:LightXmlObjectList>
 };
 
@@ -220,15 +217,14 @@ declare function ddi:lookupVariable($variableId as xs:string, $scope as element(
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $conceptId    the ID of the Concept
- : @param   $scope    list of types of references we wish to return for this Concept, given as a Scope element. If empty, the default list will be used.
  :)
-declare function ddi:lookupConcept($conceptId as xs:string, $scope as element()) as element() {
+declare function ddi:lookupConcept($conceptId as xs:string) as element() {
     let $concept := collection('/db/apps/dda')//cc:Concept[ft:query(@id, $conceptId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($concept, $scope)}
+            {result:buildResultListItem($concept)}
     </dl:LightXmlObjectList>
 };
 
@@ -238,15 +234,14 @@ declare function ddi:lookupConcept($conceptId as xs:string, $scope as element())
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $universeId    the ID of the Universe
- : @param   $scope    list of types of references we wish to return for this Universe, given as a Scope element. If empty, the default list will be used.
  :)
-declare function ddi:lookupUniverse($universeId as xs:string, $scope as element()) as element() {
+declare function ddi:lookupUniverse($universeId as xs:string) as element() {
     let $universe := collection('/db/apps/dda')//cc:Universe[ft:query(@id, $universeId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($universe, $scope)}
+            {result:buildResultListItem($universe)}
     </dl:LightXmlObjectList>
 };
 
@@ -256,15 +251,14 @@ declare function ddi:lookupUniverse($universeId as xs:string, $scope as element(
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $categoryId    the ID of the Category
- : @param   $scope    list of types of references we wish to return for this Category, given as a Scope element. If empty, the default list will be used.
  :)
-declare function ddi:lookupCategory($categoryId as xs:string, $scope as element()) as element() {
+declare function ddi:lookupCategory($categoryId as xs:string) as element() {
     let $category := collection('/db/apps/dda')//lp:Category[ft:query(@id, $categoryId)]
     return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
-            {result:buildResultListItem($category, $scope)}
+            {result:buildResultListItem($category)}
     </dl:LightXmlObjectList>
 };
 
@@ -277,7 +271,7 @@ declare function ddi:lookupCategory($categoryId as xs:string, $scope as element(
  : @param   $hits-perpage  the number of hits to be shown per page
  : @param   $hit-start     number of the first hit to be shown on the page
  :)
-declare function ddi:buildLightXmlObjectList($results as element()*, $scope as element()?, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element()) as element() {
+declare function ddi:buildLightXmlObjectList($results as element()*, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element()) as element() {
     let $result-count := count($results)
     let $hit-end := if ($result-count lt $hits-perpage) then $result-count
                     else $hit-start + $hits-perpage - 1
@@ -300,7 +294,7 @@ declare function ddi:buildLightXmlObjectList($results as element()*, $scope as e
             current-page="{$current-page}"/>
         {
         for $result in $results[position() = $hit-start to $hit-end]
-            return result:buildResultListItem($result, $scope)
+            return result:buildResultListItem($result)
         }
     </dl:LightXmlObjectList>
 };
@@ -365,7 +359,7 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
         $categoryScope
     )
 
-    return ddi:buildLightXmlObjectList($results, (), data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters)
+    return ddi:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters)
 };
 
 (:~
@@ -395,7 +389,7 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
  :    &lt;asp:Concept&gt;concept text&lt;/asp:Concept&gt;                                          &lt;!-- Search-text for the Coverage(s) we wish to find (xs:string). If left out Coverage will not be searched and returned. Optional. --&gt;<br/>
  :    &lt;asp:Category&gt;category text&lt;/asp:Category&gt;                                       &lt;!-- Search-text for the Category(s) we wish to find (xs:string). If left out Category will not be searched and returned. Optional. --&gt;<br/>
  :    &lt;smd:SearchMetaData hits-perpage="2" hit-start="1"/&gt;                                   &lt;!-- The number of hits we wish to show per page (xs:positiveInteger) and the number of the first result we wish to get (xs:nonNegativeInteger). Both required. --&gt;<br/>
- :    &lt;s:Scope&gt;                                                                              &lt;!-- The scope of our results. Each child-element is optional and if it is present the search will for all found results return a list of references of the type specified by that element (if any exist). The child-elements have no type or content; only the existence is checked. --&gt;<br/>
+ :    &lt;s:Scope&gt;                                                                              &lt;!-- The scope of our results. Each child-element is optional and if it is present the search will return results of that type. The child-elements have no type or content; only the existence is checked. --&gt;<br/>
  :        &lt;s:StudyUnit/&gt;<br/>
  :        &lt;s:Variable/&gt;<br/>
  :        &lt;s:QuestionItem/&gt;<br/>
@@ -409,7 +403,220 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
  :)
 declare function ddi:advancedSearch($search-parameters as element()) as element()* {
     (: Note that in the comments below the word "element" referes to either Variable, QuestionItem, MultipleQuestionItem, Universe, Concept or Category. :)
+    let $search-scope := $search-parameters/s:Scope
+    
+    let $studyUnits := local:studyUnitsFromParameters($search-parameters)
+    
+    
+    
+    
+    
+    (:  NEW SEARCH IMPLEMENTATION  :)
+    
+    
+    (: For each element type find out if we want to filter by that type of element (if the parameter specifying the search-text for that element is set and not empty). :)
+    let $variableSearch := if (data($search-parameters/asp:Variable)) then true() else false()
+    let $questionItemSearch := if (data($search-parameters/asp:QuestionItem)) then true() else false()
+    let $multipleQuestionItemSearch := if (data($search-parameters/asp:MultipleQuestionItem)) then true() else false()
+    let $universeSearch := if (data($search-parameters/asp:Universe)) then true() else false()
+    let $conceptSearch := if (data($search-parameters/asp:Concept)) then true() else false()
+    let $categorySearch := if (data($search-parameters/asp:Category)) then true() else false()
 
+    let $searchSpecificElements :=
+        $variableSearch             or
+        $questionItemSearch         or
+        $multipleQuestionItemSearch or
+        $universeSearch             or
+        $conceptSearch              or
+        $categorySearch
+        
+    let $studyParametersEntered := $search-parameters/asp:studyId          or
+                                   $search-parameters/asp:title            or
+                                   $search-parameters/asp:topicalCoverage  or
+                                   $search-parameters/asp:spatialCoverage  or
+                                   $search-parameters/asp:abstract-purpose or
+                                   $search-parameters/asp:creator          or
+                                   $search-parameters/asp:kindOfData       or
+                                   $search-parameters/asp:coverageFrom     or
+                                   $search-parameters/asp:coverageTo
+                                   
+    (: If any of the element-specific parameters are set than we want to filter by those elements. :)
+    (: In that case we do not look for our results in the list of studies acquired by the study-specific parameters, but in the list of elements found by the element-specific parameters. :)
+    (: We will query for a specific element type if (and only if) its parameter has been set. :)
+    (: The studies are used to limit the list of elements to the studies that satisfy certain criteria. :)
+    (: This means that if no elements are found we will return 0 results, regardless of the list of found studies. :)
+    let $variableResults := if ($variableSearch) then local:queryVariable($search-parameters/asp:Variable) else ()
+    let $usableVariables :=
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
+            if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                for $variable in $variableResults
+                    let $denormalizedVariable := collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
+                    return if ($studyUnits[@id = $denormalizedVariable/@studyId]) then $variable else ()
+            (: If no study unit parameters were set then we just use all the found elements. :)
+            else $variableResults
+            
+    let $questionItemResults := if ($questionItemSearch) then local:queryQuestionItem($search-parameters/asp:QuestionItem) else ()
+    let $usableQuestionItems :=
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
+            if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                for $questionItem in $questionItemResults
+                    let $denormalizedQuestionItem := collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
+                    return if ($studyUnits[@id = $denormalizedQuestionItem/@studyId]) then $questionItem else ()
+            (: If no study unit parameters were set then we just use all the found elements. :)
+            else $questionItemResults
+            
+    let $multipleQuestionItemResults := if ($multipleQuestionItemSearch) then local:queryMultipleQuestionItem($search-parameters/asp:MultipleQuestionItem) else ()
+    let $usableMultipleQuestionItems :=
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
+            if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                for $multipleQuestionItem in $multipleQuestionItemResults
+                    let $denormalizedMultipleQuestionItem := collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
+                    return if ($studyUnits[@id = $denormalizedMultipleQuestionItem/@studyId]) then $multipleQuestionItem else ()
+            (: If no study unit parameters were set then we just use all the found elements. :)
+            else $multipleQuestionItemResults
+    
+    let $universeResults := if ($universeSearch) then local:queryUniverse($search-parameters/asp:Universe) else ()
+    let $usableUniverses :=
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
+            if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                for $universe in $universeResults
+                    let $denormalizedUniverse := collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
+                    return if ($studyUnits[@id = $denormalizedUniverse/@studyId]) then $universe else ()
+            (: If no study unit parameters were set then we just use all the found elements. :)
+            else $universeResults
+            
+    let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
+    let $usableConcepts :=
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
+            if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                for $concept in $conceptResults
+                    let $denormalizedConcept := collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
+                    return if ($studyUnits[@id = $denormalizedConcept/@studyId]) then $concept else ()
+            (: If no study unit parameters were set then we just use all the found elements. :)
+            else $conceptResults
+            
+    let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
+    let $usableCategories :=
+            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
+            if ($studyParametersEntered) then
+                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
+                for $category in $categoryResults
+                    let $denormalizedCategory := collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
+                    return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
+            (: If no study unit parameters were set then we just use all the found elements. :)
+            else $categoryResults
+    
+        
+    let $foundVariables :=
+        if ($search-scope/s:Variable) then
+            let $variablesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:QuestionItemReference/@id, $element/@id)]
+            let $variablesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
+            let $variablesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:UniverseReference/@id, $element/@id)]
+            let $variablesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:ConceptReference/@id, $element/@id)]
+            let $variablesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:CategoryReference/@id, $element/@id)]
+            return local:conditionalIntersection($usableVariables, $variableSearch,
+                                                 $variablesFromQuestionItems, $questionItemSearch,
+                                                 $variablesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $variablesFromUniverses, $universeSearch,
+                                                 $variablesFromConcepts, $conceptSearch,
+                                                 $variablesFromCategories, $categorySearch)
+        else ()
+        
+    let $foundQuestionItems :=
+        if ($search-scope/s:QuestionItem) then
+            let $questionItemsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:VariableReference/@id, $element/@id)]
+            let $questionItemsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:UniverseReference/@id, $element/@id)]
+            let $questionItemsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:ConceptReference/@id, $element/@id)]
+            let $questionItemsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:CategoryReference/@id, $element/@id)]
+            return local:conditionalIntersection($usableQuestionItems, $questionItemSearch,
+                                                 $questionItemsFromVariables, $variableSearch,
+                                                 $questionItemsFromUniverses, $universeSearch,
+                                                 $questionItemsFromConcepts, $conceptSearch,
+                                                 $questionItemsFromCategories, $categorySearch,
+                                                 (), false())
+        else ()
+        
+    let $foundMultipleQuestionItems :=
+        if ($search-scope/s:MultipleQuestionItem) then
+            let $multipleQuestionItemsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:VariableReference/@id, $element/@id)]
+            let $multipleQuestionItemsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:UniverseReference/@id, $element/@id)]
+            let $multipleQuestionItemsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:ConceptReference/@id, $element/@id)]
+            let $multipleQuestionItemsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:CategoryReference/@id, $element/@id)]
+            return local:conditionalIntersection($usableMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $multipleQuestionItemsFromVariables, $variableSearch,
+                                                 $multipleQuestionItemsFromUniverses, $universeSearch,
+                                                 $multipleQuestionItemsFromConcepts, $conceptSearch,
+                                                 $multipleQuestionItemsFromCategories, $categorySearch,
+                                                 (), false())
+        else ()
+        
+    let $foundUniverses :=
+        if ($search-scope/s:Universe) then
+            let $universesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:QuestionItemReference/@id, $element/@id)]
+            let $universesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
+            let $universesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:VariableReference/@id, $element/@id)]
+            let $universesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:ConceptReference/@id, $element/@id)]
+            let $universesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:CategoryReference/@id, $element/@id)]
+            return local:conditionalIntersection($usableUniverses, $universeSearch,
+                                                 $universesFromQuestionItems, $questionItemSearch,
+                                                 $universesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $universesFromVariables, $variableSearch,
+                                                 $universesFromConcepts, $conceptSearch,
+                                                 $universesFromCategories, $categorySearch)
+        else ()
+        
+    let $foundConcepts :=
+        if ($search-scope/s:Concept) then
+            let $conceptsFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:QuestionItemReference/@id, $element/@id)]
+            let $conceptsFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
+            let $conceptsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:UniverseReference/@id, $element/@id)]
+            let $conceptsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:VariableReference/@id, $element/@id)]
+            let $conceptsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:CategoryReference/@id, $element/@id)]
+            return local:conditionalIntersection($usableConcepts, $conceptSearch,
+                                                 $conceptsFromQuestionItems, $questionItemSearch,
+                                                 $conceptsFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $conceptsFromUniverses, $universeSearch,
+                                                 $conceptsFromVariables, $variableSearch,
+                                                 $conceptsFromCategories, $categorySearch)
+        else ()
+        
+    let $foundCategories :=
+        if ($search-scope/s:Category) then
+            let $categoriesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:QuestionItemReference/@id, $element/@id)]
+            let $categoriesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
+            let $categoriesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:UniverseReference/@id, $element/@id)]
+            let $categoriesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:ConceptReference/@id, $element/@id)]
+            let $categoriesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:VariableReference/@id, $element/@id)]
+            return local:conditionalIntersection($usableCategories, $categorySearch,
+                                                 $categoriesFromQuestionItems, $questionItemSearch,
+                                                 $categoriesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $categoriesFromUniverses, $universeSearch,
+                                                 $categoriesFromConcepts, $conceptSearch,
+                                                 $categoriesFromVariables, $variableSearch)
+        else ()
+    
+    (:let $studyUnitScope := if ($search-scope/s:StudyUnit) then local:queryStudyUnit($search-string) else ()
+    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
+    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
+    let $questionItemScope := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
+    let $multipleQuestionItemScope := if ($search-scope/s:MultipleQuestionItem) then local:queryMultipleQuestionItem($search-string) else ()
+    let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
+    let $categoryScope := if ($search-scope/s:Category) then local:queryCategory($search-string) else ():)
+    
+    
+    
+
+    (:let $search-metadata := $search-parameters/smd:SearchMetaData:)
+    (:return ddi:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters):)
+    return $foundCategories
+};
+
+declare function local:studyUnitsFromParameters($search-parameters as element()) as element()* {
     (: First check if any of the parameters regarding StudyUnit are set, and for each one that is get a separate list of StudyUnits based on that criteria. :)
     (: We will later use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
     (: The reason why we do not simply put all the criteria in one query is that all the parameters are optional, which means that we have to check if they are set and only use them if they are. :)
@@ -472,7 +679,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
         $studyFromTemporalCoverage
     (: Use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
     (: We use if-then-else to handle cases when one or more of the lists are empty (meaning that the entire intersection would be empty). :)
-    let $studyUnits :=
+    return
         (if ($studyFromId) then $studyFromId else $studyUnitUnion)                            intersect
         (if ($studyFromTitle) then $studyFromTitle else $studyUnitUnion)                      intersect
         (if ($studyFromTopicalCoverage) then $studyFromTopicalCoverage else $studyUnitUnion)  intersect
@@ -481,85 +688,20 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
         (if ($studyFromCreator) then $studyFromCreator else $studyUnitUnion)                  intersect
         (if ($studyFromKindOfData) then $studyFromKindOfData else $studyUnitUnion)            intersect
         (if ($studyFromTemporalCoverage) then $studyFromTemporalCoverage else $studyUnitUnion)
-    
-    (: For each element type find out if we want to search of that type of element (if the parameter specifying the search-text for that element is set and not empty). :)
-    let $variableSearch := if (data($search-parameters/asp:Variable)) then true() else false()
-    let $questionItemSearch := if (data($search-parameters/asp:QuestionItem)) then true() else false()
-    let $multipleQuestionItemSearch := if (data($search-parameters/asp:MultipleQuestionItem)) then true() else false()
-    let $universeSearch := if (data($search-parameters/asp:Universe)) then true() else false()
-    let $conceptSearch := if (data($search-parameters/asp:Concept)) then true() else false()
-    let $categorySearch := if (data($search-parameters/asp:Category)) then true() else false()
+};
 
-    let $searchSpecificElements :=
-        $variableSearch             or
-        $questionItemSearch         or
-        $multipleQuestionItemSearch or
-        $universeSearch             or
-        $conceptSearch              or
-        $categorySearch
-        
-    let $studyParametersEntered := $search-parameters/asp:studyId          or
-                                   $search-parameters/asp:title            or
-                                   $search-parameters/asp:topicalCoverage  or
-                                   $search-parameters/asp:spatialCoverage  or
-                                   $search-parameters/asp:abstract-purpose or
-                                   $search-parameters/asp:creator          or
-                                   $search-parameters/asp:kindOfData       or
-                                   $search-parameters/asp:coverageFrom     or
-                                   $search-parameters/asp:coverageTo
-                                   
-    (: If any of the element-specific parameters are set than we are looking for specific elements, not just studies. :)
-    (: In that case we do not return the list of studies acquired by the study-specific parameters, but the list of elements found by the element-specific parameters. :)
-    (: We will query for a specific element type if (and only if) its parameter has been set. :)
-    (: The studies serve only to limit the list of elements to the studies that satisfy certain criteria. :)
-    (: This means that if no elements are found we will return 0 results, regardless of the list of found studies. :)
-    let $results :=
-        if ($searchSpecificElements) then
-            let $variableResults := if ($variableSearch) then local:queryVariable($search-parameters/asp:Variable) else ()
-            let $questionItemResults := if ($questionItemSearch) then local:queryQuestionItem($search-parameters/asp:QuestionItem) else ()
-            let $multipleQuestionItemResults := if ($multipleQuestionItemSearch) then local:queryMultipleQuestionItem($search-parameters/asp:MultipleQuestionItem) else ()
-            let $universeResults := if ($universeSearch) then local:queryUniverse($search-parameters/asp:Universe) else ()
-            let $conceptResults := if ($conceptSearch) then local:queryConcept($search-parameters/asp:Concept) else ()
-            let $categoryResults := if ($categorySearch) then local:queryCategory($search-parameters/asp:Category) else ()
-            
-            (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
-            return if ($studyParametersEntered) then
-                (: For each element-type we get the ID of the StudyUnit in which it resides and if that study exists in the study-list previously found we return the element. :)
-                (
-                    for $variable in $variableResults
-                        let $denormalizedVariable := collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $variable/@id)]
-                        return if ($studyUnits[@id = $denormalizedVariable/@studyId]) then $variable else (),
-                    for $questionItem in $questionItemResults
-                        let $denormalizedQuestionItem := collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $questionItem/@id)]
-                        return if ($studyUnits[@id = $denormalizedQuestionItem/@studyId]) then $questionItem else (),
-                    for $multipleQuestionItem in $multipleQuestionItemResults
-                        let $denormalizedMultipleQuestionItem := collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $multipleQuestionItem/@id)]
-                        return if ($studyUnits[@id = $denormalizedMultipleQuestionItem/@studyId]) then $multipleQuestionItem else (),
-                    for $universe in $universeResults
-                        let $denormalizedUniverse := collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $universe/@id)]
-                        return if ($studyUnits[@id = $denormalizedUniverse/@studyId]) then $universe else (),
-                    for $concept in $conceptResults
-                        let $denormalizedConcept := collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $concept/@id)]
-                        return if ($studyUnits[@id = $denormalizedConcept/@studyId]) then $concept else (),
-                    for $category in $categoryResults
-                        let $denormalizedCategory := collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $category/@id)]
-                        return if ($studyUnits[@id = $denormalizedCategory/@studyId]) then $category else ()
-                )
-                    
-            (: If no study unit parameters were set then we just return all the found elements. :)
-            else
-                (
-                    $variableResults,
-                    $questionItemResults,
-                    $multipleQuestionItemResults,
-                    $universeResults,
-                    $conceptResults,
-                    $categoryResults
-                 )
-        (: If no element-specific parameters are set than we return the studies (if any were found). :)
-        else
-            $studyUnits
-
-    let $search-metadata := $search-parameters/smd:SearchMetaData
-    return ddi:buildLightXmlObjectList($results, $search-parameters/s:Scope, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters)
+declare function local:conditionalIntersection($set1 as element()*, $required1 as xs:boolean,
+                                               $set2 as element()*, $required2 as xs:boolean,
+                                               $set3 as element()*, $required3 as xs:boolean,
+                                               $set4 as element()*, $required4 as xs:boolean,
+                                               $set5 as element()*, $required5 as xs:boolean,
+                                               $set6 as element()*, $required6 as xs:boolean) as node()* {
+    let $union := $set1 | $set2 | $set3 | $set4 | $set5 | $set6
+    return
+        (if ($required1) then $set1 else $union) intersect
+        (if ($required2) then $set2 else $union) intersect
+        (if ($required3) then $set3 else $union) intersect
+        (if ($required4) then $set4 else $union) intersect
+        (if ($required5) then $set5 else $union) intersect
+        (if ($required6) then $set6 else $union)
 };
