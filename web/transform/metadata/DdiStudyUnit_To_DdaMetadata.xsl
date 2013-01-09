@@ -37,8 +37,7 @@
             <PIDs>
                 <PID>
                     <ID> 
-                        <!-- todo: probably use value from DDI document at ns2:Citation/ns2:InternationalIdentifier[type='DOI'] />-->
-                        <xsl:value-of select="concat('http://dx.doi.org/10.5279/DK-DDA-', @id)"/>
+                        <xsl:value-of select="ns2:Citation/ns2:InternationalIdentifier[@type='DOI']"/>
                     </ID>
                     <PIDType>DOI</PIDType>
                 </PID>
@@ -66,10 +65,8 @@
             
             <StudyLanguage>da</StudyLanguage>            
             
-            <xsl:call-template name="TopicalCoverage" />  
-            
-            <xsl:call-template name="StudyDescriptions" />            
-            
+            <xsl:call-template name="TopicalCoverage" />
+            <xsl:call-template name="StudyDescriptions" />
             <xsl:apply-templates select="ns2:Coverage/ns2:SpatialCoverage"></xsl:apply-templates>
             
             <xsl:variable name="studyLevelUniverseID">
@@ -83,12 +80,9 @@
                 <xsl:apply-templates select="ns2:Coverage/ns2:TemporalCoverage" />
             </TemporalCoverages>
             
-            <xsl:call-template name="DataSets" />
-            
-            <xsl:call-template name="Methodology" />
-            
-            <xsl:call-template name="DataCollection" />
-            
+            <xsl:call-template name="DataSets" />            
+            <xsl:call-template name="Methodology" />            
+            <xsl:call-template name="DataCollection" />            
             <xsl:call-template name="Documentation" />
             
             <xsl:variable name="archiveOrganizationRef" select="ns3:Archive/ns3:ArchiveSpecific/ns3:ArchiveOrganizationReference/ns2:ID" />

@@ -1,20 +1,49 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:ddi-cv="urn:ddi-cv" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
-    <xsl:variable name="studyId" select="substring-after(ns1:Study/ns1:StudyIdentifier/ns1:Identifier, 'dda')"/>
-    <xsl:variable name="labels" select="document('lp-labels.xml')"/>
-    <xsl:variable name="accessConditionsCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/accessconditions.dda.dk-1.0.0.cv')"/>
-    <xsl:variable name="accessRestrictionsCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/accessrestrictions.dda.dk-1.0.0.cv')"/>
-    <xsl:variable name="dataCollectionMethodCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/datacollectionmethodology.dda.dk-1.0.0.cv')"/>
-    <xsl:variable name="dataCollectionModeCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/datacollectionmode.dda.dk-1.0.0.cv')"/>
-    <xsl:variable name="kindOfDataCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/kindofdata.dda.dk-1.0.0.cv')"/>
-    <xsl:variable name="samplingprocedureCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/samplingprocedure.dda.dk-1.0.0.cv')"/>
-    <xsl:variable name="studyStateCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/studystate.dda.dk.1.0.0.cv')"/>
-    <xsl:variable name="timeMethodCV" select="document('xmldb:exist:///db/apps/web/transform/landingpage/cv/timemethod.dda.dk-1.0.0.cv')"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ddi-cv="urn:ddi-cv" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
+   
+    <!-- Kun relevant i forbindelse med test af lp-core direkte uden om lp-main -->
+    <xsl:output method="html"  indent="yes"/>
+    
     <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyzæøå'"/>
     <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ'"/>
+    
+    <!-- Denne template benyttes kun ved test af lp-core uden main (derfor hardcode) -->
+    <xsl:template match="*">
+        <xsl:call-template name="lp-core-content">
+            <xsl:with-param name="lang" select="'da'" />
+            <xsl:with-param name="previousVersions" select="'1.0.0,1.2.0'" />
+            <xsl:with-param name="cvFolder" select="'cv'" />
+            <xsl:with-param name="hostname" select="'localhost:8080'" />
+        </xsl:call-template>
+    </xsl:template>
+    
+    <!-- Landing page core template -->
     <xsl:template name="lp-core-content">
         <xsl:param name="lang"/>
-        <xsl:param name="previousVersions" />
-        <div xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" itemscope="itemscope" itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
+        <xsl:param name="previousVersions"/>
+        <xsl:param name="cvFolder"/>
+        <xsl:param name="hostname" />
+        
+        <!-- 
+            Forklaring til parametre:
+              lang er det valgte sprog (da, en)
+              previousVersions er med som kommasepareret tekststreng med eventuelt tidligere versioner (feks: "1.0.0,1.0.1,1.0.2")
+              cvFolder er mappen, hvor CV's ligger
+              hostname er med som parameter for at understøtte test/lokale miljøer
+        -->
+        
+        <!-- cv mappe sendes med som parameter, så xslt kan kaldes både i exist og i tests uden for exist -->
+        <xsl:variable name="studyId" select="substring-after(ns1:StudyIdentifier/ns1:Identifier, 'dda')"/>
+        <xsl:variable name="labels" select="document('lp-labels.xml')"/>
+        <xsl:variable name="accessConditionsCV" select="document(concat($cvFolder, '/accessconditions.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="accessRestrictionsCV" select="document(concat($cvFolder, '/accessrestrictions.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="dataCollectionMethodCV" select="document(concat($cvFolder, '/datacollectionmethodology.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="dataCollectionModeCV" select="document(concat($cvFolder, '/datacollectionmode.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="kindOfDataCV" select="document(concat($cvFolder, '/kindofdata.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="samplingprocedureCV" select="document(concat($cvFolder, '/samplingprocedure.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="studyStateCV" select="document(concat($cvFolder, '/studystate.dda.dk.1.0.0.cv'))"/>
+        <xsl:variable name="timeMethodCV" select="document(concat($cvFolder, '/timemethod.dda.dk-1.0.0.cv'))"/>
+        
+        <div xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" itemscope="itemscope" itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
             <h1 class="lp">
                 <span itemprop="name" property="dcterms:title">
                     <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
@@ -59,7 +88,7 @@
             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='keywords']/LabelText[@xml:lang=$lang]/text()"/>
             </h3> <span class="lplink" property="dcat:keyword">
-                <xsl:for-each select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword">
+                <xsl:for-each select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword[@xml:lang=$lang]">
                     <a href="#">
                         <span itemprop="keyword">
                             <span itemscope="itemscope" itemtype="http://schema.org/Text">
@@ -73,7 +102,7 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='classification']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <span class="lplink">
-                <xsl:for-each select="ns1:TopicalCoverage/ns1:Subjects/ns1:Subject">
+                <xsl:for-each select="ns1:TopicalCoverage/ns1:Subjects/ns1:Subject[@xml:lang=$lang]">
                     <a href="#">
                         <span itemprop="about">
                             <xsl:value-of select="concat(text(), ', ')"/>
@@ -240,23 +269,22 @@
                 </span>
             </span>, <xsl:value-of select="substring-before(ns1:PublicationDate, '-')"/>. 1 datafil: 
             <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, 
-            <a href="#">
-                <xsl:value-of select="concat('http://dx.doi.org/10.5279/DK-DDA-', $studyId)"/>
+            <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
+                <xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID"/>
             </a>
             <h3 class="lp">
                 <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='persistentidentifier']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
             </h3>
             <p class="lp">
                 <strong class="lp">URL: </strong>
-                <a href="#">http://dda.dk/catalogue/<xsl:value-of select="$studyId"/>
+                <a href="http://{$hostname}/catalogue/{$studyId}">http://dda.dk/catalogue/<xsl:value-of select="$studyId"/>
                 </a>
                 <br/>
             </p>
             <p class="lp">
                 <strong class="lp">DOI: </strong>
-                <span property="dcterms:identifier" content="{ concat('http://dx.doi.org/10.5279/DK-DDA-', $studyId) }"/>
-                <a href="#">http://dx.doi.org/10.5279/DK-DDA-<xsl:value-of select="$studyId"/>
-                </a>
+                <span property="dcterms:identifier" content="{ns1:PIDs/ns1:PID/ns1:ID}"/>
+                <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}"><xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID" /></a>
             </p>
             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='archiveinfo']/LabelText[@xml:lang=$lang]/text()"/>
@@ -297,17 +325,13 @@
             
         <!-- todo: contruct metadata -->
             <a name="metadata"/>
-            <h2 class="lp">Metadata</h2>            
+            <h2 class="lp">Metadata</h2>
             <xsl:call-template name="tokenize">
-                <xsl:with-param
-                    name="inputString"
-                    select="$previousVersions"/>
-                <xsl:with-param
-                    name="separator"
-                    select="','"/>
-                <xsl:with-param
-                    name="studyId"
-                    select="$studyId"/>
+                <xsl:with-param name="inputString" select="$previousVersions"/>
+                <xsl:with-param name="separator" select="','"/>
+                <xsl:with-param name="studyId" select="$studyId"/>
+                <xsl:with-param name="hostname" select="$hostname" />
+                <xsl:with-param name="lang" select="$lang" />
             </xsl:call-template>
             <p class="lp">
                 <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}">DDI-L-3.1 XML Studiemetadata </a>
@@ -326,37 +350,29 @@
         </div>
     </xsl:template>
     
+    <!-- Xslt 1.0 tokenize templates til at håndtere visning af eventuelt tidligere versioner -->
     <xsl:template name="tokenize">
         <xsl:param name="inputString"/>
         <xsl:param name="separator"/>
         <xsl:param name="studyId"/>
-        <xsl:variable
-            name="token"
-            select="substring-before($inputString, $separator)"
-        />
-        <xsl:variable
-            name="nextToken"
-            select="substring-after($inputString, $separator)"
-        />
+        <xsl:param name="hostname" />
+        <xsl:param name="lang" />
+        <xsl:variable name="token" select="substring-before($inputString, $separator)"/>
+        <xsl:variable name="nextToken" select="substring-after($inputString, $separator)"/>
         <xsl:if test="$token">
             <p class="lp">
-                <a href="/exist/rest/db/apps/web/landingpage.xquery?studyid=77&amp;version={$token}">Version: <xsl:value-of select="$token"/></a>
+                <a href="http://{$hostname}/catalogue/{$studyId}/?lang={$lang}&amp;version={$token}">Version: <xsl:value-of select="$token"/></a>
                 <br/>
             </p>
         </xsl:if>
         <xsl:if test="$nextToken">
             <xsl:call-template name="tokenize">
-                <xsl:with-param
-                    name="inputString"
-                    select="$nextToken"/>
-                <xsl:with-param
-                    name="separator"
-                    select="$separator"/>
-                <xsl:with-param
-                    name="studyId"
-                    select="$studyId"/>
+                <xsl:with-param name="inputString" select="$nextToken"/>
+                <xsl:with-param name="separator" select="$separator"/>
+                <xsl:with-param name="studyId" select="$studyId"/>
+                <xsl:with-param name="hostname" select="$hostname" />
+                <xsl:with-param name="lang" select="$lang" />
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
-    
 </xsl:stylesheet>
