@@ -22,7 +22,7 @@ declare function local:main() as node()? {
                             request:get-parameter('Concept', ()) or
                             request:get-parameter('Universe', ())
                           
-    let $hits-perpage := request:get-parameter('hits-perpage', 10)
+    let $hits-perpage := request:get-parameter('hits-perpage', 50)
     let $lang := request:get-parameter('lang', "da")
                             
     let $search-parameters :=

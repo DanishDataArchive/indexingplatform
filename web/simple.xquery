@@ -8,7 +8,7 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 
 declare function local:main() as node()? {
     let $searchSubmitted := request:get-parameter('search-string', ())
-    let $hits-perpage := request:get-parameter('hits-perpage', 10)
+    let $hits-perpage := request:get-parameter('hits-perpage', 50)
     let $lang := request:get-parameter('lang', "da")
     let $search-parameters :=
     if($searchSubmitted) then
