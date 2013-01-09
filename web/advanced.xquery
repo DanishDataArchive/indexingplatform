@@ -97,7 +97,7 @@ declare function local:main() as node()? {
     if($searchSubmitted) then
         ddi:advancedSearch($search-parameters)
     else
-        ddi:buildLightXmlObjectList((), (), $hits-perpage, 1, $search-parameters)
+        ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters)
     
     let $grouped := request:get-parameter('grouped', ())
     
