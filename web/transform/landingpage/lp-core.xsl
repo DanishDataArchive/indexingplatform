@@ -9,7 +9,7 @@
     <xsl:template match="*">
         <xsl:call-template name="lp-core-content">
             <xsl:with-param name="lang" select="'da'"/>
-            <xsl:with-param name="previousVersions" select="'1.0.0,1.2.0'"/>
+            <!--xsl:with-param name="previousVersions" select="'1.0.0,1.2.0'"/-->
             <xsl:with-param name="cvFolder" select="'cv'"/>
             <xsl:with-param name="hostname" select="'localhost:8080'"/>
         </xsl:call-template>
@@ -68,11 +68,13 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
             <p class="lp">
-                <a href="{ concat($studyId, '/documentation/codebook/dda-',  $studyId, '.html')}">Kodebog</a> (variabler, universer, koncepter, surveydesign og frekvensfordeling)
+                <a href="{ concat($studyId, '/codebook/dda-',  $studyId, '.html')}">
+                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"/>
+                </a>
             </p>
-            <p class="lp">
+            <!--p class="lp">
                 <a href="{ concat($studyId, '/documentation/questionaire/q-',  $studyId, '.pdf')}">Spørgeskema PDF</a>
-            </p>
+            </p-->
             <a name="description"/>
             <span class="lph2">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='description']/LabelText[@xml:lang=$lang]/text()"/>
@@ -127,6 +129,7 @@
                     <xsl:value-of select="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]/text()"/>
                 </em>
             </xsl:if>
+            <!-- - variables - -->
             <a name="dataset"/> 
         <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
@@ -153,10 +156,12 @@
                 <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_samplenumberunits']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
             </strong>
             <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>
+            <!-- - methodology - -->
             <a name="method"/>
             <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='method']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
+            <!-- kind of data -->
             <p class="lp">
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studytype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
@@ -164,17 +169,7 @@
                 <xsl:variable name="kindOfDataId" select="ns1:Methodology/ns1:DataType/ns1:DataTypeIdentifier"/>
                 <xsl:value-of select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
             </p>
-            <p class="lp">
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='testtype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier"/>
-                <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()">, <em>
-                        <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
-                    </em>
-                </xsl:if>
-            </p>
+            <!-- time method -->
             <p class="lp">
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='timemethod']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
@@ -186,6 +181,7 @@
                     </em>
                 </xsl:if>
             </p>
+            <!-- sampling procedure -->
             <p class="lp">
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='samplingprocedure']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
@@ -197,15 +193,17 @@
                     </em>
                 </xsl:if>
             </p>
+            <!-- action to minimize loose -->
             <p class="lp">
                 <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='numberofquestions']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='actiontominimizeloos']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
                 </strong>
-                <xsl:value-of select="ns1:Methodology/ns1:NumberOfQuestions"/>
             </p>
+            <!-- - data collection - -->
             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacollection']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
+            <!-- mode of collection -->
             <p class="lp">
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='modeofcollection']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
@@ -217,7 +215,27 @@
                     </em>
                 </xsl:if>
                 <br/>
+            </p>            
+            <!-- data collection methodology -->
+            <p class="lp">
+                <strong class="lp">
+                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='testtype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                </strong>
+                <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier"/>
+                <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()">, <em>
+                    <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
+                </em>
+                </xsl:if>
             </p>
+            <!-- number of questions -->
+            <p class="lp">
+                <strong class="lp">
+                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='numberofquestions']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                </strong>
+                <xsl:value-of select="ns1:Methodology/ns1:NumberOfQuestions"/>
+            </p>
+            <!-- data  collector-->
             <p class="lp">
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='datacollector']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
@@ -225,6 +243,7 @@
                 <xsl:value-of select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"/>
                 <br/>
             </p>
+            <!-- - temporal coverage -  -->
             <span itemprop="temporal" rel="dcterms:temporal">
                 <span typeof="dcterms:periodOfTime" about="dcterms:temporal">
                     <h3 class="lp" property="dcterms:name">
@@ -328,29 +347,43 @@
         <!-- todo: contruct metadata -->
             <a name="metadata"/>
             <h2 class="lp">Metadata</h2>
-            <xsl:call-template name="tokenize">
+            <h3 class="lp"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/></h3>            
+            <xsl:variable name="latestVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
+            <a href="http://{$hostname}/exist/rest/apps/dda-urn/rest/urn-resolution.xquery?urn=urn:ddi:dk.dda:{$studyId}:{$latestVersion}">
+                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='latestversion']/LabelText[@xml:lang=$lang]/text()"/>
+                <xsl:value-of select="$latestVersion"/>
+            </a>
+            <xsl:if test="$previousVersions != ','">
+                <p class="lp">
+                    <strong class="lp"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='previousversions']/LabelText[@xml:lang=$lang]/text()"/></strong>
+                </p>
+            </xsl:if>
+            <xsl:call-template name="PreviousVersionsOfStudy">
                 <xsl:with-param name="inputString" select="$previousVersions"/>
                 <xsl:with-param name="separator" select="','"/>
                 <xsl:with-param name="studyId" select="$studyId"/>
                 <xsl:with-param name="hostname" select="$hostname"/>
                 <xsl:with-param name="lang" select="$lang"/>
             </xsl:call-template>
+            <h3 class="lp">
+                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='otherformats']/LabelText[@xml:lang=$lang]/text()"/>
+            </h3>
             <p class="lp">
-                <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}">DDI-L-3.1 XML Studiemetadata </a>
+                <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}"></a>
             </p>
             <p class="lp">
-                <a href="#">DDA XML Studiebeskrivelse</a>
+                <a href="http://{$hostname}/exist/rest/apps/web/metadata.xquery?studyid={$studyId}"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/></a>
             </p>
             <!--a href="#">DublinCore</a><br-->
             <p class="lp">
-                <a href="{ns1:PIDs/ns1:PID/ns1:ID}">DataCite XML mf.</a>
+                <a href="{ns1:PIDs/ns1:PID/ns1:ID}"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacite']/LabelText[@xml:lang=$lang]/text()"/></a>
             </p>
             <!--a href="#">MARC</a-->
         </div>
     </xsl:template>
     
     <!-- Xslt 1.0 tokenize templates til at håndtere visning af eventuelt tidligere versioner -->
-    <xsl:template name="tokenize">
+    <xsl:template name="PreviousVersionsOfStudy">
         <xsl:param name="inputString"/>
         <xsl:param name="separator"/>
         <xsl:param name="studyId"/>
@@ -360,13 +393,14 @@
         <xsl:variable name="nextToken" select="substring-after($inputString, $separator)"/>
         <xsl:if test="$token">
             <p class="lp">
-                <a href="http://{$hostname}/catalogue/{$studyId}/?lang={$lang}&amp;version={$token}">Version: <xsl:value-of select="$token"/>
+                <a href="http://{$hostname}/exist/rest/apps/dda-urn/rest/urn-resolution.xquery?urn=urn:ddi:dk.dda:{$studyId}:{$token}">
+                    Version: <xsl:value-of select="$token"/>
                 </a>
                 <br/>
             </p>
         </xsl:if>
         <xsl:if test="$nextToken">
-            <xsl:call-template name="tokenize">
+            <xsl:call-template name="PreviousVersionsOfStudy">
                 <xsl:with-param name="inputString" select="$nextToken"/>
                 <xsl:with-param name="separator" select="$separator"/>
                 <xsl:with-param name="studyId" select="$studyId"/>

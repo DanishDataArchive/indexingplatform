@@ -8,6 +8,10 @@
         <LabelText xml:lang="da">Dokumentation</LabelText>
         <LabelText xml:lang="en">Documentation</LabelText>
     </Label>
+    <Label id="codebook">
+        <LabelText xml:lang="da">Kodebog: Variabler, universer, koncepter, surveydesign og frekvensfordeling</LabelText>
+        <LabelText xml:lang="en">Codebook: Variables, universes, concepts, survey design and frequency distribution</LabelText>
+    </Label>
     <Label id="description">
         <LabelText xml:lang="da">Beskrivelse</LabelText>
         <LabelText xml:lang="en">Description</LabelText>
@@ -42,7 +46,7 @@
     </Label>
     <Label id="askfordata">
         <LabelText xml:lang="da">Bestil data</LabelText>
-        <LabelText xml:lang="en">Ask for data</LabelText>
+        <LabelText xml:lang="en">Order data</LabelText>
     </Label>
     <Label id="variables">
         <LabelText xml:lang="da">Variabler</LabelText>
@@ -50,7 +54,7 @@
     </Label>
     <Label id="respondenter">
         <LabelText xml:lang="da">Respondenter</LabelText>
-        <LabelText xml:lang="en">todo</LabelText>
+        <LabelText xml:lang="en">Respondents</LabelText>
     </Label>
     <Label id="respondenter_numberunits">
         <LabelText xml:lang="da">I datasæt</LabelText>
@@ -65,8 +69,12 @@
         <LabelText xml:lang="en">Method</LabelText>
     </Label>
     <Label id="studytype">
-        <LabelText xml:lang="da">Studietype</LabelText>
-        <LabelText xml:lang="en">Study Class</LabelText>
+        <LabelText xml:lang="da">Datatype</LabelText>
+        <LabelText xml:lang="en">Kinde of data</LabelText>
+    </Label>
+    <Label id="actiontominimizeloos">
+        <LabelText xml:lang="da">Indsats for at minimere  frafald</LabelText>
+        <LabelText xml:lang="en">Action to minimize loos</LabelText>
     </Label>
     <Label id="testtype">
         <LabelText xml:lang="da">Testtype</LabelText>
@@ -144,9 +152,36 @@
         <LabelText xml:lang="da">Adgangskriterier</LabelText>
         <LabelText xml:lang="en">Access conditions</LabelText>
     </Label>
+    <Label id="studymetadata">
+        <LabelText xml:lang="da">DDI-L-3.1 XML Studiemetadata</LabelText>
+        <LabelText xml:lang="en">DDI-L-3.1 XML Study metadata</LabelText>
+    </Label>
+    <Label id="latestversion">
+        <LabelText xml:lang="da">Nyeste version: </LabelText>
+        <LabelText xml:lang="en">Latest version: </LabelText>
+    </Label>
+    <Label id="previousversions">
+        <LabelText xml:lang="da">Tidligere versioner</LabelText>
+        <LabelText xml:lang="en">Previous versions</LabelText>
+    </Label>
+    <Label id="studydescription">
+        <LabelText xml:lang="da">DDA XML Studiebeskrivelse</LabelText>
+        <LabelText xml:lang="en">DDA XML Study description</LabelText>
+    </Label>
+    <Label id="datacite">
+        <LabelText xml:lang="da">DataCite XML mf.</LabelText>
+        <LabelText xml:lang="en">DataCite XML etc.</LabelText>
+    </Label>
+    <Label id="html-grouping">
+        <LabelText xml:lang="da">Grupér resultater efter studie (anvendes kun for synlige resultater)</LabelText>
+        <LabelText xml:lang="en">Group results by study (applies only to visible results)</LabelText>
+    </Label>
+    <Label id="otherformats">
+        <LabelText xml:lang="da">Andre metadata formater</LabelText>
+        <LabelText xml:lang="en">Other metadata formats</LabelText>
+    </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>
         <LabelText xml:lang="en"></LabelText>
     </Label>
-    
 </LandingPageLabels>
