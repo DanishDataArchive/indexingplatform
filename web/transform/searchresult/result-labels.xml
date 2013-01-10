@@ -72,10 +72,6 @@
         <LabelText xml:lang="da">Pr. side</LabelText>
         <LabelText xml:lang="en">Hits per page</LabelText>
     </Label>
-    <Label id="html-grouping">
-        <LabelText xml:lang="da">Grupér resultater efter studie (gælder kun for synlige resultater).</LabelText>
-        <LabelText xml:lang="en">Group results by study (applies only to visible results).</LabelText>
-    </Label>
     <!-- advanced search -->
     <Label id="html-advanced-search">
         <LabelText xml:lang="da">Avanceret søgning</LabelText>
@@ -90,28 +86,28 @@
         <LabelText xml:lang="en">Title</LabelText>
     </Label>
     <Label id="form-abstract-purpose">
-        <LabelText xml:lang="da">Abstract/Purpose</LabelText>
-        <LabelText xml:lang="en">Abstract/Purpose</LabelText>
+        <LabelText xml:lang="en">Abstract/ purpose</LabelText>
+        <LabelText xml:lang="da">Abstract og formål</LabelText>
     </Label>
     <Label id="form-creator">
-        <LabelText xml:lang="da">Creator</LabelText>
+        <LabelText xml:lang="da">Primærundersøger</LabelText>
         <LabelText xml:lang="en">Creator</LabelText>
     </Label>
     <Label id="form-topical">
-        <LabelText xml:lang="da">Topical Coverage</LabelText>
-        <LabelText xml:lang="en">Topical Coverage</LabelText>
+        <LabelText xml:lang="da">Emne</LabelText>
+        <LabelText xml:lang="en">Topical coverage</LabelText>
     </Label>
     <Label id="form-spatial">
-        <LabelText xml:lang="da">Spatial Coverage</LabelText>
-        <LabelText xml:lang="en">Spatial Coverage</LabelText>
-    </Label>
-    <Label id="form-kindofdata">
-        <LabelText xml:lang="da">KindOfData</LabelText>
-        <LabelText xml:lang="en">KindOfData</LabelText>
+        <LabelText xml:lang="da">Geografisk afgrænsning</LabelText>
+        <LabelText xml:lang="en">Spatial coverage</LabelText>
     </Label>
     <Label id="form-temporal">
         <LabelText xml:lang="da">Temporal Coverage</LabelText>
-        <LabelText xml:lang="en">Temporal Coverage</LabelText>
+        <LabelText xml:lang="en">Afgrænsning i tid</LabelText>
+    </Label>
+    <Label id="form-kindofdata">
+        <LabelText xml:lang="da">Kind of data</LabelText>
+        <LabelText xml:lang="en">Datatype</LabelText>
     </Label>
     <Label id="form-from">
         <LabelText xml:lang="da">fra</LabelText>
@@ -140,7 +136,7 @@
         <LabelText xml:lang="en">Details</LabelText>
     </Label>
     <Label id="html-order-study">
-        <LabelText xml:lang="da">Bestil studie</LabelText>
+        <LabelText xml:lang="da">Bestil data</LabelText>
         <LabelText xml:lang="en">Order study</LabelText>
     </Label>
     

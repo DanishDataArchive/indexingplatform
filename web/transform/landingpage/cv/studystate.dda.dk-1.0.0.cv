@@ -9,7 +9,11 @@
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
-      <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2013</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
       <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
       <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
       <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
@@ -24,7 +28,7 @@
     <Version>1.0.0</Version>
     <CanonicalUri>urn:dda-cv:studystate</CanonicalUri>
     <CanonicalVersionUri>urn:dda-cv:studystate:1.0.0</CanonicalVersionUri>
-    <LocationUri>http://www.dda.dk/cv/studystate.dda.dk.1.0.0.cv</LocationUri>
+    <LocationUri>http://www.dda.dk/cv/studystate.dda.dk-1.0.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
       <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
@@ -62,6 +66,16 @@
       <LongName xml:lang="en">Description</LongName>
       <Data Type="string"/>
     </Column>
+    <Column Id="reusestatus" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>Description status for reuse</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>reusestatus</ShortName>
+      <LongName xml:lang="en">Reuse status</LongName>
+      <Data Type="string"/>
+    </Column>
     <Column Id="ddacode" Use="required">
       <Annotation>
         <Description xml:lang="en">
@@ -94,14 +108,21 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data findes I DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data findes i DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data located in DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data findes I DDA</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Data located in DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">DDA har dannet arkivfiler på basis af originaldata -således at
+ langtidsopbevaring er sikret</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">DDA has created archive files based on original data. Long-term presevation is guaranteed</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Data er konverteret og kontrolleret</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data converted and controlled</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -123,6 +144,13 @@
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
+          <ddi-cv:Value xml:lang="en">A research project has resulted in data -but the data was not handed over to DDA and does no longer exist</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da
+">Et forskningsprojekt har resulteret i et datamateriale -men datamaterialet blev ikke afleveret til DDA -det eksisterer ikke mere</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
           <ddi-cv:Value xml:lang="en">Data will not be submitted to DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data vil ikke blive afleveret til DDA</ddi-cv:Value>
         </ComplexValue>
@@ -131,7 +159,7 @@
         <SimpleValue>0</SimpleValue>
       </Value>
       <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
+        <SimpleValue>A</SimpleValue>
       </Value>
     </Row>
     <Row>
@@ -146,15 +174,24 @@
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data findes i DDA i et arkivformat</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">DDA received data in a form that is both long term preservable and properly documented. The material will not be subjected to further work in the DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da
+">DDA har modtaget datamateriale i en form -som er både arkiveringssikker og fyldestgørende dokumenteret. Materialet vil ikke blive underkastet
+Yderligere arbejde i DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data located in DDA in archival format</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Data gjort fuldt analyseklar af DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data is fully documented by DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
         <SimpleValue>6</SimpleValue>
       </Value>
       <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
+        <SimpleValue>C</SimpleValue>
       </Value>
     </Row>
     <Row>
@@ -169,15 +206,22 @@
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data located in DDA in OSIRIS format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data is fully documented by the DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Datamaterialet er fuldt dokumenteret af DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data findes i DDA i OSIRIS format</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Data gjort fuldt analyseklar af DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data is fully documented by DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
         <SimpleValue>7</SimpleValue>
       </Value>
       <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
+        <SimpleValue>D</SimpleValue>
       </Value>
     </Row>
     <Row>
@@ -186,11 +230,18 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data findes hos primærundersøgeren</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data findes hos primærundersøger</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data located with primary investigator</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data located with primary investigator</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">DDA is in contact with the primary investigator</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">DDA har kontakt med primærundersøger</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Data findes hos primærundersøgeren</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data located with primary investigator</ddi-cv:Value>
@@ -215,8 +266,15 @@
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data received by DDA</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Data modtaget i DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">DDA har fået data fra dataproducenten og disse befinder sig i
+ arkivet i den form de er modtaget i originaldata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">DDA has received data from the data producer and these are archived in the form they were received -original data</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Data received but not controlled</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data modtaget -men ikke kontrolleret</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -228,41 +286,26 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>NED</SimpleValue>
-      </Value>
-      <Value ColumnRef="term">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Studie nedlagt</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Case closed</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="description">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Studie nedlagt</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Case closed</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="ddacode">
-        <SimpleValue>0</SimpleValue>
-      </Value>
-      <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="code">
         <SimpleValue>ARE</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Archived in DDI-L format</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Arkiveret i DDI-L format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data archived in DDI-L format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data arkiveret i DDI-L format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case closed</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data migrated/ converted into the long term sustainable format DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data converted into the long term preservable format DDI-L</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data konverteret til det langtidsholdbare format DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case closed</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Data er konverteret og kontrolleret</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data converted and controlled</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -278,7 +321,7 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data migrated fra OSIRIS to DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data migreret fra OSIRIS to DDI-L</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data migrated from OSIRIS to DDI-L</ddi-cv:Value>
         </ComplexValue>
       </Value>
@@ -286,6 +329,13 @@
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Data migrated fra OSIRIS to DDI-L</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data migrated from OSIRIS to DDI-L</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Data gjort fuldt analyseklar af DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data is fully documented by DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Fully curated in DDI-L format</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -301,14 +351,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Fuldt oparbejdet til DDI-L</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Fully curated in DDI-L format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data fully curated in DDI-L format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data fuldt oparbejdet til DDI-L</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Fuldt oparbejdet til DDI-L</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Fully curated in DDI-L format</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Data gjort fuldt analyseklar af DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data is fully documented by DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">

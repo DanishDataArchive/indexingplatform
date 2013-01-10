@@ -87,7 +87,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td align="center">
-                                                        <a class="navi" href="http://localhost:8080/exist/rest/apps/web/simple.xml">Søg og bestil data</a>
+                                                        <a class="navi" href="http://localhost:8080/exist/rest/apps/web/simple.xquery">Søg og bestil data</a>
                                                     </td>
                                                     <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
                                                     <td style="border-style: none; border-width: medium" align="center">
