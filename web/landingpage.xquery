@@ -6,7 +6,7 @@ import module namespace urn = "http://dda.dk/ddi/urn" at "xmldb:exist:///db/apps
 declare namespace i="ddi:instance:3_1";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=no indent=yes 
         doctype-public=-//W3C//DTD&#160;HTML&#160;4.01&#160;Transitional//EN
-        doctype-system=http://www.w3.org/TR/loose.dtd";        
+        doctype-system=http://www.w3.org/TR/loose.dtd";  
 
 declare function local:main() as node()? {
 
@@ -18,10 +18,12 @@ declare function local:main() as node()? {
     let $parameterLanguage := data(request:get-parameter("lang", "n/a"))
     let $versions := urn:getStudyVersions(request:get-parameter("studyid", ()))
     
+    let $study := ddi:getDdiStudy($studyId)
+    
     let $study := if($version='0')
         then ddi:getDdiStudy($studyId)
     else
-        urn:resolveUrn(concat('urn:ddi:dk.dda:', $studyId, ':', $version))/ancestor::i:DDIInstance
+        urn:resolveUrn(concat('urn:ddi:dk.dda:', $studyId, ':', $version))/ancestor::i:DDIInstance 
     
     let $lang := if($parameterLanguage = 'da')
         then 'da'

@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
   <Annotation>
-    <Description xml:lang="en">
-      <h:p>CV defining modes of data collection</h:p>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining modes of data collection</p>
+      </div>
     </Description>
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
       <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
       <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
     </AppInfo>
   </Annotation>
   <Identification>
     <ShortName xml:lang="en">DDAModeOfCollection</ShortName>
-    <LongName xml:lang="en">DDA Mode of Collection</LongName>
+    <LongName xml:lang="en">DDA Mode Of Collection</LongName>
     <Version>1.0.0</Version>
-    <CanonicalUri>uri:datacollectionmode.dda.dk</CanonicalUri>
-    <CanonicalVersionUri>uri:datacollectionmode.dda.dk-1.0.0</CanonicalVersionUri>
+    <CanonicalUri>urn:dda-cv:datacollectionmode</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:datacollectionmode:1.0.0</CanonicalVersionUri>
     <LocationUri>http://www.dda.dk/cv/datacollectionmode.dda.dk-1.0.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
@@ -74,18 +80,18 @@
   <SimpleCodeList>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>facetofaceinterview</SimpleValue>
+        <SimpleValue>FaceToFaceInterview</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Face-To-Face Interview</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Mundtligt interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Face-to-face interview</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Face-To-Face Interview</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Mundtligt interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Face-to-face interview</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -94,17 +100,17 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>telephoneinterview</SimpleValue>
+        <SimpleValue>TelephoneInterview</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Telephone Interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Telephone interview</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Telefonisk interview</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Telephone Interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Telephone interview</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Telefonisk interview</ddi-cv:Value>
         </ComplexValue>
       </Value>
@@ -114,18 +120,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>mailsurvey</SimpleValue>
+        <SimpleValue>MailSurvey</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Mail Survey</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Postal undersøgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Mail survey</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Mail Survey</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Postal undersøgelse (selvadministreret)</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Postal undersøgelse</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Mail survey</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -134,18 +140,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>penandpapersurvey</SimpleValue>
+        <SimpleValue>PenAndPaperSurvey</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Pen and paper survey</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Skriftlig undersøgelse</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Pen and Paper Survey</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Skriftlig undersøgelse iøvrigt</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Pen and Paper Survey</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Pen and paper survey</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Skriftlig undersøgelse</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -154,18 +160,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>psychologicaltest</SimpleValue>
+        <SimpleValue>PsychologicalTest</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Psykologisk test</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Psychological Test</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Psychological test</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Psykologisk test</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Psychological Test</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Psychological test</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -174,7 +180,27 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>other</SimpleValue>
+        <SimpleValue>WebSurvey</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Web interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Webbaseret interview</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Web interview</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Webbaseret interview</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Other</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>

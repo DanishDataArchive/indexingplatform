@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
   <Annotation>
-    <Description xml:lang="en">
-      <h:p>CV defining the state of a study within DDA's curation proccess</h:p>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining the state of a study within DDA's curation proccess</p>
+      </div>
     </Description>
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
       <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
       <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
     </AppInfo>
@@ -16,8 +22,8 @@
     <ShortName xml:lang="en">DDAStudyState</ShortName>
     <LongName xml:lang="en">DDA Study State</LongName>
     <Version>1.0.0</Version>
-    <CanonicalUri>uri:studystate.dda.dk</CanonicalUri>
-    <CanonicalVersionUri>uri:studystate.dda.dk.1.0.0</CanonicalVersionUri>
+    <CanonicalUri>urn:dda-cv:studystate</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:studystate:1.0.0</CanonicalVersionUri>
     <LocationUri>http://www.dda.dk/cv/studystate.dda.dk.1.0.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
@@ -69,11 +75,11 @@
     <Column Id="ddaclass" Use="required">
       <Annotation>
         <Description xml:lang="en">
-          <h:p>DDA specific code</h:p>
+          <h:p>DDA format class</h:p>
         </Description>
       </Annotation>
       <ShortName>ddaclass</ShortName>
-      <LongName xml:lang="en">DDA identifing code</LongName>
+      <LongName xml:lang="en">DDA format class</LongName>
       <Data Type="string"/>
     </Column>
     <Key Id="Key-code">
@@ -82,7 +88,7 @@
     </Key>
   </ColumnSet>
   <SimpleCodeList>
-    <Row>
+		<Row>
       <Value ColumnRef="code">
         <SimpleValue>ARK</SimpleValue>
       </Value>
@@ -111,13 +117,13 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data will not be handed over to DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data will not be submitted to DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data vil ikke blive afleveret til DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data will not be handed over to DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data will not be submitted to DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data vil ikke blive afleveret til DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
@@ -130,41 +136,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>FOB</SimpleValue>
-      </Value>
-      <Value ColumnRef="term">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Færdigoparbejdet i klasse B</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Fully curated to Class B</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="description">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Færdigoparbejdet i klasse B</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Fully curarated to Class B</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="ddacode">
-        <SimpleValue>1</SimpleValue>
-      </Value>
-      <Value ColumnRef="ddaclass">
-        <SimpleValue>B</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="code">
         <SimpleValue>FOC</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data located in DDA in an archival file format</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data findes i DDA i et arkivformat</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data located in DDA in archival format</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data located in DDA in an archival file format</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data findes i DDA i et arkivformat</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data located in DDA in archival format</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -180,14 +163,14 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data findes i DDA i OSIRIS format</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data located in DDA in OSIRIS format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data findes i DDA i OSIRIS format</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data findes i DDA i OSIRIS format</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Data located in DDA in OSIRIS format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data findes i DDA i OSIRIS format</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -203,14 +186,14 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data located at primary investigator</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data findes hos primærundersøgeren</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data located with primary investigator</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data located at primary investigator</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data findes hos primærundersøgeren</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data located with primary investigator</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -226,13 +209,13 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data received in DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data received by DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data modtaget i DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data received in DDA</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data received by DDA</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Data modtaget i DDA</ddi-cv:Value>
         </ComplexValue>
       </Value>
@@ -249,83 +232,14 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Study closed</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Studie nedlagt</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case closed</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Study closed</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Studie nedlagt</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="ddacode">
-        <SimpleValue>0</SimpleValue>
-      </Value>
-      <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="code">
-        <SimpleValue>OPC</SimpleValue>
-      </Value>
-      <Value ColumnRef="term">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data er under oparbejdning til klasse C</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Data is under curation to Class C</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="description">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Data er under oparbejdning til klasse C</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Data is under curation to Class C</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="ddacode">
-        <SimpleValue>0</SimpleValue>
-      </Value>
-      <Value ColumnRef="ddaclass">
-        <SimpleValue>C</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="code">
-        <SimpleValue>OPD</SimpleValue>
-      </Value>
-      <Value ColumnRef="term">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data is under curation to Class D</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Data er under oparbejdning til klasse D</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="description">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Data is under curation to Class D</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Data er under oparbejdning til klasse D</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="ddacode">
-        <SimpleValue>5</SimpleValue>
-      </Value>
-      <Value ColumnRef="ddaclass">
-        <SimpleValue>D</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="code">
-        <SimpleValue>FOE</SimpleValue>
-      </Value>
-      <Value ColumnRef="term">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Fully curated in DDI-L format</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Fuldt oparbejdet til DDI-L</ddi-cv:Value>
-        </ComplexValue>
-      </Value>
-      <Value ColumnRef="description">
-        <ComplexValue>
-          <ddi-cv:Value xml:lang="en">ARE is the code for an archived study desiminatted into a long time sutainable persevation format</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">ARE er betegnelsen for at et studie er initielt konverteret til et langtidsholdbartformat</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case closed</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -341,21 +255,21 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Arkiveret i DDI-L</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Archived in DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Archived in DDI-L format</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Arkiveret i DDI-L format</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">FOE er betegnelsen for at et studie er oparbejdet til klasse E</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">FOE is the code for an archived study disseminated into the DDI-L standard</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data migrated/ converted into the long term sustainable format DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data konverteret til det langtidsholdbare format DDI-L</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
         <SimpleValue>0</SimpleValue>
       </Value>
       <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
+        <SimpleValue>E</SimpleValue>
       </Value>
     </Row>
     <Row>
@@ -364,21 +278,44 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Metadata migrated to DDI-L</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Metadata migreret til DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data migrated fra OSIRIS to DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data migrated from OSIRIS to DDI-L</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Metadata migrated to DDI-L</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Metadata migreret til DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Data migrated fra OSIRIS to DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Data migrated from OSIRIS to DDI-L</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
         <SimpleValue>0</SimpleValue>
       </Value>
       <Value ColumnRef="ddaclass">
-        <SimpleValue>na</SimpleValue>
+        <SimpleValue>E</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FOE</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Fuldt oparbejdet til DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Fully curated in DDI-L format</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Fuldt oparbejdet til DDI-L</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Fully curated in DDI-L format</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>0</SimpleValue>
+      </Value>
+      <Value ColumnRef="ddaclass">
+        <SimpleValue>E</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>

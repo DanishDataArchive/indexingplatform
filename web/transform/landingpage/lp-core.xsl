@@ -1,18 +1,17 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ddi-cv="urn:ddi-cv" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
    
     <!-- Kun relevant i forbindelse med test af lp-core direkte uden om lp-main -->
-    <xsl:output method="html"  indent="yes"/>
-    
+    <xsl:output method="html" indent="yes"/>
     <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyzæøå'"/>
     <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ'"/>
     
     <!-- Denne template benyttes kun ved test af lp-core uden main (derfor hardcode) -->
     <xsl:template match="*">
         <xsl:call-template name="lp-core-content">
-            <xsl:with-param name="lang" select="'da'" />
-            <xsl:with-param name="previousVersions" select="'1.0.0,1.2.0'" />
-            <xsl:with-param name="cvFolder" select="'cv'" />
-            <xsl:with-param name="hostname" select="'localhost:8080'" />
+            <xsl:with-param name="lang" select="'da'"/>
+            <xsl:with-param name="previousVersions" select="'1.0.0,1.2.0'"/>
+            <xsl:with-param name="cvFolder" select="'/Users/mikaelkristensen/Documents/DDA_INDEX_SVN/web/transform/landingpage/cv'"/>
+            <xsl:with-param name="hostname" select="'localhost:8080'"/>
         </xsl:call-template>
     </xsl:template>
     
@@ -21,12 +20,12 @@
         <xsl:param name="lang"/>
         <xsl:param name="previousVersions"/>
         <xsl:param name="cvFolder"/>
-        <xsl:param name="hostname" />
+        <xsl:param name="hostname"/>
         
         <!-- 
             Forklaring til parametre:
               lang er det valgte sprog (da, en)
-              previousVersions er med som kommasepareret tekststreng med eventuelt tidligere versioner (feks: "1.0.0,1.0.1,1.0.2")
+              previousVersions er med som kommasepareret tekststreng uden mellemrum med eventuelt tidligere versioner (feks: "1.0.0,1.0.1,1.0.2")
               cvFolder er mappen, hvor CV's ligger
               hostname er med som parameter for at understøtte test/lokale miljøer
         -->
@@ -40,9 +39,8 @@
         <xsl:variable name="dataCollectionModeCV" select="document(concat($cvFolder, '/datacollectionmode.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="kindOfDataCV" select="document(concat($cvFolder, '/kindofdata.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="samplingprocedureCV" select="document(concat($cvFolder, '/samplingprocedure.dda.dk-1.0.0.cv'))"/>
-        <xsl:variable name="studyStateCV" select="document(concat($cvFolder, '/studystate.dda.dk.1.0.0.cv'))"/>
+        <xsl:variable name="studyStateCV" select="document(concat($cvFolder, '/studystate.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="timeMethodCV" select="document(concat($cvFolder, '/timemethod.dda.dk-1.0.0.cv'))"/>
-        
         <div xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" itemscope="itemscope" itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
             <h1 class="lp">
                 <span itemprop="name" property="dcterms:title">
@@ -58,6 +56,9 @@
                 <div itemscope="itemscope" itemtype="http://schema.org/Person">
                     <span itemprop="name">
                         <xsl:value-of select="ns1:Person/ns1:FirstName/text()"/>
+                        <xsl:if test="ns1:Person/ns1:LastName">
+                            <xsl:value-of select="concat(' ', ns1:Person/ns1:LastName)"/>
+                        </xsl:if>
                     </span>, 
                 <xsl:value-of select="ns1:Person/ns1:Affiliation/ns1:AffiliationName"/>
                 </div>
@@ -75,7 +76,8 @@
             <a name="description"/>
             <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='description']/LabelText[@xml:lang=$lang]/text()"/>
-            </h2> <h3 class="lp">
+            </h2>
+             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='purpose']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <xsl:value-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang]/text()"/>
@@ -120,9 +122,8 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='geographiccoverage']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <span rel="dcterms:spatial" resource="http://dbpedia.org/resource/Denmark"/>
-            <xsl:value-of select="concat(translate(substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label,1,1), $vLower, $vUpper), substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label, 2),             substring(' ', 1 div not(position()=last())))         "/>
-            <xsl:if test="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]">
-                , <em>
+            <xsl:value-of select="concat(translate(substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label,1,1), $vLower, $vUpper), substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label, 2), substring(' ', 1 div not(position()=last())))"/>
+            <xsl:if test="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]">, <em>
                     <xsl:value-of select="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]/text()"/>
                 </em>
             </xsl:if>
@@ -161,7 +162,7 @@
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studytype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
                 </strong>
-                <xsl:variable name="kindOfDataId" select="ns1:Methodolody/ns1:DataType/ns1:DataTypeIdentifier"/>
+                <xsl:variable name="kindOfDataId" select="ns1:Methodology/ns1:DataType/ns1:DataTypeIdentifier"/>
                 <xsl:value-of select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
             </p>
             <p class="lp">
@@ -170,8 +171,7 @@
                 </strong>
                 <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier"/>
                 <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]">
-                , <em>
+                <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()">, <em>
                         <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
                     </em>
                 </xsl:if>
@@ -183,8 +183,7 @@
                 </strong>
                 <xsl:variable name="timeMethodId" select="ns1:Methodology/ns1:TimeMethod/ns1:TimeMethodIdentifier"/>
                 <xsl:value-of select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]">
-                , <em>
+                <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()">, <em>
                         <xsl:value-of select="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"/>
                     </em>
                 </xsl:if>
@@ -196,8 +195,7 @@
                 </strong>
                 <xsl:variable name="samplingProcedureId" select="ns1:Methodology/ns1:SamplingProcedure/ns1:SamplingProcedureIdentifier"/>
                 <xsl:value-of select="$samplingprocedureCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$samplingProcedureId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                <xsl:if test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]">
-                , <em>
+                <xsl:if test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()">, <em>
                         <xsl:value-of select="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"/>
                     </em>
                 </xsl:if>
@@ -218,8 +216,7 @@
                 </strong>
                 <xsl:variable name="modeOfCollectionId" select="ns1:DataCollection/ns1:ModeOfCollection/ns1:ModeOfCollectionIdentifier"/>
                 <xsl:value-of select="$dataCollectionModeCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$modeOfCollectionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                <xsl:if test="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]">
-                , <em>
+                <xsl:if test="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()">, <em>
                         <xsl:value-of select="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()"/>
                     </em>
                 </xsl:if>
@@ -258,7 +255,14 @@
             <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='citation']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
-            <xsl:value-of select="concat(ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:FirstName, ', ')"/>
+            <xsl:choose>
+                <xsl:when test="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:LastName/text()">
+                    <xsl:value-of select="concat(ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:FirstName, ' ', ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:LastName, ', ')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="concat(ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:FirstName, ', ')"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <em>
                 <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>, </em>
             <span rel="dcterms:publisher">
@@ -284,7 +288,9 @@
             <p class="lp">
                 <strong class="lp">DOI: </strong>
                 <span property="dcterms:identifier" content="{ns1:PIDs/ns1:PID/ns1:ID}"/>
-                <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}"><xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID" /></a>
+                <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
+                    <xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID"/>
+                </a>
             </p>
             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='archiveinfo']/LabelText[@xml:lang=$lang]/text()"/>
@@ -330,8 +336,8 @@
                 <xsl:with-param name="inputString" select="$previousVersions"/>
                 <xsl:with-param name="separator" select="','"/>
                 <xsl:with-param name="studyId" select="$studyId"/>
-                <xsl:with-param name="hostname" select="$hostname" />
-                <xsl:with-param name="lang" select="$lang" />
+                <xsl:with-param name="hostname" select="$hostname"/>
+                <xsl:with-param name="lang" select="$lang"/>
             </xsl:call-template>
             <p class="lp">
                 <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}">DDI-L-3.1 XML Studiemetadata </a>
@@ -355,13 +361,14 @@
         <xsl:param name="inputString"/>
         <xsl:param name="separator"/>
         <xsl:param name="studyId"/>
-        <xsl:param name="hostname" />
-        <xsl:param name="lang" />
+        <xsl:param name="hostname"/>
+        <xsl:param name="lang"/>
         <xsl:variable name="token" select="substring-before($inputString, $separator)"/>
         <xsl:variable name="nextToken" select="substring-after($inputString, $separator)"/>
         <xsl:if test="$token">
             <p class="lp">
-                <a href="http://{$hostname}/catalogue/{$studyId}/?lang={$lang}&amp;version={$token}">Version: <xsl:value-of select="$token"/></a>
+                <a href="http://{$hostname}/catalogue/{$studyId}/?lang={$lang}&amp;version={$token}">Version: <xsl:value-of select="$token"/>
+                </a>
                 <br/>
             </p>
         </xsl:if>
@@ -370,8 +377,8 @@
                 <xsl:with-param name="inputString" select="$nextToken"/>
                 <xsl:with-param name="separator" select="$separator"/>
                 <xsl:with-param name="studyId" select="$studyId"/>
-                <xsl:with-param name="hostname" select="$hostname" />
-                <xsl:with-param name="lang" select="$lang" />
+                <xsl:with-param name="hostname" select="$hostname"/>
+                <xsl:with-param name="lang" select="$lang"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>

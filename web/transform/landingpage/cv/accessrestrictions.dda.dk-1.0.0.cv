@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
   <Annotation>
-    <Description xml:lang="en">
-      <h:p>CV defining restrictions on data access</h:p>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining restrictions on data access</p>
+      </div>
     </Description>
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
       <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
       <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
     </AppInfo>
@@ -16,8 +22,8 @@
     <ShortName xml:lang="en">DDADataAccessRestrictions</ShortName>
     <LongName xml:lang="en">DDA Data Access Restrictions</LongName>
     <Version>1.0.0</Version>
-    <CanonicalUri>urn:accessrestrictions.dda.dk</CanonicalUri>
-    <CanonicalVersionUri>urn:accessrestrictions.dda.dk-1.0.0</CanonicalVersionUri>
+    <CanonicalUri>urn:dda-cv:collectionsituation</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:collectionsituation:1.0.0</CanonicalVersionUri>
     <LocationUri>http://www.dda.dk/cv/accessrestrictions.dda.dk-1.0.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
@@ -56,6 +62,16 @@
       <LongName xml:lang="en">Description</LongName>
       <Data Type="string"/>
     </Column>
+    <Column Id="ddacode" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>DDA specific code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>ddacode</ShortName>
+      <LongName xml:lang="en">DDA identifing code</LongName>
+      <Data Type="int"/>
+    </Column>
     <Key Id="Key-code">
       <ShortName>Key-code</ShortName>
       <ColumnRef Ref="code"/>
@@ -64,7 +80,7 @@
   <SimpleCodeList>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>noncommercialuse</SimpleValue>
+        <SimpleValue>NonCommercialUse</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
@@ -77,6 +93,9 @@
           <ddi-cv:Value xml:lang="da">Ikke kommerciel brug</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Non commercial use</ddi-cv:Value>
         </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>1</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>

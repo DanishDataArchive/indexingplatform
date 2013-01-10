@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
   <Annotation>
-    <Description xml:lang="en">
-      <h:p>CV defining time methodology</h:p>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining time methodology</p>
+      </div>
     </Description>
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
-      <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2013</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
       <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
       <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
     </AppInfo>
@@ -16,8 +22,8 @@
     <ShortName xml:lang="en">DDATimeMethod</ShortName>
     <LongName xml:lang="en">DDA Time Method</LongName>
     <Version>1.0.0</Version>
-    <CanonicalUri>timemethod.dda.dk</CanonicalUri>
-    <CanonicalVersionUri>urn:timemethod.dda.dk-1.0.0</CanonicalVersionUri>
+    <CanonicalUri>urn:dda-cv:timemethod</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:timemethod:1.0.0</CanonicalVersionUri>
     <LocationUri>http://www.dda.dk/cv/timemethod.dda.dk-1.0.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
@@ -94,18 +100,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>CrossSectionalPartialReplication</SimpleValue>
+        <SimpleValue>CrossSectionalStudyPartialReplication</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Tværgående studie</ddi-cv:Value>
           <ddi-cv:Value xml:lang="en">Cross-sectional study with partial replication</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Tværsnitsstudie med delvis replikation</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="en">Cross-sectional (one time) study - partial replication</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="da">Tværgående (engangs studie - med delvis replikation)</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Tværsnitsstudie med delvis replikation</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -158,14 +164,14 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Clinical trials</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Kliniske forsøg</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Clinical trials</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Clinical trials</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Kliniske forsøg</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Clinical trials</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">

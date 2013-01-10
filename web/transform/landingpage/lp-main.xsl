@@ -3,8 +3,8 @@
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="lang"/>
     <xsl:param name="previousVersions"/>
-    <xsl:param name="cvFolder" />
-    <xsl:param name="hostname" />
+    <xsl:param name="cvFolder"/>
+    <xsl:param name="hostname"/>
     <xsl:template match="*">
         <html>
             <head>
@@ -231,8 +231,8 @@
                                                                         <xsl:call-template name="lp-core-content">
                                                                             <xsl:with-param name="lang" select="$lang"/>
                                                                             <xsl:with-param name="previousVersions" select="$previousVersions"/>
-                                                                            <xsl:with-param name="cvFolder" select="$cvFolder" />
-                                                                            <xsl:with-param name="hostname" select="$hostname" />
+                                                                            <xsl:with-param name="cvFolder" select="$cvFolder"/>
+                                                                            <xsl:with-param name="hostname" select="$hostname"/>
                                                                         </xsl:call-template>
                                                                     </td>
                                                                 </tr>

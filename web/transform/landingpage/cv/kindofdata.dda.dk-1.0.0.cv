@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ddi-cv="urn:ddi-cv">
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
   <Annotation>
-    <Description xml:lang="en">
-      <h:p>CV defining the types of data DDA holds in its collections</h:p>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining kind of data</p>
+      </div>
     </Description>
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
       <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
       <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
     </AppInfo>
   </Annotation>
   <Identification>
     <ShortName xml:lang="en">DDAKindOfData</ShortName>
-    <LongName xml:lang="en">DDA Kind of Data</LongName>
+    <LongName xml:lang="en">DDA Kind Of Data</LongName>
     <Version>1.0.0</Version>
-    <CanonicalUri>urn:kindofdata.dda.dk</CanonicalUri>
-    <CanonicalVersionUri>urn:kindofdata.dda.dk-1.0.0</CanonicalVersionUri>
+    <CanonicalUri>urn:dda-cv:kindofdata</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:kindofdata:1.0.0</CanonicalVersionUri>
     <LocationUri>http://www.dda.dk/cv/kindofdata.dda.dk-1.0.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
@@ -74,18 +80,18 @@
   <SimpleCodeList>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>survey</SimpleValue>
+        <SimpleValue>Survey</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Spørgeskemaundersøgelse</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Survey Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Survey data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Spørgeskemaundersøgelse</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Survey Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Survey data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -94,18 +100,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>censusdata</SimpleValue>
+        <SimpleValue>CensusData</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Folketællinger</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Census Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Census data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Folketællinger</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Census Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Census data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -114,18 +120,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>statistics</SimpleValue>
+        <SimpleValue>Statistics</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Statistik</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Statistical Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Statistical data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Statistik</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Statistical Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Statistical data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -134,17 +140,17 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>egislativerollcalls</SimpleValue>
+        <SimpleValue>LegislativeRollCalls</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Legislative Roll Call Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Legislative roll call data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Parlamentsafstemninger</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Legislative Roll Call Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Legislative roll call data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Parlamentsafstemninger</ddi-cv:Value>
         </ComplexValue>
       </Value>
@@ -154,7 +160,7 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>sychologicaltest</SimpleValue>
+        <SimpleValue>PsychologicalTest</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
@@ -174,17 +180,17 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>clinicaldata</SimpleValue>
+        <SimpleValue>ClinicalData</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Clinical Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Clinical data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Kliniske data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Clinical Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Clinical data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Kliniske data</ddi-cv:Value>
         </ComplexValue>
       </Value>
@@ -194,18 +200,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>textualdata</SimpleValue>
+        <SimpleValue>TextualData</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Textual Data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Tekstdata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Textual data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="en">Textual Data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Tekstdata</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Textual data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -214,18 +220,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>codedtextualdata</SimpleValue>
+        <SimpleValue>CodedTextualData</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Kodede tekstdata</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Coded Textual Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded textual data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Kodede tekstdata</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Coded Textual Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded textual data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -234,18 +240,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>codeddocuments</SimpleValue>
+        <SimpleValue>CodedDocuments</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Kodede dokumenter</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Coded Documents</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded documents</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Kodede dokumenter</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Coded Documents</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Coded documents</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -254,18 +260,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>registerdata</SimpleValue>
+        <SimpleValue>RegisterData</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Registerdata</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Register Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Register data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Registerdata</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Register Data</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Register data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -274,18 +280,18 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>qualitativedata</SimpleValue>
+        <SimpleValue>QualitativeData</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Qualitative data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Kvalitative data</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Qualitative Data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Qualitative data</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Kvalitative data</ddi-cv:Value>
-          <ddi-cv:Value xml:lang="en">Qualitative Data</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -294,7 +300,7 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
-        <SimpleValue>other</SimpleValue>
+        <SimpleValue>Other</SimpleValue>
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
