@@ -105,6 +105,35 @@
        <include name="**/*.*"/>
      </fileset>
    </xdb:store>
+    <!-- store ddi codebook stylesheet -->
+ 	<!-- i18n -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/i18n" createcollection="true">
+      <fileset dir="../web/ddi-html/i18n">
+        <include name="*.*"/>
+      </fileset>
+    </xdb:store>
+    <!-- js -->
+ 	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/js" createcollection="true">
+      <fileset dir="../web/ddi-html/js">
+        <include name="*.*"/>
+      </fileset>
+    </xdb:store>
+ 	<!-- theme/default -->
+ 	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+ 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/theme/default" createcollection="true">
+      <fileset dir="../web/ddi-html/theme/default">
+        <include name="*.*"/>
+      </fileset>
+    </xdb:store>
+ 	<!-- img -->
+ 	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+ 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/theme/default/img" createcollection="true">
+      <fileset dir="../web/ddi-html/theme/default/img">
+        <include name="*.*"/>
+      </fileset>
+    </xdb:store>
  </target>
  
  <target name="deploy-urn" description="Deploy the URN resolution">
