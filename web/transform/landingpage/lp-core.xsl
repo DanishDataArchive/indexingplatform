@@ -68,7 +68,7 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
             <p class="lp">
-                <a href="http://{$hostname}/exist/rest/apps/web/codebook.xquery?studyid={$studyId}">
+                <a href="http://{$hostname}/codebook/{$studyId}">
                     <!-- { concat($studyId, '/codebook/dda-',  $studyId, '.html')} -->
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"/>
                 </a>
@@ -139,7 +139,7 @@
                 <a href="#">
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='askfordata']/LabelText[@xml:lang=$lang]/text()"/>
                 </a>
-        </p>
+            </p>
             <strong class="lp">
                 <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='variables']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
             </strong>
@@ -225,8 +225,8 @@
                 <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier"/>
                 <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
                 <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()">, <em>
-                    <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
-                </em>
+                        <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
+                    </em>
                 </xsl:if>
             </p>
             <!-- number of questions -->
@@ -348,15 +348,19 @@
         <!-- todo: contruct metadata -->
             <a name="metadata"/>
             <h2 class="lp">Metadata</h2>
-            <h3 class="lp"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/></h3>            
+            <h3 class="lp">
+                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/>
+            </h3>
             <xsl:variable name="latestVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
-            <a href="http://{$hostname}/exist/rest/apps/dda-urn/rest/urn-resolution.xquery?urn=urn:ddi:dk.dda:{$studyId}:{$latestVersion}">
+            <a href="http://{$hostname}/urn/{$studyId}/{$latestVersion}">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='latestversion']/LabelText[@xml:lang=$lang]/text()"/>
                 <xsl:value-of select="$latestVersion"/>
             </a>
             <xsl:if test="$previousVersions != ','">
                 <p class="lp">
-                    <strong class="lp"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='previousversions']/LabelText[@xml:lang=$lang]/text()"/></strong>
+                    <strong class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='previousversions']/LabelText[@xml:lang=$lang]/text()"/>
+                    </strong>
                 </p>
             </xsl:if>
             <xsl:call-template name="PreviousVersionsOfStudy">
@@ -370,14 +374,18 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='otherformats']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <p class="lp">
-                <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}"></a>
+                <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}"/>
             </p>
             <p class="lp">
-                <a href="http://{$hostname}/exist/rest/apps/web/metadata.xquery?studyid={$studyId}"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/></a>
+                <a href="http://{$hostname}/metadata/{$studyId}">
+                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/>
+                </a>
             </p>
             <!--a href="#">DublinCore</a><br-->
             <p class="lp">
-                <a href="{ns1:PIDs/ns1:PID/ns1:ID}"><xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacite']/LabelText[@xml:lang=$lang]/text()"/></a>
+                <a href="{ns1:PIDs/ns1:PID/ns1:ID}">
+                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacite']/LabelText[@xml:lang=$lang]/text()"/>
+                </a>
             </p>
             <!--a href="#">MARC</a-->
         </div>
@@ -394,7 +402,7 @@
         <xsl:variable name="nextToken" select="substring-after($inputString, $separator)"/>
         <xsl:if test="$token">
             <p class="lp">
-                <a href="http://{$hostname}/exist/rest/apps/dda-urn/rest/urn-resolution.xquery?urn=urn:ddi:dk.dda:{$studyId}:{$token}">
+                <a href="http://{$hostname}/urn/{$studyId}/{$token}">
                     Version: <xsl:value-of select="$token"/>
                 </a>
                 <br/>
