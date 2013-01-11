@@ -24,7 +24,7 @@
     <!-- if the requested language is not found for e.g. questionText, use fallback language-->
     <xsl:param name="fallback-lang">en</xsl:param>
     <!-- print anchors for eg QuestionItems-->
-    <xsl:param name="print-anchor">1</xsl:param>
+    <xsl:param name="print-anchor">true</xsl:param>
     
     <xsl:template name="CreateLink">
         <a>
@@ -101,7 +101,7 @@
                 <xsl:value-of select="$item[@xml:lang=$lang]/text()"/>
             </xsl:when>
             <xsl:when test="$item[@xml:lang=$fallback-lang]">
-                <xsl:value-of select="$item[@xml:lang=$fallback-lang]/text()"/>
+                <em class="untranslated"><xsl:value-of select="$item[@xml:lang=$fallback-lang]/text()"/></em>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$item/text()"/>

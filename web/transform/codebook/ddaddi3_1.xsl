@@ -10,7 +10,7 @@
   <xsl:param name="svn-revision">Revision: 260</xsl:param>
   
   <!-- show frequencies on numeric variable with missing values -->
-  <xsl:param name="show-numeric-var-frequence">0</xsl:param>
+  <xsl:param name="show-numeric-var-frequence">true</xsl:param>
   
   <!-- upper lower case translations-->
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøå'"/>
@@ -73,7 +73,7 @@
       </xsl:if>
       
       <!-- universe -->
-      <xsl:if test="$show-universe = 1">
+      <xsl:if test="$show-universe = 'true'">
           <xsl:for-each select="r:UniverseReference">
             <xsl:variable name="uID" select="r:ID"/>
             <xsl:for-each select="../../../../c:ConceptualComponent/c:UniverseScheme/c:Universe[@id = $uID]">
@@ -109,7 +109,7 @@
           <xsl:variable name="qiID" select="l:QuestionReference/r:ID"/>
           <a>
             <xsl:attribute name="name">
-              <xsl:value-of select="$qiID"/>
+              <xsl:value-of select="$qiID"/><xsl:text>.</xsl:text><xsl:value-of select="l:QuestionReference/r:Version"/>
             </xsl:attribute>
           </a>
 
@@ -174,7 +174,7 @@
       <!-- statistics -->
       <xsl:variable name="decimalPosition" select="l:Representation/l:NumericRepresentation/@decimalPositions"/>
       <xsl:if test="l:Representation/l:CodeRepresentation or 
-        (l:Representation/l:NumericRepresentation and $show-numeric-var-frequence = 1 and $missingValue != '' and $filterInfo != '')">
+        (l:Representation/l:NumericRepresentation and $show-numeric-var-frequence = 'true' and $missingValue != '' and $filterInfo != '')">
         <xsl:variable name="csID" select="l:Representation/l:CodeRepresentation/r:CodeSchemeReference/r:ID"/>
         <xsl:if test="../../../pi:PhysicalInstance/pi:Statistics/pi:VariableStatistics/pi:VariableReference/r:ID = $varID">
           <li class="codeDomain">
@@ -250,7 +250,8 @@
     <xsl:param name="irrelevant"/>
     <xsl:param name="deltagerIkke"/>
     <xsl:param name="decimalPosition"/>
-    <!-- Main Statistic table - includes two tables -->
+    
+    <table class="categoryStatisticsSurround"><tr><td  class="left">
     <table class="table.categoryStatistics">
       <!-- table header - statistics table -->
       <tr>
@@ -301,11 +302,65 @@
           </xsl:with-param>
         </xsl:call-template>
       </xsl:for-each>
-
+      
       <!-- Summary: -->
       <xsl:call-template name="displaySummary"/>
+    </table>      
+    </td>
+      
+      <td width="25"></td>
+      <xsl:if test="$show-category-statistics='true'">
+        <td class="categoryStatisticsGraphTd">
+          <div class="categoryStatisticsGraph">
+            <xsl:attribute name="id">
+              <xsl:text>graph-</xsl:text>
+              <xsl:value-of select="$varId"/>
+            </xsl:attribute>
+          </div>
+      </td>
+      </xsl:if>
+    </tr>
     </table>
-
+    
+    <xsl:if test="$show-category-statistics='true'">
+    <script type="text/javascript">
+      <xsl:text> $(function () {</xsl:text>
+      <!-- define graph data -->
+      <xsl:text>var data = [ </xsl:text>    
+    <xsl:for-each select="pi:CategoryStatistics">
+      <xsl:call-template name="displayStatisticPie">
+        <xsl:with-param name="varID">
+          <xsl:value-of select="$varId"/>
+        </xsl:with-param>
+        <xsl:with-param name="csID">
+          <xsl:value-of select="$csId"/>
+        </xsl:with-param>
+        <xsl:with-param name="uoplyst">
+          <xsl:value-of select="$uoplyst"/>
+        </xsl:with-param>
+        <xsl:with-param name="irrelevant">
+          <xsl:value-of select="$irrelevant"/>
+        </xsl:with-param>
+        <xsl:with-param name="deltagerIkke">
+          <xsl:value-of select="$deltagerIkke"/>
+        </xsl:with-param>
+        <xsl:with-param name="decimalPosition">
+          <xsl:value-of select="$decimalPosition"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:for-each>
+    <xsl:text> ];</xsl:text>
+    
+      <!-- plot graph -->
+      <xsl:text>&#10;</xsl:text>    
+      <xsl:text>$.plot($("#</xsl:text>    
+      <xsl:text>graph-</xsl:text>    
+      <xsl:value-of select="$varId"/>     
+      <xsl:text>"), data, { series: { pie: { show: true } }, legend: { show: true, align: "left" }, grid: { hoverable: true }, tooltip: true, tooltipOpts: { content: "%p.2%, %s", shifts: { x: 20, y: 0 }, defaultTheme: false } });</xsl:text>     
+      <xsl:text>&#10; });</xsl:text>
+    </script>
+    </xsl:if>
+    
     <!-- Total response rate: -->
     <xsl:for-each select="pi:SummaryStatistic">
       <xsl:if test="pi:SummaryStatisticTypeCoded[@otherValue = 'ValidPercent'] = 'UseOther'">
@@ -431,9 +486,11 @@
         </td>
         <td class="left">
           <xsl:for-each select="../../../../l:LogicalProduct/l:CategoryScheme/l:Category[@id=$categoryRef]">
+            <xsl:call-template name="CreateLink"/>
             <xsl:call-template name="DisplayLabel"/>
           </xsl:for-each>
           <xsl:for-each select="../../../../../g:ResourcePackage/l:CategoryScheme/l:Category[@id=$categoryRef]">
+            <xsl:call-template name="CreateLink"/>
             <resource>
               <xsl:call-template name="DisplayLabel"/>
             </resource>
@@ -487,9 +544,95 @@
         </td>
       </xsl:if>
     </xsl:for-each>
-
   </xsl:template>
-
+  
+  <!--  
+  Context: CategoryStatistics -->
+  <xsl:template name="displayStatisticPie">
+    <xsl:param name="varID"/>
+    <xsl:param name="csID"/>
+    <xsl:param name="uoplyst"/>
+    <xsl:param name="irrelevant"/>
+    <xsl:param name="deltagerIkke"/>
+    <xsl:param name="decimalPosition"/>
+    
+    <!-- test for Missing Values -->
+    <xsl:variable name="testMissing">
+    
+    </xsl:variable>
+    
+    <xsl:if test="count(pi:CategoryStatistic) > 0">
+      <xsl:variable name="codeValue" select="pi:CategoryValue"/>
+      <xsl:variable name="categoryRef">
+        <xsl:value-of select="../../../../l:LogicalProduct/l:CodeScheme[@id=$csID]/l:Code[l:Value=$codeValue]/l:CategoryReference/r:ID"/>
+        <xsl:for-each select="../../../../../g:ResourcePackage">
+          <xsl:value-of select="l:CodeScheme[@id=$csID]/l:Code[l:Value=$codeValue]/l:CategoryReference/r:ID"/>
+        </xsl:for-each>
+      </xsl:variable>
+       
+        <xsl:variable name="label">
+          <xsl:for-each select="../../../../l:LogicalProduct/l:CategoryScheme/l:Category[@id=$categoryRef]">
+            <xsl:call-template name="DisplayLabel"/>
+          </xsl:for-each>
+          <xsl:for-each select="../../../../../g:ResourcePackage/l:CategoryScheme/l:Category[@id=$categoryRef]">
+              <xsl:call-template name="DisplayLabel"/>
+          </xsl:for-each>
+      </xsl:variable>
+      
+      <xsl:variable name="testCode" select="normalize-space($codeValue)"/>
+      <xsl:if test=" $testCode != $uoplyst and $testCode != $irrelevant and $testCode != $deltagerIkke">
+      <xsl:text>{ label: "</xsl:text>
+      <xsl:variable name="label2">
+      <xsl:call-template name="removeNewLine">
+        <xsl:with-param name="text" select="normalize-space($label)"/>
+      </xsl:call-template>
+      </xsl:variable>
+        
+        <xsl:call-template name="leftjustify"> 
+          <xsl:with-param name="content"><xsl:value-of select="$codeValue"/><xsl:text>: </xsl:text><xsl:value-of select="$label2" /></xsl:with-param> 
+          <xsl:with-param name="width">35</xsl:with-param> 
+        </xsl:call-template>       
+      
+        <xsl:text>", data: </xsl:text>
+        <!-- statistics -->
+      <xsl:for-each select="pi:CategoryStatistic">
+        <xsl:if test="pi:CategoryStatisticTypeCoded = 'Frequency'">         
+            <xsl:value-of select="format-number(pi:Value, &quot;0&quot;)"/>          
+        </xsl:if>
+      </xsl:for-each>
+        <xsl:text> }, </xsl:text>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template name="leftjustify"> 
+    <xsl:param name="content"/> 
+      <xsl:param name="width"/> 
+        
+        <xsl:choose> 
+          <xsl:when test="string-length($content) > $width"> 
+            <xsl:value-of select="substring($content,1,$width)"/>
+            <xsl:text> ...</xsl:text>
+          </xsl:when> 
+          
+          <xsl:otherwise> 
+            <xsl:value-of select="$content"/> 
+              <xsl:call-template name="spaces"> 
+                <xsl:with-param name="length"><xsl:value-of select="$width - string-length($content)"/></xsl:with-param> 
+              </xsl:call-template> 
+          </xsl:otherwise> 
+          
+        </xsl:choose> 
+        
+  </xsl:template> 
+  
+  <xsl:template name="spaces"> 
+    <xsl:param name="length"/> 
+      <!-- the value of this next variable is 255 spaces.. --> 
+      <xsl:variable name="longstringofspaces"><xsl:text>                                                                                                                                                                                                                                                               </xsl:text></xsl:variable> 
+      <xsl:value-of select="substring($longstringofspaces,1,$length)"/> 
+  </xsl:template>
+  
   <!-- Display Summary i.e. Sum Percent, Sum Valid Percent and Total Response  -->
   <!-- Concext: VariableStatistics -->
   <xsl:template name="displaySummary">
@@ -664,9 +807,40 @@
     <xsl:value-of select="$or"/>
   </xsl:template>
 
+  <!--xsl:template match="text()" name="removeNewLine">
+    <xsl:param name="text" select="."/>
+    
+    <xsl:copy-of select=
+      "substring-before(concat($text,'&#xA;'),'&#xA;')"/>
+    
+    <xsl:if test="contains($text, '&#xA;')">
+      <xsl:call-template name="removeNewLine">
+        <xsl:with-param name="text" select=
+          "substring-after($text, '&#xA;')"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template-->
+  
+  <xsl:template match="text()" name="removeNewLine">
+    <xsl:param name="text" select="."/>
+    
+    <xsl:choose>
+      <xsl:when test="not(contains($text, '&#xA;'))">
+        <xsl:copy-of select="$text"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="substring-before($text, '&#xA;')"/>
+        <xsl:call-template name="removeNewLine">
+          <xsl:with-param name="text" select=
+            "substring-after($text, '&#xA;')"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <!-- Instrumentation -->
   <xsl:template match="d:ControlConstructScheme">
-    <h3>
+    <h3 id="Instrumentation">
       <xsl:value-of select="$msg/*/entry[@key='Instrumentation']"/>
     </h3>
     <xsl:variable name="mainSeqId" select="../d:Instrument/d:ControlConstructReference/r:ID"/>
