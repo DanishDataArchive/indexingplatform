@@ -39,13 +39,15 @@ a:active 	{ color: #ec7c0c; text-decoration: none; }
 a:hover		{ color: #666; text-decoration: none; }
 
 /* ************************************ */
-/* ***	Landing page formats		*** */
+/* ***	Landing page formats	          *** */
 /* ************************************ */
 strong.lp 	{ color: #666; text-align: left; padding: 0px; margin-top: 0px; margin-bottom:0px; }
 p.lp		{ text-align: left; padding: 0px; margin-top: 2px; margin-bottom:4px; }
 h1.lp		{ font-family: verdana,arial,helvetica,sans-serif; font-size: 14pt; color:#333; font-weight:normal; text-align: left;  padding: 0px; margin-top: 4px; margin-bottom:2px; }
 h2.lp		{ font-family: verdana,arial,helvetica,sans-serif; color: #000080; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 8px; margin-bottom:2px; }
 h3.lp		{ font-family: verdana,arial,helvetica,sans-serif; color: #333; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 6px; margin-bottom:2px; }
+
+.lph2		{ font-family: verdana,arial,helvetica,sans-serif; color: #000080; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 8px; margin-bottom:2px; }
 
 .lplink a			{ font-size: 8pt; color: #000; }
 .lplink a:link	{ color: #000; background-color: transparent; text-decoration: none; }
