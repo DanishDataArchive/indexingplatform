@@ -16,16 +16,19 @@ resource {
 div.question {
     margin-top:5px;
 }
+.question-list li a, .question-list li a{
+    /*style for items in navbar*/
+}
+
 ul {
     padding-left: 15px;
 }
-ul.questions {
-    font-style:italic;
+ul.questions, ul#question-list {
     list-style-image: url(img/question.png);
     padding-left: 15px;
-    margin-left: 15px;
+    margin-left: 10px;
 }
-ul.variables {
+ul.variables, ul#variable-list {
     list-style-image: url(img/variable.png);
     padding-left: 15px;
     margin-left: 15px;
@@ -77,11 +80,11 @@ table {
 text-align:right;
 vertical-align:top;
 }
-td.left {
+td.left, th.left {
 text-align:left;
 vertical-align:top;
 }
-td.right {
+td.right, th.right {
 text-align:right;
 vertical-align:top;
 }
@@ -150,6 +153,38 @@ li.numeric, li.textRepresentation {
 li.codeDomain {
     list-style-image: url(img/code-scheme.png);
 }
+
+table.categoryStatisticsSurround {
+    width: 100%;
+}
+
+td.categoryStatisticsGraphTd {
+vertical-align:top;
+text-align: left;
+}
+
+.categoryStatisticsGraph {
+    width: 500px;
+    height: 130px;
+    float: right;
+}
+td.legendLabel {
+    text-align: left;
+}
+#flotTip 
+{
+	padding: 3px 5px;
+	background-color: #000;
+	z-index: 100;
+	color: #fff;
+	box-shadow: 0 0 3px #555;
+	opacity: .7;
+	filter: alpha(opacity=70)
+	border: 2px solid #fff;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
 li.sequences {
     margin-left: 15px;
     margin-top: 20px;
@@ -185,6 +220,15 @@ li.filteredby {
 .study {
     float:left;
 }
+
+#dragbar{
+   background-color:black;
+   height:100%;
+   float: right;
+   width: 3px;
+   cursor: col-resize;
+}
+
 #navigration {
     position: fixed;
     border: 1px solid;
