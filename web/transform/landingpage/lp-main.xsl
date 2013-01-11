@@ -15,6 +15,8 @@
                 <title>
                     <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
                 </title>
+                <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+                <script src="js/order-lp.js" type="text/javascript"></script>
             </head>
             <body>
                 <div align="center">
@@ -221,8 +223,11 @@
                                                                                     </td>
                                                                                     <td/>
                                                                                     <td align="right">
-                                                                                        <form action="#">
-                                                                                            <input type="submit" class="lporderButton lporderText" value="Bestil Data" style="width:90px;"/>
+                                                                                        <!--xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/-->
+                                                                                        <form method="post" name="order" action="order.html" target="_blank">
+                                                                                            <input name="submit_order" type="button" class="lporderButton lporderText" value="Bestil Data" style="width:90px;"  onclick="createOrder()"/>
+                                                                                            <input type="hidden" name="studyId[]" value="{ns1:StudyIdentifier/ns1:Identifier}" />
+                                                                                            <input type="hidden" name="studyTitle[]" value="{ns1:Titles/ns1:Title[@xml:lang=$lang]/text()}" />
                                                                                         </form>
                                                                                     </td>
                                                                                 </tr>

@@ -68,7 +68,8 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
             <p class="lp">
-                <a href="{ concat($studyId, '/codebook/dda-',  $studyId, '.html')}">
+                <a href="http://{$hostname}/exist/rest/apps/web/codebook.xquery?studyid={$studyId}">
+                    <!-- { concat($studyId, '/codebook/dda-',  $studyId, '.html')} -->
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"/>
                 </a>
             </p>

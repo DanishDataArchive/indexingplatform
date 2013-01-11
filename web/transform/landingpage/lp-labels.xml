@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingPageLabels>
+    <Label id="orderdata">
+        <LabelText xml:lang="da">Bestil data</LabelText>
+        <LabelText xml:lang="en">Order data</LabelText>
+    </Label>
     <Label id="principalinvestigator">
         <LabelText xml:lang="da">Primærundersøger</LabelText>
         <LabelText xml:lang="en">Principal Investigator</LabelText>
