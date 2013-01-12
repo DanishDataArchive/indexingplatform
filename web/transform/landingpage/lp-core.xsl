@@ -136,7 +136,7 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
             <p class="lp">
-                <a href="#">
+                <a href="javascript:void(0);" onclick="createOrder()">
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='askfordata']/LabelText[@xml:lang=$lang]/text()"/>
                 </a>
             </p>
