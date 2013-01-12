@@ -83,12 +83,13 @@
              <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='purpose']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
-            <xsl:value-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang]/text()"/>
+                <xsl:copy-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang]"/>
             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='abstract']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <span itemprop="description" property="dcterms:description">
-                <xsl:value-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()"/>
+                <!--xsl:value-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()"/-->
+                <xsl:copy-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]"/>
             </span>
             <h3 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='keywords']/LabelText[@xml:lang=$lang]/text()"/>
@@ -167,8 +168,11 @@
                 <strong class="lp">
                     <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studytype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
                 </strong>
-                <xsl:variable name="kindOfDataId" select="ns1:Methodology/ns1:DataType/ns1:DataTypeIdentifier"/>
-                <xsl:value-of select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                <xsl:for-each select="ns1:Methodology/ns1:DataType">
+                    <xsl:variable name="kindOfDataId" select="ns1:DataTypeIdentifier"/>
+                    <xsl:value-of select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                    <xsl:text>, </xsl:text>
+                </xsl:for-each>
             </p>
             <!-- time method -->
             <p class="lp">
@@ -267,6 +271,7 @@
                 </span>
             </span>
             <br/>
+            <!-- - citation - -->
             <a name="citation"/>
             <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='citation']/LabelText[@xml:lang=$lang]/text()"/>
@@ -324,6 +329,7 @@
             <span itemprop="datePublished" property="dcterms:issued">
                 <xsl:value-of select="ns1:PublicationDate"/>
             </span>
+            <!-- - access - -->
             <a name="status"/>
             <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='access']/LabelText[@xml:lang=$lang]/text()"/>
