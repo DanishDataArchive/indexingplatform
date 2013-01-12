@@ -284,8 +284,8 @@
             <em>
                 <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>, </em>
             <span rel="dcterms:publisher">
-                <span typeof="foaf:Organization" about="dcterms:publisher">
-                    <span property="dcterms:title">
+                <span itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization" typeof="foaf:Organization" about="dcterms:publisher">
+                    <span itemprop="name" property="dcterms:title">
                         <xsl:value-of select="ns1:Archive"/>
                     </span>
                 </span>
