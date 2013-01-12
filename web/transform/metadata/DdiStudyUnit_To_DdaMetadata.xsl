@@ -69,8 +69,7 @@
             </Archive>
         </Study>
     </xsl:template>
-
-
+    
     <!-- todo: Hvis både TopLevelReference/LevelReference/ID og LowestLevelReference/LevelReference/ID peger på samme værdi, så map kun den ene til meta data -->
     <xsl:template match="ns2:Coverage/ns2:SpatialCoverage">
         <GeographicCoverages>
@@ -128,7 +127,7 @@
                     <Type>Purpose</Type>
                     <xsl:for-each select="ns1:Purpose">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:value-of select="ns2:Content/text()"/>
+                            <xsl:copy-of select="*"/>
                         </Content>
                     </xsl:for-each>
                 </StudyDescription>
@@ -138,7 +137,7 @@
                     <Type>Abstract</Type>
                     <xsl:for-each select="ns1:Abstract">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:value-of select="ns2:Content/text()"/>
+                            <xsl:copy-of select="*"/>
                         </Content>
                     </xsl:for-each>
                 </StudyDescription>
@@ -306,12 +305,14 @@
                     <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$samplingProcEnId]/ns2:Content"/>
                 </Description>
             </SamplingProcedure>
-            <DataType>
+            <xsl:for-each select="ns1:KindOfData">
+                <DataType>
                 <!-- todo: kind of data har ingen relateret note / ingen mulighed for relateret note -->
                 <DataTypeIdentifier codeListAgencyName="dda.dk" codeListID="urn:kindofdata.dda.dk" codeListName="DDAKindOfData" codeListSchemeURN="urn:kindofdata.dda.dk-1.0.0" codeListURN="urn:kindofdata.dda.dk-1.0.0" codeListVersionID="1.0.0">
-                    <xsl:value-of select="ns1:KindOfData/text()"/>
+                    <xsl:value-of select="."/>
                 </DataTypeIdentifier>
             </DataType>
+            </xsl:for-each>            
             <NumberOfQuestions>
                 <xsl:value-of select="count(ns8:DataCollection/ns8:QuestionScheme/ns8:QuestionItem)"/>
             </NumberOfQuestions>
