@@ -23,7 +23,7 @@ declare function local:main() as node()? {
     
     let $params := <parameters>
             <param name="lang" value="{$lang}" />
-            <param name="fallback-lang" value="en" />
+            <param name="fallback-lang" value="da" />
             <param name="translations" value="i18n/messages_{$lang}.properties.xml" />
             <param name="render-as-document" value="true" />            
             <param name="guidancelink" value="http://samfund.dda.dk/dda/vejledning_kodebog_1.0.asp"/>
@@ -39,7 +39,7 @@ declare function local:main() as node()? {
             <param name="show-citation" value="false" />
             <param name="show-abstract" value="false" />
             <param name="show-coverage" value="false" />
-            <param name="show-questionnaires" value="true" />
+            <param name="show-questionnaires" value="false" />
             <param name="show-navigration-bar" value="true" />
             <param name="show-variable-list" value="false" />
             <param name="theme-path" value="theme/default" />
