@@ -132,9 +132,9 @@
         <LabelText xml:lang="da">Arkiv information</LabelText>
         <LabelText xml:lang="en">Archive information</LabelText>
     </Label> 
-    <Label id="recieveddate">
+    <Label id="receiveddate">
         <LabelText xml:lang="da">Modtaget</LabelText>
-        <LabelText xml:lang="en">Recieved</LabelText>
+        <LabelText xml:lang="en">Received</LabelText>
     </Label>
     <Label id="publisheddate">
         <LabelText xml:lang="da">Publiseret</LabelText>

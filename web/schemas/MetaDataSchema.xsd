@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" targetNamespace="dda.dk/metadata/1.0.0"
+    xmlns="dda.dk/metadata/1.0.0" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+
+    <!--
+    <xs:element name="ResourceType">
+        <xs:annotation>
+            <xs:documentation>Genereller Typ der Ressource: 2: Dataset (Datensatz) 3: Grey
+                Literature (Graue Literatur) </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:integer">
+                <xs:minInclusive value="1"/>
+                <xs:maxInclusive value="11"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>-->
+
+    <xs:element name="Titles">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Title" minOccurs="1" maxOccurs="2"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Title">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="nonemptycontentStringType">
+                    <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="PrincipalInvestigators">
+        <xs:annotation>
+            <xs:documentation/>
+        </xs:annotation>
+        <xs:complexType mixed="false">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="PrincipalInvestigator"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PrincipalInvestigator">
+        <xs:complexType mixed="false">
+            <xs:choice>
+                <xs:element ref="Person" maxOccurs="1" minOccurs="1"/>
+                <xs:element ref="Institution" maxOccurs="1" minOccurs="1"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Person">
+        <xs:complexType>
+            <xs:sequence maxOccurs="1" minOccurs="1">
+                <xs:element minOccurs="1" maxOccurs="1" name="FirstName">
+                    <xs:simpleType>
+                        <xs:restriction base="nonemptycontentStringType"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="LastName" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="nonemptycontentStringType"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element minOccurs="0" ref="Affiliation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Affiliation">
+        <xs:complexType mixed="false">
+            <xs:sequence maxOccurs="1" minOccurs="1">
+                <xs:element minOccurs="1" maxOccurs="2" name="AffiliationName">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="nonemptycontentStringType">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Institution">
+        <xs:complexType>
+            <xs:sequence maxOccurs="1" minOccurs="1">
+                <xs:element name="InstitutionName" maxOccurs="2">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="nonemptycontentStringType">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DataURLs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="DataURL" type="xs:anyURI"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="DataURL">
+            <xs:selector xpath="DataURL"/>
+            <xs:field xpath="."/>
+        </xs:unique>
+    </xs:element>
+
+    <xs:element name="StudyLanguage">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="da|de|en|se|no"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:element name="PublicationDate" type="xs:date" />
+    <xs:element name="ReceivedDate" type="xs:date" />
+  
+    <xs:element name="StudyDescriptions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="StudyDescription"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="StudyDescription">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Type" minOccurs="1" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="Abstract"/>
+                            <xs:enumeration value="Purpose"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <!-- Gentages per sprog -->
+                <xs:element name="Content" minOccurs="1" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GeographicCoverages">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="GeographicCoverage"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GeographicCoverage">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Label" minOccurs="0" maxOccurs="unbounded" type="nonemptycontentStringType" />
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="level" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="topLevel"/>
+                        <xs:enumeration value="lowLevel"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Universes">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                <xs:element maxOccurs="2" ref="Universe"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Universe">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Label" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="nonemptycontentStringType">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Description" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>    
+                </xs:element>          
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TemporalCoverage">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="StartDate" type="xs:date" />
+                <xs:element name="EndDate" minOccurs="0" type="xs:date" />
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TemporalCoverages">
+        <xs:complexType>
+            <xs:sequence maxOccurs="1">
+                <xs:element maxOccurs="unbounded" ref="TemporalCoverage"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DataSet">
+        <xs:complexType>
+            <xs:sequence maxOccurs="1" minOccurs="1">
+                <xs:element name="UnitType" minOccurs="0">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="1" name="NumberUnits" type="xs:int"/>
+                <xs:element maxOccurs="1" name="SampleNumberOfUnits" type="xs:int"/>
+                <xs:element minOccurs="0" maxOccurs="1" name="NumberVariables" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DataSets">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="DataSet" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="StudyIdentifier">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Identifier">
+                    <xs:simpleType>
+                        <xs:restriction base="nonemptycontentStringType"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element minOccurs="0" name="CurrentVersion">
+                    <xs:simpleType>
+                        <xs:restriction base="nonemptycontentStringType"/>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- Persistent identifier -->
+    <xs:element name="PID">
+        <xs:annotation>
+            <xs:documentation>Weitere Persistent Identifier der
+                Veröffentlichungen/Publikationen</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID">
+                    <xs:simpleType>
+                        <xs:restriction base="nonemptycontentStringType"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element ref="PIDType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PIDs">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                <xs:element ref="PID"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- pid type -->
+    <xs:element name="PIDType">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern
+                    value="ARK|DOI|EAN13|EISSN|Handle|ISBN|ISSN|ISTC|LISSN|LSID|PURL|UPC|URL|URN"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
+    <!-- todo: DataIndsamling --> 
+    <xs:element name="Study">
+        <xs:complexType>
+            <xs:sequence minOccurs="1">
+                <xs:element ref="State"/>
+                <xs:element ref="StudyIdentifier" minOccurs="0"/>
+                <xs:element ref="PIDs" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="Titles" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="PrincipalInvestigators" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="DataURLs" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="PublicationDate" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="ReceivedDate" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Access" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="StudyLanguage" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="TopicalCoverage" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="StudyDescriptions" minOccurs="0"/>
+                <xs:element ref="GeographicCoverages" minOccurs="0"/>
+                <xs:element ref="Universes" minOccurs="0"/>
+                <xs:element ref="TemporalCoverages" minOccurs="0"/>
+                <!-- todo <xs:element minOccurs="0" ref="DataCollectors"/> -->
+                <xs:element ref="DataSets" minOccurs="0"/>
+                <xs:element ref="Methodology" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="DataCollection" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="Documentation" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="Archive" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- defines value for mandatory fields -->
+    <xs:simpleType name="nonemptycontentStringType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- richtext -->
+    <xs:complexType name="richtext" mixed="true">
+        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+            <xs:element type="richtext" minOccurs="0" name="p" maxOccurs="unbounded"/>
+            <xs:element minOccurs="0" name="br" maxOccurs="unbounded">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:length value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="richtext" minOccurs="0" name="strong" maxOccurs="unbounded"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ol">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="li" type="richtext" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ul">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="li" type="richtext" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:attributeGroup name="ControlledVocabularyAttributeGroup">
+        <xs:attribute name="codeListAgencyName" type="xs:string" use="optional"/>
+        <xs:attribute name="codeListID" type="xs:string" use="optional"/>
+        <xs:attribute name="codeListName" type="xs:string" use="optional"/>
+        <xs:attribute name="codeListSchemeURN" type="xs:string" use="optional"/>
+        <xs:attribute name="codeListURN" type="xs:string" use="optional"/>
+        <xs:attribute name="codeListVersionID" type="xs:string" use="optional"/>
+    </xs:attributeGroup>
+
+    <xs:element name="State">
+        <xs:complexType mixed="true">
+            <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Access">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Restriction">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="RestrictionDate">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="StartDate" type="xs:date" />
+                            <xs:element name="EndDate" type="xs:date" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Condition">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TopicalCoverage">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Subjects" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="Subject" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Keywords" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="Keyword" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Subject">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Keyword">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Methodology">
+        <xs:complexType>
+            <xs:sequence>   
+                <xs:element ref="TestType" minOccurs="0" maxOccurs="unbounded"/>   
+                <xs:element ref="TimeMethod" minOccurs="0" maxOccurs="unbounded"/> 
+                <xs:element ref="SamplingProcedure" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="DataType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="NumberOfQuestions" type="xs:integer" minOccurs="0" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>     
+    <xs:element name="TestType">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="TestTypeIdentifier">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>    
+                </xs:element>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="TimeMethod">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="TimeMethodIdentifier">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>    
+                </xs:element>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SamplingProcedure">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SamplingProcedureIdentifier">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>    
+                </xs:element>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DataType">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="DataTypeIdentifier">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>       
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>        
+    <xs:element name="DataCollection">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ModeOfCollection" minOccurs="0" maxOccurs="1" />
+                <!-- todo: sæt IF på i transform, da han ofte ikke er med -->
+                <xs:element name="DataCollectorOrganizationReference" minOccurs="0" maxOccurs="1" type="nonemptycontentStringType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>    
+    <xs:element name="ModeOfCollection">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ModeOfCollectionIdentifier">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>    
+                </xs:element>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>    
+    
+    <xs:element name="Documentation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="File" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="File">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Label" minOccurs="0" maxOccurs="1" type="nonemptycontentStringType" />
+                <xs:element name="URI" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+                <xs:element name="Type" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="Questionaire" />
+                            <xs:enumeration value="Codebook" />
+                            <xs:enumeration value="Metadata" />
+                            <xs:enumeration value="Other" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="MimeType" type="xs:anyURI" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>

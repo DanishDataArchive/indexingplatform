@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ddi-cv="urn:ddi-cv" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:ddi-cv="urn:ddi-cv" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
    
     <!-- Kun relevant i forbindelse med test af lp-core direkte uden om lp-main -->
     <xsl:output method="html" indent="yes"/>
@@ -41,7 +41,7 @@
         <xsl:variable name="samplingprocedureCV" select="document(concat($cvFolder, '/samplingprocedure.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="studyStateCV" select="document(concat($cvFolder, '/studystate.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="timeMethodCV" select="document(concat($cvFolder, '/timemethod.dda.dk-1.0.0.cv'))"/>
-        <div xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" itemscope="itemscope" itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
+        <div xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" itemscope="itemscope" itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
             <h1 class="lp">
                 <span itemprop="name" property="dcterms:title">
                     <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
@@ -250,7 +250,7 @@
                     <h3 class="lp" property="dcterms:name">
                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='temporalcoverage']/LabelText[@xml:lang=$lang]/text()"/>
                     </h3>
-            <!-- todo: udskriv noter (todo: de er ikke med i metadata: tilføj dem) -->
+                    <!-- todo: udskriv noter (todo: de er ikke med i metadata: tilføj dem) -->
                     <strong class="lp">
                         <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_startdate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
                     </strong>
@@ -271,14 +271,16 @@
             <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='citation']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
-            <xsl:choose>
-                <xsl:when test="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:LastName/text()">
-                    <xsl:value-of select="concat(ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:FirstName, ' ', ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:LastName, ', ')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="concat(ns1:PrincipalInvestigators/ns1:PrincipalInvestigator/ns1:Person/ns1:FirstName, ', ')"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:for-each select="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator">
+                <xsl:choose>
+                    <xsl:when test="ns1:Person/ns1:LastName/text()">
+                        <xsl:value-of select="concat(ns1:Person/ns1:FirstName, ' ', ns1:Person/ns1:LastName, ', ')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat(ns1:Person/ns1:FirstName, ', ')"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
             <em>
                 <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>, </em>
             <span rel="dcterms:publisher">
@@ -312,9 +314,9 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='archiveinfo']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <strong class="lp">
-                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='recieveddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='receiveddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
             </strong>
-            <xsl:value-of select="'todo: value missing from metadata?'"/>
+            <xsl:value-of select="ns1:ReceivedDate"/>
             <br/>
              <strong class="lp">
                 <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='publisheddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
@@ -344,8 +346,7 @@
             <xsl:variable name="conditionId" select="ns1:Access/ns1:Condition"/>
             <xsl:value-of select="$accessConditionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$conditionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
             <br/>
-            
-        <!-- todo: contruct metadata -->
+
             <a name="metadata"/>
             <h2 class="lp">Metadata</h2>
             <h3 class="lp">

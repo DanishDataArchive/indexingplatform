@@ -42,6 +42,9 @@
             <PublicationDate>
                 <xsl:value-of select="substring-before(ns2:Citation/ns2:PublicationDate/ns2:SimpleDate, 'T')"/>
             </PublicationDate>
+            <RecievedDate>
+                <xsl:value-of select="substring-before(ns3:Archive/ns2:LifecycleInformation/ns2:LifecycleEvent[ns2:EventType='MOD']/ns2:Date/ns2:SimpleDate, 'T')"/>
+            </RecievedDate>
             <xsl:call-template name="Access"/>
             <StudyLanguage>da</StudyLanguage>
             <xsl:call-template name="TopicalCoverage"/>
@@ -95,13 +98,12 @@
                         <xsl:value-of select="ns3:IndividualName/ns3:Last"/>
                     </LastName>
                 </xsl:if>
-
-                <!-- todo: Den rette organization skal findes, da der kan være flere (ex: test data dda-3) -->
-                <Affiliation>
+                <!-- todo: Den rette organization skal findes, da der kan være flere -->
+                <!--  <Affiliation>
                     <AffiliationName xml:lang="{parent::ns3:OrganizationScheme/ns3:Organization/ns3:OrganizationName/@xml:lang}">
                         <xsl:value-of select="parent::ns3:OrganizationScheme/ns3:Organization/ns3:OrganizationName/text()"/>
                     </AffiliationName>
-                </Affiliation>
+                </Affiliation>-->
             </Person>
         </PrincipalInvestigator>
     </xsl:template>
