@@ -176,10 +176,6 @@
         <LabelText xml:lang="da">DataCite XML mf.</LabelText>
         <LabelText xml:lang="en">DataCite XML etc.</LabelText>
     </Label>
-    <Label id="html-grouping">
-        <LabelText xml:lang="da">Grupér resultater efter studie (anvendes kun for synlige resultater)</LabelText>
-        <LabelText xml:lang="en">Group results by study (applies only to visible results)</LabelText>
-    </Label>
     <Label id="otherformats">
         <LabelText xml:lang="da">Andre metadata formater</LabelText>
         <LabelText xml:lang="en">Other metadata formats</LabelText>

@@ -92,6 +92,11 @@ span.hi
     background-color:yellow;
 }
 
+.searchoption a:link	{ color: #000; background-color: transparent; text-decoration: none; }
+.searchoption a:visited	{ color: #000; background-color: transparent; text-decoration: none; }
+.searchoption a:active	{ color: #000; background-color: transparent; text-decoration: none; }
+.searchoption a:hover	{ color: #c97624; background-color: transparent; text-decoration: none; }
+
 .contextlink p		{ font-size: 8pt; color: #000080; }
 .contextlink a:link	{ color: #000080; background-color: transparent; text-decoration: underline; }
 .contextlink a:visited	{ color: #000; background-color: transparent; text-decoration: underline; }

@@ -10,14 +10,32 @@
         <xsl:param name="grouped"/>
         <div style="margin-left:25px; margin-bottom:20px;">
             <form id="searchform" method="post" action="simple.xquery" onsubmit="return validateFields()">
-                <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
+                <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700" class="searchoption">
                     <tbody>
                         <tr>
-                            <td valign="top">
+                            <td valign="left">
                                 <h1 class="search">
                                     <xsl:value-of select="$labels[@id='html-search-data']/LabelText[@xml:lang=$lang]/text()"/>
                                 </h1>
                             </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <strong class="search">
+                                    <xsl:value-of select="$labels[@id='html-result']/LabelText[@xml:lang=$lang]/text()"/>: 
+                                </strong>
+                                <xsl:call-template name="construct-grouped">
+                                    <xsl:with-param name="grouped" select="$grouped"/>
+                                </xsl:call-template>
+                                &#160;&#160;                  
+                                <xsl:call-template name="construct-hits-perpage">
+                                    <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
+                                    <xsl:with-param name="hit-start" select="smd:SearchMetaData/@hit-start"/>
+                                </xsl:call-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> &#160; </td>
                         </tr>
                         <tr>
                             <td align="left">
@@ -31,9 +49,12 @@
                                         test="s:Scope/s:StudyUnit">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
-                                </xsl:element>
-                                <xsl:value-of select="$labels[@id='study-info']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
-                                <xsl:element name="input">
+                                </xsl:element>                                
+                                <a  class="searchoption" onclick="toggleCheckBox ('StudyUnit')" href="javascript:void(0);" >
+                                    <xsl:value-of select="$labels[@id='study-info']/LabelText[@xml:lang=$lang]/text()"/>
+                                </a>
+                                <xsl:text> </xsl:text>
+                                    <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
                                     <xsl:attribute name="name">QuestionItem</xsl:attribute>
@@ -41,8 +62,11 @@
                                         test="(s:Scope/s:QuestionItem) or (s:Scope/s:MultipleQuestionItem)">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
-                                </xsl:element>
-                                <xsl:value-of select="$labels[@id='QuestionItem']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                                    </xsl:element>
+                                <a  class="searchoption" onclick="toggleCheckBox ('QuestionItem')" href="javascript:void(0);" >
+                                    <xsl:value-of select="$labels[@id='QuestionItem']/LabelText[@xml:lang=$lang]/Plural/text()"/>
+                                </a>
+                                <xsl:text> </xsl:text>
                                 <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -52,7 +76,10 @@
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element>
-                                <xsl:value-of select="$labels[@id='Variable']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                                <a  class="searchoption" onclick="toggleCheckBox ('Variable')" href="javascript:void(0);" >
+                                    <xsl:value-of select="$labels[@id='Variable']/LabelText[@xml:lang=$lang]/Plural/text()"/></a>
+                                <xsl:text> </xsl:text>
+                                    
                                 <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -62,7 +89,9 @@
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element>
-                                <xsl:value-of select="$labels[@id='Category']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                                <a  class="searchoption" onclick="toggleCheckBox ('Category')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Category']/LabelText[@xml:lang=$lang]/Plural/text()"/></a>
+                                <xsl:text> </xsl:text>
                                 <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -72,7 +101,9 @@
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element>
-                                <xsl:value-of select="$labels[@id='Concept']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                                <a  class="searchoption" onclick="toggleCheckBox ('Concept')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Concept']/LabelText[@xml:lang=$lang]/Plural/text()"/></a>
+                                <xsl:text> </xsl:text>
                                 <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -82,40 +113,28 @@
                                         <xsl:attribute name="checked">checked</xsl:attribute>
                                     </xsl:if>
                                 </xsl:element>
-                                <xsl:value-of select="$labels[@id='Universe']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                                <a  class="searchoption" onclick="toggleCheckBox ('Universe')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Universe']/LabelText[@xml:lang=$lang]/Plural/text()"/>
+                                 </a>
+                                <xsl:text> </xsl:text>
                             </td>
                         </tr>
                         <tr>
                             <td> &#160; </td>
                         </tr>
                         <tr>
-                            <td align="left">
-                                <input class="searchsimpleinput" type="text" name="search-string"
-                                    size="80" value="{ssp:search-string}"/>
+                            <td align="center">
+                                <input class="searchsimpleinput" type="text" name="search-string" size="75" value="{ssp:search-string}"/>
                             </td>
                         </tr>
                         <tr>
                             <td> &#160; </td>
                         </tr>
-                        <tr>
-                            <td align="left">
-                                <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}" class="lporderButton lporderText"/>&#160;
-                                <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" class="lporderButton lporderText" onclick="resetForm()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left">
-                                <xsl:call-template name="construct-hits-perpage">
-                                    <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
-                                    <xsl:with-param name="hit-start" select="smd:SearchMetaData/@hit-start"/>
-                                </xsl:call-template>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left">
-                                <xsl:call-template name="construct-grouped">
-                                    <xsl:with-param name="grouped" select="$grouped"/>
-                                </xsl:call-template>
+                        <tr align="center">
+                            <td>                                
+                                <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}" />
+                                &#160;
+                                <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" onclick="resetForm()"/>
                             </td>
                         </tr>
                     </tbody>
@@ -385,7 +404,10 @@
     
     <xsl:template name="construct-grouped">
         <xsl:param name="grouped"/>
-        <xsl:element name="input">
+        <a onclick="toggleGrouped('grouped')" class="searchoption"  href="javascript:void(0);" >
+            <xsl:value-of select="$labels[@id='html-grouping']/LabelText[@xml:lang=$lang]/text()"/>
+        </a>
+            <xsl:element name="input">
             <xsl:attribute name="type">checkbox</xsl:attribute>
             <xsl:attribute name="class">searchoption</xsl:attribute>
             <xsl:attribute name="name">grouped</xsl:attribute>
@@ -394,7 +416,6 @@
                 <xsl:attribute name="checked">checked</xsl:attribute>
             </xsl:if>
         </xsl:element>
-        <xsl:value-of select="$labels[@id='html-grouping']/LabelText[@xml:lang=$lang]/text()"/>
     </xsl:template>
     
     <xsl:template name="formatDate">

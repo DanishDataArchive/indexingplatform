@@ -79,6 +79,24 @@ function changeHitStart(hitStart) {
     }
 }
 
+function toggleCheckBox(checkboxid) {
+    if($('input[name='+checkboxid+']').get(0).checked) {
+        $('input[name='+checkboxid+']').prop('checked', false);
+    }   else  {
+        $('input[name='+checkboxid+']').prop('checked', true);
+    }         
+}
+
+function toggleGrouped(checkboxid) {
+    if($('input[name='+checkboxid+']').get(0).checked) {
+        $('input[name='+checkboxid+']').prop('checked', false);    
+        submitForm($('#searchform'));
+    }   else  {
+    $('input[name='+checkboxid+']').prop('checked', true);
+        submitForm($('#searchform'));
+    }         
+}
+
 $(function() {
     var options;
     if(lang == 'en') {

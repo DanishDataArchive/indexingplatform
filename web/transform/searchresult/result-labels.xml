@@ -63,6 +63,10 @@
     <Label id="html-search">
         <LabelText xml:lang="da">Søg</LabelText>
         <LabelText xml:lang="en">Search</LabelText>
+    </Label>    
+    <Label id="html-result">
+        <LabelText xml:lang="da">Resultat</LabelText>
+        <LabelText xml:lang="en">Result</LabelText>
     </Label>
     <Label id="html-reset">
         <LabelText xml:lang="da">Nulstil</LabelText>
@@ -242,6 +246,10 @@
     <Label id="CodeRepresentation">
         <LabelText xml:lang="da">Koderepresentation</LabelText>
         <LabelText xml:lang="en">Code Representation</LabelText>
+    </Label>
+    <Label id="html-grouping">
+        <LabelText xml:lang="da">Grupér resultater efter studie (anvendes kun for synlige resultater)</LabelText>
+        <LabelText xml:lang="en">Group results by study (applies only to visible results)</LabelText>
     </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>
