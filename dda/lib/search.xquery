@@ -515,12 +515,14 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $foundVariables :=
         if ($search-scope/s:Variable) then
             let $variablesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $element/@id)]
+            let $variablesFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@studyId, $element/@id)]
             let $variablesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:QuestionItemReference/@id, $element/@id)]
             let $variablesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
             let $variablesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:UniverseReference/@id, $element/@id)]
             let $variablesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:ConceptReference/@id, $element/@id)]
             let $variablesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:CategoryReference/@id, $element/@id)]
             return local:conditionalIntersection($variablesFromVariables, $variableSearch,
+                                                 $variablesFromStudies, $studyParametersEntered,
                                                  $variablesFromQuestionItems, $questionItemSearch,
                                                  $variablesFromMultipleQuestionItems, $multipleQuestionItemSearch,
                                                  $variablesFromUniverses, $universeSearch,
@@ -531,11 +533,13 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $foundQuestionItems :=
         if ($search-scope/s:QuestionItem) then
             let $questionItemsFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $element/@id)]
+            let $questionItemsFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@studyId, $element/@id)]
             let $questionItemsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:VariableReference/@id, $element/@id)]
             let $questionItemsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:UniverseReference/@id, $element/@id)]
             let $questionItemsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:ConceptReference/@id, $element/@id)]
             let $questionItemsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:CategoryReference/@id, $element/@id)]
             return local:conditionalIntersection($questionItemsFromQuestionItems, $questionItemSearch,
+                                                 $questionItemsFromStudies, $studyParametersEntered,
                                                  $questionItemsFromVariables, $variableSearch,
                                                  $questionItemsFromUniverses, $universeSearch,
                                                  $questionItemsFromConcepts, $conceptSearch,
@@ -546,11 +550,13 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $foundMultipleQuestionItems :=
         if ($search-scope/s:MultipleQuestionItem) then
             let $multipleQuestionItemsFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $element/@id)]
+            let $multipleQuestionItemsFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@studyId, $element/@id)]
             let $multipleQuestionItemsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:VariableReference/@id, $element/@id)]
             let $multipleQuestionItemsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:UniverseReference/@id, $element/@id)]
             let $multipleQuestionItemsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:ConceptReference/@id, $element/@id)]
             let $multipleQuestionItemsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:CategoryReference/@id, $element/@id)]
             return local:conditionalIntersection($multipleQuestionItemsFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $multipleQuestionItemsFromStudies, $studyParametersEntered,
                                                  $multipleQuestionItemsFromVariables, $variableSearch,
                                                  $multipleQuestionItemsFromUniverses, $universeSearch,
                                                  $multipleQuestionItemsFromConcepts, $conceptSearch,
@@ -561,12 +567,14 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $foundUniverses :=
         if ($search-scope/s:Universe) then
             let $universesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $element/@id)]
+            let $universesFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@studyId, $element/@id)]
             let $universesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:QuestionItemReference/@id, $element/@id)]
             let $universesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
             let $universesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:VariableReference/@id, $element/@id)]
             let $universesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:ConceptReference/@id, $element/@id)]
             let $universesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:CategoryReference/@id, $element/@id)]
             return local:conditionalIntersection($universesFromUniverses, $universeSearch,
+                                                 $universesFromStudies, $studyParametersEntered,
                                                  $universesFromQuestionItems, $questionItemSearch,
                                                  $universesFromMultipleQuestionItems, $multipleQuestionItemSearch,
                                                  $universesFromVariables, $variableSearch,
@@ -577,12 +585,14 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $foundConcepts :=
         if ($search-scope/s:Concept) then
             let $conceptsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $element/@id)]
+            let $conceptsFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@studyId, $element/@id)]
             let $conceptsFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:QuestionItemReference/@id, $element/@id)]
             let $conceptsFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
             let $conceptsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:UniverseReference/@id, $element/@id)]
             let $conceptsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:VariableReference/@id, $element/@id)]
             let $conceptsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:CategoryReference/@id, $element/@id)]
             return local:conditionalIntersection($conceptsFromConcepts, $conceptSearch,
+                                                 $conceptsFromStudies, $studyParametersEntered,
                                                  $conceptsFromQuestionItems, $questionItemSearch,
                                                  $conceptsFromMultipleQuestionItems, $multipleQuestionItemSearch,
                                                  $conceptsFromUniverses, $universeSearch,
@@ -593,12 +603,14 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $foundCategories :=
         if ($search-scope/s:Category) then
             let $categoriesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)]
+            let $categoriesFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Category[ft:query(@studyId, $element/@id)]
             let $categoriesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:QuestionItemReference/@id, $element/@id)]
             let $categoriesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
             let $categoriesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:UniverseReference/@id, $element/@id)]
             let $categoriesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:ConceptReference/@id, $element/@id)]
             let $categoriesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:VariableReference/@id, $element/@id)]
             return local:conditionalIntersection($categoriesFromCategories, $categorySearch,
+                                                 $categoriesFromStudies, $studyParametersEntered,
                                                  $categoriesFromQuestionItems, $questionItemSearch,
                                                  $categoriesFromMultipleQuestionItems, $multipleQuestionItemSearch,
                                                  $categoriesFromUniverses, $universeSearch,
@@ -617,9 +629,8 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     
     let $results := ($foundVariables, $foundQuestionItems, $foundMultipleQuestionItems, $foundUniverses, $foundConcepts, $foundCategories)
 
-    (:let $search-metadata := $search-parameters/smd:SearchMetaData:)
-    (:return ddi:buildLightXmlObjectList($foundVariables, data($search-parameters/smd:SearchMetaData/@hits-perpage), data($search-parameters/smd:SearchMetaData/@hit-start), $search-parameters):)
-    return $foundQuestionItems
+    return ddi:buildLightXmlObjectList($results, data($search-parameters/smd:SearchMetaData/@hits-perpage), data($search-parameters/smd:SearchMetaData/@hit-start), $search-parameters)
+    (:return $results:)
 };
 
 declare function local:studyUnitsFromParameters($search-parameters as element()) as element()* {
@@ -701,13 +712,15 @@ declare function local:conditionalIntersection($set1 as element()*, $required1 a
                                                $set3 as element()*, $required3 as xs:boolean,
                                                $set4 as element()*, $required4 as xs:boolean,
                                                $set5 as element()*, $required5 as xs:boolean,
-                                               $set6 as element()*, $required6 as xs:boolean) as node()* {
-    let $union := $set1 | $set2 | $set3 | $set4 | $set5 | $set6
+                                               $set6 as element()*, $required6 as xs:boolean,
+                                               $set7 as element()*, $required7 as xs:boolean) as node()* {
+    let $union := $set1 | $set2 | $set3 | $set4 | $set5 | $set6 | $set7
     return
         (if ($required1) then $set1 else $union) intersect
         (if ($required2) then $set2 else $union) intersect
         (if ($required3) then $set3 else $union) intersect
         (if ($required4) then $set4 else $union) intersect
         (if ($required5) then $set5 else $union) intersect
-        (if ($required6) then $set6 else $union)
+        (if ($required6) then $set6 else $union) intersect
+        (if ($required7) then $set7 else $union)
 };
