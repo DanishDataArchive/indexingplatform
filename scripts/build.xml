@@ -75,6 +75,7 @@
      <fileset dir="../web">
        <include name="**/*.xquery"/>
        <include name="**/*.xml"/>
+       <exclude name="**/ddi-html/**/*.*"/>
      </fileset>
    </xdb:store>
     <!-- store the xslt files -->
@@ -105,31 +106,40 @@
        <include name="**/*.*"/>
      </fileset>
    </xdb:store>
-    <!-- store ddi codebook stylesheet -->
- 	<!-- i18n -->
+ 	<!-- ddi-html check out from repo -->
+ 	<!-- todo -->
+ 	
+ 	<!-- ddi-html xslt -->
     <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/i18n" createcollection="true">
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform/codebook/" createcollection="true">
+      <fileset dir="../web/ddi-html">
+        <include name="*.xsl"/>
+      </fileset>
+    </xdb:store>
+ 	<!-- ddi-html i18n -->
+    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform/codebook/i18n" createcollection="true">
       <fileset dir="../web/ddi-html/i18n">
         <include name="*.*"/>
       </fileset>
     </xdb:store>
-    <!-- js -->
+    <!-- ddi-html js -->
  	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/js" createcollection="true">
+      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true">
       <fileset dir="../web/ddi-html/js">
         <include name="*.*"/>
       </fileset>
     </xdb:store>
- 	<!-- theme/default -->
+ 	<!-- ddi-html theme/default -->
  	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
- 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/theme/default" createcollection="true">
+ 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true">
       <fileset dir="../web/ddi-html/theme/default">
         <include name="*.*"/>
       </fileset>
     </xdb:store>
- 	<!-- img -->
+ 	<!-- ddi-html img -->
  	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
- 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/ddi-html/theme/default/img" createcollection="true">
+ 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme/img" createcollection="true">
       <fileset dir="../web/ddi-html/theme/default/img">
         <include name="*.*"/>
       </fileset>
