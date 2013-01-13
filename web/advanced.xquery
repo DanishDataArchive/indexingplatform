@@ -105,6 +105,7 @@ declare function local:main() as node()? {
             <param name="type" value="advanced"/>
             <param name="grouped" value="{$grouped}"/>
             <param name="lang" value="{$lang}"/>
+            <param name="hostname" value="localhost" />
         </parameters>
     
     return transform:transform($searchResults, $searchResultsStylesheet, $params)

@@ -32,7 +32,7 @@ declare function local:main() as node()? {
             
             <!-- css and js path -->            
             <param name="theme-path" value="theme" />
-            <param name="path-prefix" value="js"/>
+            <param name="path-prefix" value=""/>
             
             <!-- java script enable -->
             <param name="include-js" value="true" />

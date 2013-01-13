@@ -12,6 +12,7 @@
     <xsl:param name="type"/>
     <xsl:param name="grouped"/>
     <xsl:param name="lang"/>
+    <xsl:param name="hostname"/>
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
     
     <xsl:template match="dl:LightXmlObjectList">
@@ -41,6 +42,7 @@
                         <tbody>
                             <xsl:call-template name="result-header-top">
                                 <xsl:with-param name="lang" select="$lang"/>
+                                <xsl:with-param name="hostname" select="$hostname"/>
                             </xsl:call-template>
                             <tr>
                                 <td mainframe="" valign="top">
@@ -49,17 +51,20 @@
                                             <tr>
                                                 <xsl:call-template name="result-header-leftmenu">
                                                     <xsl:with-param name="lang" select="$lang"/>
+                                                    <xsl:with-param name="hostname" select="$hostname"/>
                                                 </xsl:call-template>
                                                 <td valign="top" width="580">
                                                     <xsl:choose>
                                                         <xsl:when test="$type='advanced'">
                                                             <xsl:apply-templates select="asp:AdvancedSearchParameters">
                                                                 <xsl:with-param name="grouped" select="$grouped"/>
+                                                                <xsl:with-param name="hostname" select="$hostname"/>
                                                             </xsl:apply-templates>
                                                         </xsl:when>
                                                         <xsl:otherwise>
                                                             <xsl:apply-templates select="ssp:SimpleSearchParameters">
                                                                 <xsl:with-param name="grouped" select="$grouped"/>
+                                                                <xsl:with-param name="hostname" select="$hostname"/>
                                                             </xsl:apply-templates>
                                                         </xsl:otherwise>
                                                     </xsl:choose>
@@ -103,12 +108,14 @@
                                                                                                 <xsl:call-template name="result-core-content-grouped">
                                                                                                     <xsl:with-param name="type" select="$type"/>
                                                                                                     <xsl:with-param name="lang" select="$lang"/>
+                                                                                                    <xsl:with-param name="hostname" select="$hostname"/>
                                                                                                 </xsl:call-template>
                                                                                             </xsl:when>
                                                                                             <xsl:otherwise>
                                                                                                 <xsl:call-template name="result-core-content">
                                                                                                     <xsl:with-param name="type" select="$type"/>
                                                                                                     <xsl:with-param name="lang" select="$lang"/>
+                                                                                                    <xsl:with-param name="hostname" select="$hostname"/>
                                                                                                 </xsl:call-template>
                                                                                             </xsl:otherwise>
                                                                                         </xsl:choose>

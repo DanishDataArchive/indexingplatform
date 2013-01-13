@@ -11,7 +11,7 @@
             <xsl:with-param name="lang" select="'da'"/>
             <!--xsl:with-param name="previousVersions" select="'1.0.0,1.2.0'"/-->
             <xsl:with-param name="cvFolder" select="'cv'"/>
-            <xsl:with-param name="hostname" select="'localhost:8080'"/>
+            <xsl:with-param name="hostname" select="'http://localhost'"/>
         </xsl:call-template>
     </xsl:template>
     
@@ -133,7 +133,7 @@
             </xsl:if>
             <!-- - variables - -->
             <a name="dataset"/> 
-        <h2 class="lp">
+            <h2 class="lp">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
             <p class="lp">

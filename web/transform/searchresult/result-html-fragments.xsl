@@ -4,6 +4,7 @@
     
     <xsl:template name="result-header-top">
         <xsl:param name="lang"/>
+        <xsl:param name="hostname"/>
         <xsl:choose>
             <xsl:when test="$lang = 'en'">
                 <tr>
@@ -50,7 +51,7 @@
                             <table border="0" width="" id="table1" cellspacing="0" cellpadding="0" height="24">
                                 <tr>
                                     <td align="center">
-                                        <a class="navi" id="findedata" href="data-finde-en.asp">Finding data</a></td>
+                                        <a class="navi" id="findedata" href="http://{$hostname}/simple-search">Finding data</a></td>
                                     <td align="center" width="35">&#160;</td>
                                     <td align="center">
                                         <a class="navi" id="bestilledata" href="data-bestille-en.asp">Ordering data</a></td>
@@ -134,7 +135,7 @@
                                 <tbody>
                                     <tr>
                                         <td align="center">
-                                            <a class="navi" href="http://localhost:8080/exist/rest/apps/web/simple.xml">Søg og bestil data</a>
+                                            <a class="navi" href="http://{$hostname}/simple-search">Søg og bestil data</a>
                                         </td>
                                         <td style="border-style: none; border-width: medium" align="center" width="35">&#160;</td>
                                         <td style="border-style: none; border-width: medium" align="center">
@@ -168,6 +169,7 @@
     
     <xsl:template name="result-header-leftmenu">
         <xsl:param name="lang"/>
+        <xsl:param name="hostname"/>
         <xsl:choose>
             <xsl:when test="$lang = 'en'">
                 <td class="mainleftborder" valign="top" width="200">
@@ -180,7 +182,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <a href="http://localhost:8080/exist/rest/apps/web/simple.xml">Simple search</a>
+                                                    <a href="http://{$hostname}/simple-search">Simple search</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -188,7 +190,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <a href="http://localhost:8080/exist/rest/apps/web/advanced.xml">Advanced search</a>
+                                                    <a href="http://{$hostname}/advanced-search">Advanced search</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -234,7 +236,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <a href="http://localhost:8080/exist/rest/apps/web/simple.xml">Simpel søgning</a>
+                                                    <a href="http://{$hostname}/simple-search">Simpel søgning</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -242,7 +244,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <a href="http://localhost:8080/exist/rest/apps/web/advanced.xml">Avanceret søgning</a>
+                                                    <a href="http://{$hostname}/advanced-search">Avanceret søgning</a>
                                                 </td>
                                             </tr>
                                             <tr>

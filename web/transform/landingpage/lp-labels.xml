@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LandingPageLabels>
+<LandingPageLabels>    
+    <Label id="host">
+        <!-- production -->
+        <!--LabelText xml:lang="production_xternal">http://kipon.dda.dk</LabelText>
+        <LabelText xml:lang="production_internal">http://192.168.111.109</LabelText-->
+        
+        <!-- development -->
+        <LabelText xml:lang="production_internal">http://localhost</LabelText>
+        <LabelText xml:lang="production_xternal">http://localhost</LabelText>
+    </Label>
     <Label id="orderdata">
         <LabelText xml:lang="da">Bestil data</LabelText>
         <LabelText xml:lang="en">Order data</LabelText>

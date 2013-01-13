@@ -8,8 +8,9 @@
     
     <xsl:template match="ssp:SimpleSearchParameters">
         <xsl:param name="grouped"/>
+        <xsl:param name="hostname"/>
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form id="searchform" method="post" action="simple.xquery" onsubmit="return validateFields()">
+            <form id="searchform" method="post" action="http://{$hostname}/simple-search" onsubmit="return validateFields()">
                 <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700" class="searchoption">
                     <tbody>
                         <tr>
@@ -145,8 +146,9 @@
 
     <xsl:template match="asp:AdvancedSearchParameters">
         <xsl:param name="grouped"/>
+        <xsl:param name="hostname"/>
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form id="searchform" method="post" action="advanced.xquery" onsubmit="return validateFields()">
+            <form id="searchform" method="post" action="http://{$hostname}/advanced-search" onsubmit="return validateFields()">
                 <table id="searchform">
                     <tr>
                         <td colspan="2">
