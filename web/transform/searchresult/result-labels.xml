@@ -53,8 +53,8 @@
         <LabelText xml:lang="en">Search Data</LabelText>
     </Label>
     <Label id="html-search-result">
-        <LabelText xml:lang="da">Søg i</LabelText>
-        <LabelText xml:lang="en">Search in</LabelText>
+        <LabelText xml:lang="da">Søg efter</LabelText>
+        <LabelText xml:lang="en">Search for</LabelText>
     </Label>
     <Label id="study-info">
         <LabelText xml:lang="da">Studieinformation</LabelText>

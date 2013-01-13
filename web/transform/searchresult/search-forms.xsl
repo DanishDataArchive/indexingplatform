@@ -282,9 +282,18 @@
                     <tr>
                         <td colspan="2">
                             <h2 class="search">
-                                <xsl:value-of select="$labels[@id='form-include-references']/LabelText[@xml:lang=$lang]/text()"/>
+                                <xsl:value-of select="$labels[@id='html-search-result']/LabelText[@xml:lang=$lang]/text()"/>
                             </h2>
-                            
+                            <xsl:element name="input">
+                                <xsl:attribute name="type">checkbox</xsl:attribute>
+                                <xsl:attribute name="class">searchoption</xsl:attribute>
+                                <xsl:attribute name="name">StudyUnitChecked</xsl:attribute>
+                                <xsl:if
+                                    test="s:Scope/s:StudyUnit">
+                                    <xsl:attribute name="checked">checked</xsl:attribute>
+                                </xsl:if>
+                            </xsl:element>
+                            <xsl:value-of select="$labels[@id='study-info']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
