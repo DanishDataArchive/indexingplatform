@@ -139,6 +139,10 @@
         <LabelText xml:lang="da">Fundet i</LabelText>
         <LabelText xml:lang="en">Found in</LabelText>
     </Label>
+    <Label id="html-show-all">
+        <LabelText xml:lang="da">Vis alle</LabelText>
+        <LabelText xml:lang="en">Show all</LabelText>
+    </Label>
     <Label id="html-details">
         <LabelText xml:lang="da">Detaljer</LabelText>
         <LabelText xml:lang="en">Details</LabelText>

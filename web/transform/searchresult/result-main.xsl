@@ -101,11 +101,13 @@
                                                                                         <xsl:choose>
                                                                                             <xsl:when test="$grouped">
                                                                                                 <xsl:call-template name="result-core-content-grouped">
+                                                                                                    <xsl:with-param name="type" select="$type"/>
                                                                                                     <xsl:with-param name="lang" select="$lang"/>
                                                                                                 </xsl:call-template>
                                                                                             </xsl:when>
                                                                                             <xsl:otherwise>
                                                                                                 <xsl:call-template name="result-core-content">
+                                                                                                    <xsl:with-param name="type" select="$type"/>
                                                                                                     <xsl:with-param name="lang" select="$lang"/>
                                                                                                 </xsl:call-template>
                                                                                             </xsl:otherwise>

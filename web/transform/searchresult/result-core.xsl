@@ -6,12 +6,14 @@
     <xsl:key name="kStudyByID" match="//CustomList[@type='StudyUnit']" use="Custom[@option='id']" />
 
     <xsl:template name="result-core-content">
+        <xsl:param name="type"/>
         <xsl:param name="lang"/>
         <xsl:for-each select="LightXmlObject">
             <div class="result">
                 <xsl:variable name="studyId" select="CustomList[@type='StudyUnit']/Custom[@option='id']"/>
                 
                 <xsl:call-template name="element-info">
+                    <xsl:with-param name="type" select="$type"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
                 </xsl:call-template>
                 
@@ -21,6 +23,7 @@
                 </xsl:call-template>
 
                 <xsl:variable name="title" select="CustomList[@type='StudyUnit']/Custom[@option='label']"/>
+                <br/>
                 <div class="study" style="float:left;">
                     <xsl:variable name="url2"
                         select="concat('landingpage.xquery?studyid=', $studyId)"/>
@@ -39,6 +42,7 @@
     </xsl:template>
     
     <xsl:template name="result-core-content-grouped">
+        <xsl:param name="type"/>
         <xsl:param name="lang"/>
         <xsl:for-each select="//CustomList[generate-id(.) = generate-id(key('kStudyByID',Custom[@option='id'])[1])]">
             <div class="result">
@@ -60,6 +64,7 @@
                 <br/>
                 <xsl:for-each select="//CustomList[@type='StudyUnit']/Custom[@option='id' and text()=$studyId]/../..">
                     <xsl:call-template name="element-info">
+                        <xsl:with-param name="type" select="$type"/>
                         <xsl:with-param name="studyId" select="$studyId"/>
                     </xsl:call-template>
                     <xsl:call-template name="references">
@@ -72,6 +77,7 @@
     </xsl:template>
     
     <xsl:template name="element-info">
+        <xsl:param name="type"/>
         <xsl:param name="studyId"/>
         <p class="contextlink">
             <strong>
@@ -97,9 +103,28 @@
             </h3>
             <br/>
             <em>
-                <xsl:apply-templates select="Context"/>
+                <xsl:choose>
+                    <xsl:when test="$type='advanced'">
+                        <xsl:choose>
+                            <xsl:when test="count(Context/Hit) > 5">
+                                <xsl:apply-templates select="Context/Hit[position() &lt;= 5]"/>
+                                <a href="javascript:;" class="referencedElementsTitle">
+                                    <xsl:value-of select="$labels[@id='html-show-all']/LabelText[@xml:lang=$lang]/text()"/>
+                                </a>
+                                <div class="referencedElementsList">
+                                    <xsl:apply-templates select="Context/Hit[position() &gt; 5]"/>
+                                </div>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="Context/Hit"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="Context"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </em>
-            <br/>
         </p>
     </xsl:template>
     
@@ -203,16 +228,19 @@
     </xsl:template>
     
     <xsl:template match="Context">
-        <xsl:for-each select="Hit">
-            <p>
-                <strong>
-                    <xsl:variable name="elementType" select="@elementType"/>
-                    <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>:
-                </strong>
-                <xsl:copy-of select="*"/>
-            </p>
-        </xsl:for-each>
-        <!--<xsl:copy-of select="*"/>-->
+        <p>
+            <xsl:copy-of select="*"/>
+        </p>
+    </xsl:template>
+    
+    <xsl:template match="Hit">
+       <p>
+            <strong>
+                <xsl:variable name="elementType" select="@elementType"/>
+                <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>:
+            </strong>
+            <xsl:copy-of select="*"/>
+        </p>
     </xsl:template>
 
     <xsl:template name="referencedElements">
