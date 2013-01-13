@@ -135,6 +135,10 @@
     </Label>
     
     <!-- result-core.xsl -->
+    <Label id="html-found-in">
+        <LabelText xml:lang="da">Fundet i</LabelText>
+        <LabelText xml:lang="en">Found in</LabelText>
+    </Label>
     <Label id="html-details">
         <LabelText xml:lang="da">Detaljer</LabelText>
         <LabelText xml:lang="en">Details</LabelText>

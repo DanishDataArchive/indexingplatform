@@ -91,9 +91,15 @@
                     <xsl:value-of select="Label"/>
                 </a>
             </xsl:if>
+            <br/>
+            <h3>
+                <xsl:value-of select="$labels[@id='html-found-in']/LabelText[@xml:lang=$lang]/text()"/>:
+            </h3>
+            <br/>
             <em>
                 <xsl:apply-templates select="Context"/>
             </em>
+            <br/>
         </p>
     </xsl:template>
     
@@ -197,7 +203,16 @@
     </xsl:template>
     
     <xsl:template match="Context">
-        <xsl:copy-of select="*"/>
+        <xsl:for-each select="Hit">
+            <p>
+                <strong>
+                    <xsl:variable name="elementType" select="@elementType"/>
+                    <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>:
+                </strong>
+                <xsl:copy-of select="*"/>
+            </p>
+        </xsl:for-each>
+        <!--<xsl:copy-of select="*"/>-->
     </xsl:template>
 
     <xsl:template name="referencedElements">
