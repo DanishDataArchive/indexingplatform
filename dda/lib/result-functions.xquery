@@ -229,6 +229,41 @@ declare function result:buildResultListItem($result as element()) as element() {
 };
 
 (:~
+ : Returns a single LightXmlObject element containing a single result for advanced search
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $result one element in the result list obtained by the query
+ :)
+declare function result:buildResultListItemAdvanced($result as element()) as element() {
+    let $result-name := local-name($result)
+    let $element :=
+             if ($result-name eq 'StudyUnit') then collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $result/@id)]
+        else if ($result-name eq 'Variable') then collection('/db/apps/dda')//lp:Variable[ft:query(@id, $result/@id)]
+        else if ($result-name eq 'QuestionItem') then collection('/db/apps/dda')//dc:QuestionItem[ft:query(@id, $result/@id)]
+        else if ($result-name eq 'MultipleQuestionItem') then collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(@id, $result/@id)]
+        else if ($result-name eq 'Universe') then collection('/db/apps/dda')//cc:Universe[ft:query(@id, $result/@id)]
+        else if ($result-name eq 'Concept') then collection('/db/apps/dda')//cc:Concept[ft:query(@id, $result/@id)]
+        else if ($result-name eq 'Category') then collection('/db/apps/dda')//lp:Category[ft:query(@id, $result/@id)]
+        else ()
+    return <LightXmlObject element="{$result-name}" id="{data($result/@id)}">
+        <Context>
+        {
+            for $hit in $result/d:Hit
+                for $contextElement in $result/d:Hit/*
+                    return
+                    <Hit elementType="{data($hit/@elementType)}">
+                        {context:get-context($contextElement, 50)}
+                    </Hit>
+        }
+        </Context>
+        {local:getLabel($element)}
+        {local:createStudyUnitCustom($element)}
+        {result:getReferences($element)}
+    </LightXmlObject>
+};
+
+(:~
  : Returns a list of references for s specific element, i.e. the elements either referred by or referring to that element.
  :
  : @author  Kemal Pajevic
@@ -263,8 +298,7 @@ declare function result:getReferences($resultElement as element()) as element()*
     let $resultElementName := local-name($resultElement)
     (: Get a denormalized list of all elements referred by or referring to this element :)
     let $referenceList :=
-             if ($resultElementName eq 'StudyUnit') then collection('/db/apps/dda-denormalization')//d:StudyUnit[ft:query(@id, $resultElementId)]
-        else if ($resultElementName eq 'Variable') then collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $resultElementId)]
+             if ($resultElementName eq 'Variable') then collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $resultElementId)]
         else if ($resultElementName eq 'QuestionItem') then collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $resultElementId)]
         else if ($resultElementName eq 'MultipleQuestionItem') then collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $resultElementId)]
         else if ($resultElementName eq 'Universe') then collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $resultElementId)]
@@ -272,7 +306,7 @@ declare function result:getReferences($resultElement as element()) as element()*
         else if ($resultElementName eq 'Category') then collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $resultElementId)]
         else ()
 
-    (: If the scope (list of types of referring elements) is set then use it. Otherwise fall back to a default list, specific for each element type. :)
+    (: The default reference list, specific for each element type. :)
     let $referenceScope :=
              if ($resultElementName eq 'Variable') then <s:Scope><s:QuestionItem/><s:MultipleQuestionItem/><s:Universe/><s:Concept/><s:Category/><s:RepresentationType/></s:Scope>
         else if ($resultElementName eq 'QuestionItem') then <s:Scope><s:Variable/><s:Universe/><s:Concept/><s:Category/><s:DomainType/></s:Scope>
