@@ -250,7 +250,7 @@ declare function result:buildResultListItemAdvanced($result as element()) as ele
         <Context>
         {
             for $hit in $result/d:Hit
-                for $contextElement in $result/d:Hit/*
+                for $contextElement in $hit/*
                     return
                     <Hit elementType="{data($hit/@elementType)}">
                         {context:get-context($contextElement, 50)}
