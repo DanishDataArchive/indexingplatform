@@ -22,16 +22,24 @@ declare function local:main() as node()? {
     else 'en'
     
     let $params := <parameters>
-            <param name="lang" value="{$lang}" />
-            <param name="fallback-lang" value="da" />
-            <param name="translations" value="i18n/messages_{$lang}.properties.xml" />
-            <param name="render-as-document" value="true" />            
-            <param name="guidancelink" value="http://samfund.dda.dk/dda/vejledning_kodebog_1.0.asp"/>
-            <param name="currationprocesslink" value="http://samfund.dda.dk/dda/oparbejdningsproces.asp"/>
-            
-            <param name="include-js" value="true" />
-            <param name="show-category-statistics" value="true"/>
+            <param name="render-as-document" value="true" />
             <param name="print-anchor" value="true" />
+            
+            <!-- language -->
+            <param name="lang" value="{$lang}" />
+            <param name="fallback-lang" value="en" />
+            <param name="translations" value="i18n/messages_{$lang}.properties.xml" />
+            
+            <!-- css and js path -->            
+            <param name="theme-path" value="theme" />
+            <param name="path-prefix" value="js"/>
+            
+            <!-- java script enable -->
+            <param name="include-js" value="true" />
+            <param name="show-category-statistics" value="true"/>            
+            <param name="show-navigration-bar" value="true" />
+            
+            <!-- display options -->
             <param name="show-study-title" value="true" />
             <param name="show-study-information" value="true" />
             <param name="show-guidance" value="true" />
@@ -40,13 +48,13 @@ declare function local:main() as node()? {
             <param name="show-abstract" value="false" />
             <param name="show-coverage" value="false" />
             <param name="show-questionnaires" value="false" />
-            <param name="show-navigration-bar" value="true" />
             <param name="show-variable-list" value="false" />
-            <param name="theme-path" value="theme/default" />
-            <param name="path-prefix" value="." />
             <param name="show-numeric-var-frequence" value="true" />
             <param name="show-universe" value="true" />
-            <param name="path-prefix" value="ddi-html"/>
+            
+            <!-- information links -->            
+            <param name="guidancelink" value="http://samfund.dda.dk/dda/vejledning_kodebog_1.0.asp"/>
+            <param name="currationprocesslink" value="http://samfund.dda.dk/dda/oparbejdningsproces.asp"/>
         </parameters>
 
     return transform:transform($study, $stylesheet, $params)
