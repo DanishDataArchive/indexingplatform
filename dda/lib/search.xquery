@@ -9,6 +9,7 @@ xquery version "1.0";
 module namespace ddi = "http://dda.dk/ddi";
 
 import module namespace result = "http://dda.dk/ddi/result" at "xmldb:exist:///db/apps/dda/lib/result-functions.xquery";
+import module namespace functx = "http://www.functx.com";
 
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
@@ -511,6 +512,33 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             (: If no study unit parameters were set then we just use all the found elements. :)
             else $categoryResults
     
+    let $foundStudies :=
+        if ($search-scope/s:StudyUnit) then
+            let $studiesFromStudies := for $element in $studyUnits return $element/@id
+            let $studiesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $element/@id)]/@studyId
+            let $studiesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $element/@id)]/@studyId
+            let $studiesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $element/@id)]/@studyId
+            let $studiesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $element/@id)]/@studyId
+            let $studiesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $element/@id)]/@studyId
+            let $studiesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)]/@studyId
+            let $union :=
+                functx:value-union($studiesFromStudies,
+                functx:value-union($studiesFromVariables, 
+                functx:value-union($studiesFromQuestionItems, 
+                functx:value-union($studiesFromMultipleQuestionItems, 
+                functx:value-union($studiesFromUniverses, 
+                functx:value-union($studiesFromConcepts, $studiesFromCategories))))))
+            let $foundStudyIDs :=
+                functx:value-intersect((if ($studyParametersEntered) then $studiesFromStudies else $union),
+                functx:value-intersect((if ($variableSearch) then $studiesFromVariables else $union),
+                functx:value-intersect((if ($questionItemSearch) then $studiesFromQuestionItems else $union),
+                functx:value-intersect((if ($multipleQuestionItemSearch) then $studiesFromMultipleQuestionItems else $union),
+                functx:value-intersect((if ($universeSearch) then $studiesFromUniverses else $union),
+                functx:value-intersect((if ($conceptSearch) then $studiesFromConcepts else $union), (if ($categorySearch) then $studiesFromCategories else $union)))))))
+            return
+                for $studyId in $foundStudyIDs
+                    return <d:StudyUnit id="{$studyId}" studyId="{$studyId}" />
+        else ()
         
     let $foundVariables :=
         if ($search-scope/s:Variable) then
@@ -627,10 +655,10 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $categoryScope := if ($search-scope/s:Category) then local:queryCategory($search-string) else ():)
     
     
-    let $results := ($foundVariables, $foundQuestionItems, $foundMultipleQuestionItems, $foundUniverses, $foundConcepts, $foundCategories)
+    let $results := ($foundStudies, $foundVariables, $foundQuestionItems, $foundMultipleQuestionItems, $foundUniverses, $foundConcepts, $foundCategories)
 
     return ddi:buildLightXmlObjectList($results, data($search-parameters/smd:SearchMetaData/@hits-perpage), data($search-parameters/smd:SearchMetaData/@hit-start), $search-parameters)
-    (:return $results:)
+    (:return $foundStudies:)
 };
 
 declare function local:studyUnitsFromParameters($search-parameters as element()) as element()* {
