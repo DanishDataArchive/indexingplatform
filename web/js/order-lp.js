@@ -17,5 +17,5 @@ function createOrder() {
     localStorage.setItem('studyIDs', JSON.stringify(studyIDs));
     localStorage.setItem('studyTitles', JSON.stringify(studyTitles));
     
-window.open("order/order.html", "_blank");
+window.open("../order/order.html", "_blank");
 }
