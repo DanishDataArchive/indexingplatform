@@ -1,9 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project version="14.1">
     <meta>
-        <filters directoryPatterns="" filePatterns=""
-            positiveFilePatterns="" showHiddenFiles="false"/>
-        <options/>
+        <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
+        <options>
+            <serialized version="14.1" xml:space="preserve">
+                <map>
+                    <entry>
+                        <String>scenario.associations</String>
+                        <scenarioAssociation-array>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>web/transform/searchresult/result-core.xsl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>result-core</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XML</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>web/xslt/result-core.xsl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>result-core</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XML</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                        </scenarioAssociation-array>
+                    </entry>
+                    <entry>
+                        <String>scenarios</String>
+                        <scenario-array>
+                            <scenario>
+                                <field name="advancedOptionsMap">
+                                    <null/>
+                                </field>
+                                <field name="name">
+                                    <String>result-core</String>
+                                </field>
+                                <field name="baseURL">
+                                    <String></String>
+                                </field>
+                                <field name="footerURL">
+                                    <String></String>
+                                </field>
+                                <field name="fOPMethod">
+                                    <String>pdf</String>
+                                </field>
+                                <field name="fOProcessorName">
+                                    <String>Apache FOP</String>
+                                </field>
+                                <field name="headerURL">
+                                    <String></String>
+                                </field>
+                                <field name="inputXSLURL">
+                                    <String>file:/Users/kemal/Dropbox/DDA/ddaipf/web/transform/searchresult/result-main.xsl</String>
+                                </field>
+                                <field name="inputXMLURL">
+                                    <String>file:/Users/kemal/Dropbox/DDA/ddaipf/web/xml-instances/ss_omraade.xml</String>
+                                </field>
+                                <field name="defaultScenario">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="isFOPPerforming">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="type">
+                                    <String>XML</String>
+                                </field>
+                                <field name="saveAs">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="openInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="outputFile">
+                                    <File>/Users/kemal/Dropbox/DDA/ddaipf/web/output.html</File>
+                                </field>
+                                <field name="openOtherLocationInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="locationToOpenInBrowserURL">
+                                    <null/>
+                                </field>
+                                <field name="openInEditor">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInHTMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInXMLPane">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="showInSVGPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInResultSetPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="useXSLTInput">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="xsltParams">
+                                    <list/>
+                                </field>
+                                <field name="cascadingStylesheets">
+                                    <String-array/>
+                                </field>
+                                <field name="xslTransformer">
+                                    <String>Saxon6.5.5</String>
+                                </field>
+                                <field name="extensionURLs">
+                                    <String-array/>
+                                </field>
+                            </scenario>
+                        </scenario-array>
+                    </entry>
+                    <entry>
+                        <String>validation.scenario.associations</String>
+                        <scenarioAssociation-array>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>oxygen:/eXist%20Data%20Source$eXist%20Connection/db/apps/web/simple.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>simple</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>Validation_scenario</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                        </scenarioAssociation-array>
+                    </entry>
+                    <entry>
+                        <String>validation.scenarios</String>
+                        <validationScenario-array>
+                            <validationScenario>
+                                <field name="pairs">
+                                    <list>
+                                        <validationUnit>
+                                            <field name="validationType">
+                                                <validationUnitType>
+                                                    <field name="validationInputType">
+                                                        <String>text/xml</String>
+                                                    </field>
+                                                </validationUnitType>
+                                            </field>
+                                            <field name="url">
+                                                <String>${currentFileURL}</String>
+                                            </field>
+                                            <field name="validationEngine">
+                                                <validationEngine>
+                                                    <field name="engineType">
+                                                        <String>&lt;Default engine></String>
+                                                    </field>
+                                                    <field name="allowsAutomaticValidation">
+                                                        <Boolean>true</Boolean>
+                                                    </field>
+                                                </validationEngine>
+                                            </field>
+                                            <field name="allowAutomaticValidation">
+                                                <Boolean>true</Boolean>
+                                            </field>
+                                            <field name="extensions">
+                                                <null/>
+                                            </field>
+                                            <field name="validationSchema">
+                                                <null/>
+                                            </field>
+                                        </validationUnit>
+                                    </list>
+                                </field>
+                                <field name="type">
+                                    <String>Validation_scenario</String>
+                                </field>
+                                <field name="name">
+                                    <String>simple</String>
+                                </field>
+                            </validationScenario>
+                        </validationScenario-array>
+                    </entry>
+                </map>
+            </serialized>
+        </options>
     </meta>
     <projectTree name="DDA-IPF.xpr">
         <folder name="dda">
@@ -14,37 +209,32 @@
                 <file name="dda/lib/context-functions.xquery"/>
                 <file name="dda/lib/result-functions.xquery"/>
                 <file name="dda/lib/search.xquery"/>
+                <file name="dda/lib/store.xquery"/>
             </folder>
             <folder name="rest">
                 <file name="dda/rest/advanced-search.xquery"/>
                 <file name="dda/rest/simple-search.xquery"/>
+                <file name="dda/rest/submit-ddi.xquery"/>
             </folder>
             <folder name="schema">
                 <folder name="result">
-                    <file
-                        name="dda/schema/result/ddieditor-lightxmlobject.xsd"/>
+                    <file name="dda/schema/result/ddieditor-lightxmlobject.xsd"/>
                     <file name="dda/schema/result/result-metadata.xsd"/>
                 </folder>
                 <folder name="search">
-                    <file
-                        name="dda/schema/search/advanced-search-parameters.xsd"/>
+                    <file name="dda/schema/search/advanced-search-parameters.xsd"/>
                     <file name="dda/schema/search/scope.xsd"/>
                     <file name="dda/schema/search/search-metadata.xsd"/>
-                    <file
-                        name="dda/schema/search/simple-search-parameters.xsd"
-                    />
+                    <file name="dda/schema/search/simple-search-parameters.xsd"/>
                 </folder>
             </folder>
         </folder>
         <folder name="dda-denormalization">
             <folder name="index">
-                <file name="dda-denormalization/index/collection.xconf"
-                />
+                <file name="dda-denormalization/index/collection.xconf"/>
             </folder>
             <folder name="schema">
-                <file
-                    name="dda-denormalization/schema/denormalized-ddi.xsd"
-                />
+                <file name="dda-denormalization/schema/denormalized-ddi.xsd"/>
             </folder>
             <file name="dda-denormalization/denormalize.xquery"/>
         </folder>
@@ -58,6 +248,19 @@
             <folder name="rest">
                 <file name="dda-urn/rest/urn-resolution.xquery"/>
             </folder>
+        </folder>
+        <folder name="web">
+            <folder path="web/ddi-html/"/>
+            <folder path="web/js/"/>
+            <folder path="web/order/"/>
+            <folder path="web/schemas/"/>
+            <folder path="web/theme/"/>
+            <folder path="web/transform/"/>
+            <file name="web/advanced.xquery"/>
+            <file name="web/codebook.xquery"/>
+            <file name="web/landingpage.xquery"/>
+            <file name="web/metadata.xquery"/>
+            <file name="web/simple.xquery"/>
         </folder>
         <file name="test.xquery"/>
     </projectTree>
