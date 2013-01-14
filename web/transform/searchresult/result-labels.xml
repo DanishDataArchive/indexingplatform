@@ -106,20 +106,20 @@
         <LabelText xml:lang="en">Spatial coverage</LabelText>
     </Label>
     <Label id="form-temporal">
-        <LabelText xml:lang="da">Temporal Coverage</LabelText>
-        <LabelText xml:lang="en">Afgrænsning i tid</LabelText>
+        <LabelText xml:lang="da">Afgrænsning i tid</LabelText>
+        <LabelText xml:lang="en">Temporal Coverage</LabelText>
     </Label>
     <Label id="form-kindofdata">
-        <LabelText xml:lang="da">Kind of data</LabelText>
-        <LabelText xml:lang="en">Datatype</LabelText>
+        <LabelText xml:lang="da">Datatype</LabelText>
+        <LabelText xml:lang="en">Kind of data</LabelText>
     </Label>
     <Label id="form-from">
-        <LabelText xml:lang="da">fra</LabelText>
-        <LabelText xml:lang="en">from</LabelText>
+        <LabelText xml:lang="da">Fra</LabelText>
+        <LabelText xml:lang="en">From</LabelText>
     </Label>
     <Label id="form-to">
-        <LabelText xml:lang="da">til</LabelText>
-        <LabelText xml:lang="en">to</LabelText>
+        <LabelText xml:lang="da">Til</LabelText>
+        <LabelText xml:lang="en">To</LabelText>
     </Label>
     <Label id="form-date-format">
         <LabelText xml:lang="da">åååå-mm-dd</LabelText>
@@ -136,8 +136,8 @@
     
     <!-- result-core.xsl -->
     <Label id="html-found-in">
-        <LabelText xml:lang="da">Fundet i</LabelText>
-        <LabelText xml:lang="en">Found in</LabelText>
+        <LabelText xml:lang="da">Kontekst</LabelText>
+        <LabelText xml:lang="en">Context</LabelText>
     </Label>
     <Label id="html-show-all">
         <LabelText xml:lang="da">Vis alle</LabelText>

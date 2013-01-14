@@ -149,11 +149,11 @@
         <xsl:param name="hostname"/>
         <div style="margin-left:25px; margin-bottom:20px;">
             <form id="searchform" method="post" action="http://{$hostname}/advanced-search" onsubmit="return validateFields()">
-                <table id="searchform">
+                <table id="searchform" class="searchoption">
                     <tr>
                         <td colspan="2">
                             <h1 class="search">
-                                <xsl:value-of select="$labels[@id='html-advanced-search']/LabelText[@xml:lang=$lang]/text()"/>:
+                                <xsl:value-of select="$labels[@id='html-advanced-search']/LabelText[@xml:lang=$lang]/text()"/>
                             </h1>
                         </td>
                     </tr>
@@ -166,14 +166,6 @@
                     </tr>
                     <tr>
                         <td class="searchadvanced">
-                            <xsl:value-of select="$labels[@id='form-study-id']/LabelText[@xml:lang=$lang]/text()"/>
-                        </td>
-                        <td>
-                            <input type="text" name="studyId" size="40" value="{asp:studyId}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="searchadvanced">
                             <xsl:value-of select="$labels[@id='form-title']/LabelText[@xml:lang=$lang]/text()"/>
                         </td>
                         <td>
@@ -182,18 +174,18 @@
                     </tr>
                     <tr>
                         <td class="searchadvanced">
-                            <xsl:value-of select="$labels[@id='form-abstract-purpose']/LabelText[@xml:lang=$lang]/text()"/>
-                        </td>
-                        <td>
-                            <input type="text" name="abstract-purpose" size="40" value="{asp:abstract-purpose}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="searchadvanced">
                             <xsl:value-of select="$labels[@id='form-creator']/LabelText[@xml:lang=$lang]/text()"/>
                         </td>
                         <td>
                             <input type="text" name="creator" size="40" value="{asp:creator}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="searchadvanced">
+                            <xsl:value-of select="$labels[@id='form-abstract-purpose']/LabelText[@xml:lang=$lang]/text()"/>
+                        </td>
+                        <td>
+                            <input type="text" name="abstract-purpose" size="40" value="{asp:abstract-purpose}"/>
                         </td>
                     </tr>
                     <tr>
@@ -215,6 +207,18 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="searchadvanced"  valign="middle">
+                            <xsl:value-of select="$labels[@id='form-temporal']/LabelText[@xml:lang=$lang]/text()"/>
+                        </td>
+                        <td valign="middle">
+                            <strong class="lp"><xsl:value-of select="$labels[@id='form-from']/LabelText[@xml:lang=$lang]/text()"/></strong>
+                            &#160;<input type="text" name="coverageFrom" size="11" value="{asp:coverageFrom}"/>
+                            &#160;<strong class="lp"><xsl:value-of select="$labels[@id='form-to']/LabelText[@xml:lang=$lang]/text()"/></strong>                            
+                            &#160;<input type="text" name="coverageTo" size="11" value="{asp:coverageTo}"/>
+                            &#160;<strong class="lp">[<xsl:value-of select="$labels[@id='form-date-format']/LabelText[@xml:lang=$lang]/text()"/>]</strong>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="searchadvanced">
                             <xsl:value-of select="$labels[@id='form-kindofdata']/LabelText[@xml:lang=$lang]/text()"/>
                         </td>
@@ -224,14 +228,10 @@
                     </tr>
                     <tr>
                         <td class="searchadvanced">
-                            <xsl:value-of select="$labels[@id='form-temporal']/LabelText[@xml:lang=$lang]/text()"/>
+                            <xsl:value-of select="$labels[@id='form-study-id']/LabelText[@xml:lang=$lang]/text()"/>
                         </td>
                         <td>
-                            <xsl:value-of select="$labels[@id='form-from']/LabelText[@xml:lang=$lang]/text()"/>:
-                            <input type="text" name="coverageFrom" size="12" value="{asp:coverageFrom}"/>
-                            <xsl:value-of select="$labels[@id='form-to']/LabelText[@xml:lang=$lang]/text()"/>:
-                            <input type="text" name="coverageTo" size="12" value="{asp:coverageTo}"/>
-                            (<xsl:value-of select="$labels[@id='form-date-format']/LabelText[@xml:lang=$lang]/text()"/>)
+                            <input type="text" name="studyId" size="40" value="{asp:studyId}"/>
                         </td>
                     </tr>
                     <tr>
@@ -282,6 +282,21 @@
                         </td>
                     </tr>
                     <tr>
+                        <td align="left" colspan="2">
+                            <h2 class="search">
+                                <xsl:value-of select="$labels[@id='html-result']/LabelText[@xml:lang=$lang]/text()"/>
+                            </h2>
+                            <xsl:call-template name="construct-grouped">
+                                <xsl:with-param name="grouped" select="$grouped"/>
+                            </xsl:call-template>
+                            &#160;&#160;
+                            <xsl:call-template name="construct-hits-perpage">
+                                <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
+                                <xsl:with-param name="hit-start" select="smd:SearchMetaData/@hit-start"/>
+                            </xsl:call-template>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                             <h2 class="search">
                                 <xsl:value-of select="$labels[@id='html-search-result']/LabelText[@xml:lang=$lang]/text()"/>
@@ -294,8 +309,10 @@
                                     test="s:Scope/s:StudyUnit">
                                     <xsl:attribute name="checked">checked</xsl:attribute>
                                 </xsl:if>
-                            </xsl:element>
-                            <xsl:value-of select="$labels[@id='study-info']/LabelText[@xml:lang=$lang]/text()"/><xsl:text> </xsl:text>
+                            </xsl:element>                            
+                            <a  class="searchoption" onclick="toggleCheckBox ('StudyUnitChecked')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='study-info']/LabelText[@xml:lang=$lang]/text()"/></a>
+                            <xsl:text> </xsl:text>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -305,7 +322,10 @@
                                     <xsl:attribute name="checked">checked</xsl:attribute>
                                 </xsl:if>
                             </xsl:element>
-                            <xsl:value-of select="$labels[@id='QuestionItem']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                            <a  class="searchoption" onclick="toggleCheckBox ('QuestionItemChecked')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='QuestionItem']/LabelText[@xml:lang=$lang]/Plural/text()"/>
+                            </a>
+                            <xsl:text> </xsl:text>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -315,7 +335,10 @@
                                     <xsl:attribute name="checked">checked</xsl:attribute>
                                 </xsl:if>
                             </xsl:element>
-                            <xsl:value-of select="$labels[@id='Variable']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                            <a  class="searchoption" onclick="toggleCheckBox ('VariableChecked')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Variable']/LabelText[@xml:lang=$lang]/Plural/text()"/>
+                            </a>
+                            <xsl:text> </xsl:text>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -325,7 +348,9 @@
                                     <xsl:attribute name="checked">checked</xsl:attribute>
                                 </xsl:if>
                             </xsl:element>
-                            <xsl:value-of select="$labels[@id='Category']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                            <a  class="searchoption" onclick="toggleCheckBox ('CategoryChecked')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Category']/LabelText[@xml:lang=$lang]/Plural/text()"/></a>
+                            <xsl:text> </xsl:text>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -335,7 +360,9 @@
                                     <xsl:attribute name="checked">checked</xsl:attribute>
                                 </xsl:if>
                             </xsl:element>
-                            <xsl:value-of select="$labels[@id='Concept']/LabelText[@xml:lang=$lang]/Plural/text()"/><xsl:text> </xsl:text>
+                            <a  class="searchoption" onclick="toggleCheckBox ('ConceptChecked')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Concept']/LabelText[@xml:lang=$lang]/Plural/text()"/></a>
+                            <xsl:text> </xsl:text>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -345,31 +372,20 @@
                                     <xsl:attribute name="checked">checked</xsl:attribute>
                                 </xsl:if>
                             </xsl:element>
-                            <xsl:value-of select="$labels[@id='Universe']/LabelText[@xml:lang=$lang]/Plural/text()"/>
+                            <a  class="searchoption" onclick="toggleCheckBox ('UniverseChecked')" href="javascript:void(0);" >
+                                <xsl:value-of select="$labels[@id='Universe']/LabelText[@xml:lang=$lang]/Plural/text()"/>
+                            </a>
                         </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&#160;</td>
                     </tr>
                     <tr>
                         <td>&#160;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}" class="lporderButton lporderText"/>&#160;
-                            <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" class="lporderButton lporderText" onclick="resetForm()"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left">
-                            <xsl:call-template name="construct-hits-perpage">
-                                <xsl:with-param name="hits-perpage" select="smd:SearchMetaData/@hits-perpage"/>
-                                <xsl:with-param name="hit-start" select="smd:SearchMetaData/@hit-start"/>
-                            </xsl:call-template>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" colspan="2">
-                            <xsl:call-template name="construct-grouped">
-                                <xsl:with-param name="grouped" select="$grouped"/>
-                            </xsl:call-template>
+                        <td align="center">
+                            <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}"/>
+                            &#160;
+                            <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" onclick="resetForm()"/>
                         </td>
                     </tr>
                 </table>

@@ -77,6 +77,7 @@
                         <xsl:with-param name="lang" select="$lang"/>
                         <xsl:with-param name="hostname" select="$hostname"/>
                     </xsl:call-template>
+                    <br/><br/>
                 </xsl:for-each>
             </div>
         </xsl:for-each>
@@ -108,7 +109,6 @@
             <h3>
                 <xsl:value-of select="$labels[@id='html-found-in']/LabelText[@xml:lang=$lang]/text()"/>:
             </h3>
-            <br/>
             <em>
                 <xsl:choose>
                     <xsl:when test="$type='advanced'">
@@ -233,8 +233,11 @@
         <xsl:param name="title"/>
         <xsl:param name="lang"/>
         <div style="float:right;">
-            <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]/text()"/>
-            <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" />
+            <!-- {$studyId} -->
+            <a href="javascript:void(0);" onclick="toggleCheckBoxById('{$studyId}')">
+                <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]/text()"/>
+            </a>
+            <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" id="{$studyId}" style="position:relative;vertical-align:middle; "/>
             <input type="hidden" name="studyId[]" value="{$studyId}" />
             <input type="hidden" name="studyTitle[]" value="{$title}" />
         </div>

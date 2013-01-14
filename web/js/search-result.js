@@ -79,6 +79,14 @@ function changeHitStart(hitStart) {
     }
 }
 
+function toggleCheckBoxById(checkboxid) {
+    if($('input[id='+checkboxid+']').get(0).checked) {
+        $('input[id='+checkboxid+']').prop('checked', false);
+    }   else  {
+        $('input[id='+checkboxid+']').prop('checked', true);
+    }         
+}
+
 function toggleCheckBox(checkboxid) {
     if($('input[name='+checkboxid+']').get(0).checked) {
         $('input[name='+checkboxid+']').prop('checked', false);
