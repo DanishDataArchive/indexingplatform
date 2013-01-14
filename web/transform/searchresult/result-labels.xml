@@ -195,7 +195,7 @@
     </Label>
     <Label id="Category">
         <LabelText xml:lang="da">
-            <Singular>Kategorie</Singular>
+            <Singular>Kategori</Singular>
             <Plural>Kategorier</Plural>
         </LabelText>
         <LabelText xml:lang="en">
