@@ -79,14 +79,6 @@ function changeHitStart(hitStart) {
     }
 }
 
-function toggleCheckBoxById(checkboxid) {
-    if($('input[id='+checkboxid+']').get(0).checked) {
-        $('input[id='+checkboxid+']').prop('checked', false);
-    }   else  {
-        $('input[id='+checkboxid+']').prop('checked', true);
-    }         
-}
-
 function toggleCheckBox(checkboxid) {
     if($('input[name='+checkboxid+']').get(0).checked) {
         $('input[name='+checkboxid+']').prop('checked', false);
@@ -95,13 +87,23 @@ function toggleCheckBox(checkboxid) {
     }         
 }
 
+function toggleCheckBoxById(checkboxid) {
+    if($('input[id='+checkboxid+']').get(0).checked) {
+        $('input[id='+checkboxid+']').prop('checked', false);    
+        toggleSubmitButton($('#searchform'));
+    }   else  {
+        $('input[id='+checkboxid+']').prop('checked', true);    
+        toggleSubmitButton($('#searchform'));
+    }         
+}
+
 function toggleGrouped(checkboxid) {
     if($('input[name='+checkboxid+']').get(0).checked) {
         $('input[name='+checkboxid+']').prop('checked', false);    
-        submitForm($('#searchform'));
+        toggleSubmitButton($('#searchform'));
     }   else  {
     $('input[name='+checkboxid+']').prop('checked', true);
-        submitForm($('#searchform'));
+        toggleSubmitButton($('#searchform'));
     }         
 }
 
