@@ -269,8 +269,10 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
  : @author  Kemal Pajevic
  : @version 1.0
  : @param   $results the result list to process
- : @param   $hits-perpage  the number of hits to be shown per page
- : @param   $hit-start     number of the first hit to be shown on the page
+ : @param   $hits-perpage       the number of hits to be shown per page
+ : @param   $hit-start          number of the first hit to be shown on the page
+ : @param   $search-parameters  the original search parameters which are returned in the result element
+ : @param   $advanced           tells if we are performing an advanced search
  :)
 declare function ddi:buildLightXmlObjectList($results as element()*, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element(), $advanced as xs:boolean) as element() {
     let $result-count := count($results)
@@ -788,6 +790,13 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     return ddi:buildLightXmlObjectList($results, data($search-parameters/smd:SearchMetaData/@hits-perpage), data($search-parameters/smd:SearchMetaData/@hit-start), $search-parameters, true())
 };
 
+(:~
+ : Finds studies based on advanced search parameters
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $search-parameters the advanced search parameters
+ :)
 declare function local:studyUnitsFromParameters($search-parameters as element()) as element()* {
     (: First check if any of the parameters regarding StudyUnit are set, and for each one that is get a separate list of StudyUnits based on that criteria. :)
     (: We will later use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
@@ -862,6 +871,14 @@ declare function local:studyUnitsFromParameters($search-parameters as element())
         (if ($studyFromTemporalCoverage) then $studyFromTemporalCoverage else $studyUnitUnion)
 };
 
+(:~
+ : Makes intersection only on lists which were requested by the search parameters
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $set1-$set7             the lists of elements
+ : @param   $required1-$required7   spedifies if the corresponding list was required
+ :)
 declare function local:conditionalIntersection($set1 as element()*, $required1 as xs:boolean,
                                                $set2 as element()*, $required2 as xs:boolean,
                                                $set3 as element()*, $required3 as xs:boolean,
@@ -885,10 +902,26 @@ declare function local:conditionalIntersection($set1 as element()*, $required1 a
         local:idIntersect((if ($required6) then $set6 else $union), (if ($required7) then $set7 else $union)))))))
 };
 
+(:~
+ : Custom union function which operates on element id's
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $set1   the first set in the union
+ : @param   $set2   the second set in the union
+ :)
 declare function local:idUnion($set1 as element()*, $set2 as element()*) as node()* {
     ($set1, $set2[every $element in $set1 satisfies $element/@id != ./@id])
 };
 
+(:~
+ : Custom intersection function which operates on element id's
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $set1   the first set in the intersection
+ : @param   $set2   the second set in the intersection
+ :)
 declare function local:idIntersect($set1 as element()*, $set2 as element()*) as node()* {
     $set1[@id = ($set2/@id)]
 };
