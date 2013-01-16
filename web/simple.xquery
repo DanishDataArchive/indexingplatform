@@ -61,6 +61,7 @@ declare function local:main() as node()? {
             <param name="type" value="simple"/>
             <param name="grouped" value="{$grouped}"/>
             <param name="lang" value="{$lang}"/>
+            <param name="hostname" value="kipon.dda.dk" />
         </parameters>
     
     return transform:transform($searchResults, $searchResultsStylesheet, $params)
