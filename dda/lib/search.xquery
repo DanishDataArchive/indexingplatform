@@ -414,13 +414,6 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     
     let $studyUnits := local:studyUnitsFromParameters($search-parameters)
     
-    
-    
-    
-    
-    (:  NEW SEARCH IMPLEMENTATION  :)
-    
-    
     (: For each element type find out if we want to filter by that type of element (if the parameter specifying the search-text for that element is set and not empty). :)
     let $variableSearch := if (data($search-parameters/asp:Variable)) then true() else false()
     let $questionItemSearch := if (data($search-parameters/asp:QuestionItem)) then true() else false()
@@ -447,11 +440,9 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                                    $search-parameters/asp:coverageFrom     or
                                    $search-parameters/asp:coverageTo
                                    
-    (: If any of the element-specific parameters are set than we want to filter by those elements. :)
-    (: In that case we do not look for our results in the list of studies acquired by the study-specific parameters, but in the list of elements found by the element-specific parameters. :)
     (: We will query for a specific element type if (and only if) its parameter has been set. :)
     (: The studies are used to limit the list of elements to the studies that satisfy certain criteria. :)
-    (: This means that if no elements are found we will return 0 results, regardless of the list of found studies. :)
+    (: // TODO: This is neccessery if we make an intersection with elements found from studies later. Find out what performs better. :)
     let $variableResults := if ($variableSearch) then local:queryVariable($search-parameters/asp:Variable) else ()
     let $usableVariables :=
             (: If study unit parameters were set then we limit the found elements to those which are in the specified study units. :)
@@ -518,6 +509,8 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
             (: If no study unit parameters were set then we just use all the found elements. :)
             else $categoryResults
     
+    (: If the search asked for studies then find all studies from the queried elements. :)
+    (: For every queried element find the context info and deliver it with every study returned. :)
     let $foundStudies :=
         if ($search-scope/s:StudyUnit) then
             let $studiesFromStudies :=
@@ -548,6 +541,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 for $element in $usableCategories
                     let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
                     for $studyId in collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            (: Make an intersection so we only get studes which satisfy all the search criteria. :)
             return local:conditionalIntersection($studiesFromStudies, $studyParametersEntered,
                                                  $studiesFromVariables, $variableSearch,
                                                  $studiesFromQuestionItems, $questionItemSearch,
@@ -774,7 +768,6 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
                 for $element in $usableVariables
                     let $hit := <d:Hit elementType="Variable">{util:expand($element)//exist:match/parent::*}</d:Hit>
                     for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:VariableReference/@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
-            (:return $categoriesFromStudies:)
             return local:conditionalIntersection($categoriesFromCategories, $categorySearch,
                                                  $categoriesFromStudies, $studyParametersEntered,
                                                  $categoriesFromQuestionItems, $questionItemSearch,
