@@ -518,243 +518,269 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     
     let $foundStudies :=
         if ($search-scope/s:StudyUnit) then
-            let $studiesFromStudies := for $element in $studyUnits return $element/@id
-            let $studiesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $element/@id)]/@studyId
-            let $studiesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $element/@id)]/@studyId
-            let $studiesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $element/@id)]/@studyId
-            let $studiesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $element/@id)]/@studyId
-            let $studiesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $element/@id)]/@studyId
-            let $studiesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)]/@studyId
-            let $union :=
-                functx:value-union($studiesFromStudies,
-                functx:value-union($studiesFromVariables, 
-                functx:value-union($studiesFromQuestionItems, 
-                functx:value-union($studiesFromMultipleQuestionItems, 
-                functx:value-union($studiesFromUniverses, 
-                functx:value-union($studiesFromConcepts, $studiesFromCategories))))))
-            let $intersection :=
-                functx:value-intersect((if ($studyParametersEntered) then $studiesFromStudies else $union),
-                functx:value-intersect((if ($variableSearch) then $studiesFromVariables else $union),
-                functx:value-intersect((if ($questionItemSearch) then $studiesFromQuestionItems else $union),
-                functx:value-intersect((if ($multipleQuestionItemSearch) then $studiesFromMultipleQuestionItems else $union),
-                functx:value-intersect((if ($universeSearch) then $studiesFromUniverses else $union),
-                functx:value-intersect((if ($conceptSearch) then $studiesFromConcepts else $union), (if ($categorySearch) then $studiesFromCategories else $union)))))))
-            return
-                for $studyId in $intersection
-                    return
-                        <d:StudyUnit id="{$studyId}" studyId="{$studyId}">
-                        {
-                            <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>
-                        }
-                        </d:StudyUnit>
+            let $studiesFromStudies :=
+                for $element in $studyUnits
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in $element/@id return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            let $studiesFromVariables :=
+                for $element in $usableVariables
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            let $studiesFromQuestionItems :=
+                for $element in $usableQuestionItems
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            let $studiesFromMultipleQuestionItems :=
+                for $element in $usableMultipleQuestionItems
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            let $studiesFromUniverses :=
+                for $element in $usableUniverses
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            let $studiesFromConcepts :=
+                for $element in $usableConcepts
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            let $studiesFromCategories :=
+                for $element in $usableCategories
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $studyId in collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)]/@studyId return <d:StudyUnit id="{$studyId}">{$hit}</d:StudyUnit>
+            return local:conditionalIntersection($studiesFromStudies, $studyParametersEntered,
+                                                 $studiesFromVariables, $variableSearch,
+                                                 $studiesFromQuestionItems, $questionItemSearch,
+                                                 $studiesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $studiesFromUniverses, $universeSearch,
+                                                 $studiesFromConcepts, $conceptSearch,
+                                                 $studiesFromCategories, $categorySearch)
         else ()
         
     let $foundVariables :=
         if ($search-scope/s:Variable) then
-            let $variablesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $element/@id)]
-            let $variablesFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@studyId, $element/@id)]
-            let $variablesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:QuestionItemReference/@id, $element/@id)]
-            let $variablesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
-            let $variablesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:UniverseReference/@id, $element/@id)]
-            let $variablesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:ConceptReference/@id, $element/@id)]
-            let $variablesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:CategoryReference/@id, $element/@id)]
-            let $intersection := local:conditionalIntersection($variablesFromVariables, $variableSearch,
-                                                               $variablesFromStudies, $studyParametersEntered,
-                                                               $variablesFromQuestionItems, $questionItemSearch,
-                                                               $variablesFromMultipleQuestionItems, $multipleQuestionItemSearch,
-                                                               $variablesFromUniverses, $universeSearch,
-                                                               $variablesFromConcepts, $conceptSearch,
-                                                               $variablesFromCategories, $categorySearch)
-            let $hits :=(
-                <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>)
-            return
-                for $element in $intersection
-                    return
-                        <d:Variable id="{$element/@id}">
-                        {
-                            $hits
-                        }
-                        </d:Variable>
+            let $variablesFromVariables :=
+                for $element in $usableVariables
+                    let $hit := <d:Hit elementType="Variable">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@id, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>
+            let $variablesFromStudies :=
+                for $element in $studyUnits
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(@studyId, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>
+            let $variablesFromQuestionItems :=
+                for $element in $usableQuestionItems
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:QuestionItemReference/@id, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>
+            let $variablesFromMultipleQuestionItems :=
+                for $element in $usableMultipleQuestionItems
+                    let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>
+            let $variablesFromUniverses :=
+                for $element in $usableUniverses
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:UniverseReference/@id, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>
+            let $variablesFromConcepts :=
+                for $element in $usableConcepts
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:ConceptReference/@id, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>
+            let $variablesFromCategories :=
+                for $element in $usableCategories
+                    let $hit := <d:Hit elementType="Category">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $variable in collection('/db/apps/dda-denormalization')//d:Variable[ft:query(d:CategoryReference/@id, $element/@id)] return <d:Variable id="{$variable/@id}">{$hit}</d:Variable>        
+            return local:conditionalIntersection($variablesFromVariables, $variableSearch,
+                                                 $variablesFromStudies, $studyParametersEntered,
+                                                 $variablesFromQuestionItems, $questionItemSearch,
+                                                 $variablesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $variablesFromUniverses, $universeSearch,
+                                                 $variablesFromConcepts, $conceptSearch,
+                                                 $variablesFromCategories, $categorySearch)
         else ()
         
     let $foundQuestionItems :=
         if ($search-scope/s:QuestionItem) then
-            let $questionItemsFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $element/@id)]
-            let $questionItemsFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@studyId, $element/@id)]
-            let $questionItemsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:VariableReference/@id, $element/@id)]
-            let $questionItemsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:UniverseReference/@id, $element/@id)]
-            let $questionItemsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:ConceptReference/@id, $element/@id)]
-            let $questionItemsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:CategoryReference/@id, $element/@id)]
-            let $intersection := local:conditionalIntersection($questionItemsFromQuestionItems, $questionItemSearch,
-                                                               $questionItemsFromStudies, $studyParametersEntered,
-                                                               $questionItemsFromVariables, $variableSearch,
-                                                               $questionItemsFromUniverses, $universeSearch,
-                                                               $questionItemsFromConcepts, $conceptSearch,
-                                                               $questionItemsFromCategories, $categorySearch,
-                                                               (), false())
-            return
-                for $element in $intersection
-                    return
-                        <d:QuestionItem id="{$element/@id}">
-                        {
-                            <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>
-                        }
-                        </d:QuestionItem>
+            let $questionItemsFromQuestionItems :=
+                for $element in $usableQuestionItems
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $questionItem in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@id, $element/@id)] return <d:QuestionItem id="{$questionItem/@id}">{$hit}</d:QuestionItem>
+            let $questionItemsFromStudies :=
+                for $element in $studyUnits
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $questionItem in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(@studyId, $element/@id)] return <d:QuestionItem id="{$questionItem/@id}">{$hit}</d:QuestionItem>
+            let $questionItemsFromVariables :=
+                for $element in $usableVariables
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $questionItem in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:VariableReference/@id, $element/@id)] return <d:QuestionItem id="{$questionItem/@id}">{$hit}</d:QuestionItem>
+            let $questionItemsFromUniverses :=
+                for $element in $usableUniverses
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $questionItem in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:UniverseReference/@id, $element/@id)] return <d:QuestionItem id="{$questionItem/@id}">{$hit}</d:QuestionItem>
+            let $questionItemsFromConcepts :=
+                for $element in $usableConcepts
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $questionItem in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:ConceptReference/@id, $element/@id)] return <d:QuestionItem id="{$questionItem/@id}">{$hit}</d:QuestionItem>
+            let $questionItemsFromCategories :=
+                for $element in $usableCategories
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $questionItem in collection('/db/apps/dda-denormalization')//d:QuestionItem[ft:query(d:CategoryReference/@id, $element/@id)] return <d:QuestionItem id="{$questionItem/@id}">{$hit}</d:QuestionItem>
+            return local:conditionalIntersection($questionItemsFromQuestionItems, $questionItemSearch,
+                                                 $questionItemsFromStudies, $studyParametersEntered,
+                                                 $questionItemsFromVariables, $variableSearch,
+                                                 $questionItemsFromUniverses, $universeSearch,
+                                                 $questionItemsFromConcepts, $conceptSearch,
+                                                 $questionItemsFromCategories, $categorySearch,
+                                                 (), false())
         else ()
         
     let $foundMultipleQuestionItems :=
         if ($search-scope/s:MultipleQuestionItem) then
-            let $multipleQuestionItemsFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $element/@id)]
-            let $multipleQuestionItemsFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@studyId, $element/@id)]
-            let $multipleQuestionItemsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:VariableReference/@id, $element/@id)]
-            let $multipleQuestionItemsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:UniverseReference/@id, $element/@id)]
-            let $multipleQuestionItemsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:ConceptReference/@id, $element/@id)]
-            let $multipleQuestionItemsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:CategoryReference/@id, $element/@id)]
-            let $intersection := local:conditionalIntersection($multipleQuestionItemsFromMultipleQuestionItems, $multipleQuestionItemSearch,
-                                                               $multipleQuestionItemsFromStudies, $studyParametersEntered,
-                                                               $multipleQuestionItemsFromVariables, $variableSearch,
-                                                               $multipleQuestionItemsFromUniverses, $universeSearch,
-                                                               $multipleQuestionItemsFromConcepts, $conceptSearch,
-                                                               $multipleQuestionItemsFromCategories, $categorySearch,
-                                                               (), false())
-            return
-                for $element in $intersection
-                    return
-                        <d:MultipleQuestionItem id="{$element/@id}">
-                        {
-                            <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>
-                        }
-                        </d:MultipleQuestionItem>
+            let $multipleQuestionItemsFromMultipleQuestionItems :=
+            for $element in $usableMultipleQuestionItems
+                let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                for $multipleQuestionItem in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@id, $element/@id)] return <d:MultipleQuestionItem id="{$multipleQuestionItem/@id}">{$hit}</d:MultipleQuestionItem>
+            let $multipleQuestionItemsFromStudies :=
+            for $element in $studyUnits
+                let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                for $multipleQuestionItem in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(@studyId, $element/@id)] return <d:MultipleQuestionItem id="{$multipleQuestionItem/@id}">{$hit}</d:MultipleQuestionItem>
+            let $multipleQuestionItemsFromVariables :=
+            for $element in $usableVariables
+                let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                for $multipleQuestionItem in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:VariableReference/@id, $element/@id)] return <d:MultipleQuestionItem id="{$multipleQuestionItem/@id}">{$hit}</d:MultipleQuestionItem>
+            let $multipleQuestionItemsFromUniverses :=
+            for $element in $usableUniverses
+                let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                for $multipleQuestionItem in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:UniverseReference/@id, $element/@id)] return <d:MultipleQuestionItem id="{$multipleQuestionItem/@id}">{$hit}</d:MultipleQuestionItem>
+            let $multipleQuestionItemsFromConcepts :=
+            for $element in $usableConcepts
+                let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                for $multipleQuestionItem in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:ConceptReference/@id, $element/@id)] return <d:MultipleQuestionItem id="{$multipleQuestionItem/@id}">{$hit}</d:MultipleQuestionItem>
+            let $multipleQuestionItemsFromCategories :=
+            for $element in $usableCategories
+                let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                for $multipleQuestionItem in collection('/db/apps/dda-denormalization')//d:MultipleQuestionItem[ft:query(d:CategoryReference/@id, $element/@id)] return <d:MultipleQuestionItem id="{$multipleQuestionItem/@id}">{$hit}</d:MultipleQuestionItem>
+            return local:conditionalIntersection($multipleQuestionItemsFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $multipleQuestionItemsFromStudies, $studyParametersEntered,
+                                                 $multipleQuestionItemsFromVariables, $variableSearch,
+                                                 $multipleQuestionItemsFromUniverses, $universeSearch,
+                                                 $multipleQuestionItemsFromConcepts, $conceptSearch,
+                                                 $multipleQuestionItemsFromCategories, $categorySearch,
+                                                 (), false())
         else ()
         
     let $foundUniverses :=
         if ($search-scope/s:Universe) then
-            let $universesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $element/@id)]
-            let $universesFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@studyId, $element/@id)]
-            let $universesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:QuestionItemReference/@id, $element/@id)]
-            let $universesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
-            let $universesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:VariableReference/@id, $element/@id)]
-            let $universesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:ConceptReference/@id, $element/@id)]
-            let $universesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:CategoryReference/@id, $element/@id)]
-            let $intersection := local:conditionalIntersection($universesFromUniverses, $universeSearch,
-                                                               $universesFromStudies, $studyParametersEntered,
-                                                               $universesFromQuestionItems, $questionItemSearch,
-                                                               $universesFromMultipleQuestionItems, $multipleQuestionItemSearch,
-                                                               $universesFromVariables, $variableSearch,
-                                                               $universesFromConcepts, $conceptSearch,
-                                                               $universesFromCategories, $categorySearch)
-            return
-                for $element in $intersection
-                    return
-                        <d:Universe id="{$element/@id}">
-                        {
-                            <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>
-                        }
-                        </d:Universe>
+            let $universesFromUniverses :=
+                for $element in $usableUniverses
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@id, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            let $universesFromStudies :=
+                for $element in $studyUnits
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(@studyId, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            let $universesFromQuestionItems :=
+                for $element in $usableQuestionItems
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:QuestionItemReference/@id, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            let $universesFromMultipleQuestionItems :=
+                for $element in $usableMultipleQuestionItems
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            let $universesFromVariables :=
+                for $element in $usableVariables
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:VariableReference/@id, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            let $universesFromConcepts :=
+                for $element in $usableConcepts
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:ConceptReference/@id, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            let $universesFromCategories :=
+                for $element in $usableCategories
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $universe in collection('/db/apps/dda-denormalization')//d:Universe[ft:query(d:CategoryReference/@id, $element/@id)] return <d:Universe id="{$universe/@id}">{$hit}</d:Universe>
+            return local:conditionalIntersection($universesFromUniverses, $universeSearch,
+                                                 $universesFromStudies, $studyParametersEntered,
+                                                 $universesFromQuestionItems, $questionItemSearch,
+                                                 $universesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $universesFromVariables, $variableSearch,
+                                                 $universesFromConcepts, $conceptSearch,
+                                                 $universesFromCategories, $categorySearch)
         else ()
         
     let $foundConcepts :=
         if ($search-scope/s:Concept) then
-            let $conceptsFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $element/@id)]
-            let $conceptsFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@studyId, $element/@id)]
-            let $conceptsFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:QuestionItemReference/@id, $element/@id)]
-            let $conceptsFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
-            let $conceptsFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:UniverseReference/@id, $element/@id)]
-            let $conceptsFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:VariableReference/@id, $element/@id)]
-            let $conceptsFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:CategoryReference/@id, $element/@id)]
-            let $intersection := local:conditionalIntersection($conceptsFromConcepts, $conceptSearch,
-                                                               $conceptsFromStudies, $studyParametersEntered,
-                                                               $conceptsFromQuestionItems, $questionItemSearch,
-                                                               $conceptsFromMultipleQuestionItems, $multipleQuestionItemSearch,
-                                                               $conceptsFromUniverses, $universeSearch,
-                                                               $conceptsFromVariables, $variableSearch,
-                                                               $conceptsFromCategories, $categorySearch)
-            return
-                for $element in $intersection
-                    return
-                        <d:Concept id="{$element/@id}">
-                        {
-                            <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>
-                        }
-                        </d:Concept>
+            let $conceptsFromConcepts :=
+                for $element in $usableConcepts
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@id, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            let $conceptsFromStudies :=
+                for $element in $studyUnits
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(@studyId, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            let $conceptsFromQuestionItems :=   
+                for $element in $usableQuestionItems
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:QuestionItemReference/@id, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            let $conceptsFromMultipleQuestionItems :=
+                for $element in $usableMultipleQuestionItems
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            let $conceptsFromUniverses :=
+                for $element in $usableUniverses
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:UniverseReference/@id, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            let $conceptsFromVariables :=
+                for $element in $usableVariables
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:VariableReference/@id, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            let $conceptsFromCategories :=
+                for $element in $usableCategories
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $concept in collection('/db/apps/dda-denormalization')//d:Concept[ft:query(d:CategoryReference/@id, $element/@id)] return <d:Concept id="{$concept/@id}">{$hit}</d:Concept>
+            return local:conditionalIntersection($conceptsFromConcepts, $conceptSearch,
+                                                 $conceptsFromStudies, $studyParametersEntered,
+                                                 $conceptsFromQuestionItems, $questionItemSearch,
+                                                 $conceptsFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $conceptsFromUniverses, $universeSearch,
+                                                 $conceptsFromVariables, $variableSearch,
+                                                 $conceptsFromCategories, $categorySearch)
         else ()
-        
+         
     let $foundCategories :=
         if ($search-scope/s:Category) then
-            let $categoriesFromCategories := for $element in $usableCategories return collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)]
-            let $categoriesFromStudies := for $element in $studyUnits return collection('/db/apps/dda-denormalization')//d:Category[ft:query(@studyId, $element/@id)]
-            let $categoriesFromQuestionItems := for $element in $usableQuestionItems return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:QuestionItemReference/@id, $element/@id)]
-            let $categoriesFromMultipleQuestionItems := for $element in $usableMultipleQuestionItems return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)]
-            let $categoriesFromUniverses := for $element in $usableUniverses return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:UniverseReference/@id, $element/@id)]
-            let $categoriesFromConcepts := for $element in $usableConcepts return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:ConceptReference/@id, $element/@id)]
-            let $categoriesFromVariables := for $element in $usableVariables return collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:VariableReference/@id, $element/@id)]
-            let $intersection := local:conditionalIntersection($categoriesFromCategories, $categorySearch,
-                                                               $categoriesFromStudies, $studyParametersEntered,
-                                                               $categoriesFromQuestionItems, $questionItemSearch,
-                                                               $categoriesFromMultipleQuestionItems, $multipleQuestionItemSearch,
-                                                               $categoriesFromUniverses, $universeSearch,
-                                                               $categoriesFromConcepts, $conceptSearch,
-                                                               $categoriesFromVariables, $variableSearch)
-            return
-                for $element in $intersection
-                    return
-                        <d:Category id="{$element/@id}">
-                        {
-                            <d:Hit elementType="StudyUnit">{util:expand($studyUnits)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="QuestionItem">{util:expand($usableQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="MultipleQuestionItem">{util:expand($usableMultipleQuestionItems)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Variable">{util:expand($usableVariables)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Universe">{util:expand($usableUniverses)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Concept">{util:expand($usableConcepts)//exist:match/parent::*}</d:Hit>,
-                            <d:Hit elementType="Category">{util:expand($usableCategories)//exist:match/parent::*}</d:Hit>
-                        }
-                        </d:Category>
-        else ()
-    
-    (:let $studyUnitScope := if ($search-scope/s:StudyUnit) then local:queryStudyUnit($search-string) else ()
-    let $conceptScope := if ($search-scope/s:Concept) then local:queryConcept($search-string) else ()
-    let $universeScope := if ($search-scope/s:Universe) then local:queryUniverse($search-string) else ()
-    let $questionItemScope := if ($search-scope/s:QuestionItem) then local:queryQuestionItem($search-string) else ()
-    let $multipleQuestionItemScope := if ($search-scope/s:MultipleQuestionItem) then local:queryMultipleQuestionItem($search-string) else ()
-    let $variableScope := if ($search-scope/s:Variable) then local:queryVariable($search-string) else ()
-    let $categoryScope := if ($search-scope/s:Category) then local:queryCategory($search-string) else ():)
-    
+            let $categoriesFromCategories :=
+                for $element in $usableCategories
+                    let $hit := <d:Hit elementType="Category">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            let $categoriesFromStudies :=
+                for $element in $studyUnits
+                    let $hit := <d:Hit elementType="StudyUnit">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(@studyId, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            let $categoriesFromQuestionItems :=
+                for $element in $usableQuestionItems
+                    let $hit := <d:Hit elementType="QuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:QuestionItemReference/@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            let $categoriesFromMultipleQuestionItems :=
+                for $element in $usableMultipleQuestionItems
+                    let $hit := <d:Hit elementType="MultipleQuestionItem">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:MultipleQuestionItemReference/@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            let $categoriesFromUniverses :=
+                for $element in $usableUniverses
+                    let $hit := <d:Hit elementType="Universe">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:UniverseReference/@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            let $categoriesFromConcepts :=
+                for $element in $usableConcepts
+                    let $hit := <d:Hit elementType="Concept">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:ConceptReference/@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            let $categoriesFromVariables :=
+                for $element in $usableVariables
+                    let $hit := <d:Hit elementType="Variable">{util:expand($element)//exist:match/parent::*}</d:Hit>
+                    for $category in collection('/db/apps/dda-denormalization')//d:Category[ft:query(d:VariableReference/@id, $element/@id)] return <d:Category id="{$category/@id}">{$hit}</d:Category>
+            (:return $categoriesFromStudies:)
+            return local:conditionalIntersection($categoriesFromCategories, $categorySearch,
+                                                 $categoriesFromStudies, $studyParametersEntered,
+                                                 $categoriesFromQuestionItems, $questionItemSearch,
+                                                 $categoriesFromMultipleQuestionItems, $multipleQuestionItemSearch,
+                                                 $categoriesFromUniverses, $universeSearch,
+                                                 $categoriesFromConcepts, $conceptSearch,
+                                                 $categoriesFromVariables, $variableSearch)
+        else ()    
     
     let $results := ($foundStudies, $foundVariables, $foundQuestionItems, $foundMultipleQuestionItems, $foundUniverses, $foundConcepts, $foundCategories)
 
@@ -843,13 +869,26 @@ declare function local:conditionalIntersection($set1 as element()*, $required1 a
                                                $set5 as element()*, $required5 as xs:boolean,
                                                $set6 as element()*, $required6 as xs:boolean,
                                                $set7 as element()*, $required7 as xs:boolean) as node()* {
-    let $union := $set1 | $set2 | $set3 | $set4 | $set5 | $set6 | $set7
+    let $union := local:idUnion($set1,
+                  local:idUnion($set2,
+                  local:idUnion($set3,
+                  local:idUnion($set4,
+                  local:idUnion($set5,
+                  local:idUnion($set6, $set7))))))
+    
     return
-        (if ($required1) then $set1 else $union) intersect
-        (if ($required2) then $set2 else $union) intersect
-        (if ($required3) then $set3 else $union) intersect
-        (if ($required4) then $set4 else $union) intersect
-        (if ($required5) then $set5 else $union) intersect
-        (if ($required6) then $set6 else $union) intersect
-        (if ($required7) then $set7 else $union)
+        local:idIntersect((if ($required1) then $set1 else $union),
+        local:idIntersect((if ($required2) then $set2 else $union),
+        local:idIntersect((if ($required3) then $set3 else $union),
+        local:idIntersect((if ($required4) then $set4 else $union),
+        local:idIntersect((if ($required5) then $set5 else $union),
+        local:idIntersect((if ($required6) then $set6 else $union), (if ($required7) then $set7 else $union)))))))
+};
+
+declare function local:idUnion($set1 as element()*, $set2 as element()*) as node()* {
+    ($set1, $set2[every $element in $set1 satisfies $element/@id != ./@id])
+};
+
+declare function local:idIntersect($set1 as element()*, $set2 as element()*) as node()* {
+    $set1[@id = ($set2/@id)]
 };
