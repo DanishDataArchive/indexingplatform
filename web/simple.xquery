@@ -53,7 +53,7 @@ declare function local:main() as node()? {
     if($searchSubmitted) then
         ddi:simpleSearch($search-parameters)
     else
-        ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters, ())
+        ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters, false())
     
     let $grouped := request:get-parameter('grouped', ())
     
@@ -61,7 +61,6 @@ declare function local:main() as node()? {
             <param name="type" value="simple"/>
             <param name="grouped" value="{$grouped}"/>
             <param name="lang" value="{$lang}"/>
-            <param name="hostname" value="localhost" />
         </parameters>
     
     return transform:transform($searchResults, $searchResultsStylesheet, $params)

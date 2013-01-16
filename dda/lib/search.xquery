@@ -272,7 +272,7 @@ declare function ddi:lookupCategory($categoryId as xs:string) as element() {
  : @param   $hits-perpage  the number of hits to be shown per page
  : @param   $hit-start     number of the first hit to be shown on the page
  :)
-declare function ddi:buildLightXmlObjectList($results as element()*, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element(), $advanced as element()?) as element() {
+declare function ddi:buildLightXmlObjectList($results as element()*, $hits-perpage as xs:integer, $hit-start as xs:integer, $search-parameters as element(), $advanced as xs:boolean) as element() {
     let $result-count := count($results)
     let $hit-end := if ($result-count lt $hits-perpage) then $result-count
                     else $hit-start + $hits-perpage - 1
@@ -364,7 +364,7 @@ declare function ddi:simpleSearch($search-parameters as element()) as element() 
         $categoryScope
     )
 
-    return ddi:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters, ())
+    return ddi:buildLightXmlObjectList($results, data($search-metadata/@hits-perpage), data($search-metadata/@hit-start), $search-parameters, false())
 };
 
 (:~
@@ -785,7 +785,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
     let $results := ($foundStudies, $foundVariables, $foundQuestionItems, $foundMultipleQuestionItems, $foundUniverses, $foundConcepts, $foundCategories)
 
     (:return $results:)
-    return ddi:buildLightXmlObjectList($results, data($search-parameters/smd:SearchMetaData/@hits-perpage), data($search-parameters/smd:SearchMetaData/@hit-start), $search-parameters, <advanced/>)
+    return ddi:buildLightXmlObjectList($results, data($search-parameters/smd:SearchMetaData/@hits-perpage), data($search-parameters/smd:SearchMetaData/@hit-start), $search-parameters, true())
 };
 
 declare function local:studyUnitsFromParameters($search-parameters as element()) as element()* {
