@@ -68,8 +68,7 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"/>
             </h2>
             <p class="lp">
-                <a href="http://{$hostname}/codebook/{$studyId}">
-                    <!-- { concat($studyId, '/codebook/dda-',  $studyId, '.html')} -->
+                <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook">
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"/>
                 </a>
             </p>
@@ -359,7 +358,7 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <xsl:variable name="latestVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
-            <a href="http://{$hostname}/urn/{$studyId}/{$latestVersion}">
+            <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyId}:{$latestVersion}">
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='latestversion']/LabelText[@xml:lang=$lang]/text()"/>
                 <xsl:value-of select="$latestVersion"/>
             </a>
@@ -381,10 +380,7 @@
                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='otherformats']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <p class="lp">
-                <a href="{ concat($studyId, '/metadata/ddi-3.1/dda-',  $studyId, '.xml')}"/>
-            </p>
-            <p class="lp">
-                <a href="http://{$hostname}/metadata/{$studyId}">
+                <a href="http://{$hostname}/catalogue/{$studyId}/doc/ddastudymetadata">
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/>
                 </a>
             </p>
@@ -409,7 +405,7 @@
         <xsl:variable name="nextToken" select="substring-after($inputString, $separator)"/>
         <xsl:if test="$token">
             <p class="lp">
-                <a href="http://{$hostname}/urn/{$studyId}/{$token}">
+                <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyId}:{$token}">
                     Version: <xsl:value-of select="$token"/>
                 </a>
                 <br/>
