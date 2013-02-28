@@ -39,7 +39,7 @@ declare function local:main() as node()? {
             <param name="lang" value="{$lang}"/>
             <param name="previousVersions" value ="{concat(string-join(data($versions//LightXmlObject[@element='urn-db' and @version!=$currentVersion]/@version), ','),',')}" />
             <param name="cvFolder" value="xmldb:exist:///db/apps/web/transform/landingpage/cv" />
-            <param name="hostname" value="kipon.dda.dk" />
+            <param name="hostname" value="@WEB-HOST_NAME@" />
         </parameters>
 
     let $metadataResultXml := transform:transform($study, $metadataStylesheet, $params)

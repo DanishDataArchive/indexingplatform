@@ -1,6 +1,6 @@
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:g="ddi:group:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:dce="ddi:dcelements:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:a="ddi:archive:3_1"
   xmlns:m1="ddi:physicaldataproduct/ncube/normal:3_1" xmlns:ddi="ddi:instance:3_1" xmlns:m2="ddi:physicaldataproduct/ncube/tabular:3_1" xmlns:o="ddi:organizations:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:m3="ddi:physicaldataproduct/ncube/inline:3_1" xmlns:pd="ddi:physicaldataproduct:3_1"
-  xmlns:cm="ddi:comparative:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:pr="ddi:profile:3_1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+  xmlns:cm="ddi:comparative:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:r="ddi:reusable:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:pr="ddi:profile:3_1" xmlns:util="https://code.google.com/p/ddixslt/#util" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
   xsi:schemaLocation="ddi:instance:3_1 http://www.ddialliance.org/sites/default/files/schema/ddi3.1/instance.xsd">
 
   <xsl:import href="ddi3_1.xsl"/>
@@ -260,22 +260,22 @@
         </td>
         <td>
           <strong>
-            <xsl:value-of select="$msg/*/entry[@key='MD%']"/>
+            <xsl:value-of select="util:i18n('MD%')"/>
           </strong>
         </td>
         <td>
           <strong>
-            <xsl:value-of select="$msg/*/entry[@key='Number']"/>
+            <xsl:value-of select="util:i18n('Number')"/>
           </strong>
         </td>
         <td class="right">
           <strong>
-            <xsl:value-of select="$msg/*/entry[@key='Code']"/>
+            <xsl:value-of select="util:i18n('Code')"/>
           </strong>
         </td>
         <td class="left">
           <strong>
-            <xsl:value-of select="$msg/*/entry[@key='Category']"/>
+            <xsl:value-of select="util:i18n('Category')"/>
           </strong>
         </td>
       </tr>

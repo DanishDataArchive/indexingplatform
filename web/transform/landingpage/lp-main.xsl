@@ -241,6 +241,11 @@
                                                   <a href="#metadata">Metadata</a>
                                                   </td>
                                                   </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <a href="#publications">Publikationer</a>
+                                                          </td>
+                                                      </tr>
                                                   </tbody>
                                                   </table>
                                                   </td>

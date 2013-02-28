@@ -4,7 +4,7 @@
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="lang" select="'da'"/>
     <xsl:param name="previousVersions"/>
-    <xsl:param name="cvFolder" select="'../cv'"/>
+    <xsl:param name="cvFolder" select="'cv'"/>
     <xsl:param name="hostname" select="'http://localhost'"/>
     
     <xsl:template match="*">

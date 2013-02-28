@@ -189,6 +189,18 @@
         <LabelText xml:lang="da">Andre metadata formater</LabelText>
         <LabelText xml:lang="en">Other metadata formats</LabelText>
     </Label>
+    <Label id="publications">
+        <LabelText xml:lang="da">Publikationer</LabelText>
+        <LabelText xml:lang="en">Publications</LabelText>
+    </Label>
+    <Label id="primary-publications">
+        <LabelText xml:lang="da">Primærpublikationer</LabelText>
+        <LabelText xml:lang="en">Primary publications</LabelText>
+    </Label>
+    <Label id="secondary-publications">
+        <LabelText xml:lang="da">Sekundærpublikationer</LabelText>
+        <LabelText xml:lang="en">Secondary publications</LabelText>
+    </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>
         <LabelText xml:lang="en"></LabelText>

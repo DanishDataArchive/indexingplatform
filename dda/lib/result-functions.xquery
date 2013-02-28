@@ -228,6 +228,14 @@ declare function result:buildResultListItem($result as element()) as element() {
     </LightXmlObject>
 };
 
+declare function result:buildListStudyListItem($result as element()) as element() {
+    let $result-name := local-name($result)
+    return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
+        parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
+        {local:getLabel($result)}
+    </LightXmlObject>
+};
+
 (:~
  : Returns a single LightXmlObject element containing a single result for advanced search
  :

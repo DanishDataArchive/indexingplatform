@@ -38,6 +38,20 @@ declare function ddi:getDdiStudy($studyId as xs:string) as element()* {
     return $study/ancestor::i:DDIInstance
 };
 
+declare function ddi:listDdiStudies($lang as xs:string) as element()* {
+    let $studies := for $result in collection('/db/apps/dda')//su:StudyUnit
+    order by $result/r:Citation/r:Title[@xml:lang=$lang]
+    return $result
+    (:order by number($result/@id):)
+   
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+        { for $study in $studies return result:buildListStudyListItem($study) }
+    </dl:LightXmlObjectList>
+};
+
 (:~
  : Makes a free-text search in StudyUnit elements and returns the element(s) containing the match
  : It also sorts the list by score in descending order

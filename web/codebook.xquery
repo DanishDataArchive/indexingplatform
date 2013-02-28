@@ -31,7 +31,7 @@ declare function local:main() as node()? {
             <param name="translations" value="i18n/messages_{$lang}.properties.xml" />
             
             <!-- css and js path -->            
-            <param name="theme-path" value="theme" />
+            <param name="theme-path" value="theme/" />
             <param name="path-prefix" value=""/>
             
             <!-- java script enable -->

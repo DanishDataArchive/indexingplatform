@@ -126,8 +126,8 @@
         <LabelText xml:lang="en">yyyy-mm-dd</LabelText>
     </Label>
     <Label id="form-variable-level">
-        <LabelText xml:lang="da">Studieinformation på variabel niveau</LabelText>
-        <LabelText xml:lang="en">Study information at variable level</LabelText>
+        <LabelText xml:lang="da">Studieinformation på detaljeret niveau</LabelText>
+        <LabelText xml:lang="en">Study information at detail level</LabelText>
     </Label>
     <Label id="form-include-references">
         <LabelText xml:lang="da">Medtag referencer</LabelText>
@@ -136,8 +136,8 @@
     
     <!-- result-core.xsl -->
     <Label id="html-found-in">
-        <LabelText xml:lang="da">Kontekst</LabelText>
-        <LabelText xml:lang="en">Context</LabelText>
+        <LabelText xml:lang="da">Fundet i</LabelText>
+        <LabelText xml:lang="en">Found in</LabelText>
     </Label>
     <Label id="html-show-all">
         <LabelText xml:lang="da">Vis alle</LabelText>
@@ -224,40 +224,49 @@
         </LabelText>
     </Label>
     <Label id="DomainType">
-        <LabelText xml:lang="da">Domænetype</LabelText>
-        <LabelText xml:lang="en">Domain Type</LabelText>
+        <LabelText xml:lang="da">Skala</LabelText>
+        <LabelText xml:lang="en">Scale</LabelText>
     </Label>
     <Label id="CodeDomain">
-        <LabelText xml:lang="da">Kodedomæne</LabelText>
-        <LabelText xml:lang="en">Code Domain</LabelText>
+        <LabelText xml:lang="da">Kategori</LabelText>
+        <LabelText xml:lang="en">Category</LabelText>
     </Label>
     <Label id="TextDomain">
-        <LabelText xml:lang="da">Tekstdomæne</LabelText>
-        <LabelText xml:lang="en">Text Domain</LabelText>
+        <LabelText xml:lang="da">Tekst</LabelText>
+        <LabelText xml:lang="en">Text</LabelText>
     </Label>
     <Label id="NumericDomain">
-        <LabelText xml:lang="da">Numerisk domæne</LabelText>
-        <LabelText xml:lang="en">Numeric Domain</LabelText>
+        <LabelText xml:lang="da">Numerisk</LabelText>
+        <LabelText xml:lang="en">Numeric</LabelText>
     </Label>
     <Label id="RepresentationType">
-        <LabelText xml:lang="da">Representationstype</LabelText>
-        <LabelText xml:lang="en">Representation Type</LabelText>
+        <LabelText xml:lang="da">Skala</LabelText>
+        <LabelText xml:lang="en">Scale</LabelText>
     </Label>
     <Label id="TextRepresentation">
-        <LabelText xml:lang="da">Tekstrepresentation</LabelText>
-        <LabelText xml:lang="en">Text Representation</LabelText>
+        <LabelText xml:lang="da">Tekst</LabelText>
+        <LabelText xml:lang="en">Text</LabelText>
     </Label>
     <Label id="NumericRepresentation">
-        <LabelText xml:lang="da">Numerisk representation</LabelText>
-        <LabelText xml:lang="en">Numeric Representation</LabelText>
+        <LabelText xml:lang="da">Numerisk</LabelText>
+        <LabelText xml:lang="en">Numeric</LabelText>
     </Label>
     <Label id="CodeRepresentation">
-        <LabelText xml:lang="da">Koderepresentation</LabelText>
-        <LabelText xml:lang="en">Code Representation</LabelText>
+        <LabelText xml:lang="da">Kategori</LabelText>
+        <LabelText xml:lang="en">Category</LabelText>
     </Label>
     <Label id="html-grouping">
-        <LabelText xml:lang="da">Grupér resultater efter studie (anvendes kun for synlige resultater)</LabelText>
-        <LabelText xml:lang="en">Group results by study (applies only to visible results)</LabelText>
+        <LabelText xml:lang="da">Grupér resultater på detaljeret niveau</LabelText>
+        <LabelText xml:lang="en">Group results at detail level</LabelText>
+    </Label>
+    <!-- catalogue labels -->
+    <Label id="catalogue-title">
+        <LabelText xml:lang="da">DDA katalog</LabelText>
+        <LabelText xml:lang="en">DDA catalogue</LabelText>
+    </Label>
+    <Label id="catalogue-study-count">
+        <LabelText xml:lang="da">Antal studier: </LabelText>
+        <LabelText xml:lang="en">Number of studies: </LabelText>
     </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>

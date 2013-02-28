@@ -9,7 +9,6 @@
     <xsl:import href="ddi3_1_logicalproduct.xsl"/>
     <xsl:import href="ddi3_1_conceptualcomponent.xsl"/>
 
-
     <!--  SVN version -->
     <xsl:param name="svn-revision">$Revision: 103 $</xsl:param>
     <!-- render text-elements of this language-->
@@ -56,7 +55,7 @@
     <xsl:param name="theme-path">theme/default</xsl:param>
 
     <!-- path prefix (used for css, js when rendered on the web)-->
-    <xsl:param name="path-prefix">../ddi-html</xsl:param>
+    <xsl:param name="path-prefix">../ddi-html/</xsl:param>
 
     <xsl:param name="translations">i18n/messages_en.properties.xml</xsl:param>
     <xsl:variable name="msg" select="document($translations)"/>
@@ -86,6 +85,10 @@
                             <xsl:attribute name="src">http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js</xsl:attribute>
                         </script>
                         
+                        <script type="text/javascript">
+                            <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/jquery.autofill.min.js</xsl:attribute>
+                        </script>
+                        
                         <!-- Translations and settings for javascript plugins-->
                         <script type="text/javascript">
                             <xsl:text>var i18n = {};</xsl:text>
@@ -98,15 +101,17 @@
                         </script>
 
                         <script type="text/javascript">
-                            <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>/js/config.js</xsl:attribute>
+                            <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/config.js</xsl:attribute>
                         </script>
-
-                        <script type="text/javascript" src="js/exist-requests.js"> </script>
+                        
+                        <script type="text/javascript">
+                            <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/exist-requests.js</xsl:attribute>
+                        </script>
                         
                         <xsl:choose>
                             <xsl:when test="$show-navigration-bar ='true'">
                                 <script type="text/javascript">
-                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>/js/navaigation-bar.js</xsl:attribute>
+                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/navigation-bar.js</xsl:attribute>
                                 </script>
                             </xsl:when>
                         </xsl:choose>
@@ -114,15 +119,15 @@
                         <!-- flot graph -->
                         <xsl:choose>
                             <xsl:when test="$show-category-statistics='true'">
-                                <xsl:comment>[if lte IE 8<![CDATA[>]]>&lt;script type="text/javascript" src="<xsl:value-of select="$path-prefix"/>/js/excanvas.min.js"&gt;&lt;/script&gt;<![CDATA[<![endif]]]></xsl:comment>                                    
+                                <xsl:comment>[if lte IE 8<![CDATA[>]]>&lt;script type="text/javascript" src="<xsl:value-of select="$path-prefix"/>js/excanvas.min.js"&gt;&lt;/script&gt;<![CDATA[<![endif]]]></xsl:comment>                                    
                                 <script type="text/javascript">
-                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>/js/jquery.flot.js</xsl:attribute>
+                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/jquery.flot.js</xsl:attribute>
                                 </script>
                                 <script type="text/javascript">
-                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>/js/jquery.flot.pie.js</xsl:attribute>
+                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/jquery.flot.pie.js</xsl:attribute>
                                 </script>
                                 <script type="text/javascript">
-                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>/js/jquery.flot.tooltip.min.js</xsl:attribute>
+                                    <xsl:attribute name="src"><xsl:value-of select="$path-prefix"/>js/jquery.flot.tooltip.min.js</xsl:attribute>
                                 </script>                                
                             </xsl:when>           
                         </xsl:choose>
@@ -130,7 +135,7 @@
                 </xsl:choose>
                 
                 <link type="text/css" rel="stylesheet" media="all">
-                    <xsl:attribute name="href"><xsl:value-of select="$path-prefix"/>/<xsl:value-of select="$theme-path"/>/ddi.css</xsl:attribute>
+                    <xsl:attribute name="href"><xsl:value-of select="$path-prefix"/>/<xsl:value-of select="$theme-path"/>ddi.css</xsl:attribute>
                 </link>
             </head>
             <body>
@@ -168,7 +173,7 @@
             <xsl:if test="$show-study-information = 'true'">
                 <div id="studyId">
                     <h2>
-                        <xsl:value-of select="util:i18n('RefNo')"/>
+                        <xsl:value-of select="util:i18n('RefNo')"/>:
                         <strong>
                             <xsl:choose>
                                 <xsl:when test="a:Archive/a:ArchiveSpecific/a:Collection/a:CallNumber">
@@ -206,38 +211,38 @@
 
                 <xsl:if test="$show-toc = 'true'">
                     <h3>
-                        <xsl:value-of select="util:i18n('Indholdsfortegnelse')"/>
+                        <xsl:value-of select="util:i18n('Table_of_Contents')"/>
                     </h3>
-                    <dl>
-                        <div class="toc">
-                           <xsl:if test="$show-variable-list = 'true'">
-                            	<dt>
-                                	<a>
-                                    	<xsl:attribute name="href">#VariableList</xsl:attribute>
-                                    	<xsl:value-of select="util:i18n('VariableList')"/>
-                                	</a>
-                            	</dt>
-			    </xsl:if>
-                            <dt>
-                                <a>
-                                    <xsl:attribute name="href">#UniverseList</xsl:attribute>
-                                    <xsl:value-of select="util:i18n('Universe')"/>
-                                </a>
-                            </dt>
-                            <dt>
-                                <a>
-                                    <xsl:attribute name="href">#ConceptList</xsl:attribute>
-                                    <xsl:value-of select="util:i18n('Concepts')"/>
-                                </a>
-                            </dt>
-                            <dt>
-                                <a>
-                                    <xsl:attribute name="href">#Instrumentation</xsl:attribute>
-                                    <xsl:value-of select="util:i18n('Instrumentation')"/>
-                                </a>
-                            </dt>
-                        </div>
-                    </dl>
+                    <div class="toc">
+                        <dl>
+                            <xsl:if test="$show-variable-list = 'true'">
+                                 <dt>
+                                    <a>
+                                    <xsl:attribute name="href">#VariableList</xsl:attribute>
+                                    <xsl:value-of select="util:i18n('VariableList')"/>
+                                    </a>
+                                 </dt>
+                             </xsl:if>
+                             <dt>
+                                 <a>
+                                     <xsl:attribute name="href">#UniverseList</xsl:attribute>
+                                     <xsl:value-of select="util:i18n('Universe')"/>
+                                 </a>
+                             </dt>
+                             <dt>
+                                 <a>
+                                     <xsl:attribute name="href">#ConceptList</xsl:attribute>
+                                     <xsl:value-of select="util:i18n('Concepts')"/>
+                                 </a>
+                             </dt>
+                             <dt>
+                                 <a>
+                                     <xsl:attribute name="href">#Instrumentation</xsl:attribute>
+                                     <xsl:value-of select="util:i18n('Instrumentation')"/>
+                                 </a>
+                             </dt>
+                        </dl>
+                    </div>
                 </xsl:if>
 
                 <xsl:if test="$show-abstract = 'true'">
@@ -425,8 +430,10 @@
                 <xsl:call-template name="CreateLink"/>
                 <xsl:text> </xsl:text>
                 <strong>
-                    <xsl:value-of select="c:HumanReadable[@xml:lang=$lang]"/>
+                    <xsl:call-template name="DisplayLabel"/>
                 </strong>
+                <br/>                
+                <xsl:value-of select="c:HumanReadable[@xml:lang=$lang]"/>
 
                 <xsl:if test="../../../l:LogicalProduct/l:VariableScheme/l:Variable/r:UniverseReference/r:ID=$uniId">
                     <ul>

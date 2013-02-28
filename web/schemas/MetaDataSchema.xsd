@@ -6,20 +6,6 @@
     <xs:import namespace="http://www.w3.org/XML/1998/namespace"
         schemaLocation="http://www.w3.org/2001/xml.xsd"/>
 
-    <!--
-    <xs:element name="ResourceType">
-        <xs:annotation>
-            <xs:documentation>Genereller Typ der Ressource: 2: Dataset (Datensatz) 3: Grey
-                Literature (Graue Literatur) </xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-            <xs:restriction base="xs:integer">
-                <xs:minInclusive value="1"/>
-                <xs:maxInclusive value="11"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>-->
-
     <xs:element name="Titles">
         <xs:complexType>
             <xs:sequence>
@@ -32,7 +18,7 @@
         <xs:complexType>
             <xs:simpleContent>
                 <xs:extension base="nonemptycontentStringType">
-                    <xs:attribute ref="xml:lang"/>
+                    <xs:attribute ref="xml:lang" use="optional"/>
                 </xs:extension>
             </xs:simpleContent>
         </xs:complexType>
@@ -127,9 +113,9 @@
         </xs:simpleType>
     </xs:element>
 
-    <xs:element name="PublicationDate" type="xs:date" />
-    <xs:element name="ReceivedDate" type="xs:date" />
-  
+    <xs:element name="StudyPublicationDate" type="xs:date"/>
+    <xs:element name="StudyReceivedDate" type="xs:date"/>
+
     <xs:element name="StudyDescriptions">
         <xs:complexType>
             <xs:sequence>
@@ -157,7 +143,7 @@
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>
-                </xs:element>                
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -172,7 +158,8 @@
     <xs:element name="GeographicCoverage">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Label" minOccurs="0" maxOccurs="unbounded" type="nonemptycontentStringType" />
+                <xs:element name="Label" minOccurs="0" maxOccurs="unbounded"
+                    type="nonemptycontentStringType"/>
                 <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:complexContent>
@@ -220,8 +207,8 @@
                                 <xs:attribute ref="xml:lang"/>
                             </xs:extension>
                         </xs:complexContent>
-                    </xs:complexType>    
-                </xs:element>          
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -229,8 +216,8 @@
     <xs:element name="TemporalCoverage">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="StartDate" type="xs:date" />
-                <xs:element name="EndDate" minOccurs="0" type="xs:date" />
+                <xs:element name="StartDate" type="xs:date"/>
+                <xs:element name="EndDate" minOccurs="0" type="xs:date"/>
                 <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:complexContent>
@@ -264,7 +251,7 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element maxOccurs="1" name="NumberUnits" type="xs:int"/>
+                <xs:element maxOccurs="1" name="NumberOfUnits" type="xs:int"/>
                 <xs:element maxOccurs="1" name="SampleNumberOfUnits" type="xs:int"/>
                 <xs:element minOccurs="0" maxOccurs="1" name="NumberVariables" type="xs:int"/>
             </xs:sequence>
@@ -294,12 +281,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <!-- Persistent identifier -->
     <xs:element name="PID">
         <xs:annotation>
-            <xs:documentation>Weitere Persistent Identifier der
-                Veröffentlichungen/Publikationen</xs:documentation>
+            <xs:documentation>Persistent identifier</xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
@@ -329,18 +315,17 @@
         </xs:simpleType>
     </xs:element>
 
-    <!-- todo: DataIndsamling --> 
     <xs:element name="Study">
         <xs:complexType>
             <xs:sequence minOccurs="1">
                 <xs:element ref="State"/>
                 <xs:element ref="StudyIdentifier" minOccurs="0"/>
-                <xs:element ref="PIDs" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="PIDs" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Titles" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="PrincipalInvestigators" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="DataURLs" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="PublicationDate" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="ReceivedDate" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="StudyPublicationDate" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="StudyReceivedDate" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Access" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="StudyLanguage" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="TopicalCoverage" minOccurs="0" maxOccurs="1"/>
@@ -350,9 +335,10 @@
                 <xs:element ref="TemporalCoverages" minOccurs="0"/>
                 <!-- todo <xs:element minOccurs="0" ref="DataCollectors"/> -->
                 <xs:element ref="DataSets" minOccurs="0"/>
-                <xs:element ref="Methodology" minOccurs="0" maxOccurs="1" />
-                <xs:element ref="DataCollection" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="Methodology" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="DataCollection" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Documentation" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Publications" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Archive" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -420,8 +406,8 @@
                 <xs:element name="RestrictionDate">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="StartDate" type="xs:date" />
-                            <xs:element name="EndDate" type="xs:date" />
+                            <xs:element name="StartDate" type="xs:date"/>
+                            <xs:element name="EndDate" type="xs:date"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -474,18 +460,18 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="Methodology">
         <xs:complexType>
-            <xs:sequence>   
-                <xs:element ref="TestType" minOccurs="0" maxOccurs="unbounded"/>   
-                <xs:element ref="TimeMethod" minOccurs="0" maxOccurs="unbounded"/> 
-                <xs:element ref="SamplingProcedure" minOccurs="0" maxOccurs="1" />
+            <xs:sequence>
+                <xs:element ref="TestType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="TimeMethod" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="SamplingProcedure" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="DataType" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element name="NumberOfQuestions" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                <xs:element name="NumberOfQuestions" type="xs:integer" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>     
+    </xs:element>
     <xs:element name="TestType">
         <xs:complexType>
             <xs:sequence>
@@ -501,8 +487,8 @@
                                 <xs:attribute ref="xml:lang"/>
                             </xs:extension>
                         </xs:complexContent>
-                    </xs:complexType>    
-                </xs:element>                
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -521,8 +507,8 @@
                                 <xs:attribute ref="xml:lang"/>
                             </xs:extension>
                         </xs:complexContent>
-                    </xs:complexType>    
-                </xs:element>                
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -541,8 +527,8 @@
                                 <xs:attribute ref="xml:lang"/>
                             </xs:extension>
                         </xs:complexContent>
-                    </xs:complexType>    
-                </xs:element>                
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -553,19 +539,20 @@
                     <xs:complexType mixed="true">
                         <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
                     </xs:complexType>
-                </xs:element>       
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>        
+    </xs:element>
     <xs:element name="DataCollection">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="ModeOfCollection" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="ModeOfCollection" minOccurs="0" maxOccurs="1"/>
                 <!-- todo: sæt IF på i transform, da han ofte ikke er med -->
-                <xs:element name="DataCollectorOrganizationReference" minOccurs="0" maxOccurs="1" type="nonemptycontentStringType"/>
+                <xs:element name="DataCollectorOrganizationReference" minOccurs="0" maxOccurs="1"
+                    type="nonemptycontentStringType"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>    
+    </xs:element>
     <xs:element name="ModeOfCollection">
         <xs:complexType>
             <xs:sequence>
@@ -581,37 +568,91 @@
                                 <xs:attribute ref="xml:lang"/>
                             </xs:extension>
                         </xs:complexContent>
-                    </xs:complexType>    
-                </xs:element>                
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>    
-    
+    </xs:element>
+
     <xs:element name="Documentation">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="File" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="File" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="File">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Label" minOccurs="0" maxOccurs="1" type="nonemptycontentStringType" />
-                <xs:element name="URI" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+                <xs:element name="Label" minOccurs="0" maxOccurs="1"
+                    type="nonemptycontentStringType"/>
+                <xs:element name="URI" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Type" minOccurs="0" maxOccurs="1">
                     <xs:simpleType>
                         <xs:restriction base="xs:token">
-                            <xs:enumeration value="Questionaire" />
-                            <xs:enumeration value="Codebook" />
-                            <xs:enumeration value="Metadata" />
-                            <xs:enumeration value="Other" />
+                            <xs:enumeration value="Questionaire"/>
+                            <xs:enumeration value="Codebook"/>
+                            <xs:enumeration value="Metadata"/>
+                            <xs:enumeration value="Other"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="MimeType" type="xs:anyURI" use="optional" />
+            <xs:attribute name="MimeType" type="xs:anyURI" use="optional"/>
         </xs:complexType>
     </xs:element>
-    
+
+    <xs:element name="Publications">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Publication" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Publication">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Structured recording of the scientific publications
+                relating to the registered study in terms of content.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence maxOccurs="1" minOccurs="1">
+                <xs:element ref="PublicationType" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Type of publication defined by a controled vocabulary</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="Authors" maxOccurs="1"/>
+                <xs:element ref="Titles" minOccurs="1" maxOccurs="1"/>
+                <xs:element minOccurs="0" maxOccurs="1" name="Year" type="xs:gYear"/>
+                <xs:element minOccurs="0" maxOccurs="1" name="Publisher" type="xs:string"/>
+                <xs:element minOccurs="0" maxOccurs="1" name="Location" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Location of publication</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="PublicationReferenceAndPage"
+                    type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Description of publication published in: Journal, volume,
+                            issue or anthology -and page location within
+                            publication</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="PIDs" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PublicationType">
+        <xs:complexType mixed="true">
+            <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Authors">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                <xs:element ref="Person"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

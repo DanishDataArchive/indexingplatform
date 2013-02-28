@@ -1,192 +1,259 @@
 <project name="dda" default="list" basedir=".">
-    <description>
+	<description>
         Build file for deployment of DDA Index Platform to an eXist DB.
     </description>
-    
-    <property environment="env"/>
-  <!-- import default properties from file -->
-    <xmlproperty file="config.xml"/>
 
-    <path id="classpath.core">
-        <fileset dir="${config.exist-dir}/lib/core">
-            <include name="*.jar"/>
-        </fileset>
-        <pathelement path="${config.exist-dir}/exist.jar"/>
-        <pathelement path="${config.exist-dir}/exist-optional.jar"/>
-    </path>
-    
-    <typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
-        <classpath refid="classpath.core"/>
-    </typedef>
+	<property environment="env" />
+	<!-- import default properties from file -->
+	<xmlproperty file="config.xml" />
 
- <target name="list" description="List the collections and resources" >
-    <xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collections="true" outputproperty="collections"
-      user="${config.username}" password="${config.password}"/>
-    <!--<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" resources="true" outputproperty="resources"
+	<path id="classpath.core">
+		<fileset dir="${config.exist-dir}/lib/core">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="${config.exist-dir}/exist.jar" />
+		<pathelement path="${config.exist-dir}/exist-optional.jar" />
+	</path>
+
+	<typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
+		<classpath refid="classpath.core" />
+	</typedef>
+
+	<!-- svn ddi-html -->
+	<path id="project.classpath">
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<property name="repository.url" value="http://ddixslt.googlecode.com/svn" />
+	<property name="ddi-html.dir" value="${basedir}/bin/ddi-html" />
+
+	<target name="clean" description="Clean up">
+		<delete quiet="true" dir="${basedir}/bin" />
+	</target>
+
+	<target name="list" description="List the collections and resources">
+		<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collections="true" outputproperty="collections" user="${config.username}" password="${config.password}" />
+		<!--<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" resources="true" outputproperty="resources"
       user="${config.username}" password="${config.password}"/>-->
- </target>
+	</target>
 
- <target name="deploy" depends="deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
+	<target name="deploy" depends="svn-export-stylesheet,apply-config,deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
 
- <target name="deploy-dda" description="Deploy the index platform">
-    <!-- store the index files -->  
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda" createcollection="true" srcfile="../dda/index/collection.xconf"/>
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-denormalization" createcollection="true" srcfile="../dda-denormalization/index/collection.xconf"/>
-    <!-- store the xquery function files -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/lib" createcollection="true">
-      <fileset dir="../dda/lib">
-        <include name="*.xquery"/>
-      </fileset>
-    </xdb:store>
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" createcollection="true">
-      <fileset dir="../dda-denormalization">
-        <include name="*.xquery"/>
-      </fileset>
-    </xdb:store>
-    <!-- store the restful interfaces -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/rest" createcollection="true">
-      <fileset dir="../dda/rest">
-        <include name="*.xquery"/>
-      </fileset>
-    </xdb:store>
-    <!-- store the scheduler -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization/scheduler" createcollection="true">
-      <fileset dir="../scheduler">
-        <include name="*.xquery"/>
-      </fileset>
-    </xdb:store>
-    <!-- create collections for storing the DB resources -->
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda" collection="data" />
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" collection="data" />
- </target>
-  
- <target name="deploy-web" description="Deploy the web interface">
-   <!-- store the rest files -->
-   <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-     uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
-     <fileset dir="../web">
-       <include name="**/*.xquery"/>
-       <include name="**/*.xml"/>
-       <exclude name="**/ddi-html/**/*.*"/>
-     </fileset>
-   </xdb:store>
-    <!-- store the xslt files -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform" createcollection="true" createsubcollections="true">
-      <fileset dir="../web/transform">
-        <include name="**/*.*"/>
-      </fileset>
-    </xdb:store>
-    <!-- store the JavaScript files -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true" createsubcollections="true">
-      <fileset dir="../web/js">
-        <include name="**/*.*"/>
-      </fileset>
-    </xdb:store>
-    <!-- store the theme files -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true" createsubcollections="true">
-      <fileset dir="../web/theme">
-        <include name="**/*.*"/>
-      </fileset>
-    </xdb:store>
-   <!-- store the order form files -->
-   <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-     uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/order" createcollection="true">
-     <fileset dir="../web/order">
-       <include name="**/*.*"/>
-     </fileset>
-   </xdb:store>
- 	<!-- ddi-html check out from repo -->
- 	<!-- todo -->
- 	
- 	<!-- ddi-html xslt -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform/codebook/" createcollection="true">
-      <fileset dir="../web/ddi-html">
-        <include name="*.xsl"/>
-      </fileset>
-    </xdb:store>
- 	<!-- ddi-html i18n -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform/codebook/i18n" createcollection="true">
-      <fileset dir="../web/ddi-html/i18n">
-        <include name="*.*"/>
-      </fileset>
-    </xdb:store>
-    <!-- ddi-html js -->
- 	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true">
-      <fileset dir="../web/ddi-html/js">
-        <include name="*.*"/>
-      </fileset>
-    </xdb:store>
- 	<!-- ddi-html theme/default -->
- 	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
- 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true">
-      <fileset dir="../web/ddi-html/theme/default">
-        <include name="*.*"/>
-      </fileset>
-    </xdb:store>
- 	<!-- ddi-html img -->
- 	<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
- 	      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme/img" createcollection="true">
-      <fileset dir="../web/ddi-html/theme/default/img">
-        <include name="*.*"/>
-      </fileset>
-    </xdb:store>
- </target>
- 
- <target name="deploy-urn" description="Deploy the URN resolution">
-    <!-- store the index files -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf"/>
-    <!-- store the xquery function files -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn/lib" createcollection="true">
-      <fileset dir="../dda-urn/lib">
-        <include name="*.xquery"/>
-      </fileset>
-    </xdb:store>
-    <!-- store the restful interfaces -->
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn/rest" createcollection="true">
-      <fileset dir="../dda-urn/rest">
-        <include name="*.xquery"/>
-      </fileset>
-    </xdb:store>
-    <!-- create collections for storing the DB resources -->
-    <xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn" collection="data" />
- </target>
+	<target name="svn-export-stylesheet" description="Export codebook stylesheet">
+		<mkdir dir="${config.bin-dir}"/>
+		<java classname="org.tmatesoft.svn.cli.SVN" dir="${basedir}">
+			<arg value="export" />
+			<arg value="--force" />
+			<arg value="${repository.url}/trunk/ddi-html/" />
+			<arg value="${ddi-html.dir}" />
+			<classpath refid="project.classpath" />
+		</java>
+	</target>
 
- <target name="storeall" depends="store,store-urn" description="Stores both regular resources and resources for URN resolution" />
+	<target name="apply-config" description="Applies hostname configuration to haproxy and queries">
+		<mkdir dir="${config.bin-dir}/web" />
+		<mkdir dir="${config.bin-dir}/haproxy" />
 
- <target name="store" description="Upload the resources to the DB">
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/data">
-      <fileset dir="${config.resources-dir}">
-        <include name="**/*.xml"/>
-      </fileset>
-    </xdb:store>
- </target>
- 
- <target name="store-urn" description="Upload the urn resources to the DB">
-    <xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true"
-      uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn/data">
-      <fileset dir="${config.urn-resources-dir}">
-        <include name="**/*.xml"/>
-      </fileset>
-    </xdb:store>
- </target>
+		<!-- haproxy cfg -->
+		<loadfile srcfile="../haproxy/haproxy.cfg" property="result-0">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="HOST_NAME" value="${config.haproxy-exist-hostname}" />
+					<param type="token" name="USR_PASSWD_BASE64" value="${config.haproxy-exist-usrpasswdbase64}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/haproxy/haproxy.cfg">${result-0}</echo>
+
+		<!-- copy queries -->
+		<copy todir="${config.bin-dir}/web" overwrite="true">
+			<fileset dir="../web">
+				<include name="**/*.xquery" />
+			</fileset>
+		</copy>
+
+		<!-- advanced.xquery -->
+		<loadfile srcfile="../web/advanced.xquery" property="result-1">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.xquery-web-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/advanced.xquery">${result-1}</echo>
+
+		<!-- simple.xquery -->
+		<loadfile srcfile="../web/simple.xquery" property="result-2">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.xquery-web-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/simple.xquery">${result-2}</echo>
+
+		<!-- landingpage.xquery -->
+		<loadfile srcfile="../web/landingpage.xquery" property="result-3">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.xquery-web-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/landingpage.xquery">${result-3}</echo>
+		
+		<!-- catalogue.xquery -->
+		<loadfile srcfile="../web/catalogue.xquery" property="result-4">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.xquery-web-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/catalogue.xquery">${result-4}</echo>
+	</target>
+
+	<target name="deploy-dda" description="Deploy the index platform">
+		<!-- store the index files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda" createcollection="true" srcfile="../dda/index/collection.xconf" />
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-denormalization" createcollection="true" srcfile="../dda-denormalization/index/collection.xconf" />
+		<!-- store the xquery function files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/lib" createcollection="true">
+			<fileset dir="../dda/lib">
+				<include name="*.xquery" />
+			</fileset>
+		</xdb:store>
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" createcollection="true">
+			<fileset dir="../dda-denormalization">
+				<include name="*.xquery" />
+			</fileset>
+		</xdb:store>
+		<!-- store the restful interfaces -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/rest" createcollection="true">
+			<fileset dir="../dda/rest">
+				<include name="*.xquery" />
+			</fileset>
+		</xdb:store>
+		<!-- store the scheduler -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization/scheduler" createcollection="true">
+			<fileset dir="../scheduler">
+				<include name="*.xquery" />
+			</fileset>
+		</xdb:store>
+		<!-- create collections for storing the DB resources -->
+		<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda" collection="data" />
+		<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" collection="data" />
+	</target>
+
+	<target name="deploy-web" description="Deploy the web interface">
+		<!-- store the rest files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
+			<fileset dir="../web">
+				<include name="**/*.xquery" />
+				<include name="**/*.xml" />
+				<exclude name="**/ddi-html/**/*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- store the modded rest files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
+			<fileset dir="${config.bin-dir}/web">
+				<include name="**/*.xquery" />
+			</fileset>
+		</xdb:store>
+		<!-- store the xslt files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform" createcollection="true" createsubcollections="true">
+			<fileset dir="../web/transform">
+				<include name="**/*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- store the java script files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true" createsubcollections="true">
+			<fileset dir="../web/js">
+				<include name="**/*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- store the theme files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true" createsubcollections="true">
+			<fileset dir="../web/theme">
+				<include name="**/*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- store the order form files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/order" createcollection="true">
+			<fileset dir="../web/order">
+				<include name="**/*.*" />
+			</fileset>
+		</xdb:store>
+
+		<!-- ddi-html xslt -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform/codebook/" createcollection="true">
+			<fileset dir="${ddi-html.dir}">
+				<include name="*.xsl" />
+			</fileset>
+		</xdb:store>
+		<!-- ddi-html i18n -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform/codebook/i18n" createcollection="true">
+			<fileset dir="${ddi-html.dir}/i18n">
+				<include name="*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- ddi-html js -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true">
+			<fileset dir="${ddi-html.dir}/js">
+				<include name="*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- ddi-html theme/default -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true">
+			<fileset dir="${ddi-html.dir}/theme/default">
+				<include name="*.*" />
+			</fileset>
+		</xdb:store>
+		<!-- ddi-html img -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme/img" createcollection="true">
+			<fileset dir="${ddi-html.dir}/theme/default/img">
+				<include name="*.*" />
+			</fileset>
+		</xdb:store>
+	</target>
+
+	<target name="deploy-urn" description="Deploy the URN resolution">
+		<!-- store the index files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf" />
+		<!-- store the xquery function files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn/lib" createcollection="true">
+			<fileset dir="../dda-urn/lib">
+				<include name="*.xquery" />
+			</fileset>
+		</xdb:store>
+		<!-- store the restful interfaces -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn/rest" createcollection="true">
+			<fileset dir="../dda-urn/rest">
+				<include name="*.xquery" />
+			</fileset>
+		</xdb:store>
+		<!-- create collections for storing the DB resources -->
+		<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn" collection="data" />
+	</target>
+
+	<target name="storeall" depends="store,store-urn" description="Stores both regular resources and resources for URN resolution" />
+
+	<target name="store" description="Upload the resources to the DB">
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/data">
+			<fileset dir="${config.resources-dir}">
+				<include name="**/*.xml" />
+			</fileset>
+		</xdb:store>
+	</target>
+
+	<target name="store-urn" description="Upload the urn resources to the DB">
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" createcollection="true" createsubcollections="true" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-urn/data">
+			<fileset dir="${config.urn-resources-dir}">
+				<include name="**/*.xml" />
+			</fileset>
+		</xdb:store>
+	</target>
 
 </project>
