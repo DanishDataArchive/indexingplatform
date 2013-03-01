@@ -114,7 +114,7 @@
     </xs:element>
 
     <xs:element name="StudyPublicationDate" type="xs:date"/>
-    <xs:element name="StudyReceivedDate" type="xs:date"/>
+    <xs:element name="StudyRecievedDate" type="xs:date"/>
 
     <xs:element name="StudyDescriptions">
         <xs:complexType>
@@ -200,7 +200,7 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="Description" minOccurs="0" maxOccurs="1">
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:complexContent>
                             <xs:extension base="richtext">
@@ -325,7 +325,7 @@
                 <xs:element ref="PrincipalInvestigators" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="DataURLs" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="StudyPublicationDate" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="StudyReceivedDate" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="StudyRecievedDate" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Access" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="StudyLanguage" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="TopicalCoverage" minOccurs="0" maxOccurs="1"/>
@@ -398,22 +398,22 @@
     <xs:element name="Access">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Restriction">
+                <xs:element name="Restriction" maxOccurs="1">
                     <xs:complexType mixed="true">
                         <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="RestrictionDate">
+                <xs:element name="Condition" maxOccurs="1">
+                    <xs:complexType mixed="true">
+                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="RestrictionDate" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="StartDate" type="xs:date"/>
                             <xs:element name="EndDate" type="xs:date"/>
                         </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="Condition">
-                    <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
@@ -440,6 +440,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="Subject">
         <xs:complexType>
             <xs:simpleContent>
@@ -450,6 +451,7 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="Keyword">
         <xs:complexType>
             <xs:simpleContent>
@@ -469,9 +471,11 @@
                 <xs:element ref="SamplingProcedure" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="DataType" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element name="NumberOfQuestions" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="ActionToMinimizeLosses" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="TestType">
         <xs:complexType>
             <xs:sequence>
@@ -492,6 +496,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="TimeMethod">
         <xs:complexType>
             <xs:sequence>
@@ -512,6 +517,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="SamplingProcedure">
         <xs:complexType>
             <xs:sequence>
@@ -532,6 +538,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="DataType">
         <xs:complexType>
             <xs:sequence>
@@ -540,9 +547,35 @@
                         <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
                     </xs:complexType>
                 </xs:element>
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="ActionToMinimizeLosses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="richtext">
+                                <xs:attribute ref="xml:lang"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="DataCollection">
         <xs:complexType>
             <xs:sequence>
@@ -553,6 +586,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="ModeOfCollection">
         <xs:complexType>
             <xs:sequence>
@@ -590,6 +624,7 @@
                 <xs:element name="Type" minOccurs="0" maxOccurs="1">
                     <xs:simpleType>
                         <xs:restriction base="xs:token">
+                            <xs:enumeration value="Landingpage"/>
                             <xs:enumeration value="Questionaire"/>
                             <xs:enumeration value="Codebook"/>
                             <xs:enumeration value="Metadata"/>
@@ -619,7 +654,8 @@
             <xs:sequence maxOccurs="1" minOccurs="1">
                 <xs:element ref="PublicationType" minOccurs="0" maxOccurs="1">
                     <xs:annotation>
-                        <xs:documentation>Type of publication defined by a controled vocabulary</xs:documentation>
+                        <xs:documentation>Type of publication defined by a controled
+                            vocabulary</xs:documentation>
                     </xs:annotation>
                 </xs:element>
                 <xs:element ref="Authors" maxOccurs="1"/>
@@ -643,6 +679,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="PublicationType">
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
