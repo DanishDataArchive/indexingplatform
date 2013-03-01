@@ -277,6 +277,9 @@
                         select="concat($labels/LandingPageLabels/Label[@id='actiontominimizeloos']/LabelText[@xml:lang=$lang]/text(), ': ')"
                     />
                 </strong>
+                <xsl:value-of
+                    select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"
+                />
             </p>
             <!-- - data collection - -->
             <h3 class="lp">
@@ -554,7 +557,7 @@
         </xsl:for-each>
         <!-- secondary -->
         <xsl:variable name="anySecondaryPublication">
-            <xsl:for-each select="ns1:Publications/ns1:Publication">                
+            <xsl:for-each select="ns1:Publications/ns1:Publication">
                 <xsl:if test="ns1:PublicationType='Secondary'">
                     <xsl:text>1</xsl:text>
                 </xsl:if>
