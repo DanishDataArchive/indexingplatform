@@ -6,14 +6,21 @@
     xmlns:ns3="ddi:archive:3_1" xmlns:ddi-cv="urn:ddi-cv"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0"
     exclude-result-prefixes="ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv">
-    <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
-    <!-- todo: ActionToMinimizeLosses -->
+    <xsl:output indent="yes" method="xml" encoding="UTF-8" omit-xml-declaration="no"/>
+
+    <xsl:param name="hostname" select="'http://dda.dk/catalogue'"/>
+    <xsl:template match="@*|comment()|processing-instruction()|text()">
+        <xsl:copy/>
+    </xsl:template>
     <xsl:template match="*">
         <xsl:apply-templates select="ns1:StudyUnit"/>
     </xsl:template>
     <xsl:template match="ns1:StudyUnit">
         <Study>
+            <xsl:attribute name="xsi:schemaLocation">
+                <xsl:text>dda.dk/metadata/1.0.0  file:///home/ddajvj/Documents/DDA/indekseringsplatform-1.1/svn/ddaipf/trunk/web/schemas/MetaDataSchema.xsd</xsl:text>
+            </xsl:attribute>
             <State codeListAgencyName="dda.dk" codeListID="urn:studystate.dda.dk"
                 codeListName="DDAStudyState" codeListSchemeURN="urn:studystate.dda.dk-1.0.0"
                 codeListURN="urn:studystate.dda.dk-1.0.0" codeListVersionID="1.0.0">
@@ -48,7 +55,7 @@
             </PrincipalInvestigators>
             <DataURLs>
                 <DataURL>
-                    <xsl:value-of select="'todo_bestil_knap_url'"/>
+                    <xsl:value-of select="concat($hostname, '/', @id)"/>
                 </DataURL>
             </DataURLs>
             <StudyPublicationDate>
@@ -154,7 +161,7 @@
                     <Type>Purpose</Type>
                     <xsl:for-each select="ns1:Purpose">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:copy-of select="*"/>
+                            <xsl:copy-of select="ns2:Content//*"/>
                         </Content>
                     </xsl:for-each>
                 </StudyDescription>
@@ -164,13 +171,14 @@
                     <Type>Abstract</Type>
                     <xsl:for-each select="ns1:Abstract">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:copy-of select="*"/>
+                            <xsl:copy-of select="ns2:Content//*"/>
                         </Content>
                     </xsl:for-each>
                 </StudyDescription>
             </xsl:if>
         </StudyDescriptions>
     </xsl:template>
+
     <xsl:template match="ns2:Coverage/ns2:TopicalCoverage/ns2:Subject">
         <!--
             <Subject codeListAgencyName="dda.dk" 
@@ -259,19 +267,22 @@
                     select="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns2:UserID[@type='dk.dda.study.archive.access.restriction.cvcode']"
                 />
             </Restriction>
-            <!-- todo: afventer yderligere afklaring og test data fra Jannik -->
-            <RestrictionDate>
-                <StartDate>
-                    <xsl:value-of
-                        select="substring-before(ns2:Coverage/ns2:TemporalCoverage/ns2:ReferenceDate/ns2:StartDate/text(),'T')"
-                    />
-                </StartDate>
-                <EndDate>
-                    <xsl:value-of
-                        select="substring-before(ns2:Coverage/ns2:TemporalCoverage/ns2:ReferenceDate/ns2:EndDate/text(),'T')"
-                    />
-                </EndDate>
-            </RestrictionDate>
+            <!-- embargo -->
+            <xsl:if
+                test="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate">
+                <RestrictionDate>
+                    <StartDate>
+                        <xsl:value-of
+                            select="substring-before(ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:StartDate/text(),'T')"
+                        />
+                    </StartDate>
+                    <EndDate>
+                        <xsl:value-of
+                            select="substring-before(ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate/text(),'T')"
+                        />
+                    </EndDate>
+                </RestrictionDate>
+            </xsl:if>
             <Condition codeListAgencyName="dda.dk" codeListID="urn:accessconditions.dda.dk"
                 codeListName="DDAAccessConditions"
                 codeListSchemeURN="urn:accessconditions.dda.dk-1.0.0"
@@ -303,7 +314,7 @@
                         <xsl:when test="$sampleNumberOfUnits=''">
                             <xsl:text>NA</xsl:text>
                         </xsl:when>
-                        <xsl:otherwise>                            
+                        <xsl:otherwise>
                             <xsl:value-of select="$sampleNumberOfUnits"/>
                         </xsl:otherwise>
                     </xsl:choose>
@@ -408,19 +419,53 @@
             </SamplingProcedure>
             <xsl:for-each select="ns1:KindOfData">
                 <DataType>
-                    <!-- todo: kind of data har ingen relateret note / ingen mulighed for relateret note -->
                     <DataTypeIdentifier codeListAgencyName="dda.dk"
                         codeListID="urn:kindofdata.dda.dk" codeListName="DDAKindOfData"
                         codeListSchemeURN="urn:kindofdata.dda.dk-1.0.0"
                         codeListURN="urn:kindofdata.dda.dk-1.0.0" codeListVersionID="1.0.0">
                         <xsl:value-of select="."/>
                     </DataTypeIdentifier>
+                    <!-- lookup description -->
+                    <xsl:for-each
+                        select="../ns2:Note[ns2:UserID/text()='dk.dda.ddi.kindofdata-0.1']">
+                        <xsl:variable name="noteLang" select="ns2:Content/@xml:lang"/>
+                        <Description xml:lang="{$noteLang}">
+                            <xsl:value-of select="ns2:Content"/>
+                        </Description>
+                    </xsl:for-each>
                 </DataType>
             </xsl:for-each>
             <NumberOfQuestions>
                 <xsl:value-of select="count(ns8:DataCollection/ns8:QuestionScheme/ns8:QuestionItem)"
                 />
             </NumberOfQuestions>
+            <!-- action to minimize losses -->
+            <xsl:variable name="actionToMinimizeLossesDaId">
+                <xsl:value-of
+                    select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[ns2:Content/@xml:lang='da']/@id"
+                />
+            </xsl:variable>
+            <xsl:variable name="actionToMinimizeLossesEnId">
+                <xsl:value-of
+                    select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[ns2:Content/@xml:lang='en']/@id"
+                />
+            </xsl:variable>
+            <xsl:if test="$actionToMinimizeLossesDaId!=''">
+                <ActionToMinimizeLosses>
+                    <Description xml:lang="da">
+                        <xsl:value-of
+                            select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[@id=$actionToMinimizeLossesDaId]/ns2:Content"
+                        />
+                    </Description>
+                    <xsl:if test="$actionToMinimizeLossesEnId!=''">
+                        <Description xml:lang="en">
+                            <xsl:value-of
+                                select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[@id=$actionToMinimizeLossesEnId]/ns2:Content"
+                            />
+                        </Description>
+                    </xsl:if>
+                </ActionToMinimizeLosses>
+            </xsl:if>
         </Methodology>
     </xsl:template>
     <xsl:template name="DataCollection">
@@ -457,20 +502,54 @@
             </ModeOfCollection>
             <xsl:variable name="dataCollectorOrgRef"
                 select="ns8:DataCollection/ns8:CollectionEvent/ns8:DataCollectorOrganizationReference/ns2:ID"/>
-            <DataCollectorOrganizationReference>
-                <xsl:value-of
-                    select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef]/ns3:OrganizationName"
-                />
-            </DataCollectorOrganizationReference>
+            <xsl:if test="DataCollectorOrganizationReference!=''">
+                <DataCollectorOrganizationReference>
+                    <xsl:value-of
+                        select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef]/ns3:OrganizationName"
+                    />
+                </DataCollectorOrganizationReference>
+            </xsl:if>
         </DataCollection>
     </xsl:template>
 
     <xsl:template name="Documentation">
         <Documentation>
-            <File MimeType="todo/contenttype">
-                <Label>todo</Label>
-                <URI>todo.uri</URI>
-                <Type>Questionaire</Type>
+            <File MimeType="text/html">
+                <URI>
+                    <xsl:value-of select="$hostname"/>
+                    <xsl:text>/catalogue/</xsl:text>
+                    <xsl:value-of select="@id"/>
+                </URI>
+                <Type>Landingpage</Type>
+            </File>
+            <File MimeType="xml/html">
+                <URI>
+                    <xsl:value-of select="$hostname"/>
+                    <xsl:text>/catalogue/</xsl:text>
+                    <xsl:value-of select="@id"/>
+                    <xsl:text>/doc/ddastudymetadata</xsl:text>
+                </URI>
+                <Type>Landingpage</Type>
+            </File>
+            <File MimeType="text/html">
+                <URI>
+                    <xsl:value-of select="$hostname"/>
+                    <xsl:text>/catalogue/</xsl:text>
+                    <xsl:value-of select="@id"/>
+                    <xsl:text>/doc/codebook</xsl:text>
+                </URI>
+                <Type>Codebook</Type>
+            </File>
+            <File MimeType="xml/html">
+                <Label>Ddi-3.1</Label>
+                <URI>
+                    <xsl:value-of select="$hostname"/>
+                    <xsl:text>/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:</xsl:text>
+                    <xsl:value-of select="@id"/>
+                    <xsl:text>:</xsl:text>
+                    <xsl:value-of select="@version"/>
+                </URI>
+                <Type>Metadata</Type>
             </File>
         </Documentation>
     </xsl:template>
