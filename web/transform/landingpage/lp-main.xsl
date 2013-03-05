@@ -242,6 +242,9 @@
                                                   </td>
                                                   </tr>
                                                       <tr>
+                                                          <td>&#160;</td>
+                                                      </tr>
+                                                      <tr>
                                                           <td>
                                                               <a href="#publications">Publikationer</a>
                                                           </td>
