@@ -66,6 +66,7 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Creator, $search-string)] |
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Subject, $search-string)] | 
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
         collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
         collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
@@ -819,7 +820,8 @@ declare function local:studyUnitsFromParameters($search-parameters as element())
     let $studyFromTopicalCoverage :=
         if($search-parameters/asp:topicalCoverage) then
             let $studyTopicalCoverage := string($search-parameters/asp:topicalCoverage)
-            return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $studyTopicalCoverage)] else ()
+            return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $studyTopicalCoverage)] 
+            union collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Subject, $studyTopicalCoverage)] else ()
     let $studyFromSpatialCoverage :=
         if($search-parameters/asp:spatialCoverage) then
             let $studySpatialCoverage := string($search-parameters/asp:spatialCoverage)
