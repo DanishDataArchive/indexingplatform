@@ -51,6 +51,7 @@ declare function local:main() as node()? {
             <param name="show-variable-list" value="false" />
             <param name="show-numeric-var-frequence" value="true" />
             <param name="show-universe" value="true" />
+            <param name="show-otherdocuments" value="false" />
             
             <!-- information links -->            
             <param name="guidancelink" value="http://samfund.dda.dk/dda/vejledning_kodebog_1.0.asp"/>
