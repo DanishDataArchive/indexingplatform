@@ -67,6 +67,19 @@ h3.lp		{ font-family: verdana,arial,helvetica,sans-serif; color: #333; font-size
 				font-size: 9pt; 
 				font-weight: 
 				bolder;padding: 0px 0px 0px 0px }
+				
+ul.lp {
+          list-style-type:none;
+         padding:0px;
+        margin:0px;
+}
+ul.lp li.lp {
+	padding-left: 0px; 
+	margin-bottom: 2px; 
+}
+ul.lp li.lp:hover {
+	color: rgb(153, 0, 0);
+}
 
 /* ************************************ */
 /* *** search                                    *** */
