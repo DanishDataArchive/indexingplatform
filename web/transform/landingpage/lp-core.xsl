@@ -563,11 +563,13 @@
                 select="$labels/LandingPageLabels/Label[@id='primary-publications']/LabelText[@xml:lang=$lang]/text()"
             />
         </h3>
-        <xsl:for-each select="ns1:Publications/ns1:Publication">
-            <xsl:if test="ns1:PublicationType='Primary'">
-                <xsl:call-template name="Publication"/>
-            </xsl:if>
-        </xsl:for-each>
+        <ul class="lp">
+            <xsl:for-each select="ns1:Publications/ns1:Publication">
+                <xsl:if test="ns1:PublicationType='Primary'">
+                    <xsl:call-template name="Publication"/>
+                </xsl:if>
+            </xsl:for-each>
+        </ul>        
         <!-- secondary -->
         <xsl:variable name="anySecondaryPublication">
             <xsl:for-each select="ns1:Publications/ns1:Publication">
@@ -582,38 +584,41 @@
                     select="$labels/LandingPageLabels/Label[@id='secondary-publications']/LabelText[@xml:lang=$lang]/text()"
                 />
             </h3>
-            <xsl:for-each select="ns1:Publications/ns1:Publication">
-                <xsl:if test="ns1:PublicationType='Secondary'">
-                    <xsl:call-template name="Publication"/>
-                </xsl:if>
-            </xsl:for-each>
+            <ul class="lp">
+                <xsl:for-each select="ns1:Publications/ns1:Publication">
+                    <xsl:if test="ns1:PublicationType='Secondary'">
+                        <xsl:call-template name="Publication"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </ul>
         </xsl:if>
     </xsl:template>
 
     <xsl:template name="Publication">
-        <!-- author -->
-        <xsl:value-of select="ns1:Authors/ns1:Person/ns1:FirstName"/>
-        <xsl:text>, </xsl:text>
-        <!-- title -->
-        <em>
-            <xsl:value-of select="ns1:Titles/ns1:Title"/>
-        </em>
-        <xsl:text>, </xsl:text>
-        <!-- publisher -->
-        <xsl:if test="ns1:Publisher">
-            <xsl:value-of select="ns1:Publisher"/>
+        <li class="lp">
+            <!-- author -->
+            <xsl:value-of select="ns1:Authors/ns1:Person/ns1:FirstName"/>
             <xsl:text>, </xsl:text>
-        </xsl:if>
-        <!-- pub ref and page -->
-        <xsl:if test="ns1:PublicationReferenceAndPage">
-            <xsl:value-of select="ns1:PublicationReferenceAndPage"/>
+            <!-- title -->
+            <em>
+                <xsl:value-of select="ns1:Titles/ns1:Title"/>
+            </em>
             <xsl:text>, </xsl:text>
-        </xsl:if>
-        <!-- year -->
-        <xsl:if test="ns1:Year">
-            <xsl:value-of select="ns1:Year"/>
-        </xsl:if>
-        <br/>
+            <!-- publisher -->
+            <xsl:if test="ns1:Publisher">
+                <xsl:value-of select="ns1:Publisher"/>
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+            <!-- pub ref and page -->
+            <xsl:if test="ns1:PublicationReferenceAndPage">
+                <xsl:value-of select="ns1:PublicationReferenceAndPage"/>
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+            <!-- year -->
+            <xsl:if test="ns1:Year">
+                <xsl:value-of select="ns1:Year"/>
+            </xsl:if>
+        </li>
     </xsl:template>
 
     <!-- Xslt 1.0 tokenize templates til at håndtere visning af eventuelt tidligere versioner -->

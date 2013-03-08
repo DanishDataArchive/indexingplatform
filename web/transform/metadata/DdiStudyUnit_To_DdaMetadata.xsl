@@ -3,9 +3,9 @@
     xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns6="ddi:physicalinstance:3_1"
     xmlns:ns7="ddi:logicalproduct:3_1" xmlns:ns8="ddi:datacollection:3_1"
     xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1"
-    xmlns:ns3="ddi:archive:3_1" xmlns:ddi-cv="urn:ddi-cv"
+    xmlns:ns3="ddi:archive:3_1" xmlns:ddi-cv="urn:ddi-cv" xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0"
-    exclude-result-prefixes="ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv">
+    exclude-result-prefixes="ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv xhtml">
 
     <xsl:output indent="yes" method="xml" encoding="UTF-8" omit-xml-declaration="no"/>
 
@@ -161,7 +161,17 @@
                     <Type>Purpose</Type>
                     <xsl:for-each select="ns1:Purpose">
                         <Content xml:lang="{ns2:Content/@xml:lang}">
-                            <xsl:copy-of select="ns2:Content//*"/>
+                            <xsl:variable name="content">
+                                <xsl:value-of select="ns2:Content/xhtml:p"/>
+                            </xsl:variable>
+                            <xsl:choose>
+                                <xsl:when test="$content!=''">
+                                    <xsl:copy-of select="ns2:Content//*"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="ns2:Content"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </Content>
                     </xsl:for-each>
                 </StudyDescription>
@@ -312,7 +322,7 @@
                 <SampleNumberOfUnits>
                     <xsl:choose>
                         <xsl:when test="$sampleNumberOfUnits=''">
-                            <xsl:text>NA</xsl:text>
+                            <xsl:text>na</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="$sampleNumberOfUnits"/>
@@ -502,11 +512,9 @@
             </ModeOfCollection>
             <xsl:variable name="dataCollectorOrgRef"
                 select="ns8:DataCollection/ns8:CollectionEvent/ns8:DataCollectorOrganizationReference/ns2:ID"/>
-            <xsl:if test="DataCollectorOrganizationReference!=''">
+            <xsl:if test="$dataCollectorOrgRef">
                 <DataCollectorOrganizationReference>
-                    <xsl:value-of
-                        select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef]/ns3:OrganizationName"
-                    />
+                    <xsl:value-of select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef/text()]/ns3:OrganizationName"/>
                 </DataCollectorOrganizationReference>
             </xsl:if>
         </DataCollection>
