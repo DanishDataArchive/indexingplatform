@@ -14,6 +14,7 @@ function createOrder() {
     studyTitles.push(studyTitleElements[0].value);
     
     // Serialize the arrays to strings and store them into local storage
+    // TODO IE
     localStorage.setItem('studyIDs', JSON.stringify(studyIDs));
     localStorage.setItem('studyTitles', JSON.stringify(studyTitles));
     
