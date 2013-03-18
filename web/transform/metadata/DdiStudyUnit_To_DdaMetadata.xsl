@@ -124,12 +124,16 @@
                         <xsl:value-of select="ns3:IndividualName/ns3:Last"/>
                     </LastName>
                 </xsl:if>
-                <!-- todo: Den rette organization skal findes, da der kan være flere -->
-                <!--  <Affiliation>
-                    <AffiliationName xml:lang="{parent::ns3:OrganizationScheme/ns3:Organization/ns3:OrganizationName/@xml:lang}">
-                        <xsl:value-of select="parent::ns3:OrganizationScheme/ns3:Organization/ns3:OrganizationName/text()"/>
+                <xsl:variable name="orgId">                   
+                    <xsl:value-of select="ns3:Relation/ns3:OrganizationReference/ns2:ID"/>
+                </xsl:variable>
+                <xsl:if test="$orgId">
+                <Affiliation>
+                    <AffiliationName xml:lang="{../ns3:Organization[@id=$orgId]/ns3:OrganizationName/@xml:lang}">
+                        <xsl:value-of select="../ns3:Organization[@id=$orgId]/ns3:OrganizationName/text()"/>
                     </AffiliationName>
-                </Affiliation>-->
+                </Affiliation>
+                </xsl:if>
             </Person>
         </PrincipalInvestigator>
     </xsl:template>
