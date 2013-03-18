@@ -821,7 +821,7 @@ declare function local:studyUnitsFromParameters($search-parameters as element())
         if($search-parameters/asp:topicalCoverage) then
             let $studyTopicalCoverage := string($search-parameters/asp:topicalCoverage)
             return collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $studyTopicalCoverage)] 
-            union collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Subject, $studyTopicalCoverage)] else ()
+            | collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Subject, $studyTopicalCoverage)] else ()
     let $studyFromSpatialCoverage :=
         if($search-parameters/asp:spatialCoverage) then
             let $studySpatialCoverage := string($search-parameters/asp:spatialCoverage)
