@@ -21,6 +21,7 @@
                 </title>
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"/>
                 <script src="js/order-lp.js" type="text/javascript"/>
+                <xsl:comment>[if IE]<![CDATA[>]]>&lt;script type="text/javascript" src="js/json2.js"&gt;&lt;/script&gt;<![CDATA[<![endif]]]></xsl:comment>
             </head>
             <body>
                 <div align="center">
