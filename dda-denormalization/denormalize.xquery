@@ -127,7 +127,8 @@ declare function local:listQuestionItems() as node()* {
                         return <CategoryReference id="{$categoryId}"/>
                 }
             </QuestionItem>
-    return update insert $dernormalizedQuestionItems into collection('/db/apps/dda-denormalization/data')//d:QuestionItemList
+            
+    return update insert $dernormalizedQuestionItems into collection('/db/apps/dda-denormalization/data')//d:QuestionItemList    
 };
 
 declare function local:listMultipleQuestionItems() as node()* {
@@ -168,7 +169,13 @@ declare function local:listMultipleQuestionItems() as node()* {
                             return <CategoryReference id="{$categoryId}"/>
                 }
             </MultipleQuestionItem>
-    return update insert $dernormalizedMultipleQuestionItems into collection('/db/apps/dda-denormalization/data')//d:MultipleQuestionItemList
+    
+    let $result := 
+    if($dernormalizedMultipleQuestionItems) 
+    then update insert $dernormalizedMultipleQuestionItems into collection('/db/apps/dda-denormalization/data')//d:MultipleQuestionItemList
+    else ()
+    
+    return $result
 };
 
 declare function local:listUniverses() as node()* {
