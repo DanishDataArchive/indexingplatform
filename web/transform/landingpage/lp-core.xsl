@@ -83,8 +83,11 @@
                             <a href="javascript:;" onclick="studySearch('{$pInvestigator}')">
                                 <xsl:value-of select="$pInvestigator"/>
                             </a>
-                        </span>, <xsl:value-of
-                            select="ns1:Person/ns1:Affiliation/ns1:AffiliationName"/>
+                        </span>
+                        <xsl:if test="ns1:Person/ns1:Affiliation/ns1:AffiliationName">
+                            <xsl:text>, </xsl:text>
+                            <xsl:value-of select="ns1:Person/ns1:Affiliation/ns1:AffiliationName"/>
+                        </xsl:if>
                     </div>
                 </xsl:for-each>
                 <a name="documentation"/>
@@ -137,7 +140,9 @@
                             <span itemprop="keyword">
                                 <span itemscope="itemscope" itemtype="http://schema.org/Text">
                                     <xsl:value-of select="text()"/>
-                                </span>, </span>
+                                </span>
+                                <xsl:if test="position() != last()">, </xsl:if>
+                            </span>
                         </a>
                     </xsl:for-each>
                 </span>
@@ -151,7 +156,8 @@
                         select="ns1:TopicalCoverage/ns1:Subjects/ns1:Subject[@xml:lang=$lang]">
                         <a href="javascript:;" onclick="studySearch('{text()}')">
                             <span itemprop="about">
-                                <xsl:value-of select="concat(text(), ', ')"/>
+                                <xsl:value-of select="text()"/>
+                                <xsl:if test="position() != last()">, </xsl:if>
                             </span>
                         </a>
                     </xsl:for-each>
@@ -161,11 +167,15 @@
                         select="$labels/LandingPageLabels/Label[@id='universe']/LabelText[@xml:lang=$lang]/text()"
                     />
                 </h2> <xsl:value-of
-                    select="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang]/text()"/>, <em>
-                    <xsl:value-of
-                        select="ns1:Universes/ns1:Universe/ns1:Description[@xml:lang=$lang]/text()"
-                    />
-                </em>
+                    select="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang]/text()"/>
+                <xsl:if test="ns1:Universes/ns1:Universe/ns1:Description">
+                    <xsl:text>, </xsl:text>
+                    <em>
+                        <xsl:value-of
+                            select="ns1:Universes/ns1:Universe/ns1:Description[@xml:lang=$lang]/text()"
+                        />
+                    </em>
+                </xsl:if>
                 <h3 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='geographiccoverage']/LabelText[@xml:lang=$lang]/text()"
@@ -183,7 +193,8 @@
                     </em>
                 </xsl:if>
                 <!-- - variables - -->
-                <a name="dataset"/>  <h2 class="lp">
+                <a name="dataset"/> 
+                <h2 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"
                     />
@@ -238,7 +249,7 @@
                         <xsl:variable name="kindOfDataId" select="ns1:DataTypeIdentifier"/>
                         <xsl:value-of
                             select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                        <xsl:text>, </xsl:text>
+                        <xsl:if test="position() != last()">, </xsl:if>
                     </xsl:for-each>
                 </p>
                 <!-- time method -->
@@ -288,9 +299,15 @@
                             select="concat($labels/LandingPageLabels/Label[@id='actiontominimizeloos']/LabelText[@xml:lang=$lang]/text(), ': ')"
                         />
                     </strong>
-                    <xsl:value-of
-                        select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"
-                    />
+                    <xsl:choose>
+                        <xsl:when test="ns1:Methodology/ns1:ActionToMinimizeLosses">
+                            <xsl:value-of
+                                select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"
+                            /></xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>Na</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </p>
                 <!-- - data collection - -->
                 <h3 class="lp">
@@ -355,7 +372,15 @@
                             select="concat($labels/LandingPageLabels/Label[@id='datacollector']/LabelText[@xml:lang=$lang]/text(), ': ')"
                         />
                     </strong>
-                    <xsl:value-of select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"/>
+                    <xsl:choose>
+                        <xsl:when test="ns1:DataCollection/ns1:DataCollectorOrganizationReference"
+                                ><xsl:value-of
+                                select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"
+                            /></xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>Na</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <br/>
                 </p>
                 <!-- - temporal coverage -  -->
@@ -569,7 +594,7 @@
                     <xsl:call-template name="Publication"/>
                 </xsl:if>
             </xsl:for-each>
-        </ul>        
+        </ul>
         <!-- secondary -->
         <xsl:variable name="anySecondaryPublication">
             <xsl:for-each select="ns1:Publications/ns1:Publication">
