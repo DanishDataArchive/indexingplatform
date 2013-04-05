@@ -35,7 +35,7 @@
 
         <!-- cv mappe sendes med som parameter, så xslt kan kaldes både i exist og i tests uden for exist -->
         <xsl:variable name="studyId"
-            select="substring-after(ns1:StudyIdentifier/ns1:Identifier, 'dda')"/>
+            select="substring-after(ns1:StudyIdentifier/ns1:Identifier, 'DDA-')"/>
         <xsl:variable name="accessConditionsCV"
             select="document(concat($cvFolder, '/accessconditions.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="accessRestrictionsCV"
@@ -264,7 +264,7 @@
                     <xsl:value-of
                         select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
                     <xsl:if
-                        test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"
+                        test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]"
                         >, <em>
                             <xsl:value-of
                                 select="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"
@@ -305,7 +305,7 @@
                                 select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"
                             /></xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>Na</xsl:text>
+                            <xsl:text>na</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                 </p>
@@ -378,7 +378,7 @@
                                 select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"
                             /></xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>Na</xsl:text>
+                            <xsl:text>na</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                     <br/>
@@ -443,7 +443,7 @@
                             <xsl:value-of select="ns1:Archive"/>
                         </span>
                     </span>
-                </span>, <xsl:value-of select="substring-before(ns1:PublicationDate, '-')"/>. 1
+                </span>, <xsl:value-of select="substring-before(ns1:StudyPublicationDate, '-')"/>. 1
                 datafil: <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of
                     select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, <a
                     href="{ns1:PIDs/ns1:PID/ns1:ID}">

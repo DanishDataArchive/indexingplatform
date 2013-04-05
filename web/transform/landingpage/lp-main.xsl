@@ -272,7 +272,7 @@
                                                   <td>
                                                   <strong class="lp">
                                                   <xsl:value-of
-                                                  select="concat('DDA-', substring-after(ns1:StudyIdentifier/ns1:Identifier, 'dda'))"
+                                                  select="concat('DDA-', substring-after(ns1:StudyIdentifier/ns1:Identifier, 'DDA-'))"
                                                   />
                                                   </strong>
                                                   </td>

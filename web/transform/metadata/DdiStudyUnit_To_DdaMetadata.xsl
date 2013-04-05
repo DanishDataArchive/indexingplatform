@@ -30,7 +30,7 @@
             </State>
             <StudyIdentifier>
                 <Identifier>
-                    <xsl:value-of select="concat('dda', @id)"/>
+                    <xsl:value-of select="concat('DDA-', @id)"/>
                 </Identifier>
                 <CurrentVersion>
                     <xsl:value-of select="@version"/>
