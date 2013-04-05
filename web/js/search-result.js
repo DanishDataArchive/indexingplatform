@@ -20,6 +20,16 @@ $(function(){
 });
 
 function createOrder() {
+    createOrderImp();
+    window.open("order/order.html", "_blank");    
+}
+
+function createOrderStepUp() {
+    createOrderImp();
+    window.open("../order/order.html", "_blank");    
+}
+
+function createOrderImp() {
     // We are using local storage to pass data to the order page
     // If data was already stored remove it
     localStorage.removeItem('studyIDs');
@@ -45,8 +55,6 @@ function createOrder() {
     // Serialize the arrays to strings and store them into local storage
     localStorage.setItem('studyIDs', JSON.stringify(studyIDs));
     localStorage.setItem('studyTitles', JSON.stringify(studyTitles));
-    
-window.open("order/order.html", "_blank");
 }
 
 function toggleSubmitButton() {
