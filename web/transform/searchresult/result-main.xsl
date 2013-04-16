@@ -70,7 +70,7 @@
                                                     </xsl:choose>
                                                     
                                                     <div align="center">
-                                                        <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700">
+                                                        <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700" style="text-align:left">
                                                             <!--org width 530 -->
                                                             <tbody>
                                                                 <tr>
