@@ -38,12 +38,12 @@ declare function local:main() as node()? {
         <smd:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1" lang="{$lang}"/>
         <s:Scope>
             <s:StudyUnit/>
-            <s:Variable/>
+            <!--s:Variable/-->
             <s:QuestionItem/>
             <s:MultipleQuestionItem/>
-            <s:Universe/>
+            <!--s:Universe/>
             <s:Concept/>
-            <s:Category/>
+            <s:Category/-->
         </s:Scope>
     </ssp:SimpleSearchParameters>
     
@@ -55,7 +55,7 @@ declare function local:main() as node()? {
     else
         ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters, false())
     
-    let $grouped := request:get-parameter('grouped', ())
+    let $grouped := request:get-parameter('grouped', 'checked')
     
     let $params := <parameters>
             <param name="type" value="simple"/>

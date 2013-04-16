@@ -71,8 +71,17 @@ function toggleSubmitButton() {
 
 function resetForm($form) {
     $('#searchform').find('input:text').val('');
-    $('#searchform').find('input:checkbox').prop('checked', true);
-    $('input[name=grouped]').removeProp('checked');
+    // reset all
+    // $('#searchform').find('input:checkbox').prop('checked', true);
+    // $('input[name=grouped]').removeProp('checked');
+    
+    // reset to selected
+    $('#searchform').find('input:checkbox').prop('checked', false);
+    $('input[name=StudyUnit]').prop('checked', true);
+    $('input[name=QuestionItem]').prop('checked', true);
+    $('input[name=StudyUnitChecked]').prop('checked', true);
+    $('input[name=QuestionItemChecked]').prop('checked', true);
+    $('input[name=grouped]').prop('checked', true);
 }
 
 function submitForm(form) {

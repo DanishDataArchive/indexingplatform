@@ -82,12 +82,12 @@ declare function local:main() as node()? {
            <sm:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1" lang="{$lang}"/>
            <s:Scope>
                <s:StudyUnit/>
-               <s:Variable/>
+               <!--s:Variable/-->
                <s:QuestionItem/>
                <s:MultipleQuestionItem/>
-               <s:Universe/>
+               <!--s:Universe/>
                <s:Concept/>
-               <s:Category/>
+               <s:Category/-->
            </s:Scope>
        </asp:AdvancedSearchParameters>
     
@@ -99,7 +99,7 @@ declare function local:main() as node()? {
     else
         ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters, true())
     
-    let $grouped := request:get-parameter('grouped', ())
+    let $grouped := request:get-parameter('grouped', 'checked')
     
     let $params := <parameters>
             <param name="type" value="advanced"/>
