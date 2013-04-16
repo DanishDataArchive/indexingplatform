@@ -5,7 +5,7 @@
 
 	<property environment="env" />
 	<!-- import default properties from file -->
-	<xmlproperty file="config.xml" />
+	<xmlproperty file="${basedir}/config.xml" />
 
 	<path id="classpath.core">
 		<fileset dir="${config.exist-dir}/lib/core">
@@ -79,7 +79,7 @@
 		<loadfile srcfile="../web/advanced.xquery" property="result-1">
 			<filterchain>
 				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
-					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-exist-hostname}" />
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 				</filterreader>
 			</filterchain>
 		</loadfile>
@@ -89,7 +89,7 @@
 		<loadfile srcfile="../web/simple.xquery" property="result-2">
 			<filterchain>
 				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
-					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-exist-hostname}" />
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 				</filterreader>
 			</filterchain>
 		</loadfile>
@@ -99,7 +99,7 @@
 		<loadfile srcfile="../web/landingpage.xquery" property="result-3">
 			<filterchain>
 				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
-					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-exist-hostname}" />
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 				</filterreader>
 			</filterchain>
 		</loadfile>
@@ -109,7 +109,7 @@
 		<loadfile srcfile="../web/catalogue.xquery" property="result-4">
 			<filterchain>
 				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
-					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-exist-hostname}" />
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 				</filterreader>
 			</filterchain>
 		</loadfile>
