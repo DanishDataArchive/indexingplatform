@@ -45,7 +45,7 @@
                                 <xsl:with-param name="hostname" select="$hostname"/>
                             </xsl:call-template>
                             <tr>
-                                <td mainframe="" valign="top">
+                                <td mainframe="" valign="top"  style="text-align:left">
                                     <table id="table2" class="main" border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tbody>
                                             <tr>

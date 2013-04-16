@@ -173,7 +173,7 @@
         <xsl:choose>
             <xsl:when test="$lang = 'en'">
                 <td class="mainleftborder" valign="top" width="200">
-                    <table id="table5" class="mainleft" width="100%">
+                    <table id="table5" class="mainleft" width="100%" style="text-align: left">
                         <tbody>
                             <tr>
                                 <td valign="top" width="15">&#160;</td>
@@ -232,7 +232,7 @@
                             <tr>
                                 <td valign="top" width="15">&#160;</td>
                                 <td valign="top">
-                                    <table id="table1" class="subnav" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <table id="table1" class="subnav" border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left">
                                         <tbody>
                                             <tr>
                                                 <td>
