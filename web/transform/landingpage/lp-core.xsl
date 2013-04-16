@@ -193,8 +193,7 @@
                     </em>
                 </xsl:if>
                 <!-- - variables - -->
-                <a name="dataset"/> 
-                <h2 class="lp">
+                <a name="dataset"/>  <h2 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"
                     />
@@ -263,9 +262,7 @@
                         select="ns1:Methodology/ns1:TimeMethod/ns1:TimeMethodIdentifier"/>
                     <xsl:value-of
                         select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    <xsl:if
-                        test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]"
-                        >, <em>
+                    <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]">, <em>
                             <xsl:value-of
                                 select="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"
                             />
@@ -281,16 +278,23 @@
                     </strong>
                     <xsl:variable name="samplingProcedureId"
                         select="ns1:Methodology/ns1:SamplingProcedure/ns1:SamplingProcedureIdentifier"/>
-                    <xsl:value-of
-                        select="$samplingprocedureCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$samplingProcedureId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    <xsl:if
-                        test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"
-                        >, <em>
+                    <xsl:choose>
+                        <xsl:when test="$samplingProcedureId!=''">
                             <xsl:value-of
-                                select="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"
-                            />
-                        </em>
-                    </xsl:if>
+                                select="$samplingprocedureCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$samplingProcedureId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                            <xsl:if
+                                test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"
+                                >, <em>
+                                    <xsl:value-of
+                                        select="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"
+                                    />
+                                </em>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>na</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </p>
                 <!-- action to minimize loose -->
                 <p class="lp">
@@ -446,7 +450,8 @@
                 </span>, <xsl:value-of select="substring-before(ns1:StudyPublicationDate, '-')"/>. 1
                 datafil: <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of
                     select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, <a
-                    href="{ns1:PIDs/ns1:PID/ns1:ID}">
+                    href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
+                    <xsl:text>http://dx.doi.org/</xsl:text>
                     <xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID"/>
                 </a>
                 <h3 class="lp">
@@ -456,7 +461,7 @@
                 </h3>
                 <p class="lp">
                     <strong class="lp">URL: </strong>
-                    <a href="http://{$hostname}/catalogue/{$studyId}"
+                    <a href="http://dda.dk/catalogue/{$studyId}"
                             >http://dda.dk/catalogue/<xsl:value-of select="$studyId"/>
                     </a>
                     <br/>
@@ -464,7 +469,7 @@
                 <p class="lp">
                     <strong class="lp">DOI: </strong>
                     <span property="dcterms:identifier" content="{ns1:PIDs/ns1:PID/ns1:ID}"/>
-                    <a href="{ns1:PIDs/ns1:PID/ns1:ID}">
+                    <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
                         <xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID"/>
                     </a>
                 </p>
@@ -565,7 +570,7 @@
                 </p>
                 <!--a href="#">DublinCore</a><br-->
                 <p class="lp">
-                    <a href="{ns1:PIDs/ns1:PID/ns1:ID}">
+                    <a href="http://data.datacite.org/{ns1:PIDs/ns1:PID/ns1:ID}">
                         <xsl:value-of
                             select="$labels/LandingPageLabels/Label[@id='datacite']/LabelText[@xml:lang=$lang]/text()"
                         />

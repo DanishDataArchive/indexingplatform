@@ -277,7 +277,7 @@
                                                   </strong>
                                                   </td>
                                                   <td/>
-                                                  <td align="right">
+                                                  <td style="text-align:right">
                                                   <!--xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/-->
                                                   <form method="post" name="order"
                                                   action="order.html" target="_blank">

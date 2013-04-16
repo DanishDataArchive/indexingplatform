@@ -76,7 +76,7 @@
                                                                                                     </strong>
                                                                                                 </td>
                                                                                                 <td/>
-                                                                                                <td align="right">
+                                                                                                <td style="text-align:right">
                                                                                                     <input name="submit_order" type="button" class="lporderButton lporderText" value="{$labels[@id='html-order-data']/LabelText[@xml:lang=$lang]/text()}" style="width:90px;" disabled="disabled" onclick="createOrderStepUp()"/>
                                                                                                 </td>
                                                                                             </tr>
