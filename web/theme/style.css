@@ -28,7 +28,7 @@ HR		{ color:#000080; height:1px; }
 FIELDSET { padding:10px; }
 FORM 	{ padding:0px; }
 
-TD 		{ font-family: verdana,arial,helvetica,sans-serif; font-size: 8pt; color: #000000; }
+TD 		{ text-align: left; font-family: verdana,arial,helvetica,sans-serif; font-size: 8pt; color: #000000; }
 BR, P	{ margin-top: 0px; margin-bottom: 0px; }
 B 		{ color: #333; font-weight: bold; }
 
@@ -41,7 +41,7 @@ a:hover		{ color: #666; text-decoration: none; }
 /* ************************************ */
 /* ***	Landing page formats	          *** */
 /* ************************************ */
-strong.lp 	{ color: #666; text-align: left; padding: 0px; margin-top: 0px; margin-bottom:0px; }
+strong.lp 	{ color: gray; text-align: left; padding: 0px; margin-top: 0px; margin-bottom:0px; }
 p.lp		{ text-align: left; padding: 0px; margin-top: 2px; margin-bottom:4px; }
 h1.lp		{ font-family: verdana,arial,helvetica,sans-serif; font-size: 14pt; color:#333; font-weight:normal; text-align: left;  padding: 0px; margin-top: 4px; margin-bottom:2px; }
 h2.lp		{ font-family: verdana,arial,helvetica,sans-serif; color: #000080; font-size: 8pt;  font-weight:bold; text-align: left; padding: 0px; margin-top: 8px; margin-bottom:2px; }

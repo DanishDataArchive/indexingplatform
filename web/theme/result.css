@@ -3,6 +3,7 @@ div.result
     background-color:#fff;
     padding: 10px 10px;
     margin: 10px 0;
+text-align: left;
 }
 
 div.alternate
@@ -11,6 +12,7 @@ div.alternate
     border-radius: 4px;
     padding: 10px 10px;
     margin: 10px 0;
+text-align: left;
 }
 
 p.context
@@ -19,11 +21,13 @@ p.context
     border-width:1px;
     border-color:#333333;*/
     padding:5px;
+text-align: left;
 }
 
 span.hi
 {
     background-color:#ffff99;
+text-align: left;
 }
 
 /*.referencedElementsTitle {
