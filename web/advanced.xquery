@@ -67,10 +67,10 @@ declare function local:main() as node()? {
            <asp:studyId/>
            <asp:title/>
            <asp:topicalCoverage/>
-           <asp:spatialCoverage/>
+           <!--asp:spatialCoverage/-->
            <asp:abstract-purpose/>
            <asp:creator/>
-           <asp:kindOfData/>
+           <!--asp:kindOfData/-->
            <asp:coverageFrom/>
            <asp:coverageTo/>
            <asp:Variable/>
