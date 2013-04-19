@@ -172,6 +172,18 @@
                                                   <table id="table1" class="subnav" border="0"
                                                   cellpadding="0" cellspacing="0" width="100%">
                                                   <tbody>
+                                                      <tr>
+                                                          <td>
+                                                              <a href="http://samfund.dda.dk/dda/data-bruge.asp"
+                                                                  >Ny søgning</a>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>&#160;</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>&#160;</td>
+                                                      </tr>    
                                                   <tr>
                                                   <td>
                                                   <a href="#primaryinvestigator"

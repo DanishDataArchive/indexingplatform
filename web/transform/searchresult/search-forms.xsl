@@ -198,14 +198,14 @@
             <input type="checkbox" name="subject" checked="keyword" />Keyword-->
                         </td>
                     </tr>
-                    <tr>
+                    <!--tr>
                         <td class="searchadvanced">
                             <xsl:value-of select="$labels[@id='form-spatial']/LabelText[@xml:lang=$lang]/text()"/>
                         </td>
                         <td>
                             <input type="text" name="spatialCoverage" size="40" value="{asp:spatialCoverage}"/>
                         </td>
-                    </tr>
+                    </tr-->
                     <tr>
                         <td class="searchadvanced"  valign="middle">
                             <xsl:value-of select="$labels[@id='form-temporal']/LabelText[@xml:lang=$lang]/text()"/>
@@ -218,14 +218,14 @@
                             &#160;<strong class="lp">[<xsl:value-of select="$labels[@id='form-date-format']/LabelText[@xml:lang=$lang]/text()"/>]</strong>
                         </td>
                     </tr>
-                    <tr>
+                    <!--tr>
                         <td class="searchadvanced">
                             <xsl:value-of select="$labels[@id='form-kindofdata']/LabelText[@xml:lang=$lang]/text()"/>
                         </td>
                         <td>
                             <input type="text" name="kindOfData" size="40" value="{asp:kindOfData}"/>
                         </td>
-                    </tr>
+                    </tr-->
                     <tr>
                         <td class="searchadvanced">
                             <xsl:value-of select="$labels[@id='form-study-id']/LabelText[@xml:lang=$lang]/text()"/>
