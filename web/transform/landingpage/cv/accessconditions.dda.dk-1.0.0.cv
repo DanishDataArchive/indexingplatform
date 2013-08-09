@@ -9,7 +9,7 @@
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
-      <ddi-cv:Value key="CopyrightYear">2012</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2013</ddi-cv:Value>
       <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
       <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
       <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
@@ -24,7 +24,7 @@
     <Version>1.0.0</Version>
     <CanonicalUri>urn:dda-cv:accessconditions</CanonicalUri>
     <CanonicalVersionUri>urn:dda-cv:accessconditions:1.0.0</CanonicalVersionUri>
-    <LocationUri>http://www.dda.dk/cv/accessconditions.dda.dk-1.0.0.cv</LocationUri>
+    <LocationUri>http://www.dda.dk/cv/accessconditions.dda.dk-1.1.0.cv</LocationUri>
     <Agency>
       <ShortName>Danish Data Archive</ShortName>
       <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
@@ -176,6 +176,26 @@
       </Value>
       <Value ColumnRef="ddacode">
         <SimpleValue>5</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>GeneralNoAccess</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">In general no access</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">I almindelighed ingen adgang</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">In general no access</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">I almindelighed ingen adgang</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>6</SimpleValue>
       </Value>
     </Row>
     <Row>
