@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
+  <Annotation>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining analysis units in a study</p>
+      </div>
+    </Description>
+    <AppInfo>
+      <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2013</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
+      <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
+      <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName xml:lang="en">DDAAnalysisUnit</ShortName>
+    <LongName xml:lang="en">DDA Analysis Unit</LongName>
+    <Version>1.0.0</Version>
+    <CanonicalUri>urn:dda-cv:analysisunit</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:analysisunit:1.0.0</CanonicalVersionUri>
+    <LocationUri>http://www.dda.dk/cv/analysisunit.dda.dk-1.0.0.cv</LocationUri>
+    <Agency>
+      <ShortName>Danish Data Archive</ShortName>
+      <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
+      <Identifier>DDA</Identifier>
+    </Agency>
+  </Identification>
+  <ColumnSet>
+    <Column Id="code" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The code that identifies the value</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>code</ShortName>
+      <LongName xml:lang="en">Identifing code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="term" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The term accociated with the code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>term</ShortName>
+      <LongName xml:lang="en">Term of the code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="description" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>Description of the term and code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>description</ShortName>
+      <LongName xml:lang="en">Description</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="ddacode" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>DDA specific code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>ddacode</ShortName>
+      <LongName xml:lang="en">DDA identifing code</LongName>
+      <Data Type="int"/>
+    </Column>
+    <Key Id="Key-code">
+      <ShortName>Key-code</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Individuals</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Individer</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Individuals</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Individer</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Individuals</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FamiliesHouseholds</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Families/households</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Familier/husstande</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Families/households</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Familier/husstande</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Groups</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Groups</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Grupper</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Groups</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Grupper</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Other</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>99</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>
