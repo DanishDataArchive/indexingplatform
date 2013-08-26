@@ -243,12 +243,14 @@
             <xs:sequence maxOccurs="1" minOccurs="1">
                 <xs:element name="UnitType" minOccurs="0">
                     <xs:complexType>
-                        <xs:simpleContent>
-                            <xs:extension base="xs:string">
-                                <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
-                                <xs:attribute ref="xml:lang"/>
-                            </xs:extension>
-                        </xs:simpleContent>
+                        <xs:sequence>
+                            <xs:element name="UnitTypeIdentifier">
+                                <xs:complexType mixed="true">
+                                    <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Description" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
                     </xs:complexType>
                 </xs:element>
                 <xs:element maxOccurs="1" name="NumberOfUnits" type="xs:int"/>
@@ -319,17 +321,17 @@
         <xs:complexType>
             <xs:sequence minOccurs="1">
                 <xs:element ref="State"/>
-                <xs:element ref="StudyIdentifier" minOccurs="0"/>
+                <xs:element ref="StudyIdentifier"/>
                 <xs:element ref="PIDs" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="Titles" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="PrincipalInvestigators" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="DataURLs" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="StudyPublicationDate" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="StudyRecievedDate" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="Access" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="StudyLanguage" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Titles"/>
+                <xs:element ref="PrincipalInvestigators"/>
+                <xs:element ref="DataURLs" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="StudyPublicationDate"/>
+                <xs:element ref="StudyRecievedDate"/>
+                <xs:element ref="Access"/>
+                <xs:element ref="StudyLanguage"/>
                 <xs:element ref="TopicalCoverage" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="StudyDescriptions" minOccurs="0"/>
+                <xs:element ref="StudyDescriptions"/>
                 <xs:element ref="GeographicCoverages" minOccurs="0"/>
                 <xs:element ref="Universes" minOccurs="0"/>
                 <xs:element ref="TemporalCoverages" minOccurs="0"/>
