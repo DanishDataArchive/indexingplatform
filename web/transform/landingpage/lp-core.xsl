@@ -48,14 +48,15 @@
             select="document(concat($cvFolder, '/kindofdata.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="samplingprocedureCV"
             select="document(concat($cvFolder, '/samplingprocedure.dda.dk-1.0.0.cv'))"/>
-
         <xsl:variable name="studyStateCV"
             select="document(concat($cvFolder, '/studystate.dda.dk-1.0.0.cv'))"/>
-
         <xsl:variable name="timeMethodCV"
             select="document(concat($cvFolder, '/timemethod.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="analysisUnitCV"
+            select="document(concat($cvFolder, '/analysisunit.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="labels" select="document('lp-labels.xml')"/>
-        <form id="searchform" method="post" action="http://{$hostname}/simple-search">
+
+        <form id="searchform" method="post" action="http://{$hostname}/simple-search?lang={$lang}">
             <div xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:dcat="http://www.w3.org/ns/dcat#" itemscope="itemscope"
                 itemtype="http://schema.org/Dataset" about="dcat:Dataset" typeof="dcat:Dataset">
@@ -97,7 +98,7 @@
                     />
                 </h2>
                 <p class="lp">
-                    <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook">
+                    <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook?lang={$lang}">
                         <xsl:value-of
                             select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"
                         />
@@ -192,7 +193,9 @@
                         />
                     </em>
                 </xsl:if>
-                <!-- - variables - -->
+                <!--  -->
+                <!-- - dataset - -->
+                <!--  -->
                 <a name="dataset"/>  <h2 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"
@@ -212,6 +215,27 @@
                 </strong>
                 <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberVariables"/>
                 <br/>
+                <!-- analasis unit -->
+                <xsl:variable name="unitTypeIdentifierId"
+                    select="ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:UnitTypeIdentifier"/>
+                <xsl:if test="$unitTypeIdentifierId">
+                    <strong class="lp">
+                        <xsl:value-of
+                            select="concat($labels/LandingPageLabels/Label[@id='respondenter_analysisunit']/LabelText[@xml:lang=$lang]/text(), ': ')"
+                        />
+                    </strong>
+                    <xsl:value-of
+                        select="$analysisUnitCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$unitTypeIdentifierId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                    <xsl:if
+                        test="ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:Description/@xml:lang=$lang">
+                        <em>
+                            <xsl:value-of
+                                select="concat(', ', ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:Description[@xml:lang=$lang]/text())"
+                            />
+                        </em>
+                    </xsl:if>
+                    <br/>
+                </xsl:if>
                 <h3 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='respondenter']/LabelText[@xml:lang=$lang]/text()"
@@ -448,7 +472,9 @@
                         </span>
                     </span>
                 </span>, <xsl:value-of select="substring-before(ns1:StudyPublicationDate, '-')"/>. 1
-                datafil: <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of
+                    <xsl:value-of
+                    select="$labels/LandingPageLabels/Label[@id='datafile']/LabelText[@xml:lang=$lang]/text()"
+                />: <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of
                     select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, <a
                     href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
                     <xsl:text>http://dx.doi.org/</xsl:text>
@@ -459,13 +485,13 @@
                         select="concat($labels/LandingPageLabels/Label[@id='persistentidentifier']/LabelText[@xml:lang=$lang]/text(), ': ')"
                     />
                 </h3>
-                <p class="lp">
-                    <strong class="lp">URL: </strong>
+                <!--p class="lp">
+                    <strong class="lp">URI: </strong>
                     <a href="http://dda.dk/catalogue/{$studyId}"
                             >http://dda.dk/catalogue/<xsl:value-of select="$studyId"/>
                     </a>
                     <br/>
-                </p>
+                </p-->
                 <p class="lp">
                     <strong class="lp">DOI: </strong>
                     <span property="dcterms:identifier" content="{ns1:PIDs/ns1:PID/ns1:ID}"/>

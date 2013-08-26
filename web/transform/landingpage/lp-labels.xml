@@ -2,12 +2,24 @@
 <LandingPageLabels>    
     <Label id="host">
         <!-- production -->
-        <!--LabelText xml:lang="production_xternal">http://kipon.dda.dk</LabelText>
-        <LabelText xml:lang="production_internal">http://192.168.111.109</LabelText-->
+        <LabelText xml:lang="production_xternal">http://kipon.dda.dk</LabelText>
+        <LabelText xml:lang="production_internal">http://192.168.111.109</LabelText>
         
-        <!-- development -->
-        <LabelText xml:lang="production_internal">http://localhost</LabelText>
-        <LabelText xml:lang="production_xternal">http://localhost</LabelText>
+        <!-- development 
+        <LabelText xml:lang="production_internal">http://localhost</LabelText> 
+        <LabelText xml:lang="production_xternal">http://localhost</LabelText> -->
+    </Label>
+    <Label id="newsearch">
+        <LabelText xml:lang="da">Ny søgning</LabelText>
+        <LabelText xml:lang="en">New search</LabelText>
+    </Label>
+    <Label id="metadata">
+        <LabelText xml:lang="da">Metadata</LabelText>
+        <LabelText xml:lang="en">Metadata</LabelText>
+    </Label>
+    <Label id="datafile">
+        <LabelText xml:lang="da">datafil</LabelText>
+        <LabelText xml:lang="en">data file</LabelText>
     </Label>
     <Label id="orderdata">
         <LabelText xml:lang="da">Bestil data</LabelText>
@@ -77,13 +89,17 @@
         <LabelText xml:lang="da">Oprindelig stikprøve</LabelText>
         <LabelText xml:lang="en">Original sample</LabelText>
     </Label>
+    <Label id="respondenter_analysisunit">
+        <LabelText xml:lang="da">Observationsenheder</LabelText>
+        <LabelText xml:lang="en">Analysis unit</LabelText>
+    </Label>
     <Label id="method">
         <LabelText xml:lang="da">Metode</LabelText>
         <LabelText xml:lang="en">Method</LabelText>
     </Label>
     <Label id="studytype">
         <LabelText xml:lang="da">Datatype</LabelText>
-        <LabelText xml:lang="en">Kinde of data</LabelText>
+        <LabelText xml:lang="en">Kind of data</LabelText>
     </Label>
     <Label id="actiontominimizeloos">
         <LabelText xml:lang="da">Indsats for at minimere  frafald</LabelText>
