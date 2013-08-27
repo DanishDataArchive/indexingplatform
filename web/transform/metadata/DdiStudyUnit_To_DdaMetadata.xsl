@@ -314,7 +314,7 @@
         <DataSets>
             <DataSet>
                 <UnitType>
-                    <xsl:if test="ns1:AnalysisUnit">
+                    <xsl:if test="ns2:AnalysisUnit">
                         <UnitTypeIdentifier codeListAgencyName="dda.dk"
                             codeListID="urn:analysisunit.dda.dk"
                             codeListName="DDADataCollectionMethodology"
