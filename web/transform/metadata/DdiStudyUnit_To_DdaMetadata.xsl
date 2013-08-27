@@ -124,15 +124,18 @@
                         <xsl:value-of select="ns3:IndividualName/ns3:Last"/>
                     </LastName>
                 </xsl:if>
-                <xsl:variable name="orgId">                   
+                <xsl:variable name="orgId">
                     <xsl:value-of select="ns3:Relation/ns3:OrganizationReference/ns2:ID"/>
                 </xsl:variable>
                 <xsl:if test="$orgId">
-                <Affiliation>
-                    <AffiliationName xml:lang="{../ns3:Organization[@id=$orgId]/ns3:OrganizationName/@xml:lang}">
-                        <xsl:value-of select="../ns3:Organization[@id=$orgId]/ns3:OrganizationName/text()"/>
-                    </AffiliationName>
-                </Affiliation>
+                    <Affiliation>
+                        <AffiliationName
+                            xml:lang="{../ns3:Organization[@id=$orgId]/ns3:OrganizationName/@xml:lang}">
+                            <xsl:value-of
+                                select="../ns3:Organization[@id=$orgId]/ns3:OrganizationName/text()"
+                            />
+                        </AffiliationName>
+                    </Affiliation>
                 </xsl:if>
             </Person>
         </PrincipalInvestigator>
@@ -310,7 +313,26 @@
     <xsl:template name="DataSets">
         <DataSets>
             <DataSet>
-                <UnitType>todo</UnitType>
+                <UnitType>
+                    <xsl:if test="ns1:AnalysisUnitsCovered">
+                        <UnitTypeIdentifier codeListAgencyName="dda.dk"
+                            codeListID="urn:analysisunit.dda.dk"
+                            codeListName="DDADataCollectionMethodology"
+                            codeListSchemeURN="urn:analysisunit.dda.dk-1.0.0"
+                            codeListURN="urn:analysisunit.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                            <xsl:value-of select="ns2:AnalysisUnit/text()"/>
+                        </UnitTypeIdentifier>
+                    </xsl:if>
+                    <xsl:if test="ns1:AnalysisUnitsCovered">
+                        <Description>
+                            <!-- TODO use language -->
+                            <xsl:attribute name="xml:lang">
+                                <xsl:value-of select="ns1:AnalysisUnitsCovered/@xml:lang"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="ns1:AnalysisUnitsCovered/text()"/>
+                        </Description>
+                    </xsl:if>
+                </UnitType>
                 <NumberOfUnits>
                     <xsl:value-of
                         select="ns6:PhysicalInstance/ns6:GrossFileStructure/ns6:CaseQuantity/text()"
@@ -518,7 +540,9 @@
                 select="ns8:DataCollection/ns8:CollectionEvent/ns8:DataCollectorOrganizationReference/ns2:ID"/>
             <xsl:if test="$dataCollectorOrgRef">
                 <DataCollectorOrganizationReference>
-                    <xsl:value-of select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef/text()]/ns3:OrganizationName"/>
+                    <xsl:value-of
+                        select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef/text()]/ns3:OrganizationName"
+                    />
                 </DataCollectorOrganizationReference>
             </xsl:if>
         </DataCollection>
