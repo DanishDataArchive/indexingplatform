@@ -200,6 +200,86 @@
     </Row>
     <Row>
       <Value ColumnRef="code">
+        <SimpleValue>CohortStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kohortestudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Cohort study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kohortestudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Cohort study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>7</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PrevalenceStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Prævalensstudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Prevalence study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Prævalensstudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Prevalence study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>8</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CaseControlStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Case-controlstudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case-control study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Case-controlstudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case-control study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>9</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>EcologicalStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Økologisk studie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Ecological study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Økologisk studie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Ecological study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>10</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
         <SimpleValue>Other</SimpleValue>
       </Value>
       <Value ColumnRef="term">
