@@ -80,7 +80,7 @@ public class RESTclient {
     														"            <s:Category/>" +
     														"        </s:Scope>" +
     														"    </asp:AdvancedSearchParameters>";
-    private static final String urn = "urn:ddi:dk.dda:quei-c5539352-4c17-42e7-b6b4-ea775ccc82fb:1.0.0";
+   private static final String urn = "urn:ddi:dk.dda:quei-c5539352-4c17-42e7-b6b4-ea775ccc82fb:1.0.0";
     
    public RESTclient() {
 	   Authenticator.setDefault(new Authenticator() {
@@ -113,8 +113,9 @@ public class RESTclient {
     }
 
 
-/** Convenience method for printing the source XML to the console
- */
+	/** 
+		Convenience method for printing the source XML to the console
+	*/
     public  void printSource(Source s) {
         try {
             //System.out.println("============================= Response Received =========================================");
@@ -135,5 +136,5 @@ public class RESTclient {
     	String httpParameters = "urn1=" + urn;
         client.GET(BASE_URN_URL + URN_RESOLUTION_PAGE, httpParameters);
     }
-
 }
+
