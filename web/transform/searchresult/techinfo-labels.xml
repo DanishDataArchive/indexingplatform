@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TechInfoLabels>
+    <Label id="title">
+        <LabelText xml:lang="da">Tekninsk information</LabelText>
+        <LabelText xml:lang="en">Technical information</LabelText>
+    </Label>
+    <!-- controled vocabs -->
+    <Label id="title-cv-doc">
+        <LabelText xml:lang="da">DDA klassifikationer</LabelText>
+        <LabelText xml:lang="en">DDA controled vocabularies</LabelText>
+    </Label>
+    <Label id="text-cv-doc">
+        <LabelText xml:lang="da"><![CDATA[DDA klassifikationer anvendt på studiebeskrivelses- metode og livscyklusniveau. Klassifikationerne er defineret i <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a>]]></LabelText>
+        <LabelText xml:lang="en"><![CDATA[DDA controled vocabularies describing study level description -method and lifecycle events. The controled vocabularies are defined in <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a>]]></LabelText>
+    </Label>
+    <Label id="a-cv-doc">
+        <LabelText xml:lang="da">Download og dokumentation af DDA klassifikationer</LabelText>
+        <LabelText xml:lang="en">Download and documentation of DDA CV's</LabelText>
+    </Label>    
+    <!-- schema documention -->
+    <Label id="title-schema-doc">
+        <LabelText xml:lang="da">XML schema dokumenation</LabelText>
+        <LabelText xml:lang="en">XML schema documentation</LabelText>
+    </Label>
+    <Label id="text-schema-doc">
+        <LabelText xml:lang="da">Anvendte XML schema filer i forbindelse med søgeparametere -søgeresultat.</LabelText>
+        <LabelText xml:lang="en">XML schema file defining the input and outputs of search results and search parameters.</LabelText>
+    </Label>
+    <!-- dda landing page -->
+    <Label id="title-dda-landing-doc">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en">DDA landing page format</LabelText>
+    </Label>
+    <Label id="text-dda-landing-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en">DDA landing page format</LabelText>
+    </Label>
+    <!-- search api -->
+    <Label id="title-search-api-doc">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en">Search API documentation</LabelText>
+    </Label>
+    <Label id="text-search-api-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en">The Indexingplatform exposes its simple search capabilities as a web service. The web service can be accessed in two ways either via URL parameters or via embeding the the search parameters as XML in the request (see XML schema documentaion). The service can search within:</LabelText>
+    </Label>
+    <Label id="url-search-api-doc">
+        <LabelText xml:lang="da">URL parameter metoden</LabelText>
+        <LabelText xml:lang="en">URL parameter method</LabelText>
+    </Label>
+    <Label id="url-detail-search-api-doc">
+        <LabelText xml:lang="da">Med parameterne: </LabelText>
+        <LabelText xml:lang="en">With parameters: </LabelText>
+    </Label>
+    <Label id="url-text-ex-search-api-doc">
+        <LabelText xml:lang="da">Eksempel på søge api med URL parametere:</LabelText>
+        <LabelText xml:lang="en">Example of search api string with URL parameters:</LabelText>
+    </Label>
+    <Label id="url-ex-search-api-doc">
+        <LabelText xml:lang="da">http://kipon.dda.dk/search-api?StudyUnit=treu&amp;search-string=Europæisk</LabelText>
+        <LabelText xml:lang="en">http://kipon.dda.dk/search-api?StudyUnit=treu&amp;search-string=European</LabelText>
+    </Label>
+    <Label id="-search-api-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en"></LabelText>
+    </Label>
+    <!-- urn resolv service -->
+    <Label id="title-urn-service-doc">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en">DDI URN resolution service</LabelText>
+    </Label>
+    <Label id="text-urn-service-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en">The DDI URN resolution service is based on the DDI-L URN. The service is a web service for retrieval of metadata elements identified by agency, ID and version.</LabelText>
+    </Label>
+    <Label id="detail-a-urn-service-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en">The URL for the URN service is: </LabelText>
+    </Label>
+    <Label id="detail-b-urn-service-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en"> with the parameter 'urn' </LabelText>
+    </Label>
+    <Label id="detail-c-urn-service-doc">
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en">Eg. the URL for the DDI-L study unit with agency: dda.dk, ID: 18465 at version: 1.0.0 is: </LabelText>
+    </Label>
+    <Label id="detail-d-urn-service-doc">
+        <LabelText xml:lang="da">http://kipon.dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
+        <LabelText xml:lang="en">http://kipon.dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
+    </Label>
+    <Label id="title-source-doc">
+        <LabelText xml:lang="da">Kildekode og liciense</LabelText>
+        <LabelText xml:lang="en">Source code and licence</LabelText>
+    </Label>
+    <Label id="details-source-doc">
+        <LabelText xml:lang="da">Indekseringsplatformen vedligeholdes af Dansk Data Arkiv og udgives under LGPL liciensen kildekoden findes her: </LabelText>
+        <LabelText xml:lang="en">The Indexingplatform is maintained by the Danish Data Archive and licenced under the LGPL licence and accesable at: </LabelText>
+    </Label>
+    <Label id="">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en"></LabelText>
+    </Label>
+    <Label id="">
+        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="en"></LabelText>
+    </Label>
+</TechInfoLabels>

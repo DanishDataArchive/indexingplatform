@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CvLabels>
+    <Label id="doc">
+        <LabelText xml:lang="da">Dokumentation</LabelText>
+        <LabelText xml:lang="en">Documentation</LabelText>
+    </Label>
+<Label id="">
+    <LabelText xml:lang="da"></LabelText>
+    <LabelText xml:lang="en"></LabelText>
+</Label>
+</CvLabels>
