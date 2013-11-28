@@ -25,8 +25,8 @@ import java.net.PasswordAuthentication;
  */
 public class RESTclient {
 	
-	private static final String BASE_URL = "http://192.168.99.5:8080/exist/rest/db/dda/rest/";
-	private static final String BASE_URN_URL = "http://192.168.99.5:8080/exist/rest/db/dda/rest/";
+	private static final String BASE_URL = "http://localhost:8080/exist/rest/db/dda/rest/";
+	private static final String BASE_URN_URL = "http://localhost:8080/exist/rest/db/dda/rest/";
 	private static final String SIMPLE_SEARCH_PAGE = "simple-search.xquery";
 	private static final String ADVANCED_SEARCH_PAGE = "advanced-search.xquery";
 	private static final String URN_RESOLUTION_PAGE = "urn-resolution.xquery";
