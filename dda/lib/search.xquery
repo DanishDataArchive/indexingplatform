@@ -67,10 +67,10 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Citation/r:Title, $search-string)] |
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Keyword, $search-string)] |
         collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:TopicalCoverage/r:Subject, $search-string)] | 
-        collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] |
+        (: collection('/db/apps/dda')//su:StudyUnit[ft:query(r:Coverage/r:SpatialCoverage/r:TopLevelReference/r:LevelName, $search-string)] | :)
         collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Abstract/r:Content, $search-string)] |
-        collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] |
-        collection('/db/apps/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)]
+        collection('/db/apps/dda')//su:StudyUnit[ft:query(su:Purpose/r:Content, $search-string)] 
+        (: | collection('/db/apps/dda')//su:StudyUnit[ft:query(su:KindOfData, $search-string)] :)
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -86,8 +86,8 @@ declare function local:queryStudyUnit($search-string as xs:string) as element()*
  :)
 declare function local:queryConcept($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/apps/dda')//cc:Concept[ft:query(r:Label, $search-string)] |
-        collection('/db/apps/dda')//cc:Concept[ft:query(r:Description, $search-string)]
+        collection('/db/apps/dda')//cc:Concept[ft:query(r:Label, $search-string)] 
+        (:  | collection('/db/apps/dda')//cc:Concept[ft:query(r:Description, $search-string)] :)
     for $element in $list
         order by ft:score($element) descending
         return $element
@@ -103,7 +103,7 @@ declare function local:queryConcept($search-string as xs:string) as element()* {
  :)
 declare function local:queryUniverse($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/apps/dda')//cc:Universe[ft:query(r:Label, $search-string)] |
+        (: collection('/db/apps/dda')//cc:Universe[ft:query(r:Label, $search-string)] | :)
         collection('/db/apps/dda')//cc:Universe[ft:query(cc:HumanReadable, $search-string)]
     for $element in $list
         order by ft:score($element) descending
@@ -136,7 +136,7 @@ declare function local:queryQuestionItem($search-string as xs:string) as element
  :)
 declare function local:queryMultipleQuestionItem($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] |
+        (: collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(dc:MultipleQuestionItemName, $search-string)] | :)
         collection('/db/apps/dda')//dc:MultipleQuestionItem[ft:query(dc:QuestionText/dc:LiteralText/dc:Text, $search-string)]
     for $element in $list
         order by ft:score($element) descending
@@ -153,7 +153,7 @@ declare function local:queryMultipleQuestionItem($search-string as xs:string) as
  :)
 declare function local:queryVariable($search-string as xs:string) as element()* {
     let $list :=
-        collection('/db/apps/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] |
+        (: collection('/db/apps/dda')//lp:Variable[ft:query(lp:VariableName, $search-string)] | :)
         collection('/db/apps/dda')//lp:Variable[ft:query(r:Label, $search-string)]
     for $element in $list
         order by ft:score($element) descending
@@ -932,5 +932,5 @@ declare function local:idUnion($set1 as element()*, $set2 as element()*) as node
  : @param   $set2   the second set in the intersection
  :)
 declare function local:idIntersect($set1 as element()*, $set2 as element()*) as node()* {
-    $set1[@id = ($set2/@id)]
+    ($set1[@id = ($set2/@id)])
 };

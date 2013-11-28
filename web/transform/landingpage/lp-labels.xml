@@ -217,6 +217,10 @@
         <LabelText xml:lang="da">Sekundærpublikationer</LabelText>
         <LabelText xml:lang="en">Secondary publications</LabelText>
     </Label>
+    <Label id="na">
+        <LabelText xml:lang="da">Ikke oplyst</LabelText>
+        <LabelText xml:lang="en">NA</LabelText>
+    </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>
         <LabelText xml:lang="en"></LabelText>

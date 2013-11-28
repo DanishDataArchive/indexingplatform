@@ -10,7 +10,8 @@
         <xsl:param name="grouped"/>
         <xsl:param name="hostname"/>
         <div style="margin-left:25px; margin-bottom:20px;">
-            <form id="searchform" method="post" action="http://{$hostname}/simple-search" onsubmit="return validateFields()">
+            <form id="searchform" method="post" action="http://{$hostname}/simple-search" onsubmit="return validateFields()">                
+                <input type="hidden" name="lang" value="{$lang}"/>
                 <table id="printContent" border="0" cellpadding="0" cellspacing="0" width="700" class="searchoption">
                     <tbody>
                         <tr>
@@ -132,10 +133,12 @@
                             <td> &#160; </td>
                         </tr>
                         <tr align="center">
-                            <td>                                
-                                <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}" />
+                            <td>                              
+                                <div align="center">
+                                    <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}" onclick="return makebusy(document.getElementById('searchform'))"/>
                                 &#160;
                                 <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" onclick="resetForm()"/>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -149,6 +152,7 @@
         <xsl:param name="hostname"/>
         <div style="margin-left:25px; margin-bottom:20px;">
             <form id="searchform" method="post" action="http://{$hostname}/advanced-search" onsubmit="return validateFields()">
+                <input type="hidden" name="lang" value="{$lang}"/>
                 <table id="searchform" class="searchoption">
                     <tr>
                         <td colspan="2">
@@ -383,9 +387,11 @@
                     <tr>
                         <td>&#160;</td>
                         <td align="center">
-                            <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}"/>
+                            <div align="center">
+                                <input type="submit" value="{$labels[@id='html-search']/LabelText[@xml:lang=$lang]/text()}"  onclick="return makebusy(document.getElementById('searchform'))"/>
                             &#160;
-                            <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" onclick="resetForm()"/>
+                                <input type="button" value="{$labels[@id='html-reset']/LabelText[@xml:lang=$lang]/text()}" onclick="resetForm()"/>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -431,18 +437,16 @@
     
     <xsl:template name="construct-grouped">
         <xsl:param name="grouped"/>
+        
         <a onclick="toggleGrouped('grouped')" class="searchoption"  href="javascript:void(0);" >
             <xsl:value-of select="$labels[@id='html-grouping']/LabelText[@xml:lang=$lang]/text()"/>
         </a>
             <xsl:element name="input">
-            <xsl:attribute name="type">checkbox</xsl:attribute>
-            <xsl:attribute name="class">searchoption</xsl:attribute>
-            <xsl:attribute name="name">grouped</xsl:attribute>
-            <xsl:attribute name="onchange">submitForm(this.form)</xsl:attribute>
-            <xsl:if test="$grouped">
-                <xsl:attribute name="checked">checked</xsl:attribute>
-            </xsl:if>
-        </xsl:element>
+                <xsl:attribute name="type">checkbox</xsl:attribute>
+                <xsl:attribute name="class">searchoption</xsl:attribute>
+                <xsl:attribute name="name">grouped</xsl:attribute>             
+                <xsl:attribute name="onchange">storeGrouped('grouped')</xsl:attribute>
+            </xsl:element>
     </xsl:template>
     
     <xsl:template name="formatDate">

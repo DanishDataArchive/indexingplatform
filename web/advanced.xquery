@@ -2,6 +2,7 @@ xquery version "1.0";
 
 import module namespace ddi = "http://dda.dk/ddi" at "xmldb:exist:///db/apps/dda/lib/search.xquery";
 
+declare option exist:timeout "60000";
 declare option exist:serialize "method=xhtml media-type=text/html omit-xml-declaration=no indent=yes 
         doctype-public=-//W3C//DTD&#160;HTML&#160;4.01&#160;Transitional//EN
         doctype-system=http://www.w3.org/TR/loose.dtd";
@@ -99,7 +100,7 @@ declare function local:main() as node()? {
     else
         ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters, true())
     
-    let $grouped := request:get-parameter('grouped', 'checked')
+    let $grouped := request:get-parameter('grouped', '')
     
     let $params := <parameters>
             <param name="type" value="advanced"/>

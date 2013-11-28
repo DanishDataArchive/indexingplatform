@@ -29,6 +29,7 @@ declare function local:main() as node()? {
             <param name="lang" value="{$lang}" />
             <param name="fallback-lang" value="en" />
             <param name="translations" value="i18n/messages_{$lang}.properties.xml" />
+            <param name="languageSwitch" value="da,en" />
             
             <!-- css and js path -->            
             <param name="theme-path" value="theme/" />
@@ -49,7 +50,7 @@ declare function local:main() as node()? {
             <param name="show-coverage" value="false" />
             <param name="show-questionnaires" value="false" />
             <param name="show-variable-list" value="false" />
-            <param name="show-numeric-var-frequence" value="true" />
+            <param name="show-numeric-var-frequence" value="false" />
             <param name="show-universe" value="true" />
             <param name="show-otherdocuments" value="false" />
             

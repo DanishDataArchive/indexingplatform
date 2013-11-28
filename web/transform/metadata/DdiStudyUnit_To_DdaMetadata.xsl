@@ -348,7 +348,7 @@
                 <SampleNumberOfUnits>
                     <xsl:choose>
                         <xsl:when test="$sampleNumberOfUnits=''">
-                            <xsl:text>na</xsl:text>
+                            <xsl:text>0</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="$sampleNumberOfUnits"/>

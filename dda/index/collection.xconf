@@ -1,5 +1,5 @@
 <collection xmlns="http://exist-db.org/collection-config/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd">
-  <index xmlns:dc="ddi:datacollection:3_1" xmlns:r="ddi:reusable:3_1" xmlns:lp="ddi:logicalproduct:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:cc="ddi:conceptualcomponent:3_1" xmlns:i="ddi:instance:3_1">
+  <index xmlns:dc="ddi:datacollection:3_1" xmlns:r="ddi:reusable:3_1" xmlns:lp="ddi:logicalproduct:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:cco="ddi:conceptualcomponent:3_1" xmlns:i="ddi:instance:3_1">
     
     <!-- Disable the standard full text index -->
     <fulltext default="none" attributes="false"/>
@@ -31,15 +31,15 @@
       <text match="//su:Purpose/r:Content" analyzer="da" boost="2.0"/>
       <!--/i:DDIInstance/su:StudyUnit/su:KindOfData-->
       <text qname="su:KindOfData" analyzer="da" boost="1.0"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Label-->
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/r:Label-->
+      <!--/i:DDIInstance/su:StudyUnit/cco:ConceptualComponent/cco:ConceptScheme/cco:Concept/r:Label-->
+      <!--/i:DDIInstance/su:StudyUnit/cco:ConceptualComponent/cco:UniverseScheme/cco:Universe/r:Label-->
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/r:Label-->
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/r:Label-->
       <text qname="r:Label" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/r:Description-->
+      <!--/i:DDIInstance/su:StudyUnit/cco:ConceptualComponent/cco:ConceptScheme/cco:Concept/r:Description-->
       <text qname="r:Description" analyzer="da"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/cc:HumanReadable-->
-      <text qname="cc:HumanReadable" analyzer="da"/>
+      <!--/i:DDIInstance/su:StudyUnit/cco:ConceptualComponent/cco:UniverseScheme/cco:Universe/cco:HumanReadable-->
+      <text qname="cco:HumanReadable" analyzer="da"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:QuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:QuestionText/dc:LiteralText/dc:Text-->
       <text qname="dc:Text" analyzer="da"/>
@@ -61,8 +61,8 @@
       <text match="//dc:MultipleQuestionItem/dc:SubQuestions/dc:QuestionItem/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/dc:DataCollection/dc:QuestionScheme/dc:MultipleQuestionItem/dc:ConceptReference/r:ID-->
       <text match="//dc:MultipleQuestionItem/dc:ConceptReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:ConceptScheme/cc:Concept/@id-->
-      <text match="//cc:Concept/@id" analyzer="ws"/>
+      <!--/i:DDIInstance/su:StudyUnit/cco:ConceptualComponent/cco:ConceptScheme/cco:Concept/@id-->
+      <text match="//cco:Concept/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/@id-->
       <text match="//lp:CodeScheme/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/@id-->
@@ -75,8 +75,8 @@
       <text match="//lp:Variable/lp:ConceptReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:VariableScheme/lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID-->
       <text match="//lp:Variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID" analyzer="ws"/>
-      <!--/i:DDIInstance/su:StudyUnit/cc:ConceptualComponent/cc:UniverseScheme/cc:Universe/@id-->
-      <text match="//cc:Universe/@id" analyzer="ws"/>
+      <!--/i:DDIInstance/su:StudyUnit/cco:ConceptualComponent/cco:UniverseScheme/cco:Universe/@id-->
+      <text match="//cco:Universe/@id" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID-->
       <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/@id-->
@@ -84,9 +84,9 @@
     </lucene>
     
     <!-- Range indexes -->
-    <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:StartDate-->
-    <create qname="r:StartDate" type="xs:dateTime"/>
-    <!--/i:DDIInstance/su:StudyUnit/r:Coverage/r:TemporalCoverage/r:ReferenceDate/r:EndDate-->
-    <create qname="r:EndDate" type="xs:dateTime"/>
+    <create path="//r:TemporalCoverage/r:ReferenceDate/r:StartDate"  type="xs:dateTime"/>
+    <!-- <create qname="r:StartDate" type="xs:dateTime"/> -->
+    <create path="//r:TemporalCoverage/r:ReferenceDate/r:EndDate"   type="xs:dateTime"/>
+    <!-- <create qname="r:EndDate" type="xs:dateTime"/> -->
   </index>
 </collection>

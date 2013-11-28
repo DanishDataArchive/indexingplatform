@@ -112,7 +112,8 @@
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='description']/LabelText[@xml:lang=$lang]/text()"
                     />
-                </span>  <h3 class="lp">
+                </span>
+                <h3 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='purpose']/LabelText[@xml:lang=$lang]/text()"
                     />
@@ -134,7 +135,8 @@
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='keywords']/LabelText[@xml:lang=$lang]/text()"
                     />
-                </h3> <span class="lplink" property="dcat:keyword">
+                </h3>
+                <span class="lplink" property="dcat:keyword">
                     <xsl:for-each
                         select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword[@xml:lang=$lang]">
                         <a href="javascript:;" onclick="studySearch('{text()}')">
@@ -163,12 +165,13 @@
                         </a>
                     </xsl:for-each>
                 </span>
-                <a name="universe"/>  <h2 class="lp">
+                <a name="universe"/>
+                <h2 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='universe']/LabelText[@xml:lang=$lang]/text()"
                     />
-                </h2> <xsl:value-of
-                    select="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang]/text()"/>
+                </h2>
+                <xsl:value-of select="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang]/text()"/>
                 <xsl:if test="ns1:Universes/ns1:Universe/ns1:Description">
                     <xsl:text>, </xsl:text>
                     <em>
@@ -196,7 +199,8 @@
                 <!--  -->
                 <!-- - dataset - -->
                 <!--  -->
-                <a name="dataset"/>  <h2 class="lp">
+                <a name="dataset"/>
+                <h2 class="lp">
                     <xsl:value-of
                         select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"
                     />
@@ -253,7 +257,17 @@
                         select="concat($labels/LandingPageLabels/Label[@id='respondenter_samplenumberunits']/LabelText[@xml:lang=$lang]/text(), ': ')"
                     />
                 </strong>
-                <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>
+                <xsl:choose>
+                    <xsl:when test="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits=0">
+                        <xsl:value-of
+                            select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"
+                        />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>        
+                    </xsl:otherwise>
+                </xsl:choose>
+                
                 <!-- - methodology - -->
                 <a name="method"/>
                 <h2 class="lp">
@@ -316,7 +330,9 @@
                             </xsl:if>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>na</xsl:text>
+                            <xsl:value-of
+                                select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"
+                            />
                         </xsl:otherwise>
                     </xsl:choose>
                 </p>
@@ -331,9 +347,12 @@
                         <xsl:when test="ns1:Methodology/ns1:ActionToMinimizeLosses">
                             <xsl:value-of
                                 select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"
-                            /></xsl:when>
+                            />
+                        </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>na</xsl:text>
+                            <xsl:value-of
+                                select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"
+                            />
                         </xsl:otherwise>
                     </xsl:choose>
                 </p>
@@ -401,12 +420,14 @@
                         />
                     </strong>
                     <xsl:choose>
-                        <xsl:when test="ns1:DataCollection/ns1:DataCollectorOrganizationReference"
-                                ><xsl:value-of
-                                select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"
-                            /></xsl:when>
+                        <xsl:when test="ns1:DataCollection/ns1:DataCollectorOrganizationReference">
+                            <xsl:value-of
+                                select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"/>
+                        </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>na</xsl:text>
+                            <xsl:value-of
+                                select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"
+                            />
                         </xsl:otherwise>
                     </xsl:choose>
                     <br/>
@@ -510,7 +531,8 @@
                     />
                 </strong>
                 <xsl:value-of select="ns1:StudyRecievedDate"/>
-                <br/>  <strong class="lp">
+                <br/>
+                <strong class="lp">
                     <xsl:value-of
                         select="concat($labels/LandingPageLabels/Label[@id='publisheddate']/LabelText[@xml:lang=$lang]/text(), ': ')"
                     />

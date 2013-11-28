@@ -6,7 +6,7 @@
     xmlns:rmd="http://dda.dk/ddi/result-metadata"
     version="1.0">
     <xsl:import href="search-forms.xsl"/>
-    <xsl:import href="result-html-fragments.xsl"/>
+    <xsl:import href="@UI-BRANDING-RESULT@"/>
     <xsl:import href="result-core.xsl"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="type"/>
@@ -21,17 +21,29 @@
                 <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
                 <link rel="stylesheet" type="text/css" href="theme/style.css"/>
                 <link rel="stylesheet" type="text/css" href="theme/result.css"/>
-                <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml"/>
                 <link rel="shortcut icon" href="theme/favicon.ico"/>
                 
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
                 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+                <script src="js/cvi_busy_lib.js" type="text/javascript"></script>
                 <script type="text/javascript">
                     var lang = '<xsl:value-of select="$lang"/>';
+                    function changeLang(newLang) {
+                        current = 'http://' + window.location.hostname + window.location.pathname;
+                        window.location.replace(current + '?lang=' +newLang);
+                    }
+                    
+                    var busy;
+                    function makebusy(element) {
+                    try {busy.remove(); busy='';}catch(e) {busy=getBusyOverlay(element,{color:'#f5f5f5', opacity:0.25},{color:'#000000', size:45, type:'o'});}
+                    }
                 </script>
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
                 <script src="js/search-result.js" type="text/javascript"></script>
                 <script src="js/input-validation.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                    @WEB-SITE-TRACKING@
+                </script>    
                 <title>
                     <xsl:value-of select="$labels[@id='html-title']/LabelText[@xml:lang=$lang]/text()"/>
                 </title>
@@ -123,7 +135,7 @@
                                                                                     <p align="center">
                                                                                         <xsl:variable name="prevHitStart" select="rmd:ResultMetaData/@hit-start - rmd:ResultMetaData/@hits-perpage"/>
                                                                                         <xsl:if test="rmd:ResultMetaData/@current-page &gt; 1">
-                                                                                            <a href="#" onclick="changeHitStart({$prevHitStart})">
+                                                                                            <a href="javascript:void(0);" onclick="changeHitStart({$prevHitStart})">
                                                                                                 <xsl:value-of select="$labels[@id='html-prev']/LabelText[@xml:lang=$lang]/text()"/>
                                                                                             </a>
                                                                                         </xsl:if>
@@ -137,7 +149,7 @@
                                                                                         &#160;
                                                                                         <xsl:variable name="nextHitStart" select="rmd:ResultMetaData/@hit-start + rmd:ResultMetaData/@hits-perpage"/>
                                                                                         <xsl:if test="rmd:ResultMetaData/@current-page &lt; rmd:ResultMetaData/@number-of-pages">
-                                                                                            <a href="#" onclick="changeHitStart({$nextHitStart})">
+                                                                                            <a href="javascript:void(0);" onclick="changeHitStart({$nextHitStart})">
                                                                                                 <xsl:value-of select="$labels[@id='html-next']/LabelText[@xml:lang=$lang]/text()"/>
                                                                                             </a>
                                                                                         </xsl:if>
@@ -200,7 +212,7 @@
                  </xsl:when>
                  <xsl:otherwise>
                      <xsl:variable name="newHitStart" select="$hitsPerpage * $page - $hitsPerpage + 1"/>
-                     <a href="#" onclick="changeHitStart({$newHitStart})">
+                     <a href="javascript:void(0);" onclick="changeHitStart({$newHitStart})">
                          <xsl:value-of select="$page" />
                      </a>
                  </xsl:otherwise>

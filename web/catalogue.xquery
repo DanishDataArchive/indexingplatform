@@ -9,7 +9,7 @@ declare option exist:serialize "method=xhtml media-type=text/html omit-xml-decla
 declare function local:main() as node()? {
 
     let $httpAcceptLanguage := data(request:get-header('Accept-Language'))
-    let $parameterLanguage := data(request:get-parameter("lang", "n/a"))
+    let $parameterLanguage := data(request:get-parameter("lang", "da"))
     let $lang := if($parameterLanguage = 'da')
         then 'da'
     else if ($parameterLanguage = 'en')

@@ -7,7 +7,7 @@
     xmlns:rmd="http://dda.dk/ddi/result-metadata"
     version="1.0">
     <xsl:import href="search-forms.xsl"/>
-    <xsl:import href="result-html-fragments.xsl"/>
+    <xsl:import href="@UI-BRANDING-RESULT@"/>
     <xsl:import href="result-core.xsl"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="type"/>
@@ -22,17 +22,24 @@
                 <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
                 <link rel="stylesheet" type="text/css" href="theme/style.css"/>
                 <link rel="stylesheet" type="text/css" href="theme/result.css"/>
-                <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml"/>
                 <link rel="shortcut icon" href="theme/favicon.ico"/>
                 
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
                 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
                 <script type="text/javascript">
-                    var lang = '<xsl:value-of select="$lang"/>';
+                    var lang = '<xsl:value-of select="$lang"/>'; 
+                    function changeLang(newLang) {
+                    path = window.location.pathname.replace( new RegExp("catalogue/", "g"), "catalogue");
+                    current = 'http://' + window.location.hostname + path;
+                    window.location.replace(current + '?lang=' +newLang);
+                    }
                 </script>
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
                 <script src="js/search-result.js" type="text/javascript"></script>
                 <script src="js/input-validation.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                    @WEB-SITE-TRACKING@
+                </script>
                 <title>
                     <xsl:value-of select="$labels[@id='catalogue-title']/LabelText[@xml:lang=$lang]/text()"/>
                 </title>
@@ -44,6 +51,7 @@
                             <xsl:call-template name="result-header-top">
                                 <xsl:with-param name="lang" select="$lang"/>
                                 <xsl:with-param name="hostname" select="$hostname"/>
+                                <xsl:with-param name="img" select="'digits'"/>
                             </xsl:call-template>
                             <tr>
                                 <td mainframe="" valign="top">

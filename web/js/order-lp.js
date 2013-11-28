@@ -22,6 +22,7 @@ function createOrder() {
 }
 
 function studySearch(text) {
+    makebusy(makebusy(document.getElementById('searchform')));
     $('#searchform').append('<input type="hidden" name="search-string" value="&quot;'+text+'&quot;"/>');   
     $('#searchform').append('<input type="hidden" name="StudyUnit" value="true"/>');
     $('#searchform').submit();

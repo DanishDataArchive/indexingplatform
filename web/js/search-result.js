@@ -1,4 +1,19 @@
 $(document).ready(function(){
+    // read grouped checkbox from session store
+    var grouped  = localStorage.getItem('grouped');    
+    if(grouped==null) {
+        localStorage.setItem('grouped', 'true');
+        grouped = 'true';       
+    }        
+
+    // set grouped check box
+    if(grouped == 'true') {
+        $('input[name=grouped]').prop('checked', true);
+    } else{
+        $('input[name=grouped]').prop('checked', false);
+    }    
+    
+    setFocusToEnd($('input[name=search-string]'));
     $('.result:even').addClass('alternate');
 });
 
@@ -117,11 +132,39 @@ function toggleCheckBoxById(checkboxid) {
 function toggleGrouped(checkboxid) {
     if($('input[name='+checkboxid+']').get(0).checked) {
         $('input[name='+checkboxid+']').prop('checked', false);    
-        toggleSubmitButton($('#searchform'));
+        // toggleSubmitButton($('#searchform'));
+        localStorage.setItem('grouped', 'false');
     }   else  {
-    $('input[name='+checkboxid+']').prop('checked', true);
-        toggleSubmitButton($('#searchform'));
+        $('input[name='+checkboxid+']').prop('checked', true);
+        // toggleSubmitButton($('#searchform'));
+        localStorage.setItem('grouped', 'true');
     }         
+}
+
+function storeGrouped(checkboxid) {
+    if($('input[name='+checkboxid+']').get(0).checked) {
+        localStorage.setItem('grouped', 'true');
+    }   else  {
+        localStorage.setItem('grouped', 'false');
+    }         
+}
+
+function setFocusToEnd(inputField){
+    if (inputField[0] != null && inputField[0].value.length != 0){
+        if (inputField.createTextRange){
+            var fieldRange = inputField[0].createTextRange();
+            fieldRange.moveStart('character',inputField[0].value.length);
+            fieldRange.collapse();
+            fieldRange.select();
+        }else if (inputField[0].selectionStart || inputField[0].selectionStart == '0') {
+            var elemLen = inputField[0].value.length;
+            inputField[0].selectionStart = elemLen;
+            inputField[0].selectionEnd = elemLen;
+            inputField.focus();
+        }
+    }else{
+        inputField.focus();
+    }
 }
 
 $(function() {

@@ -1,7 +1,5 @@
 <project name="dda" default="list" basedir=".">
-	<description>
-        Build file for deployment of DDA Index Platform to an eXist DB.
-    </description>
+	<description>Build file for deployment and cofiguration of DDA Indexingplatform to an eXist DB</description>
 
 	<property environment="env" />
 	<!-- import default properties from file -->
@@ -19,7 +17,6 @@
 		<classpath refid="classpath.core" />
 	</typedef>
 
-	<!-- svn ddi-html -->
 	<path id="project.classpath">
 		<fileset dir="${basedir}/lib">
 			<include name="**/*.jar" />
@@ -35,13 +32,11 @@
 
 	<target name="list" description="List the collections and resources">
 		<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collections="true" outputproperty="collections" user="${config.username}" password="${config.password}" />
-		<!--<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" resources="true" outputproperty="resources"
-      user="${config.username}" password="${config.password}"/>-->
 	</target>
 
-	<target name="deploy" depends="svn-export-stylesheet,apply-config,deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
+	<target name="deploy" depends="svn-import-stylesheet,apply-config,deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
 
-	<target name="svn-export-stylesheet" description="Export codebook stylesheet">
+	<target name="svn-import-stylesheet" description="Import DDI stylesheets">
 		<mkdir dir="${config.bin-dir}"/>
 		<java classname="org.tmatesoft.svn.cli.SVN" dir="${basedir}">
 			<arg value="export" />
@@ -59,7 +54,8 @@
 		<!-- haproxy cfg -->
 		<loadfile srcfile="../haproxy/haproxy.cfg" property="result-0">
 			<filterchain>
-				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">					
+					<param type="token" name="INTERNAL_WEB_HOST_NAME" value="${config.haproxy-internal-webserver-hostname}" />
 					<param type="token" name="WEB_HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 					<param type="token" name="EXIST_HOST_NAME" value="${config.haproxy-exist-hostname}" />
 					<param type="token" name="USR_PASSWD_BASE64" value="${config.haproxy-exist-usrpasswdbase64}" />
@@ -114,6 +110,71 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/catalogue.xquery">${result-4}</echo>
+		
+		<!-- branding result-main.xsl-->
+		<loadfile srcfile="../web/transform/searchresult/result-main.xsl" property="result-5">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="UI-BRANDING-RESULT" value="${config.ui-branding-result}" />
+					<param type="token" name="WEB-SITE-TRACKING" value="${config.web-site-tracking}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/transform/searchresult/result-main.xsl">${result-5}</echo>
+		
+		<!-- branding lp-main.xsl -->
+		<loadfile srcfile="../web/transform/landingpage/lp-main.xsl" property="result-6">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="UI-BRANDING-RESULT" value="${config.ui-branding-result}" />
+					<param type="token" name="WEB-SITE-TRACKING" value="${config.web-site-tracking}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/transform/landingpage/lp-main.xsl">${result-6}</echo>
+
+		<!-- catalogue.xsl -->
+		<loadfile srcfile="../web/transform/searchresult/catalogue.xsl" property="result-7">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="UI-BRANDING-RESULT" value="${config.ui-branding-result}" />
+					<param type="token" name="WEB-SITE-TRACKING" value="${config.web-site-tracking}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/transform/searchresult/catalogue.xsl">${result-7}</echo>
+		
+		<!-- techinfo.xsl -->
+		<loadfile srcfile="../web/transform/searchresult/techinfo.xsl" property="result-8">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="UI-BRANDING-RESULT" value="${config.ui-branding-result}" />
+					<param type="token" name="WEB-SITE-TRACKING" value="${config.web-site-tracking}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/transform/searchresult/techinfo.xsl">${result-8}</echo>
+		
+		<!-- techinfo.xquery -->
+		<loadfile srcfile="../web/techinfo.xquery" property="result-9">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/techinfo.xquery">${result-9}</echo>
+		
+		<!-- scheduler/properties.xquery -->
+		<loadfile srcfile="../scheduler/properties.xquery" property="result-10">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="USERNAME" value="${config.username}" />
+					<param type="token" name="PASSWORD" value="${config.password}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/scheduler/properties.xquery">${result-10}</echo>
 	</target>
 
 	<target name="deploy-dda" description="Deploy the index platform">
@@ -157,14 +218,8 @@
 				<exclude name="**/ddi-html/**/*.*" />
 			</fileset>
 		</xdb:store>
-		<!-- store the modded rest files -->
-		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
-			<fileset dir="${config.bin-dir}/web">
-				<include name="**/*.xquery" />
-			</fileset>
-		</xdb:store>
 		<!-- store the xslt files -->
-		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform" createcollection="true" createsubcollections="true">
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/transform" createcollection="true" createsubcollections="true" type="xml">
 			<fileset dir="../web/transform">
 				<include name="**/*.*" />
 			</fileset>
@@ -218,8 +273,25 @@
 				<include name="*.*" />
 			</fileset>
 		</xdb:store>
-	</target>
+		<!-- schema -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda/schema" createcollection="true">
+			<fileset dir="../web/schemas">
+				<include name="**/*.xsd" />
+			</fileset>
+			<fileset dir="../dda/schema">
+				<include name="**/*.xsd" />
+			</fileset>
+		</xdb:store>		
 
+		<!-- store the modded files -->
+		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
+			<fileset dir="${config.bin-dir}/web">
+				<include name="**/*.xquery" />
+				<include name="**/*.xsl" />
+			</fileset>
+		</xdb:store>
+	</target>
+	
 	<target name="deploy-urn" description="Deploy the URN resolution">
 		<!-- store the index files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf" />
@@ -256,5 +328,4 @@
 			</fileset>
 		</xdb:store>
 	</target>
-
 </project>

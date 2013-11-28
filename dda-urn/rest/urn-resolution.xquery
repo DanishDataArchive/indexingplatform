@@ -1,8 +1,8 @@
-xquery version "1.0";
+xquery version "3.0";
 
 import module namespace urn = "http://dda.dk/ddi/urn" at "xmldb:exist:///db/apps/dda-urn/lib/urn.xquery";
 
-(:declare option exist:serialize "method=xml media-type=text/html";:)
+declare option exist:serialize "method=html media-type=text/xml omit-xml-declaration=no indent=yes";
 
 declare function local:main() as item()? {
    if (request:get-parameter("urn", ())) then

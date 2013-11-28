@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
-    
+    <xsl:variable name="qmark">?</xsl:variable>
     <xsl:key name="kStudyByID" match="//CustomList[@type='StudyUnit']" use="Custom[@option='id']" />
 
     <xsl:template name="catalogue-core-content">        
@@ -18,7 +18,7 @@
                         xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcat="http://www.w3.org/ns/dcat#">                    
                     <p><strong class="lp">DDA-<xsl:value-of select="$studyId"/></strong></p>
                     <xsl:variable name="url2"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId)"/>
+                        select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="contextlink" href="{$url2}">
                         <span property="dcterms:title" itemprop="name">
                             <xsl:value-of select="$title"/>
@@ -57,7 +57,7 @@
                 <br/>
                 <div class="study" style="float:left;">
                     <xsl:variable name="url2"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId)"/>
+                        select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="study" href="{$url2}">
                         <xsl:value-of select="$title"/>
                     </a>
@@ -82,7 +82,7 @@
                 <xsl:variable name="title" select="Custom[@option='label' and @value=$lang]" />
                 <div class="studyLarge" style="float:left;">
                     <xsl:variable name="url2"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId)"/>
+                        select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="studyLarge" href="{$url2}">
                         <xsl:value-of select="$title"/>
                     </a>
@@ -121,14 +121,14 @@
                 <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>: </strong>
             <xsl:if test="@element!='StudyUnit'">
                 <xsl:variable name="url"
-                    select="concat('http://',$hostname,'/catalogue/', $studyId, '/doc/codebook', '#', @id, '.', @version)"/>
+                    select="concat('http://',$hostname,'/catalogue/', $studyId, '/doc/codebook?lang=', $lang, '#', @id, '.', @version)"/>
                 <a class="contextlink" href="{$url}">
                     <xsl:value-of select="Label"/>
                 </a>
             </xsl:if>
             <xsl:if test="@element='StudyUnit'">
                 <xsl:variable name="url"
-                    select="concat('http://',$hostname,'/catalogue/', $studyId)"/>
+                    select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
                 <a class="contextlink" href="{$url}">
                     <xsl:value-of select="Label"/>
                 </a>
@@ -301,7 +301,7 @@
             <ul type="square">
                 <xsl:for-each select="$referencedElements">
                     <xsl:variable name="url"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId, '/doc/codebook', '#', Custom[@option='id'], '.', Custom[@option='version'])"/>
+                        select="concat('http://',$hostname,'/catalogue/', $studyId, '/doc/codebook?lang=', $lang, '#', Custom[@option='id'], '.', Custom[@option='version'])"/>
                     <li>
                         <a class="contextlink" href="{$url}">
                             <xsl:value-of select="Custom[@option='label']"/>

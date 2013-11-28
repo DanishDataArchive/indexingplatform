@@ -256,8 +256,8 @@
         <LabelText xml:lang="en">Category</LabelText>
     </Label>
     <Label id="html-grouping">
-        <LabelText xml:lang="da">Grupér resultater på detaljeret niveau</LabelText>
-        <LabelText xml:lang="en">Group results at detail level</LabelText>
+        <LabelText xml:lang="da">Saml resultater fra samme studie</LabelText>
+        <LabelText xml:lang="en">Group results based on study</LabelText>
     </Label>
     <!-- catalogue labels -->
     <Label id="catalogue-title">

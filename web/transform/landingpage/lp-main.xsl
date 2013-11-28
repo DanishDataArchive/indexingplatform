@@ -1,19 +1,27 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="dda.dk/metadata/1.0.0"
     version="1.0">
     <xsl:import href="lp-core.xsl"/>
+    <xsl:import href="../searchresult/@UI-BRANDING-RESULT@"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd"
         doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="lang"/>
     <xsl:param name="previousVersions"/>
     <xsl:param name="cvFolder"/>
     <xsl:param name="hostname"/>
+    <xsl:variable name="labels" select="document('lp-labels.xml')"/>
     <xsl:template match="*">
+        <xsl:variable name="studyId" select="ns1:StudyIdentifier/ns1:Identifier"/>
+        <xsl:variable name="studyDdiId" select="substring-after(ns1:StudyIdentifier/ns1:Identifier/text(), 'DDA-')"/>
         <html>
             <head>
                 <link rel="stylesheet" type="text/css" href="theme/style.css"/>
                 <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder"
                     href="http://samfund.dda.dk/dda/nyheder.xml"/>
                 <link rel="shortcut icon" href="theme/favicon.ico"/>
+                <link rel="meta" type="application/x-ddi-l+xml"
+                    href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyDdiId}:{ns1:StudyIdentifier/ns1:CurrentVersion}"/>
+                <link rel="meta" type="application/x-ddametadata+xml"
+                    href="/catalogue/{$studyDdiId}/doc/ddastudymetadata"/>
                 <meta name="description"
                     content="{ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()}"/>
                 <title>
@@ -21,142 +29,32 @@
                 </title>
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"/>
                 <script src="js/order-lp.js" type="text/javascript"/>
+                <script src="js/cvi_busy_lib.js" type="text/javascript"/>
                 <xsl:comment>[if IE]<![CDATA[>]]>&lt;script type="text/javascript" src="js/json2.js"&gt;&lt;/script&gt;<![CDATA[<![endif]]]></xsl:comment>
+                <script type="text/javascript">
+                function changeLang(newLang) {
+                current = 'http://' + window.location.hostname + window.location.pathname;
+                window.location.replace(current + '?lang=' +newLang);                
+                }
+                var busy;                
+                function makebusy(element) {
+                try {busy.remove(); busy='';}catch(e) {busy=getBusyOverlay(element,{color:'#f5f5f5', opacity:0.25},{color:'#000000', size:45, type:'o'});}
+                }
+                </script>
+                <script type="text/javascript">
+                    @WEB-SITE-TRACKING@
+                </script>
             </head>
             <body>
                 <div align="center">
                     <table id="table1" class="frametable" border="0" cellpadding="0" cellspacing="0"
                         width="962">
                         <tbody>
-                            <tr>
-                                <td class="topmenu" valign="top">
-                                    <div align="center">
-                                        <table id="table3" class="greylabel" height="30" border="0"
-                                            cellpadding="0" cellspacing="0" width="961">
-                                            <tbody>
-                                                <tr>
-                                                  <td>
-                                                  <div align="right">
-                                                  <table id="table1" height="100%" border="0"
-                                                  cellpadding="0" cellspacing="0">
-                                                  <tbody>
-                                                  <tr>
-                                                  <td align="center"> &#160;</td>
-                                                  <td align="center" width="35">&#160;</td>
-                                                  <td align="center">&#160;</td>
-                                                  <td align="center">&#160;</td>
-                                                  <td align="center" width="35">&#160;</td>
-                                                  <td align="center">
-                                                  <a class="navi" target="_blank"
-                                                  href="http://www.sa.dk/">Om Statens Arkiver</a>
-                                                  </td>
-                                                  <td align="center" width="35">&#160;</td>
-                                                  <td align="center">
-                                                  <a class="navi"
-                                                  href="http://samfund.dda.dk/dda/om-dda.asp">Om
-                                                  os</a>
-                                                  </td>
-                                                  <td align="center" width="35">&#160; </td>
-                                                  <td align="center">
-                                                  <a class="navi" id="kontakt"
-                                                  href="http://samfund.dda.dk/dda/kontakt.asp"
-                                                  >Kontakt</a>
-                                                  </td>
-                                                  <td width="35">&#160;</td>
-                                                  <td align="center">&#160;</td>
-                                                  <td align="center" width="35">&#160;</td>
-                                                  <td align="center">
-                                                  <a class="navi" id="forside-en"
-                                                  href="http://samfund.dda.dk/dda/default-en.asp"
-                                                  >English</a>
-                                                  </td>
-                                                  <td align="center" width="20">
-                                                  <p align="center"> &#160; </p>
-                                                  </td>
-                                                  </tr>
-                                                  </tbody>
-                                                  </table>
-                                                  </div>
-                                                  </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="header" valign="top">
-                                    <p align="center">
-                                        <img src="theme/dda-header-graph-961.jpg" usemap="#Map"
-                                            height="129" border="0" width="961"/>
-                                        <map name="Map">
-                                            <area shape="rect" coords="24, 11, 221, 121"
-                                                href="http://samfund.dda.dk/dda/data-forside.asp"/>
-                                        </map>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="greylabel" height="30" valign="center">
-                                    <div align="center">
-                                        <!--table border="0" id="table1" cellspacing="0" cellpadding="0" height="24" style="border-collapse: collapse; border-width: 0px" class="greylabel" height="30"-->
-                                        <table id="table1" height="100%" border="0" cellpadding="0"
-                                            cellspacing="0">
-                                            <tbody>
-                                                <tr>
-                                                  <td align="center">
-                                                  <a class="navi"
-                                                  href="http://{$hostname}/simple-search">Søg og
-                                                  bestil data</a>
-                                                  </td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center" width="35">&#160;</td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center">
-                                                  <a class="navi" id="afleveredata"
-                                                  href="http://samfund.dda.dk/dda/data-aflevere.asp"
-                                                  > Aflever data</a>
-                                                  </td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center" width="35">&#160;</td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center">
-                                                  <a class="navi"
-                                                  href="http://samfund.dda.dk/dda/ddasamfund/om-ddasamfund.asp"
-                                                  >DDA Samfund</a>
-                                                  </td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center" width="35">
-                                                  <p align="center"> &#160; </p>
-                                                  </td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center">
-                                                  <a class="navi"
-                                                  href="http://samfund.dda.dk/dda/ddasundhed/omddasundhed.asp"
-                                                  > DDA Sundhed</a>
-                                                  </td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center" width="35">&#160;</td>
-                                                  <td
-                                                  style="border-style: none; border-width: medium"
-                                                  align="center">
-                                                  <a class="navi"
-                                                  href="http://samfund.dda.dk/dda/internationalt-samarbejde.asp"
-                                                  > Internationalt</a>
-                                                  </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
+                            <xsl:call-template name="result-header-top">
+                                <xsl:with-param name="lang" select="$lang"/>
+                                <xsl:with-param name="hostname" select="$hostname"/>
+                                <xsl:with-param name="img" select="'graph'"/>
+                            </xsl:call-template>
                             <tr>
                                 <td mainframe="" valign="top">
                                     <table id="table2" class="main" border="0" cellpadding="0"
@@ -172,22 +70,29 @@
                                                   <table id="table1" class="subnav" border="0"
                                                   cellpadding="0" cellspacing="0" width="100%">
                                                   <tbody>
-                                                      <tr>
-                                                          <td>
-                                                              <a href="http://samfund.dda.dk/dda/data-bruge.asp"
-                                                                  >Ny søgning</a>
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td>&#160;</td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td>&#160;</td>
-                                                      </tr>    
                                                   <tr>
                                                   <td>
-                                                  <a href="#primaryinvestigator"
-                                                  >Primærundersøger</a>
+                                                  <a
+                                                  href="http://{$hostname}/simple-search?lang={$lang}">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='newsearch']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
+                                                  </td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>
+                                                  <a href="#primaryinvestigator">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='principalinvestigator']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -195,7 +100,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#documentation">Dokumentation</a>
+                                                  <a href="#documentation">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -203,7 +112,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#description">Beskrivelse</a>
+                                                  <a href="#description">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='description']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -211,7 +124,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#universe">Universe</a>
+                                                  <a href="#universe">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='universe']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -219,7 +136,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#dataset">Datasæt</a>
+                                                  <a href="#dataset">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -227,7 +148,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#method">Metode</a>
+                                                  <a href="#method">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='method']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -235,7 +160,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#citation">Citation</a>
+                                                  <a href="#citation">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='citation']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -243,7 +172,11 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#status">Adgang</a>
+                                                  <a href="#status">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='access']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
                                                   <tr>
@@ -251,17 +184,25 @@
                                                   </tr>
                                                   <tr>
                                                   <td>
-                                                  <a href="#metadata">Metadata</a>
+                                                  <a href="#metadata">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='metadata']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
                                                   </td>
                                                   </tr>
-                                                      <tr>
-                                                          <td>&#160;</td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td>
-                                                              <a href="#publications">Publikationer</a>
-                                                          </td>
-                                                      </tr>
+                                                  <tr>
+                                                  <td>&#160;</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>
+                                                  <a href="#publications">
+                                                  <xsl:value-of
+                                                  select="$labels/LandingPageLabels/Label[@id='publications']/LabelText[@xml:lang=$lang]/text()"
+                                                  />
+                                                  </a>
+                                                  </td>
+                                                  </tr>
                                                   </tbody>
                                                   </table>
                                                   </td>
@@ -290,12 +231,12 @@
                                                   </td>
                                                   <td/>
                                                   <td style="text-align:right">
-                                                  <!--xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/-->
+                                                      <xsl:variable name="orderdata" select="$labels/LandingPageLabels/Label[@id='orderdata']/LabelText[@xml:lang=$lang]/text()"/>
                                                   <form method="post" name="order"
                                                   action="order.html" target="_blank">
                                                   <input name="submit_order" type="button"
                                                   class="lporderButton lporderText"
-                                                  value="Bestil Data" style="width:90px;"
+                                                  value="{$orderdata}" style="width:90px;"
                                                   onclick="createOrder()"/>
                                                   <input type="hidden" name="studyId[]"
                                                   value="{ns1:StudyIdentifier/ns1:Identifier}"/>
@@ -307,6 +248,7 @@
                                                   </tr>
                                                   </tbody>
                                                   </table>
+                                                  <div id="lpcontent">
                                                   <xsl:call-template name="lp-core-content">
                                                   <xsl:with-param name="lang" select="$lang"/>
                                                   <xsl:with-param name="previousVersions"
@@ -315,49 +257,21 @@
                                                   <xsl:with-param name="hostname" select="$hostname"
                                                   />
                                                   </xsl:call-template>
+                                                  </div>
                                                   </td>
                                                   </tr>
                                                   </tbody>
                                                   </table>
                                                   </div>
                                                 </td>
-                                                <!--td class="mainrightborder" valign="top" width="200">
-    									<table id="table6" class="mainright" width="100%">
-    									<tbody>
-    									<tr>
-    									<td valign="top" width="15"> </td>
-    									</tr>
-    									</tbody>
-    									</table></td-->
                                             </tr>
                                         </tbody>
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="bottomspacer" valign="top">&#160;</td>
-                            </tr>
-                            <tr>
-                                <td class="footerframe" valign="top">
-                                    <div align="center">
-                                        <table id="table1" class="greylabel" border="0"
-                                            cellpadding="0" cellspacing="0" width="961">
-                                            <tbody>
-                                                <tr>
-                                                  <td>
-                                                  <p align="center">
-                                                  <font color="#FFFFFF">Dansk Data Arkiv&#160;
-                                                  -&#160; Islandsgade 10&#160; -&#160; 5000 Odense
-                                                  C&#160; -&#160; Tlf: 66113010&#160; -&#160; Fax:
-                                                  66113060&#160; -&#160; mailbox@dda.dk</font>
-                                                  </p>
-                                                  </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
+                            <xsl:call-template name="result-footer-content">
+                                <xsl:with-param name="lang" select="$lang"/>
+                            </xsl:call-template>
                         </tbody>
                     </table>
                 </div>

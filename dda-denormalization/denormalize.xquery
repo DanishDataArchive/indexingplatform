@@ -298,10 +298,13 @@ declare function local:listCategories() as node()* {
     return update insert $dernormalizedCategorys into collection('/db/apps/dda-denormalization/data')//d:CategoryList
 };
 
+util:log-app("INFO", "exist.core", 'Starting Denormalization'),
 local:createDenormalizationDocuments(),
 local:listVariables(),
 local:listQuestionItems(),
 local:listMultipleQuestionItems(),
 local:listUniverses(),
 local:listConcepts(),
-local:listCategories()
+local:listCategories(),
+util:log-app("INFO", "exist.core", 'Finished Denormalization')
+
