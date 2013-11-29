@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <!-- build dir -->
+  <bin-dir>bin</bin-dir>
+
+  <!-- exist settings -->
+  <exist-dir>/home/ddajvj/app/eXist/stable</exist-dir>
+  <username>admin</username>
+  <password/>
+
+  <!-- exist db settings
+    	"database": store source documents in the database (default).
+    	"memory": test in-memory processing. Source documents will be kept in memory.
+  -->
+  <mode>database</mode>
+
+  <!-- haproxy -->
+  <haproxy-internal-webserver-hostname>localhost</haproxy-internal-webserver-hostname>
+  <haproxy-webserver-hostname>localhost</haproxy-webserver-hostname>
+  <haproxy-exist-hostname>localhost:8080</haproxy-exist-hostname>
+  <haproxy-exist-usrpasswdbase64>YWRtaW46</haproxy-exist-usrpasswdbase64>
+  
+  <!-- upload dir location -->
+  <resources-dir>/media/74FD-E3EE/indekseringsplatform</resources-dir>
+  <urn-resources-dir>/media/74FD-E3EE/indekseringsplatform</urn-resources-dir>
+
+  <!-- ui branding -->
+  <ui-branding-result>result-html-fragments-default.xsl</ui-branding-result>
+
+  <!-- web site tracking -->
+  <web-site-tracking>// web site tracking script code</web-site-tracking>
+</config>
+
