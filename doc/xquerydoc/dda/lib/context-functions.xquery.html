@@ -1,0 +1,183 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xml:space="preserve"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>http://dda.dk/ddi/context</h1><h4>Module Description</h4><p> This module contains the functions used to return the context of a match in an element. It is used by the result-functions module. The entry function for this module is <b xmlns:xqdoc="http://www.xqdoc.org/1.0">context:get-context</b>. </p><ul></ul>&nbsp;<h4>Imported Modules</h4><div id="imports"><div><ul class="method"><li class="left">http://www.functx.com</li><li class="right"></li></ul><ul></ul></div></div>&nbsp;<h4>Function Summary</h4><div id="methods"><a name="methods"></a><ul class="method"><li class="left"><a href="#get-context">get-context</a><div class="description"> Returns the context of the matches found in the element, and highlights the matches</div></li><li class="right">( $node as element() ,<br>&nbsp; $max as xs:int) as element()<br><br></li></ul><ul class="method"><li class="left"><a href="#substring-between">substring-between</a><div class="description"> Returns the string which lies between two substrings of a string.</div></li><li class="right">( $text as xs:string ,<br>&nbsp; $match1 as xs:string ,<br>&nbsp; $match2 as xs:string) as xs:string<br><br></li></ul><ul class="method"><li class="left"><a href="#truncate-between">truncate-between</a><div class="description"> Truncates a text in the middle so that it fits within a given maximum number of characters and appends " .</div></li><li class="right">( $text as xs:string ,<br>&nbsp; $max as xs:int) as xs:string<br><br></li></ul><ul class="method"><li class="left"><a href="#truncate-following">truncate-following</a><div class="description"> Truncates a text on the left side so that it fits within a given maximum number of characters and appends " .</div></li><li class="right">( $text as xs:string ,<br>&nbsp; $max as xs:int) as xs:string<br><br></li></ul><ul class="method"><li class="left"><a href="#truncate-previous">truncate-previous</a><div class="description"> Truncates a text on the right side so that it fits within a given maximum number of characters and appends ".</div></li><li class="right">( $text as xs:string ,<br>&nbsp; $max as xs:int) as xs:string<br><br></li></ul></div>&nbsp;<h4>Function Detail</h4><div id="methoddetail"><div id="get-context" class="methoddetail"><h5><a name="get-context"></a>get-context</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function context:get-context($node as element(), $max as xs:int) as element(){<br/&gt;    let $nodeString := normalize-space(string($node))<br/&gt;    let $matches := $node/exist:match<br/&gt;    let $nrOfMatches := count($matches)<br/&gt;    <br/&gt;    return<br/&gt;    &amp;lt;span class=&#34;context&#34;&amp;gt;<br/&gt;    {<br/&gt;    for $match at $pos in $matches<br/&gt;        return<br/&gt;        (<br/&gt;            <br/&gt;            if ($pos = 1) then<br/&gt;                let $substringBefore := substring-before($nodeString, string($match))<br/&gt;                return<br/&gt;                if ($substringBefore) then<br/&gt;                    &amp;lt;span class=&#34;previous&#34;&amp;gt;{local:truncate-previous($substringBefore, $max)}&amp;lt;/span&amp;gt;<br/&gt;                else ()<br/&gt;            <br/&gt;            <br/&gt;            else<br/&gt;                let $substringBetween := local:substring-between($nodeString, string($matches[($pos - 1)]), string($match))<br/&gt;                return<br/&gt;                if ($substringBetween) then<br/&gt;                    &amp;lt;span class=&#34;between&#34;&amp;gt;{local:truncate-between($substringBetween, $max)}&amp;lt;/span&amp;gt;<br/&gt;                else (),<br/&gt;            <br/&gt;            <br/&gt;            &amp;lt;span class=&#34;hi&#34;&amp;gt;{string($match)}&amp;lt;/span&amp;gt;,<br/&gt;            <br/&gt;            <br/&gt;            if($pos = $nrOfMatches) then<br/&gt;                let $substringAfter := functx:substring-after-last($nodeString, string($match))<br/&gt;                return<br/&gt;                if ($substringAfter) then<br/&gt;                    &amp;lt;span class=&#34;following&#34;&amp;gt;{local:truncate-following($substringAfter, $max)}&amp;lt;/span&amp;gt;<br/&gt;                else ()<br/&gt;            else ()<br/&gt;        )<br/&gt;    }<br/&gt;    &amp;lt;/span&amp;gt;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $node as element() ,<br>&nbsp; $max as xs:int) as element()<br><br></li></ul><p> Returns the context of the matches found in the element, and highlights the matches</p><ul><li>Parameters:</li><ul><li>$node - the nodes which contains the matches<br></li><li>$max - the maximum number of characters returned before, between og after matches<br></li></ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.functx.com</td><td>substring-after-last</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="4">http://www.w3.org/2005/xpath-functions</td><td>count</td></tr><tr><td>normalize-space</td></tr><tr><td>string</td></tr><tr><td>substring-before</td></tr></table></div></div>&nbsp;<div id="substring-between" class="methoddetail"><h5><a name="substring-between"></a>substring-between</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:substring-between($text as xs:string, $match1 as xs:string, $match2 as xs:string) as xs:string{<br/&gt;    let $startIndexMatch1 := functx:index-of-string-first($text, $match1)<br/&gt;    let $startIndexMatch2All := functx:index-of-string($text, $match2)<br/&gt;    let $startIndexMatch2 :=<br/&gt;        if ($startIndexMatch1 = $startIndexMatch2All[1]) then<br/&gt;            $startIndexMatch2All[2]<br/&gt;        else<br/&gt;            $startIndexMatch2All[1]<br/&gt;    let $startIndex := $startIndexMatch1 + string-length($match1)<br/&gt;    let $length := $startIndexMatch2 - $startIndex<br/&gt;    return substring($text, $startIndex, $length)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $text as xs:string ,<br>&nbsp; $match1 as xs:string ,<br>&nbsp; $match2 as xs:string) as xs:string<br><br></li></ul><p> Returns the string which lies between two substrings of a string.</p><ul><li>Parameters:</li><ul><li>$text - the source string<br></li><li>$match1 - the first substring<br></li><li>$match2 - the second<br></li></ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://www.functx.com</td><td>index-of-string</td></tr><tr><td>index-of-string-first</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://www.w3.org/2005/xpath-functions</td><td>string-length</td></tr><tr><td>substring</td></tr></table></div></div>&nbsp;<div id="truncate-between" class="methoddetail"><h5><a name="truncate-between"></a>truncate-between</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:truncate-between($text as xs:string, $max as xs:int) as xs:string{<br/&gt;    if (string-length($text) gt $max) then<br/&gt;        let $stringFirstHalf := substring($text, 0, $max idiv 2)<br/&gt;        let $startIndexSecondHalf := string-length($text) - $max idiv 2 + 1<br/&gt;        let $stringSecondHalf := substring($text, $startIndexSecondHalf, $max)<br/&gt;        return concat(functx:substring-before-last($stringFirstHalf, &#34; &#34;), &#34; ... &#34;, substring-after($stringSecondHalf, &#34; &#34;))<br/&gt;    else<br/&gt;        $text<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $text as xs:string ,<br>&nbsp; $max as xs:int) as xs:string<br><br></li></ul><p> Truncates a text in the middle so that it fits within a given maximum number of characters and appends " ... " between the two truncated halfs</p><ul><li>Parameters:</li><ul><li>$text - the text which needs to be truncated<br></li><li>$max - the maximum number of characters returned<br></li></ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.functx.com</td><td>substring-before-last</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="4">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>string-length</td></tr><tr><td>substring</td></tr><tr><td>substring-after</td></tr></table></div></div>&nbsp;<div id="truncate-following" class="methoddetail"><h5><a name="truncate-following"></a>truncate-following</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:truncate-following($text as xs:string, $max as xs:int) as xs:string{<br/&gt;    if (string-length($text) gt $max) then<br/&gt;        let $stringAfter := substring($text, 0, $max)<br/&gt;        return concat(functx:substring-before-last($stringAfter, &#34; &#34;), &#34; ...&#34;)<br/&gt;    else<br/&gt;        $text<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $text as xs:string ,<br>&nbsp; $max as xs:int) as xs:string<br><br></li></ul><p> Truncates a text on the left side so that it fits within a given maximum number of characters and appends " ..." after the truncated text</p><ul><li>Parameters:</li><ul><li>$text - the text which needs to be truncated<br></li><li>$max - the maximum number of characters returned<br></li></ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.functx.com</td><td>substring-before-last</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>string-length</td></tr><tr><td>substring</td></tr></table></div></div>&nbsp;<div id="truncate-previous" class="methoddetail"><h5><a name="truncate-previous"></a>truncate-previous</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:truncate-previous($text as xs:string, $max as xs:int) as xs:string{<br/&gt;    if (string-length($text) gt $max) then<br/&gt;        let $startIndex := string-length($text) - $max + 1<br/&gt;        let $stringBefore := substring($text, $startIndex, $max)<br/&gt;        return concat(&#34;... &#34;, substring-after($stringBefore, &#34; &#34;))<br/&gt;    else<br/&gt;        $text<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $text as xs:string ,<br>&nbsp; $max as xs:int) as xs:string<br><br></li></ul><p> Truncates a text on the right side so that it fits within a given maximum number of characters and appends "... " before the truncated text</p><ul><li>Parameters:</li><ul><li>$text - the text which needs to be truncated<br></li><li>$max - the maximum number of characters returned<br></li></ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="4">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>string-length</td></tr><tr><td>substring</td></tr><tr><td>substring-after</td></tr></table></div></div>&nbsp;</div>&nbsp;<div align="left"><i>Created by xqDoc-Lite version 1.0 on Fri Nov 29 01:24:20 CET 2013</i></div></body></html>

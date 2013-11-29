@@ -1,0 +1,189 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xml:space="preserve"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>denormalize.xquery</h1><h4>Module Description</h4><p> This file contains the functions for executing the denormalization of the DDI database into an additional collection (dda-denormalization). Utilization of this denormalized data greatly optimizes listing of references when performing a search.<br xmlns:xqdoc="http://www.xqdoc.org/1.0"> The denormalization process should be performed at a fixed interval in order to keep the data up to date. </p><ul></ul>&nbsp; &nbsp;<h4>Function Summary</h4><div id="methods"><a name="methods"></a><ul class="method"><li class="left"><a href="#createDenormalizationDocuments">createDenormalizationDocuments</a><div class="description"> Creates a XML document in the dda-denormalization collection for each of the DDI elements we wish to denormalize (if it already exists it will be overwritten) and populates it with reference lists for all every element.</div></li><li class="right">( ) as item()*<br><br></li></ul><ul class="method"><li class="left"><a href="#listCategories">listCategories</a><div class="description"></div></li><li class="right">( ) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#listConcepts">listConcepts</a><div class="description"></div></li><li class="right">( ) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#listMultipleQuestionItems">listMultipleQuestionItems</a><div class="description"></div></li><li class="right">( ) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#listQuestionItems">listQuestionItems</a><div class="description"></div></li><li class="right">( ) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#listUniverses">listUniverses</a><div class="description"></div></li><li class="right">( ) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#listVariables">listVariables</a><div class="description"></div></li><li class="right">( ) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#xqDoc-main">xqDoc-main</a><div class="description"></div></li><li class="right"></li></ul></div>&nbsp;<h4>Function Detail</h4><div id="methoddetail"><div id="createDenormalizationDocuments" class="methoddetail"><h5><a name="createDenormalizationDocuments"></a>createDenormalizationDocuments</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:createDenormalizationDocuments() as item()*{<br/&gt;    xmldb:store(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;, &#34;VariableList.xml&#34;,<br/&gt;        &amp;lt;DenormalizedDdi xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;            &amp;lt;VariableList /&amp;gt;<br/&gt;        &amp;lt;/DenormalizedDdi&amp;gt;<br/&gt;    ),<br/&gt;    xmldb:store(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;, &#34;QuestionItemList.xml&#34;,<br/&gt;        &amp;lt;DenormalizedDdi xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;            &amp;lt;QuestionItemList /&amp;gt;<br/&gt;        &amp;lt;/DenormalizedDdi&amp;gt;<br/&gt;    ),<br/&gt;    xmldb:store(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;, &#34;MultipleQuestionItemList.xml&#34;,<br/&gt;        &amp;lt;DenormalizedDdi xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;            &amp;lt;MultipleQuestionItemList /&amp;gt;<br/&gt;        &amp;lt;/DenormalizedDdi&amp;gt;<br/&gt;    ),<br/&gt;    xmldb:store(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;, &#34;UniverseList.xml&#34;,<br/&gt;        &amp;lt;DenormalizedDdi xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;            &amp;lt;UniverseList /&amp;gt;<br/&gt;        &amp;lt;/DenormalizedDdi&amp;gt;<br/&gt;    ),<br/&gt;    xmldb:store(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;, &#34;ConceptList.xml&#34;,<br/&gt;        &amp;lt;DenormalizedDdi xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;            &amp;lt;ConceptList /&amp;gt;<br/&gt;        &amp;lt;/DenormalizedDdi&amp;gt;<br/&gt;    ),<br/&gt;    xmldb:store(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;, &#34;CategoryList.xml&#34;,<br/&gt;        &amp;lt;DenormalizedDdi xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;            &amp;lt;CategoryList /&amp;gt;<br/&gt;        &amp;lt;/DenormalizedDdi&amp;gt;<br/&gt;    )<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as item()*<br><br></li></ul><p> Creates a XML document in the <b xmlns:xqdoc="http://www.xqdoc.org/1.0">dda-denormalization</b> collection for each of the DDI elements we wish to denormalize (if it already exists it will be overwritten) and populates it with reference lists for all every element.</p><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://exist-db.org/xquery/xmldb</td><td>store</td></tr></table></div></div>&nbsp;<div id="listCategories" class="methoddetail"><h5><a name="listCategories"></a>listCategories</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:listCategories() as node()*{<br/&gt;    let $dernormalizedCategorys :=<br/&gt;        for $category in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Category<br/&gt;            let $categoryId := string($category/@id)<br/&gt;            let $study-unit := $category/ancestor::su:StudyUnit<br/&gt;            let $variables := <br/&gt;                for $codeScheme in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $categoryId)]<br/&gt;                    return collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID, $codeScheme/@id)]<br/&gt;            let $questions := <br/&gt;                for $codeScheme in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(lp:Code/lp:CategoryReference/r:ID, $categoryId)]<br/&gt;                    return collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:QuestionItem[ft:query(dc:CodeDomain/r:CodeSchemeReference/r:ID, $codeScheme/@id)]<br/&gt;            return<br/&gt;            &amp;lt;Category id=&#34;{data($category/@id)}&#34; studyId=&#34;{data($study-unit/@id)}&#34; xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34;&amp;gt;<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    return &amp;lt;VariableReference id=&#34;{data($variable/@id)}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $question in $questions<br/&gt;                    return &amp;lt;QuestionItemReference id=&#34;{$question/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $question in $questions<br/&gt;                    for $multipleQuestionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:MultipleQuestionItem[ft:query(dc:SubQuestions/dc:QuestionItem/@id, $question/@id)]<br/&gt;                        return &amp;lt;MultipleQuestionItemReference id=&#34;{$multipleQuestionItem/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $universeId in $variable/r:UniverseReference/r:ID<br/&gt;                        return &amp;lt;UniverseReference id=&#34;{$universeId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $conceptId in $variable/lp:ConceptReference/r:ID<br/&gt;                        return &amp;lt;ConceptReference id=&#34;{$conceptId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;            &amp;lt;/Category&amp;gt;<br/&gt;    return update insert $dernormalizedCategorys into collection(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;)//d:CategoryList<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>string</td></tr></table></div></div>&nbsp;<div id="listConcepts" class="methoddetail"><h5><a name="listConcepts"></a>listConcepts</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:listConcepts() as node()*{<br/&gt;    let $dernormalizedConcepts :=<br/&gt;        for $concept in collection(&amp;apos;/db/apps/dda&amp;apos;)//cc:Concept<br/&gt;            let $conceptId := string($concept/@id)<br/&gt;            let $study-unit := $concept/ancestor::su:StudyUnit<br/&gt;            let $variables := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(lp:ConceptReference/r:ID, $conceptId)]<br/&gt;            return<br/&gt;            &amp;lt;Concept id=&#34;{data($concept/@id)}&#34; studyId=&#34;{data($study-unit/@id)}&#34; xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34;&amp;gt;<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    return &amp;lt;VariableReference id=&#34;{data($variable/@id)}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $question in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:QuestionItem[ft:query(dc:ConceptReference/r:ID, $conceptId)]<br/&gt;                    return &amp;lt;QuestionItemReference id=&#34;{$question/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $multipleQuestionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:MultipleQuestionItem[ft:query(dc:ConceptReference/r:ID, $conceptId)]<br/&gt;                    return &amp;lt;MultipleQuestionItemReference id=&#34;{$multipleQuestionItem/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $universeId in $variable/r:UniverseReference/r:ID<br/&gt;                        return &amp;lt;UniverseReference id=&#34;{$universeId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;               { <br/&gt;                for $variable in $variables<br/&gt;                    for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID<br/&gt;                        let $codeSchemeIdString := string($codeSchemeId)<br/&gt;                        let $codeScheme := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]<br/&gt;                        return<br/&gt;                        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID<br/&gt;                            return &amp;lt;CategoryReference id=&#34;{$categoryId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;            &amp;lt;/Concept&amp;gt;<br/&gt;    return update insert $dernormalizedConcepts into collection(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;)//d:ConceptList<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>string</td></tr></table></div></div>&nbsp;<div id="listMultipleQuestionItems" class="methoddetail"><h5><a name="listMultipleQuestionItems"></a>listMultipleQuestionItems</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:listMultipleQuestionItems() as node()*{<br/&gt;    let $dernormalizedMultipleQuestionItems :=<br/&gt;        for $multipleQuestionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:MultipleQuestionItem<br/&gt;            let $multipleQuestionItemId := string($multipleQuestionItem/@id)<br/&gt;            let $study-unit := $multipleQuestionItem/ancestor::su:StudyUnit<br/&gt;            let $questions := $multipleQuestionItem/dc:SubQuestions/dc:QuestionItem<br/&gt;            return<br/&gt;            &amp;lt;MultipleQuestionItem id=&#34;{data($multipleQuestionItem/@id)}&#34; studyId=&#34;{data($study-unit/@id)}&#34; xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34;&amp;gt;<br/&gt;                { <br/&gt;                for $question in $questions<br/&gt;                    let $questionIdString := string($question/@id)<br/&gt;                    for $variable in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(lp:QuestionReference/r:ID, $questionIdString)]<br/&gt;                        return &amp;lt;VariableReference id=&#34;{$variable/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $question in $questions<br/&gt;                    return &amp;lt;QuestionItemReference id=&#34;{$question/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $question in $questions<br/&gt;                    for $variable in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(lp:QuestionReference/r:ID, $question/@id)]<br/&gt;                        for $universeId in $variable/r:UniverseReference/r:ID<br/&gt;                            return &amp;lt;UniverseReference id=&#34;{$universeId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $conceptId in $multipleQuestionItem/dc:ConceptReference/r:ID<br/&gt;                    return &amp;lt;ConceptReference id=&#34;{$conceptId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $question in $questions<br/&gt;                    for $codeSchemeId in $question/dc:CodeDomain/r:CodeSchemeReference/r:ID<br/&gt;                        let $codeSchemeIdString := string($codeSchemeId)<br/&gt;                        let $codeScheme := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]<br/&gt;                        return<br/&gt;                        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID<br/&gt;                            return &amp;lt;CategoryReference id=&#34;{$categoryId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;            &amp;lt;/MultipleQuestionItem&amp;gt;<br/&gt;    <br/&gt;    let $result := <br/&gt;    if($dernormalizedMultipleQuestionItems) <br/&gt;    then update insert $dernormalizedMultipleQuestionItems into collection(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;)//d:MultipleQuestionItemList<br/&gt;    else ()<br/&gt;    <br/&gt;    return $result<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>string</td></tr></table></div></div>&nbsp;<div id="listQuestionItems" class="methoddetail"><h5><a name="listQuestionItems"></a>listQuestionItems</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:listQuestionItems() as node()*{<br/&gt;    let $dernormalizedQuestionItems :=<br/&gt;        for $questionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:QuestionItem<br/&gt;            let $questionItemId := string($questionItem/@id)<br/&gt;            let $study-unit := $questionItem/ancestor::su:StudyUnit<br/&gt;            return<br/&gt;            &amp;lt;QuestionItem id=&#34;{data($questionItem/@id)}&#34; studyId=&#34;{data($study-unit/@id)}&#34; xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34;&amp;gt;<br/&gt;                { <br/&gt;                for $variable in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(lp:QuestionReference/r:ID, $questionItemId)]<br/&gt;                    return &amp;lt;VariableReference id=&#34;{data($variable/@id)}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $multipleQuestionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:MultipleQuestionItem[ft:query(dc:SubQuestions/dc:QuestionItem/@id, $questionItemId)]<br/&gt;                    return &amp;lt;MultipleQuestionItemReference id=&#34;{$multipleQuestionItem/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(lp:QuestionReference/r:ID, $questionItemId)]<br/&gt;                    for $universeId in $variable/r:UniverseReference/r:ID<br/&gt;                        return &amp;lt;UniverseReference id=&#34;{$universeId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $conceptId in $questionItem/dc:ConceptReference/r:ID<br/&gt;                    return &amp;lt;ConceptReference id=&#34;{$conceptId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $codeSchemeId in $questionItem/dc:CodeDomain/r:CodeSchemeReference/r:ID<br/&gt;                    let $codeSchemeIdString := string($codeSchemeId)<br/&gt;                    let $codeScheme := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]<br/&gt;                    return<br/&gt;                    for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID<br/&gt;                        return &amp;lt;CategoryReference id=&#34;{$categoryId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;            &amp;lt;/QuestionItem&amp;gt;<br/&gt;            <br/&gt;    return update insert $dernormalizedQuestionItems into collection(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;)//d:QuestionItemList    <br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>string</td></tr></table></div></div>&nbsp;<div id="listUniverses" class="methoddetail"><h5><a name="listUniverses"></a>listUniverses</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:listUniverses() as node()*{<br/&gt;    let $dernormalizedUniverses :=<br/&gt;        for $universe in collection(&amp;apos;/db/apps/dda&amp;apos;)//cc:Universe<br/&gt;            let $universeId := string($universe/@id)<br/&gt;            let $study-unit := $universe/ancestor::su:StudyUnit<br/&gt;            let $variables := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable[ft:query(r:UniverseReference/r:ID, $universeId)]<br/&gt;            return<br/&gt;            &amp;lt;Universe id=&#34;{data($universe/@id)}&#34; studyId=&#34;{data($study-unit/@id)}&#34; xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34;&amp;gt;<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    return &amp;lt;VariableReference id=&#34;{data($variable/@id)}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $questionId in $variable/lp:QuestionReference/r:ID<br/&gt;                        return &amp;lt;QuestionItemReference id=&#34;{$questionId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $questionId in $variable/lp:QuestionReference/r:ID<br/&gt;                        let $questionIdString := string($questionId)<br/&gt;                        for $multipleQuestionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:MultipleQuestionItem[ft:query(dc:SubQuestions/dc:QuestionItem/@id, $questionIdString)]<br/&gt;                            return &amp;lt;MultipleQuestionItemReference id=&#34;{$multipleQuestionItem/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $conceptId in $variable/lp:ConceptReference/r:ID<br/&gt;                        return &amp;lt;ConceptReference id=&#34;{$conceptId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $variable in $variables<br/&gt;                    for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID<br/&gt;                        let $codeSchemeIdString := string($codeSchemeId)<br/&gt;                        let $codeScheme := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]<br/&gt;                        return<br/&gt;                        for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID<br/&gt;                            return &amp;lt;CategoryReference id=&#34;{$categoryId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;            &amp;lt;/Universe&amp;gt;<br/&gt;    return update insert $dernormalizedUniverses into collection(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;)//d:UniverseList<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>string</td></tr></table></div></div>&nbsp;<div id="listVariables" class="methoddetail"><h5><a name="listVariables"></a>listVariables</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:listVariables() as node()*{<br/&gt;    let $dernormalizedVariables :=<br/&gt;        for $variable in collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:Variable<br/&gt;            let $variableId := string($variable/@id)<br/&gt;            let $study-unit := $variable/ancestor::su:StudyUnit<br/&gt;            return<br/&gt;            &amp;lt;Variable id=&#34;{$variableId}&#34; studyId=&#34;{data($study-unit/@id)}&#34; xmlns=&#34;http://dda.dk/ddi/denormalized-ddi&#34;&amp;gt;<br/&gt;                { <br/&gt;                for $questionId in $variable/lp:QuestionReference/r:ID<br/&gt;                    return &amp;lt;QuestionItemReference id=&#34;{$questionId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $questionId in $variable/lp:QuestionReference/r:ID<br/&gt;                    let $questionIdString := string($questionId)<br/&gt;                    for $multipleQuestionItem in collection(&amp;apos;/db/apps/dda&amp;apos;)//dc:MultipleQuestionItem[ft:query(dc:SubQuestions/dc:QuestionItem/@id, $questionIdString)]<br/&gt;                        return &amp;lt;MultipleQuestionItemReference id=&#34;{$multipleQuestionItem/@id}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $universeId in $variable/r:UniverseReference/r:ID<br/&gt;                    return &amp;lt;UniverseReference id=&#34;{$universeId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $conceptId in $variable/lp:ConceptReference/r:ID<br/&gt;                    return &amp;lt;ConceptReference id=&#34;{$conceptId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;                { <br/&gt;                for $codeSchemeId in $variable/lp:Representation/lp:CodeRepresentation/r:CodeSchemeReference/r:ID<br/&gt;                    let $codeSchemeIdString := string($codeSchemeId)<br/&gt;                    let $codeScheme := collection(&amp;apos;/db/apps/dda&amp;apos;)//lp:CodeScheme[ft:query(@id, $codeSchemeIdString)]<br/&gt;                    return<br/&gt;                    for $categoryId in $codeScheme/lp:Code/lp:CategoryReference/r:ID<br/&gt;                        return &amp;lt;CategoryReference id=&#34;{$categoryId}&#34;/&amp;gt;<br/&gt;                }<br/&gt;            &amp;lt;/Variable&amp;gt;<br/&gt;    return update insert $dernormalizedVariables into collection(&amp;apos;/db/apps/dda-denormalization/data&amp;apos;)//d:VariableList<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>string</td></tr></table></div></div>&nbsp;<div id="xqDoc-main" class="methoddetail"><h5><a name="xqDoc-main"></a>xqDoc-main</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('util:log-app(&#34;INFO&#34;, &#34;exist.core&#34;, &amp;apos;Starting Denormalization&amp;apos;),<br/&gt;local:createDenormalizationDocuments(),<br/&gt;local:listVariables(),<br/&gt;local:listQuestionItems(),<br/&gt;local:listMultipleQuestionItems(),<br/&gt;local:listUniverses(),<br/&gt;local:listConcepts(),<br/&gt;local:listCategories(),<br/&gt;util:log-app(&#34;INFO&#34;, &#34;exist.core&#34;, &amp;apos;Finished Denormalization&amp;apos;)<br/&gt;')">
+         view code
+      </a></li><li class="right"></li></ul><ul></ul></div>&nbsp;</div>&nbsp;<div align="left"><i>Created by xqDoc-Lite version 1.0 on Fri Nov 29 01:24:25 CET 2013</i></div></body></html>

@@ -48,7 +48,7 @@ declare function local:main() as node()? {
     return ddi:simpleSearch($search-parameters)
 };
 
-declare %private function local:getAcceptType() {
+declare function local:getAcceptType() {
     let $header := request:get-header("Accept")
     let $header := if (contains($header, ";")) then substring-before($header, ";") else $header
     let $types := tokenize($header, "\s*,\s*")

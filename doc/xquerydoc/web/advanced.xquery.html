@@ -1,0 +1,177 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xml:space="preserve"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>advanced.xquery</h1>&nbsp;<h4>Imported Modules</h4><div id="imports"><div><ul class="method"><li class="left">http://dda.dk/ddi</li><li class="right"></li></ul><ul></ul></div></div>&nbsp;<h4>Function Summary</h4><div id="methods"><a name="methods"></a><ul class="method"><li class="left"><a href="#main">main</a><div class="description"></div></li><li class="right">( ) as node()?<br><br></li></ul><ul class="method"><li class="left"><a href="#xqDoc-main">xqDoc-main</a><div class="description"></div></li><li class="right"></li></ul></div>&nbsp;<h4>Function Detail</h4><div id="methoddetail"><div id="main" class="methoddetail"><h5><a name="main"></a>main</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:main() as node()?{<br/&gt;    let $searchSubmitted := request:get-parameter(&amp;apos;studyId&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;title&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;topicalCoverage&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;spatialCoverage&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;abstract-purpose&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;creator&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;kindOfData&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;coverageFrom&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;coverageTo&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;QuestionItem&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;Variable&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;Category&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;Concept&amp;apos;, ()) or<br/&gt;                            request:get-parameter(&amp;apos;Universe&amp;apos;, ())<br/&gt;                          <br/&gt;    let $hits-perpage := request:get-parameter(&amp;apos;hits-perpage&amp;apos;, 50)<br/&gt;    let $lang := request:get-parameter(&amp;apos;lang&amp;apos;, &#34;da&#34;)<br/&gt;                            <br/&gt;    let $search-parameters :=<br/&gt;    if($searchSubmitted) then<br/&gt;        &amp;lt;asp:AdvancedSearchParameters xmlns:sm=&#34;http://dda.dk/ddi/search-metadata&#34;<br/&gt;         xmlns:s=&#34;http://dda.dk/ddi/scope&#34;<br/&gt;         xmlns:asp=&#34;http://dda.dk/ddi/advanced-search-parameters&#34;<br/&gt;         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;         {<br/&gt;            if (request:get-parameter(&amp;apos;studyId&amp;apos;, ())) then &amp;lt;asp:studyId&amp;gt;{request:get-parameter(&amp;apos;studyId&amp;apos;, ())}&amp;lt;/asp:studyId&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;title&amp;apos;, ())) then &amp;lt;asp:title&amp;gt;{request:get-parameter(&amp;apos;title&amp;apos;, ())}&amp;lt;/asp:title&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;topicalCoverage&amp;apos;, ())) then &amp;lt;asp:topicalCoverage&amp;gt;{request:get-parameter(&amp;apos;topicalCoverage&amp;apos;, ())}&amp;lt;/asp:topicalCoverage&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;spatialCoverage&amp;apos;, ())) then &amp;lt;asp:spatialCoverage&amp;gt;{request:get-parameter(&amp;apos;spatialCoverage&amp;apos;, ())}&amp;lt;/asp:spatialCoverage&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;abstract-purpose&amp;apos;, ())) then &amp;lt;asp:abstract-purpose&amp;gt;{request:get-parameter(&amp;apos;abstract-purpose&amp;apos;, ())}&amp;lt;/asp:abstract-purpose&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;creator&amp;apos;, ())) then &amp;lt;asp:creator&amp;gt;{request:get-parameter(&amp;apos;creator&amp;apos;, ())}&amp;lt;/asp:creator&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;kindOfData&amp;apos;, ())) then &amp;lt;asp:kindOfData&amp;gt;{request:get-parameter(&amp;apos;kindOfData&amp;apos;, ())}&amp;lt;/asp:kindOfData&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;coverageFrom&amp;apos;, ())) then &amp;lt;asp:coverageFrom&amp;gt;{request:get-parameter(&amp;apos;coverageFrom&amp;apos;, ())}&amp;lt;/asp:coverageFrom&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;coverageTo&amp;apos;, ())) then &amp;lt;asp:coverageTo&amp;gt;{request:get-parameter(&amp;apos;coverageTo&amp;apos;, ())}&amp;lt;/asp:coverageTo&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;QuestionItem&amp;apos;, ())) then (&amp;lt;asp:QuestionItem&amp;gt;{request:get-parameter(&amp;apos;QuestionItem&amp;apos;, ())}&amp;lt;/asp:QuestionItem&amp;gt;, &amp;lt;asp:MultipleQuestionItem&amp;gt;{request:get-parameter(&amp;apos;QuestionItem&amp;apos;, ())}&amp;lt;/asp:MultipleQuestionItem&amp;gt;) else (),<br/&gt;            if (request:get-parameter(&amp;apos;Variable&amp;apos;, ())) then &amp;lt;asp:Variable&amp;gt;{request:get-parameter(&amp;apos;Variable&amp;apos;, ())}&amp;lt;/asp:Variable&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;Category&amp;apos;, ())) then &amp;lt;asp:Category&amp;gt;{request:get-parameter(&amp;apos;Category&amp;apos;, ())}&amp;lt;/asp:Category&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;Concept&amp;apos;, ())) then &amp;lt;asp:Concept&amp;gt;{request:get-parameter(&amp;apos;Concept&amp;apos;, ())}&amp;lt;/asp:Concept&amp;gt; else (),<br/&gt;            if (request:get-parameter(&amp;apos;Universe&amp;apos;, ())) then &amp;lt;asp:Universe&amp;gt;{request:get-parameter(&amp;apos;Universe&amp;apos;, ())}&amp;lt;/asp:Universe&amp;gt; else ()<br/&gt;         }<br/&gt;            &amp;lt;sm:SearchMetaData hits-perpage=&#34;{$hits-perpage}&#34; hit-start=&#34;{request:get-parameter(&amp;apos;hit-start&amp;apos;, 1)}&#34; lang=&#34;{$lang}&#34;/&amp;gt;<br/&gt;            &amp;lt;s:Scope&amp;gt;<br/&gt;            {<br/&gt;                if (request:get-parameter(&amp;apos;StudyUnitChecked&amp;apos;, ())) then &amp;lt;s:StudyUnit/&amp;gt; else (),<br/&gt;                if (request:get-parameter(&amp;apos;VariableChecked&amp;apos;, ())) then &amp;lt;s:Variable/&amp;gt; else (),<br/&gt;                if (request:get-parameter(&amp;apos;QuestionItemChecked&amp;apos;, ())) then (&amp;lt;s:QuestionItem/&amp;gt;,&amp;lt;s:MultipleQuestionItem/&amp;gt;) else (),<br/&gt;                if (request:get-parameter(&amp;apos;UniverseChecked&amp;apos;, ())) then &amp;lt;s:Universe/&amp;gt; else (),<br/&gt;                if (request:get-parameter(&amp;apos;ConceptChecked&amp;apos;, ())) then &amp;lt;s:Concept/&amp;gt; else (),<br/&gt;                if (request:get-parameter(&amp;apos;CategoryChecked&amp;apos;, ())) then &amp;lt;s:Category/&amp;gt; else ()<br/&gt;            }<br/&gt;            &amp;lt;/s:Scope&amp;gt;<br/&gt;        &amp;lt;/asp:AdvancedSearchParameters&amp;gt;<br/&gt;    else<br/&gt;        &amp;lt;asp:AdvancedSearchParameters xmlns:sm=&#34;http://dda.dk/ddi/search-metadata&#34;<br/&gt;        xmlns:s=&#34;http://dda.dk/ddi/scope&#34;<br/&gt;        xmlns:asp=&#34;http://dda.dk/ddi/advanced-search-parameters&#34;<br/&gt;        xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;<br/&gt;           &amp;lt;asp:studyId/&amp;gt;<br/&gt;           &amp;lt;asp:title/&amp;gt;<br/&gt;           &amp;lt;asp:topicalCoverage/&amp;gt;<br/&gt;           &amp;lt;!--asp:spatialCoverage/--&amp;gt;<br/&gt;           &amp;lt;asp:abstract-purpose/&amp;gt;<br/&gt;           &amp;lt;asp:creator/&amp;gt;<br/&gt;           &amp;lt;!--asp:kindOfData/--&amp;gt;<br/&gt;           &amp;lt;asp:coverageFrom/&amp;gt;<br/&gt;           &amp;lt;asp:coverageTo/&amp;gt;<br/&gt;           &amp;lt;asp:Variable/&amp;gt;<br/&gt;           &amp;lt;asp:QuestionItem/&amp;gt;<br/&gt;           &amp;lt;asp:MultipleQuestionItem/&amp;gt;<br/&gt;           &amp;lt;asp:Universe/&amp;gt;<br/&gt;           &amp;lt;asp:Concept/&amp;gt;<br/&gt;           &amp;lt;asp:Category/&amp;gt;<br/&gt;           &amp;lt;sm:SearchMetaData hits-perpage=&#34;{$hits-perpage}&#34; hit-start=&#34;1&#34; lang=&#34;{$lang}&#34;/&amp;gt;<br/&gt;           &amp;lt;s:Scope&amp;gt;<br/&gt;               &amp;lt;s:StudyUnit/&amp;gt;<br/&gt;               &amp;lt;!--s:Variable/--&amp;gt;<br/&gt;               &amp;lt;s:QuestionItem/&amp;gt;<br/&gt;               &amp;lt;s:MultipleQuestionItem/&amp;gt;<br/&gt;               &amp;lt;!--s:Universe/&amp;gt;<br/&gt;               &amp;lt;s:Concept/&amp;gt;<br/&gt;               &amp;lt;s:Category/--&amp;gt;<br/&gt;           &amp;lt;/s:Scope&amp;gt;<br/&gt;       &amp;lt;/asp:AdvancedSearchParameters&amp;gt;<br/&gt;    <br/&gt;    let $searchResultsStylesheet := doc(&#34;/db/apps/web/transform/searchresult/result-main.xsl&#34;)<br/&gt;    <br/&gt;    let $searchResults :=<br/&gt;    if($searchSubmitted) then<br/&gt;        ddi:advancedSearch($search-parameters)<br/&gt;    else<br/&gt;        ddi:buildLightXmlObjectList((), $hits-perpage, 1, $search-parameters, true())<br/&gt;    <br/&gt;    let $grouped := request:get-parameter(&amp;apos;grouped&amp;apos;, &amp;apos;&amp;apos;)<br/&gt;    <br/&gt;    let $params := &amp;lt;parameters&amp;gt;<br/&gt;            &amp;lt;param name=&#34;type&#34; value=&#34;advanced&#34;/&amp;gt;<br/&gt;            &amp;lt;param name=&#34;grouped&#34; value=&#34;{$grouped}&#34;/&amp;gt;<br/&gt;            &amp;lt;param name=&#34;lang&#34; value=&#34;{$lang}&#34;/&amp;gt;<br/&gt;            &amp;lt;param name=&#34;hostname&#34; value=&#34;@WEB-HOST_NAME@&#34; /&amp;gt;<br/&gt;        &amp;lt;/parameters&amp;gt;<br/&gt;    <br/&gt;    return transform:transform($searchResults, $searchResultsStylesheet, $params)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( ) as node()?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://dda.dk/ddi</td><td>advancedSearch</td></tr><tr><td>buildLightXmlObjectList</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://www.w3.org/2005/xpath-functions</td><td>doc</td></tr><tr><td>true</td></tr></table></div></div>&nbsp;<div id="xqDoc-main" class="methoddetail"><h5><a name="xqDoc-main"></a>xqDoc-main</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('local:main()<br/&gt;')">
+         view code
+      </a></li><li class="right"></li></ul><ul></ul></div>&nbsp;</div>&nbsp;<div align="left"><i>Created by xqDoc-Lite version 1.0 on Fri Nov 29 01:24:30 CET 2013</i></div></body></html>

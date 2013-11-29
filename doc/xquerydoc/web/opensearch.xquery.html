@@ -1,0 +1,179 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xml:space="preserve"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>opensearch.xquery</h1>&nbsp; &nbsp;<h4>Function Summary</h4><div id="methods"><a name="methods"></a><ul class="method"><li class="left"><a href="#limitMatches">limitMatches</a><div class="description"></div></li><li class="right">( $nodes as node()* ,<br>&nbsp; $start as xs:integer ,<br>&nbsp; $records as xs:integer) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#search">search</a><div class="description"></div></li><li class="right">( $search as xs:string ,<br>&nbsp; $collection as xs:string) as node()*<br><br></li></ul><ul class="method"><li class="left"><a href="#xqDoc-main">xqDoc-main</a><div class="description"></div></li><li class="right"></li></ul></div>&nbsp;<h4>Function Detail</h4><div id="methoddetail"><div id="limitMatches" class="methoddetail"><h5><a name="limitMatches"></a>limitMatches</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:limitMatches($nodes as node()*, $start as xs:integer, $records as xs:integer) as node()*{<br/&gt;    let $max := count($nodes)<br/&gt;<br/&gt;    let $end :=  min (($start + $records ,$max))<br/&gt;     <br/&gt;    <br/&gt;    return subsequence($nodes,$start,($end+1))    <br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $nodes as node()* ,<br>&nbsp; $start as xs:integer ,<br>&nbsp; $records as xs:integer) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>count</td></tr><tr><td>min</td></tr><tr><td>subsequence</td></tr></table></div></div>&nbsp;<div id="search" class="methoddetail"><h5><a name="search"></a>search</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function local:search($search as xs:string, $collection as xs:string) as node()*{<br/&gt;    <br/&gt;    if(empty($search)) <br/&gt;    then<br/&gt;        &amp;lt;empty/&amp;gt;<br/&gt;    else      <br/&gt;        <br/&gt;        let $result := collection($collection)//s:StudyUnit[.//r:Title[ft:query(., $search)] or .//r:Content[ft:query(., $search)] or .//r:Creator[ft:query(., $search)]]<br/&gt;        return<br/&gt;            for $r in $result<br/&gt;                return<br/&gt;                    &amp;lt;item&amp;gt;<br/&gt;                        &amp;lt;title&amp;gt;{($r/s:StudyUnit/r:Citation/r:Title[@xml:lang = &amp;apos;en&amp;apos;])/text()}&amp;lt;/title&amp;gt;<br/&gt;                        &amp;lt;description&amp;gt;{$r/s:Abstract/r:Content[@xml:lang = &amp;apos;en&amp;apos;]/text()}&amp;lt;/description&amp;gt;<br/&gt;                        &amp;lt;updated&amp;gt;{data($r/@versionDate)}&amp;lt;/updated&amp;gt;<br/&gt;                        &amp;lt;link&amp;gt;http://snd.gu.se/catalogue/study/{data($r/@id)}&amp;lt;/link&amp;gt;<br/&gt;                    &amp;lt;/item&amp;gt;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $search as xs:string ,<br>&nbsp; $collection as xs:string) as node()*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>collection</td></tr><tr><td>data</td></tr><tr><td>empty</td></tr></table></div></div>&nbsp;<div id="xqDoc-main" class="methoddetail"><h5><a name="xqDoc-main"></a>xqDoc-main</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('let $documentUrl    := &amp;apos;http://xml.snd.gu.se/ws/opensearch.xql&amp;apos;<br/&gt;let $arguments      := &amp;apos;q={searchTerms}&amp;amp;start={startIndex?}&amp;amp;startPage={startPage?}&amp;apos;<br/&gt;<br/&gt;let $title          := &amp;apos;Search result from SND&amp;apos;<br/&gt;let $description    := &amp;apos;Open search in SND:s collections&amp;apos;<br/&gt;let $mail           := &amp;apos;olof.olsson@snd.gu.se&amp;apos;<br/&gt;let $baseCollection := &amp;apos;/db/ddi/data/ddi3/&amp;apos;<br/&gt;<br/&gt;<br/&gt;let $q          := request:get-parameter(&#34;q&#34;, ())<br/&gt;let $start      := xs:integer(request:get-parameter(&#34;start&#34;, &#34;0&#34;))<br/&gt;let $startPage  := xs:integer(request:get-parameter(&#34;startPage&#34;, &#34;0&#34;))<br/&gt;let $records    := xs:integer(request:get-parameter(&#34;records&#34;, &#34;10&#34;))<br/&gt;let $format     := request:get-parameter(&#34;format&#34;, ())<br/&gt;<br/&gt;let $url := fn:concat($documentUrl, &amp;apos;?&amp;apos;, $arguments)<br/&gt;let $start :=<br/&gt;    if($startPage &amp;gt; 0)<br/&gt;    then<br/&gt;        $startPage * $records<br/&gt;    else<br/&gt;        $start<br/&gt;<br/&gt;<br/&gt;let $opensearch :=<br/&gt;&amp;lt;OpenSearchDescription xmlns=&#34;http://a9.com/-/spec/opensearch/1.1/&#34;&amp;gt;<br/&gt;   &amp;lt;ShortName&amp;gt;{$title}&amp;lt;/ShortName&amp;gt;<br/&gt;   &amp;lt;Description&amp;gt;{$description}&amp;lt;/Description&amp;gt;<br/&gt;   &amp;lt;itemsPerPage&amp;gt;{$records}&amp;lt;/itemsPerPage&amp;gt;<br/&gt;   &amp;lt;Language&amp;gt;en&amp;lt;/Language&amp;gt;<br/&gt;   &amp;lt;Language&amp;gt;sv&amp;lt;/Language&amp;gt;<br/&gt;   &amp;lt;Language&amp;gt;*&amp;lt;/Language&amp;gt;<br/&gt;   &amp;lt;Tags&amp;gt;example web search&amp;lt;/Tags&amp;gt;<br/&gt;   &amp;lt;Contact&amp;gt;{$mail}&amp;lt;/Contact&amp;gt;<br/&gt;   &amp;lt;Url type=&#34;application/rss+xml&#34; template=&#34;{$url}&amp;amp;format=rss&#34;&amp;gt;&amp;lt;/Url&amp;gt;<br/&gt;   &amp;lt;Url type=&#34;application/atom+xml&#34; template=&#34;{$url}&amp;amp;format=atom&#34;&amp;gt;&amp;lt;/Url&amp;gt;<br/&gt;   &amp;lt;Url format=&#34;text/html&#34; template=&#34;{$url}&amp;amp;format=html&#34; /&amp;gt;<br/&gt;&amp;lt;/OpenSearchDescription&amp;gt;<br/&gt;<br/&gt;<br/&gt;let $null := <br/&gt;    if(empty($q)) <br/&gt;    then<br/&gt;        util:declare-option(&#34;exist:serialize&#34;, &#34;method=xml media-type=application/opensearchdescription+xml&#34;)<br/&gt;    else if($format = &amp;apos;rss&amp;apos; or $format = &amp;apos;atom&amp;apos;)<br/&gt;        then<br/&gt;        util:declare-option(&#34;exist:serialize&#34;, &#34;method=xml media-type=text/xml&#34;)<br/&gt;    else<br/&gt;        util:declare-option(&#34;exist:serialize&#34;, &#34;method=html media-type=text/html&#34;)        <br/&gt;        <br/&gt;let $result := local:search($q, $baseCollection)<br/&gt;<br/&gt;let $matches :=<br/&gt;    if(empty($q))<br/&gt;    then<br/&gt;        &amp;lt;empty/&amp;gt;<br/&gt;    else<br/&gt;        local:limitMatches($result, $start, $records)<br/&gt;<br/&gt;return<br/&gt;    if(empty($q)) <br/&gt;    then<br/&gt;        $opensearch<br/&gt;    else<br/&gt;        if($format = &amp;apos;atom&amp;apos;)<br/&gt;        then<br/&gt;            &amp;lt;feed xmlns=&#34;http://www.w3.org/2005/Atom&#34; xmlns:os=&#34;http://a9.com/-/spec/opensearch/1.1/&#34;&amp;gt;<br/&gt;               &amp;lt;id&amp;gt;123456789&amp;lt;/id&amp;gt;<br/&gt;               &amp;lt;title&amp;gt;{$title}&amp;lt;/title&amp;gt;<br/&gt;               &amp;lt;link rel=&#34;self&#34; type=&#34;application/atom+xml&#34;<br/&gt;                     href=&#34;{$url}&#34;/&amp;gt;<br/&gt;               &amp;lt;link rel=&#34;alternate&#34; type=&#34;text/html&#34;<br/&gt;                     href=&#34;http://search.xml.com/?q=atom+store+python&amp;amp;p=&#34;/&amp;gt;<br/&gt;               &amp;lt;link rel=&#34;search&#34; type=&#34;application/opensearchdescription+xml&#34;<br/&gt;                     href=&#34;http://example.com/opensearchdescription.xml&#34;/&amp;gt;<br/&gt;               &amp;lt;os:totalResults&amp;gt;{count($result)}&amp;lt;/os:totalResults&amp;gt;<br/&gt;               &amp;lt;os:startIndex&amp;gt;{$start}&amp;lt;/os:startIndex&amp;gt;<br/&gt;               &amp;lt;os:itemsPerPage&amp;gt;{$records}&amp;lt;/os:itemsPerPage&amp;gt;<br/&gt;               &amp;lt;os:Query role=&#34;request&#34; searchTerms=&#34;{$q}&#34; startIndex=&#34;{$start}&#34;/&amp;gt;<br/&gt;               &amp;lt;updated&amp;gt;{current-dateTime()}&amp;lt;/updated&amp;gt;<br/&gt;               &amp;lt;author&amp;gt;<br/&gt;                 &amp;lt;name&amp;gt;example open search&amp;lt;/name&amp;gt;<br/&gt;                 &amp;lt;email&amp;gt;{$mail}&amp;lt;/email&amp;gt;<br/&gt;               &amp;lt;/author&amp;gt;<br/&gt;               &amp;lt;rights&amp;gt;LGPL&amp;lt;/rights&amp;gt;<br/&gt;               {   <br/&gt;                   for $s in $matches<br/&gt;                    return <br/&gt;                        &amp;lt;entry&amp;gt;<br/&gt;                            &amp;lt;title&amp;gt;{$s/title/text()}&amp;lt;/title&amp;gt;<br/&gt;                            &amp;lt;link href=&#34;{$s/link/text()}&#34;/&amp;gt;<br/&gt;                            &amp;lt;updated&amp;gt;{$s/updated}&amp;lt;/updated&amp;gt;<br/&gt;                            &amp;lt;content type=&#34;text&#34;&amp;gt;<br/&gt;                                {$s/description/text()}<br/&gt;                            &amp;lt;/content&amp;gt;<br/&gt;                        &amp;lt;/entry&amp;gt;<br/&gt;               }<br/&gt;            &amp;lt;/feed&amp;gt;<br/&gt;        else if($format = &amp;apos;rss&amp;apos;) <br/&gt;            then<br/&gt;            &amp;lt;rss version=&#34;2.0&#34; xmlns:openSearch=&#34;http://a9.com/-/spec/opensearch/1.1/&#34;&amp;gt;<br/&gt;                &amp;lt;channel&amp;gt;<br/&gt;                    &amp;lt;title&amp;gt;{$title}&amp;lt;/title&amp;gt;<br/&gt;                    &amp;lt;link&amp;gt;{$url}&amp;amp;format=rss&amp;lt;/link&amp;gt;<br/&gt;                    &amp;lt;description&amp;gt;{$description}&amp;lt;/description&amp;gt;<br/&gt;                    &amp;lt;openSearch:totalResults&amp;gt;{count($result)}&amp;lt;/openSearch:totalResults&amp;gt;<br/&gt;                    &amp;lt;openSearch:startIndex&amp;gt;{$start}&amp;lt;/openSearch:startIndex&amp;gt;<br/&gt;                    &amp;lt;openSearch:itemsPerPage&amp;gt;{$records}&amp;lt;/openSearch:itemsPerPage&amp;gt;<br/&gt;                    &amp;lt;openSearch:Query role=&#34;request&#34; searchTerms=&#34;{$q}&#34; /&amp;gt;<br/&gt;                    {<br/&gt;                       for $s in $matches<br/&gt;                        return <br/&gt;                            &amp;lt;item&amp;gt;<br/&gt;                                &amp;lt;title&amp;gt;{$s/title/text()}&amp;lt;/title&amp;gt;<br/&gt;                                &amp;lt;link&amp;gt;{$s/link/text()}&amp;lt;/link&amp;gt;<br/&gt;                                &amp;lt;updated&amp;gt;{$s/updated/text()}&amp;lt;/updated&amp;gt;<br/&gt;                                &amp;lt;description&amp;gt;<br/&gt;                                     {$s/description/text()}<br/&gt;                                &amp;lt;/description&amp;gt;<br/&gt;                            &amp;lt;/item&amp;gt;<br/&gt;                   }<br/&gt;                &amp;lt;/channel&amp;gt;<br/&gt;            &amp;lt;/rss&amp;gt; <br/&gt;            else<br/&gt;                &amp;lt;html&amp;gt;<br/&gt;                    &amp;lt;head&amp;gt;<br/&gt;                        &amp;lt;title&amp;gt;{$title}&amp;lt;/title&amp;gt;                 <br/&gt;                    &amp;lt;/head&amp;gt;<br/&gt;                    &amp;lt;body&amp;gt;<br/&gt;                        &amp;lt;ul&amp;gt;<br/&gt;                        {<br/&gt;                           for $s in $matches<br/&gt;                            return <br/&gt;                                &amp;lt;li&amp;gt;<br/&gt;                                    &amp;lt;h5&amp;gt;{$s/title}&amp;lt;/h5&amp;gt;<br/&gt;                                    &amp;lt;em&amp;gt;{$s/updated}&amp;lt;/em&amp;gt;<br/&gt;                                    &amp;lt;p&amp;gt;<br/&gt;                                        {$s/description}<br/&gt;                                    &amp;lt;/p&amp;gt;<br/&gt;                                &amp;lt;/li&amp;gt;<br/&gt;                        }<br/&gt;                        &amp;lt;/ul&amp;gt;<br/&gt;                    &amp;lt;/body&amp;gt;<br/&gt;                &amp;lt;/html&amp;gt;<br/&gt;')">
+         view code
+      </a></li><li class="right"></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="4">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>count</td></tr><tr><td>current-dateTime</td></tr><tr><td>empty</td></tr></table></div></div>&nbsp;</div>&nbsp;<div align="left"><i>Created by xqDoc-Lite version 1.0 on Fri Nov 29 01:24:28 CET 2013</i></div></body></html>

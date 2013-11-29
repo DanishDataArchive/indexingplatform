@@ -19,7 +19,7 @@
 
 	<path id="project.classpath">
 		<fileset dir="${basedir}/lib">
-			<include name="**/*.jar" />
+			<include name="*.jar" />
 		</fileset>
 	</path>
 
