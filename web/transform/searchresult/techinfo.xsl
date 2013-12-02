@@ -4,8 +4,7 @@
     version="1.0">
     
     <xsl:import href="../landingpage/cv/CvListToHtml.xsl"/>
-    <xsl:import href="result-html-fragments-default.xsl"/>
-    <!--xsl:import href="@UI-BRANDING-RESULT@"/-->
+    <xsl:import href="@UI-BRANDING-RESULT@"/>
     
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="type"/>

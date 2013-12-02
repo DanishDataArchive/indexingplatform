@@ -469,43 +469,11 @@
 
                                             </tr>
 
-                                            <!--tr>
-
-                                                <td> </td>
-
-                                            </tr>
-
                                             <tr>
 
-                                                <td>
-
-                                                    <a href="#">Search help</a>
-
-                                                </td>
+                                                <td>&#160;</td>
 
                                             </tr>
-
-                                            <tr>
-
-                                                <td> </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td>
-
-                                                    <a href="#">Result help</a>
-
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td> </td>
-
-                                            </tr-->
 
                                             <tr>
 
@@ -582,43 +550,11 @@
 
                                             </tr>
 
-                                            <!--tr>
-
-                                                <td> </td>
-
-                                            </tr>
-
                                             <tr>
-
-                                                <td>
-
-                                                    <a href="#">Hjælp til søgning</a>
-
-                                                </td>
-
+                                                
+                                                <td>&#160;</td>
+                                                
                                             </tr>
-
-                                            <tr>
-
-                                                <td> </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td>
-
-                                                    <a href="#">Hjælp til søgeresultat</a>
-
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td> </td>
-
-                                            </tr-->
 
                                             <tr>
 
