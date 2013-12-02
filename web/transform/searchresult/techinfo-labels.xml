@@ -54,7 +54,7 @@
     </Label>
     <Label id="text-search-api-doc">
         <LabelText xml:lang="da">Indexingplatformen eksponerer sine enkle søgefunktioner som en web service. Web servicen kan tilgås på to måder, enten via URL-parametre eller via medsende søgeparametrene som XML i anmodningen (se XML skemadocumentaion). Web servicen kan søge inden for:</LabelText>
-        <LabelText xml:lang="en">The Indexingplatform exposes its simple search capabilities as a web service. The web service can be accessed in two ways either via URL parameters or via embedding the the search parameters as XML in the request (see XML schema documentation). The service can search within:</LabelText>
+        <LabelText xml:lang="en">The Indexingplatform exposes its simple search capabilities as a web service. The web service can be accessed in two ways either via URL parameters or via embedding the search parameters as XML in the request (see XML schema documentation). The service can search within:</LabelText>
     </Label>
     <Label id="url-search-api-doc">
         <LabelText xml:lang="da">URL parameter metoden</LabelText>
