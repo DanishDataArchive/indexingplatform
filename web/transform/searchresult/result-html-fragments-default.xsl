@@ -52,7 +52,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                <a href="http://{$hostname}/search-technical-information">Technical information</a>
+                                                    <a href="http://{$hostname}/search-technical-information?lang={$lang}">Technical information</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -90,7 +90,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                <a href="http://{$hostname}/search-technical-information">Teknisk information</a>
+                                                    <a href="http://{$hostname}/search-technical-information?lang={$lang}">Teknisk information</a>
                                                 </td>
                                             </tr>
                                         </tbody>
