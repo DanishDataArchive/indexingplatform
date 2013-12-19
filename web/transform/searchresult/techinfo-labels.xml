@@ -7,7 +7,7 @@
     <!-- controled vocabs -->
     <Label id="title-cv-doc">
         <LabelText xml:lang="da">DDA klassifikationer</LabelText>
-        <LabelText xml:lang="en">DDA controled vocabularies</LabelText>
+        <LabelText xml:lang="en">DDA controlled vocabularies</LabelText>
     </Label>
     <Label id="text-cv-doc">
         <LabelText xml:lang="da"><![CDATA[DDA klassifikationer anvendt på studiebeskrivelses- metode og livscyklusniveau. Klassifikationerne er defineret i <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a>]]></LabelText>
@@ -23,26 +23,38 @@
         <LabelText xml:lang="en">XML schema documentation</LabelText>
     </Label>
     <Label id="text-schema-doc">
-        <LabelText xml:lang="da">Anvendte XML schema filer i forbindelse med søgeparametere -søgeresultat.</LabelText>
+        <LabelText xml:lang="da">Anvendte XML schema filer i forbindelse med søgeparametre -søgeresultat.</LabelText>
         <LabelText xml:lang="en">XML schema file defining the input and outputs of search results and search parameters.</LabelText>
     </Label>
     <!-- dda landing page -->
     <Label id="title-dda-landing-doc">
-        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="da">DDA landingpage format</LabelText>
         <LabelText xml:lang="en">DDA landing page format</LabelText>
     </Label>
     <Label id="text-dda-landing-doc">
-        <LabelText xml:lang="da"/>
-        <LabelText xml:lang="en">DDA landing page format</LabelText>
+        <LabelText xml:lang="da">Formatet for landingpage'en er en udvidet udgave af det tyske da|ra format. Selve landing page'en er et subset af den information der er indeholdt i arkivversionen  dokumenteret i DDI-L. DDA landingpage formatet er datagundlaget for renderingen af HTML siden. For at søgemaskine optimere HTML siden er der i den ilagt schema.org tags.</LabelText>
+        <LabelText xml:lang="en">The landing page format is a fork of the German da|ra project to fit the needs of DDA. The DDA landing page is a subset of the information contained in DDI-L and drives the rendering of the HTML page. The result HTML page is embedded with schema.org tags for optimal search engine indexing.</LabelText>
+    </Label>
+    <Label id="a-dda-landing-doc">
+        <LabelText xml:lang="da">URL-strukturen for landingpag'en er REST baseret og begynder med catalouge / studienummer. Fx.: </LabelText>
+        <LabelText xml:lang="en">The URL structure of the landing page is REST based -starting with catalouge / study identifier. Eg.:</LabelText>
+    </Label>
+    <Label id="b-dda-landing-doc">
+        <LabelText xml:lang="da">Næste niveau i URL'en 'doc' indeholder dokumentationen til studiet -kodebogen og DDA landingpage formatet i en tilgængelig XML udgave.</LabelText>
+        <LabelText xml:lang="en">The next level 'doc' contains the documentation of the study -currently the codebook and the DDA landing page format itself in XML.</LabelText>
+    </Label>
+    <Label id="c-dda-landing-doc">
+        <LabelText xml:lang="da">XML schemadefinitionen for DDA landingpage format kan downloades her:</LabelText>
+        <LabelText xml:lang="en">The XML schema definition for DDA landing page format is available at:</LabelText>
     </Label>
     <!-- search api -->
     <Label id="title-search-api-doc">
-        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="da">Søge API dokumentation</LabelText>
         <LabelText xml:lang="en">Search API documentation</LabelText>
     </Label>
     <Label id="text-search-api-doc">
-        <LabelText xml:lang="da"/>
-        <LabelText xml:lang="en">The Indexingplatform exposes its simple search capabilities as a web service. The web service can be accessed in two ways either via URL parameters or via embeding the the search parameters as XML in the request (see XML schema documentaion). The service can search within:</LabelText>
+        <LabelText xml:lang="da">Indexingplatformen eksponerer sine enkle søgefunktioner som en web service. Web servicen kan tilgås på to måder, enten via URL-parametre eller via medsende søgeparametrene som XML i anmodningen (se XML skemadocumentaion). Web servicen kan søge inden for:</LabelText>
+        <LabelText xml:lang="en">The Indexingplatform exposes its simple search capabilities as a web service. The web service can be accessed in two ways either via URL parameters or via embedding the search parameters as XML in the request (see XML schema documentation). The service can search within:</LabelText>
     </Label>
     <Label id="url-search-api-doc">
         <LabelText xml:lang="da">URL parameter metoden</LabelText>
@@ -59,30 +71,55 @@
     <Label id="url-ex-search-api-doc">
         <LabelText xml:lang="da">http://kipon.dda.dk/search-api?StudyUnit=treu&amp;search-string=Europæisk</LabelText>
         <LabelText xml:lang="en">http://kipon.dda.dk/search-api?StudyUnit=treu&amp;search-string=European</LabelText>
+    </Label>  
+    <Label id="xml-search-api-doc">
+        <LabelText xml:lang="da">XML indlejret metode</LabelText>
+        <LabelText xml:lang="en">XML embedded method</LabelText>
+    </Label>  
+    <Label id="xml-text-search-api-doc">
+        <LabelText xml:lang="da">Søge API URL'en er den samme som ved URL parametermetoden men uden parlamenterne. Parammeterne er i stedet tilføjet i forsørgelsen som XML. Søge XML'en er defineret ud fra  simple-search-parameters.xsd XML'en. Fx. ved brug af 'curl' ser en forespørgsel ud som følger:</LabelText>
+        <LabelText xml:lang="en">The search API URL is the same as with the URL parameter method but the URL parameters are striped and XML added as payload. The XML is defined by the simple-search-parameters.xsd XML schema. Eg. using 'curl' a request would look like:</LabelText>
+    </Label>  
+    <Label id="xml-ex-search-api-doc">
+        <LabelText xml:lang="da"><![CDATA[curl -d '<ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ssp:search-string>Europæisk</ssp:search-string><smd:SearchMetaData hits-perpage="50" hit-start="1" lang="da"/><s:Scope><s:StudyUnit/></s:Scope></ssp:SimpleSearchParameters>' -H 'Content-Type: text/xml' http://kipon.dda.dk/search-api]]></LabelText>
+        <LabelText xml:lang="en"><![CDATA[curl -d '<ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ssp:search-string>European</ssp:search-string><smd:SearchMetaData hits-perpage="50" hit-start="1" lang="da"/><s:Scope><s:StudyUnit/></s:Scope></ssp:SimpleSearchParameters>' -H 'Content-Type: text/xml' http://kipon.dda.dk/search-api]]></LabelText>
     </Label>
-    <Label id="-search-api-doc">
-        <LabelText xml:lang="da"/>
-        <LabelText xml:lang="en"></LabelText>
+    <!-- json or xml -->
+    <Label id="api-json-xml-search-api-doc">
+        <LabelText xml:lang="da">JSON eller XML søgeresultat</LabelText>
+        <LabelText xml:lang="en">Search output format JSON or XML</LabelText>
+    </Label>  
+    <Label id="api-json-xml-text-search-api-doc">
+        <LabelText xml:lang="da">Søge API'et giver mulighed for at returnere resultatet i JSON eller XML. For at returnere i JSON tilføjes dette i HTTP forespørgselen -default returformatet er XML.</LabelText>
+        <LabelText xml:lang="en">The search API can output both formats the default is XML. For JSON add a HTTP accept request this option is valid for both types of search API methods.</LabelText>
+    </Label>    
+    <Label id="a-api-json-xml-search-api-doc">
+        <LabelText xml:lang="da">Fx. en JSON HTTP forespørgsel udtrykt via af 'curl':</LabelText>
+        <LabelText xml:lang="en">Eg. using 'curl' for a JSON request the URL parameter method would take the form of:</LabelText>
+    </Label>
+    <Label id="api-json-xml-ex-search-api-doc">
+        <LabelText xml:lang="da"><![CDATA[curl 'http://kipon.dda.dk/search-api?StudyUnit=true&search-string=Europæisk' -H 'Accept: application/json']]></LabelText>
+        <LabelText xml:lang="en"><![CDATA[curl 'http://kipon.dda.dk/search-api?StudyUnit=true&search-string=European' -H 'Accept: application/json']]></LabelText>
     </Label>
     <!-- urn resolv service -->
     <Label id="title-urn-service-doc">
-        <LabelText xml:lang="da"></LabelText>
+        <LabelText xml:lang="da">DDI URN opløsningsservice</LabelText>
         <LabelText xml:lang="en">DDI URN resolution service</LabelText>
     </Label>
     <Label id="text-urn-service-doc">
-        <LabelText xml:lang="da"/>
-        <LabelText xml:lang="en">The DDI URN resolution service is based on the DDI-L URN. The service is a web service for retrieval of metadata elements identified by agency, ID and version.</LabelText>
+        <LabelText xml:lang="da">DDI URN opløsningsservicen er baseret på DDI-L URN standarden. Servicen er en web service og opløser reference metadata elementer til XML identificeret ved: agency, ID og version.</LabelText>
+        <LabelText xml:lang="en">The DDI URN resolution service is based on the DDI-L URN standard. The service is a web service for retrieval of metadata elements identified by agency, ID and version.</LabelText>
     </Label>
     <Label id="detail-a-urn-service-doc">
-        <LabelText xml:lang="da"/>
-        <LabelText xml:lang="en">The URL for the URN service is: </LabelText>
+        <LabelText xml:lang="da">URL'en for DDI-L URN servicen er: </LabelText>
+        <LabelText xml:lang="en">The URL for the DDI-L URN service is: </LabelText>
     </Label>
     <Label id="detail-b-urn-service-doc">
-        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="da"> med parameteren 'urn'</LabelText>
         <LabelText xml:lang="en"> with the parameter 'urn' </LabelText>
     </Label>
     <Label id="detail-c-urn-service-doc">
-        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="da">Eksempelvis er URL'en for DDI-L studiet -identificeret som agency: dk.dda, ID: 18465, version: 1.0.0: </LabelText>
         <LabelText xml:lang="en">Eg. the URL for the DDI-L study unit with agency: dda.dk, ID: 18465 at version: 1.0.0 is: </LabelText>
     </Label>
     <Label id="detail-d-urn-service-doc">
@@ -90,16 +127,12 @@
         <LabelText xml:lang="en">http://kipon.dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
     </Label>
     <Label id="title-source-doc">
-        <LabelText xml:lang="da">Kildekode og liciense</LabelText>
+        <LabelText xml:lang="da">Kildekode og licens</LabelText>
         <LabelText xml:lang="en">Source code and licence</LabelText>
     </Label>
     <Label id="details-source-doc">
-        <LabelText xml:lang="da">Indekseringsplatformen vedligeholdes af Dansk Data Arkiv og udgives under LGPL liciensen kildekoden findes her: </LabelText>
-        <LabelText xml:lang="en">The Indexingplatform is maintained by the Danish Data Archive and licenced under the LGPL licence and accesable at: </LabelText>
-    </Label>
-    <Label id="">
-        <LabelText xml:lang="da"></LabelText>
-        <LabelText xml:lang="en"></LabelText>
+        <LabelText xml:lang="da">Indekseringsplatformen vedligeholdes af Dansk Data Arkiv og udgives under LGPL licensen kildekoden findes her: </LabelText>
+        <LabelText xml:lang="en">The Indexingplatform is maintained by the Danish Data Archive and licensed under the LGPL license and accessible at: </LabelText>
     </Label>
     <Label id="">
         <LabelText xml:lang="da"></LabelText>

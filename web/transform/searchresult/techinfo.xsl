@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fx="http://www.functx.com"
     version="1.0">
     
     <xsl:import href="../landingpage/cv/CvListToHtml.xsl"/>
@@ -77,13 +77,30 @@
                                                                         <!-- DDA landingpage -->                                                                        
                                                                         <h2 class="lp"><xsl:value-of select="$labels[@id='title-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/></h2>                                                                        
                                                                         <xsl:value-of  select="$labels[@id='text-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                        
+                                                                        <p>
+                                                                            <xsl:value-of  select="$labels[@id='a-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                            <ul>
+                                                                                <li><b>http://kipon.dda.dk/catalogue/10</b></li>
+                                                                             </ul>
+                                                                        </p>
+                                                                        <p>
+                                                                            <xsl:value-of  select="$labels[@id='b-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                            <ul>
+                                                                                <li><b>http://kipon.dda.dk/catalogue/10/doc/codebook</b></li>
+                                                                                <li><b>http://kipon.dda.dk/catalogue/10/doc/ddastudymetadata</b></li>
+                                                                            </ul>                                                                            
+                                                                        </p>
+                                                                        <p>
+                                                                            <xsl:value-of  select="$labels[@id='c-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                            <br/>
+                                                                            <a href="http://{$hostname}/search-technical-information/schema/MetaDataSchema.xsd">DDA landing page XML schema</a>
+                                                                        </p>
                                                                         <!-- CV documentation -->                                  
                                                                         <h2 class="lp"><xsl:value-of select="$labels[@id='title-cv-doc']/LabelText[@xml:lang=$lang]/text()"/></h2>                                                                        
                                                                         <xsl:choose>
                                                                             <!-- hack to curcumvent xhtml tags :( -->
-                                                                            <xsl:when test="$lang='da'">DDA klassifikationer anvendt på studiebeskrivelses- metode og livscyklusniveau. Klassifikationerne er defineret i <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format.</xsl:when>
-                                                                            <xsl:otherwise>DDA controled vocabularies describing study level description -method and lifecycle events. The controled vocabularies are defined in <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format.</xsl:otherwise>
+                                                                            <xsl:when test="$lang='da'">DDA klassifikationer anvendt på studiebeskrivelses- metode og livscyklusniveau. Klassifikationerne er defineret i <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format og anvendes af DDA landingpage formatet og i DDI-L dokumentationen.</xsl:when>
+                                                                            <xsl:otherwise>DDA controlled vocabularies describing study level description -method and life cycle events. The controlled vocabularies are defined in <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format and utilized by DDA landing page format and DDI-L documentation.</xsl:otherwise>
                                                                         </xsl:choose>
                                                                         <h3 class="lp"><xsl:value-of select="$labels[@id='a-cv-doc']/LabelText[@xml:lang=$lang]/text()"/></h3>
                                                                         <xsl:call-template name="cvToHtml">
@@ -96,7 +113,16 @@
                                                                         <xsl:value-of select="$labels[@id='text-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
                                                                         <xsl:choose>
                                                                             <!-- hack to circumvent xhtml tags :( -->
-                                                                            <xsl:when test="$lang='da'"></xsl:when>
+                                                                            <xsl:when test="$lang='da'">                                                                                
+                                                                                <ul>
+                                                                                    <li>Studiebeskrivelse</li>
+                                                                                    <li>Variable navne og beskrivelse</li>
+                                                                                    <li>Spørgsmålstekster og beskrivelse</li>
+                                                                                    <li>Universe beskrivelse og navn</li>
+                                                                                    <li>Koncept  beskrivelse og navn</li>
+                                                                                    <li>Kategoritekster</li>
+                                                                                 </ul>
+                                                                            </xsl:when>
                                                                             <xsl:otherwise>
                                                                                 <ul>
                                                                                     <li>Study unit description</li>
@@ -107,7 +133,7 @@
                                                                                     <li>Category texts</li>
                                                                                 </ul>                                                                                
                                                                             </xsl:otherwise>
-                                                                        </xsl:choose>     
+                                                                        </xsl:choose>
                                                                         <h3 class="lp">
                                                                             <!-- url params method -->
                                                                             <xsl:value-of select="$labels[@id='url-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
@@ -116,7 +142,20 @@
                                                                             <xsl:value-of select="$labels[@id='url-detail-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
                                                                             <xsl:choose>
                                                                                 <!-- hack to circumvent xhtml tags :( -->
-                                                                                <xsl:when test="$lang='da'"></xsl:when>
+                                                                                <xsl:when test="$lang='da'">
+                                                                                    <ul>
+                                                                                        <li><b>search-string</b> - søgetekst - [obligatorisk]</li>
+                                                                                        <li><b>hits-perpage</b> - antal hits pr. side med et maksimum på 500 - [optionel]</li>
+                                                                                        <li><b>hit-start</b> - starthit i resultatliste - [optionel]</li>
+                                                                                        <li><b>lang</b> - valgt resultatsprog  - [optionel] alle sprog vises i resultatet</li>
+                                                                                        <li><b>StudyUnit</b> - true - [optionel]</li>
+                                                                                        <li><b>Variable</b> - true - [optionel]</li>
+                                                                                        <li><b>QuestionItem</b> - true - [optionel]</li>
+                                                                                        <li><b>Universe</b> - true - [optionel]</li>
+                                                                                        <li><b>Concept</b> - true - [optionel]</li>
+                                                                                        <li><b>Category</b> - true - [optionel]</li>
+                                                                                    </ul>                  
+                                                                                </xsl:when>
                                                                                 <xsl:otherwise>
                                                                                     <ul>
                                                                                         <li><b>search-string</b> - the search string - [mandatory]</li>
@@ -137,9 +176,26 @@
                                                                             <xsl:value-of select="$labels[@id='url-text-ex-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
                                                                         </p>
                                                                         <p>
-                                                                            <b><xsl:value-of select="$labels[@id='url-ex-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/></b>    
+                                                                            <strong class="lp"><xsl:value-of select="$labels[@id='url-ex-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/></strong>    
                                                                         </p>
-                                                                        
+                                                                        <h3 class="lp">
+                                                                            <!-- xml payload method -->
+                                                                            <xsl:value-of select="$labels[@id='xml-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                        </h3>
+                                                                        <xsl:value-of select="$labels[@id='xml-text-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                        <p>
+                                                                            <strong class="lp"><xsl:value-of select="$labels[@id='xml-ex-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/></strong>
+                                                                        </p>
+                                                                        <h3 class="lp">
+                                                                            <!-- xml payload method -->
+                                                                            <xsl:value-of select="$labels[@id='api-json-xml-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                        </h3>
+                                                                        <xsl:value-of select="$labels[@id='api-json-xml-text-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                        <p>
+                                                                            <xsl:value-of select="$labels[@id='a-api-json-xml-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                            <br/>
+                                                                            <strong class="lp"><xsl:value-of select="$labels[@id='api-json-xml-ex-search-api-doc']/LabelText[@xml:lang=$lang]/text()"/></strong>
+                                                                        </p>
                                                                         <!-- Schema documentation -->
                                                                         <h2 class="lp"><xsl:value-of select="$labels[@id='title-schema-doc']/LabelText[@xml:lang=$lang]/text()"/></h2>
                                                                         <xsl:value-of select="$labels[@id='text-schema-doc']/LabelText[@xml:lang=$lang]/text()"/>
@@ -164,13 +220,14 @@
                                                                             <xsl:value-of select="$labels[@id='detail-c-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/>    
                                                                         </p>
                                                                         <p>
-                                                                            <b><xsl:value-of select="$labels[@id='detail-d-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/></b>    
+                                                                            <strong class="lp"><xsl:value-of select="$labels[@id='detail-d-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/></strong>    
                                                                         </p>
                                                                         
                                                                         <!-- Source code -->
                                                                         <h2 class="lp"><xsl:value-of select="$labels[@id='title-source-doc']/LabelText[@xml:lang=$lang]/text()"/></h2>
                                                                         <xsl:value-of select="$labels[@id='details-source-doc']/LabelText[@xml:lang=$lang]/text()"/>                                                                       
                                                                         <a href="https://github.com/DanishDataArchive/indexingplatform">github.com/DanishDataArchive/indexingplatform</a>
+                                                                        <br/>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
