@@ -59,6 +59,7 @@
 					<param type="token" name="WEB_HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 					<param type="token" name="EXIST_HOST_NAME" value="${config.haproxy-exist-hostname}" />
 					<param type="token" name="USR_PASSWD_BASE64" value="${config.haproxy-exist-usrpasswdbase64}" />
+					<param type="token" name="HAPROXY_RATE_ERROR_PAGE" value="${config.haproxy-rate-error-page}" />
 				</filterreader>
 			</filterchain>
 		</loadfile>
