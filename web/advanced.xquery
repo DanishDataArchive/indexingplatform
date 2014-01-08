@@ -83,9 +83,9 @@ declare function local:main() as node()? {
            <sm:SearchMetaData hits-perpage="{$hits-perpage}" hit-start="1" lang="{$lang}"/>
            <s:Scope>
                <s:StudyUnit/>
-               <!--s:Variable/-->
+               <!--s:Variable/>
                <s:QuestionItem/>
-               <s:MultipleQuestionItem/>
+               <s:MultipleQuestionItem/-->
                <!--s:Universe/>
                <s:Concept/>
                <s:Category/-->

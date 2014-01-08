@@ -39,8 +39,8 @@ declare function local:main() as node()? {
         <s:Scope>
             <s:StudyUnit/>
             <!--s:Variable/-->
-            <s:QuestionItem/>
-            <s:MultipleQuestionItem/>
+            <!--s:QuestionItem/>
+            <s:MultipleQuestionItem/!-->
             <!--s:Universe/>
             <s:Concept/>
             <s:Category/-->
