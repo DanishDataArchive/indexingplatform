@@ -30,6 +30,31 @@ span.hi
 text-align: left;
 }
 
+.search-tooltip {
+	padding: 6px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+
+body .search-tooltip {
+	border-width: 2px;
+	background: #ffffff;
+           font-weight: bold;
+           font-family: verdana,arial,helvetica,sans-serif;
+           font-size: 6pt;
+	color: #3e3f42;
+}
+
+.search-table-tooltip {
+	background: #ffffff;
+           font-family: verdana,arial,helvetica,sans-serif;
+           font-size: 6pt;
+	color: #3e3f42;
+}
+
 /*.referencedElementsTitle {
     background-color: #fff;
     border-radius: 4px;

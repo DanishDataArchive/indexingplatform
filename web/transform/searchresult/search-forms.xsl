@@ -42,7 +42,7 @@
                         <tr>
                             <td align="left">
                                 <strong class="search">
-                                    <xsl:value-of select="$labels[@id='html-search-result']/LabelText[@xml:lang=$lang]/text()"/>: </strong>
+                                    <xsl:value-of select="$labels[@id='html-search-result-simple']/LabelText[@xml:lang=$lang]/text()"/>: </strong>
                                 <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -59,7 +59,7 @@
                                     <xsl:element name="input">
                                     <xsl:attribute name="type">checkbox</xsl:attribute>
                                     <xsl:attribute name="class">searchoption</xsl:attribute>
-                                    <xsl:attribute name="name">QuestionItem</xsl:attribute>
+                                    <xsl:attribute name="name">QuestionItem</xsl:attribute>                                        
                                     <xsl:if
                                         test="(s:Scope/s:QuestionItem) or (s:Scope/s:MultipleQuestionItem)">
                                         <xsl:attribute name="checked">checked</xsl:attribute>
@@ -118,7 +118,7 @@
                                 <a  class="searchoption" onclick="toggleCheckBox ('Universe')" href="javascript:void(0);" >
                                 <xsl:value-of select="$labels[@id='Universe']/LabelText[@xml:lang=$lang]/Plural/text()"/>
                                  </a>
-                                <xsl:text> </xsl:text>
+                                <xsl:text> </xsl:text>                                
                             </td>
                         </tr>
                         <tr>
@@ -126,7 +126,8 @@
                         </tr>
                         <tr>
                             <td align="center">
-                                <input class="searchsimpleinput" type="text" name="search-string" size="75" value="{ssp:search-string}"/>
+                                <input class="searchsimpleinput" type="text" name="search-string" size="65" value="{ssp:search-string}"/>
+                                &#160;<img src="theme/help.png" title="{$labels[@id='search-help-simple']/LabelText[@xml:lang=$lang]/text()}" id="search-help-simple"/>                                
                             </td>
                         </tr>
                         <tr>
@@ -145,6 +146,7 @@
                 </table>
             </form>
         </div>
+        <script type="text/javascript">simpleSearchTooltip();</script>
     </xsl:template>
 
     <xsl:template match="asp:AdvancedSearchParameters">
@@ -174,6 +176,7 @@
                         </td>
                         <td>
                             <input type="text" name="title" size="40" value="{asp:title}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-title']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -182,6 +185,7 @@
                         </td>
                         <td>
                             <input type="text" name="creator" size="40" value="{asp:creator}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-creator']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -190,6 +194,7 @@
                         </td>
                         <td>
                             <input type="text" name="abstract-purpose" size="40" value="{asp:abstract-purpose}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-abstract']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -198,8 +203,9 @@
                         </td>
                         <td>
                             <input type="text" name="topicalCoverage" size="40" value="{asp:topicalCoverage}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-topic']/LabelText[@xml:lang=$lang]/text()}"/>
                             <!--<input type="checkbox" name="subject" checked="checked" />Subject
-            <input type="checkbox" name="subject" checked="keyword" />Keyword-->
+                            <input type="checkbox" name="subject" checked="keyword" />Keyword-->
                         </td>
                     </tr>
                     <!--tr>
@@ -219,7 +225,8 @@
                             &#160;<input type="text" name="coverageFrom" size="11" value="{asp:coverageFrom}"/>
                             &#160;<strong class="lp"><xsl:value-of select="$labels[@id='form-to']/LabelText[@xml:lang=$lang]/text()"/></strong>                            
                             &#160;<input type="text" name="coverageTo" size="11" value="{asp:coverageTo}"/>
-                            &#160;<strong class="lp">[<xsl:value-of select="$labels[@id='form-date-format']/LabelText[@xml:lang=$lang]/text()"/>]</strong>
+                            <!--&#160;<strong class="lp">[<xsl:value-of select="$labels[@id='form-date-format']/LabelText[@xml:lang=$lang]/text()"/>]</strong>-->                            
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-time']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <!--tr>
@@ -236,6 +243,7 @@
                         </td>
                         <td>
                             <input type="text" name="studyId" size="40" value="{asp:studyId}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-id']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -251,6 +259,7 @@
                         </td>
                         <td>
                             <input type="text" name="QuestionItem" size="40" value="{asp:QuestionItem}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-question']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -259,6 +268,7 @@
                         </td>
                         <td>
                             <input type="text" name="Variable" size="40" value="{asp:Variable}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-variable']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -267,6 +277,7 @@
                         </td>
                         <td>
                             <input type="text" name="Category" size="40" value="{asp:Category}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-cat']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -275,6 +286,7 @@
                         </td>
                         <td>
                             <input type="text" name="Concept" size="40" value="{asp:Concept}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-concept']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -283,6 +295,7 @@
                         </td>
                         <td>
                             <input type="text" name="Universe" size="40" value="{asp:Universe}"/>
+                            &#160;<img src="theme/help.png" title="{$labels[@id='search-help-universe']/LabelText[@xml:lang=$lang]/text()}"/>
                         </td>
                     </tr>
                     <tr>
@@ -304,7 +317,9 @@
                         <td colspan="2">
                             <h2 class="search">
                                 <xsl:value-of select="$labels[@id='html-search-result']/LabelText[@xml:lang=$lang]/text()"/>
-                            </h2>
+                            </h2>                            
+                            <p><xsl:value-of select="$labels[@id='search-help-resultview']/LabelText[@xml:lang=$lang]/text()"/></p>
+                            <br/>
                             <xsl:element name="input">
                                 <xsl:attribute name="type">checkbox</xsl:attribute>
                                 <xsl:attribute name="class">searchoption</xsl:attribute>
@@ -378,7 +393,7 @@
                             </xsl:element>
                             <a  class="searchoption" onclick="toggleCheckBox ('UniverseChecked')" href="javascript:void(0);" >
                                 <xsl:value-of select="$labels[@id='Universe']/LabelText[@xml:lang=$lang]/Plural/text()"/>
-                            </a>
+                            </a>                            
                         </td>
                     </tr>
                     <tr>
@@ -403,7 +418,7 @@
         <xsl:param name="hits-perpage"/>
         <xsl:param name="hit-start"/>
         <xsl:value-of select="$labels[@id='html-results-perpage']/LabelText[@xml:lang=$lang]/text()"/>:
-        <select name="hits-perpage" onchange="submitForm(this.form)">
+        <select name="hits-perpage">
             <xsl:element name="option">
                 <xsl:attribute name="value">50</xsl:attribute>
                 <xsl:if test="$hits-perpage = 50">

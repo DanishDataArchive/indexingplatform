@@ -15,6 +15,9 @@ $(document).ready(function(){
     
     setFocusToEnd($('input[name=search-string]'));
     $('.result:even').addClass('alternate');
+    
+    // tooltip
+    $( document ).tooltip({"tooltipClass": "search-tooltip"});
 });
 
 $(function(){
@@ -33,6 +36,28 @@ $(function(){
         });
     });
 });
+
+function simpleSearchTooltip() {
+    // get the lang param from url params
+    var param = (function(a) {
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i)
+        {
+            var p=a[i].split('=');
+            if (p.length != 2) continue;
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+    })(window.location.search.substr(1).split('&'));
+    
+    // danish or other
+    if(param["lang"]=="da") {
+        $('#search-help-simple').tooltip({"tooltipClass": "search-tooltip"}, {"content": "Søg på undersøgelsens (studiets) titel, forsker, indhold mv. Brug evt. modifikatorer:<br/><br/><table border='0' cellspacing='0' cellpadding='1'><tr class='search-table-tooltip'><th>Modifikator</th><th>Beskrivelse</th><th align='left'>Eksempel</th></tr><tr><td  class='search-table-tooltip'>AND</td><td  class='search-table-tooltip'>Begge ord skal være til stede</td><td  class='search-table-tooltip'>politisk AND parti</td></tr><tr><td  class='search-table-tooltip'>OR</td><td  class='search-table-tooltip'>Mindst ét af ordene skal være til stede</td><td  class='search-table-tooltip'>politisk OR parti</td></tr><tr><td  class='search-table-tooltip'>” ”</td><td  class='search-table-tooltip'>Eksakte fraser</td><td  class='search-table-tooltip'>”politisk parti”</td></tr><tr><td  class='search-table-tooltip'>+ og -</td><td  class='search-table-tooltip'>Opprioritering og fravalg: + skal indgå, - må ikke indgå</td><td  class='search-table-tooltip'>+politisk -parti</td></tr><tr><td  class='search-table-tooltip'>*</td><td  class='search-table-tooltip'>Erstatter del af ord</td><td  class='search-table-tooltip'>politi*</td></tr><tr><td  class='search-table-tooltip'>( )</td><td  class='search-table-tooltip'>Gruppering af ord og modifikatorer</td><td  class='search-table-tooltip'>(politik OR parti) AND valg</td></tr></table>" });
+    }  else {
+        $('#search-help-simple').tooltip({"tooltipClass": "search-tooltip"}, {"content": "Search the title, researcher, topic etc. of the study. You can use the following modifiers:<br/><br/><table border='0' cellspacing='0' cellpadding='1'><tr class='search-table-tooltip'><th>Modifier</th><th>Description</th><th align='left'>Example</th></tr><tr><td class='search-table-tooltip'>AND</td><td class='search-table-tooltip'>Both words must be present</td><td class='search-table-tooltip'>political AND party</td></tr><tr><td class='search-table-tooltip'>OR</td><td class='search-table-tooltip'>At least one of the words must be present</td><td class='search-table-tooltip'>Political OR party</td></tr><tr><td class='search-table-tooltip'>” ”</td><td class='search-table-tooltip'>Exact phrases</td><td class='search-table-tooltip'>”political party”</td></tr><tr><td class='search-table-tooltip'>+ and -</td><td class='search-table-tooltip'>Prioritization and deselection: +must be included, - shall not be included</td><td class='search-table-tooltip'>+political -party</td></tr><tr><td class='search-table-tooltip'>*</td><td class='search-table-tooltip'>Replaces part of word</td><td class='search-table-tooltip'>politi*</td></tr><tr><td class='search-table-tooltip'>( )</td><td class='search-table-tooltip'>Grouping words and modifiers</td><td class='search-table-tooltip'>(political OR party) AND election</td></tr></table>" });
+    }  
+}
 
 function createOrder() {
     createOrderImp();
@@ -93,9 +118,7 @@ function resetForm($form) {
     // reset to selected
     $('#searchform').find('input:checkbox').prop('checked', false);
     $('input[name=StudyUnit]').prop('checked', true);
-    $('input[name=QuestionItem]').prop('checked', true);
     $('input[name=StudyUnitChecked]').prop('checked', true);
-    $('input[name=QuestionItemChecked]').prop('checked', true);
     $('input[name=grouped]').prop('checked', true);
 }
 
@@ -107,7 +130,7 @@ function submitForm(form) {
 function changeHitStart(hitStart) {
     if(validateFields()) {
         $('#searchform').append('<input type="hidden" name="hit-start" value="' + hitStart + '" />');
-        $('#searchform').submit();
+        // $('#searchform').submit();
     }
 }
 

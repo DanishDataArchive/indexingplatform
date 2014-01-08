@@ -53,7 +53,11 @@
         <LabelText xml:lang="en">Search Data</LabelText>
     </Label>
     <Label id="html-search-result">
-        <LabelText xml:lang="da">Søg efter</LabelText>
+        <LabelText xml:lang="da">Resultatvisning</LabelText>
+        <LabelText xml:lang="en">Result view</LabelText>
+    </Label>
+    <Label id="html-search-result-simple">
+        <LabelText xml:lang="da">Søg i</LabelText>
         <LabelText xml:lang="en">Search for</LabelText>
     </Label>
     <Label id="study-info">
@@ -268,8 +272,59 @@
         <LabelText xml:lang="da">Antal studier: </LabelText>
         <LabelText xml:lang="en">Number of studies: </LabelText>
     </Label>
+    <!-- search help labels -->
+    <!-- Labels for 'search-help-simple' are located in search-result.js -->
+    <Label id="search-help-title">
+        <LabelText xml:lang="da">Søg på undersøgelsens (studiets) titel.&#10;Brug evt. * til sidst som joker (trunkering).&#10;F.eks. valgundersøg*</LabelText>
+        <LabelText xml:lang="en">Search the title of the study.&#10;If necessary use “ ” for exact phrases or * at the end as wildcard (truncation).&#10;Example: “election study”</LabelText>
+    </Label>
+    <Label id="search-help-creator">
+        <LabelText xml:lang="da">Søg på forskeren, der har lavet undersøgelsen (studiet). Søg på hele navnet eller dele af navnet. F.eks. ”Jørgen Goul Andersen” eller Goul</LabelText>
+        <LabelText xml:lang="en">Search the researcher who compiled the study. Search the full name part of the name. Example: "Jørgen Goul Andersen" or Goul</LabelText>
+    </Label>
+    <Label id="search-help-abstract">
+        <LabelText xml:lang="da">Søg på ord eller sætninger i undersøgelsens (studiets) abstract. Husk at bruge ” ” hvis du søger på eksakte sætninger.</LabelText>
+        <LabelText xml:lang="en">Search for words or phrases in the abstract of the study. Use " " to search for exact phrases.</LabelText>
+    </Label>
+    <Label id="search-help-topic">
+        <LabelText xml:lang="da">Søg på undersøgelsens (studiets) emneord. F.eks. rygning</LabelText>
+        <LabelText xml:lang="en">Search the study keywords. Example: smoking</LabelText>
+    </Label>
+    <Label id="search-help-time">
+        <LabelText xml:lang="da">Søg på tidspunktet for dataindsamlingen. Skriver du ikke noget i feltet ’Til’, er det d.d. som default.</LabelText>
+        <LabelText xml:lang="en">Search the time of data collection. If the 'To' box is left blank, current date is default.</LabelText>
+    </Label>
+    <Label id="search-help-id">
+        <LabelText xml:lang="da">Kender du undersøgelsens studienummer (DDA-nr), kan du skrive det hér. F.eks. 18184 (og IKKE DDA-18184)</LabelText>
+        <LabelText xml:lang="en">If you know the study’s ID-number (DDA number) you can type it here. Example: 18184 (and NOT DDA-18184)</LabelText>
+    </Label>
+    <Label id="search-help-question">
+        <LabelText xml:lang="da">Søg på ord eller sætninger i undersøgelsens spørgsmålsformuleringer. Husk at bruge ” ” hvis du søger på eksakte sætninger. NB: Spørgsmål er ofte mindre abstrakte end eksempelvis emneord. F.eks. ”ryger du” (i stedet for rygning).</LabelText>
+        <LabelText xml:lang="en">Search for words or phrases in the survey questions. Remember to use " " if you search for exact phrases. NOTE I: Questions are often less abstract than, say keyword. Example "Do you smoke" (instead of smoking)</LabelText>
+    </Label>
+    <Label id="search-help-variable">
+        <LabelText xml:lang="da">Søg på variabelnavne F.eks. indkomst</LabelText>
+        <LabelText xml:lang="en">Search variable labels. Example: income NOTE: Most Study information at detailed level is in Danish.</LabelText>
+    </Label>
+    <Label id="search-help-cat">
+        <LabelText xml:lang="da">Søg på svarkategorier (svarmuligheder) i undersøgelserne. F.eks. ”meget venstreorienteret” eller folkeskole.</LabelText>
+        <LabelText xml:lang="en">Search the response categories (response options) in the studies. Examples: "Very liberal" or “primary school” NOTE: Most Study information at detailed level is in Danish.</LabelText>
+    </Label>
+    <Label id="search-help-concept">
+        <LabelText xml:lang="da">Koncepter inddeler variablerne i overordnede emner. Søg f.eks. på fritid</LabelText>
+        <LabelText xml:lang="en">Concepts classifies the variables in overarching themes. Example: leisure NOTE: Most Study information at detailed level is in Danish.</LabelText>
+    </Label>
+    <Label id="search-help-universe">
+        <LabelText xml:lang="da">Universet afgrænser gruppen af respondenter, der er blevet spurgt. Søg f.eks. på alder eller beskæftigelse.</LabelText>
+        <LabelText xml:lang="en">The universe defines the group of respondents who have been asked. Examples: age or employment. NOTE: Most Study information at detailed level is in Danish</LabelText>
+    </Label>
+    <Label id="search-help-resultview">
+        <LabelText xml:lang="da">Vælg hvilke detaljer du vil have vist i søgeresultatet:</LabelText>
+        <LabelText xml:lang="en">Choose wich details you want to see in the search results:</LabelText>
+    </Label>
+        
     <Label id="">
         <LabelText xml:lang="da"></LabelText>
         <LabelText xml:lang="en"></LabelText>
     </Label>
-</SearchResultLabels>
+</SearchResultLabels> 
