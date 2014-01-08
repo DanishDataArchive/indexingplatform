@@ -98,8 +98,8 @@
                                                                         <h2 class="lp"><xsl:value-of select="$labels[@id='title-cv-doc']/LabelText[@xml:lang=$lang]/text()"/></h2>                                                                        
                                                                         <xsl:choose>
                                                                             <!-- hack to curcumvent xhtml tags :( -->
-                                                                            <xsl:when test="$lang='da'">DDA klassifikationer anvendt på studiebeskrivelses- metode og livscyklusniveau. Klassifikationerne er defineret i <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format og anvendes af DDA landingpage formatet og i DDI-L dokumentationen.</xsl:when>
-                                                                            <xsl:otherwise>DDA controlled vocabularies describing study level description -method and life cycle events. The controlled vocabularies are defined in <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format and utilized by DDA landing page format and DDI-L documentation.</xsl:otherwise>
+                                                                            <xsl:when test="$lang='da'">DDA anvender klassifikationer på studiebeskrivelses- metode og livscyklusniveau. Klassifikationerne er defineret i <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format og anvendes af DDA landingpage formatet og i DDI-L dokumentationen.</xsl:when>
+                                                                            <xsl:otherwise>DDA applies controlled vocabularies describing study level description -method and life cycle events. The controlled vocabularies are defined in <a href="http://docs.oasis-open.org/codelist/cs-genericode-1.0/doc/oasis-code-list-representation-genericode.html">Genericode</a> format and utilized by DDA landing page format and DDI-L documentation.</xsl:otherwise>
                                                                         </xsl:choose>
                                                                         <h3 class="lp"><xsl:value-of select="$labels[@id='a-cv-doc']/LabelText[@xml:lang=$lang]/text()"/></h3>
                                                                         <xsl:call-template name="cvToHtml">
@@ -117,7 +117,7 @@
                                                                                     <li>Studiebeskrivelse</li>
                                                                                     <li>Variable navne og beskrivelse</li>
                                                                                     <li>Spørgsmålstekster og beskrivelse</li>
-                                                                                    <li>Universe beskrivelse og navn</li>
+                                                                                    <li>Univers beskrivelse og navn</li>
                                                                                     <li>Koncept  beskrivelse og navn</li>
                                                                                     <li>Kategoritekster</li>
                                                                                  </ul>
@@ -212,7 +212,7 @@
                                                                         <h2 class="lp"><xsl:value-of select="$labels[@id='title-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/></h2>
                                                                         <xsl:value-of select="$labels[@id='text-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/>                                                                       
                                                                         <p>
-                                                                            <xsl:value-of select="$labels[@id='detail-a-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/><a href="http:/{$hostname}/urn-resolution/ddi-3.1">http://<xsl:value-of select="$hostname"/>/urn-resolution/ddi-3.1</a>
+                                                                            <xsl:value-of select="$labels[@id='detail-a-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/>http://<xsl:value-of select="$hostname"/>/urn-resolution/ddi-3.1
                                                                             <xsl:value-of select="$labels[@id='detail-b-urn-service-doc']/LabelText[@xml:lang=$lang]/text()"/>
                                                                         </p>
                                                                         <p>
