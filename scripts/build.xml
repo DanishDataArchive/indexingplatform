@@ -37,7 +37,7 @@
 	<target name="deploy" depends="svn-import-stylesheet,apply-config,deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
 
 	<target name="svn-import-stylesheet" description="Import DDI stylesheets">
-		<mkdir dir="${config.bin-dir}"/>
+		<mkdir dir="${config.bin-dir}" />
 		<java classname="org.tmatesoft.svn.cli.SVN" dir="${basedir}">
 			<arg value="export" />
 			<arg value="--force" />
@@ -54,7 +54,7 @@
 		<!-- haproxy cfg -->
 		<loadfile srcfile="../haproxy/haproxy.cfg" property="result-0">
 			<filterchain>
-				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">					
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
 					<param type="token" name="INTERNAL_WEB_HOST_NAME" value="${config.haproxy-internal-webserver-hostname}" />
 					<param type="token" name="WEB_HOST_NAME" value="${config.haproxy-webserver-hostname}" />
 					<param type="token" name="EXIST_HOST_NAME" value="${config.haproxy-exist-hostname}" />
@@ -100,7 +100,7 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/landingpage.xquery">${result-3}</echo>
-		
+
 		<!-- catalogue.xquery -->
 		<loadfile srcfile="../web/catalogue.xquery" property="result-4">
 			<filterchain>
@@ -110,7 +110,7 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/catalogue.xquery">${result-4}</echo>
-		
+
 		<!-- branding result-main.xsl-->
 		<loadfile srcfile="../web/transform/searchresult/result-main.xsl" property="result-5">
 			<filterchain>
@@ -121,7 +121,7 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/transform/searchresult/result-main.xsl">${result-5}</echo>
-		
+
 		<!-- branding lp-main.xsl -->
 		<loadfile srcfile="../web/transform/landingpage/lp-main.xsl" property="result-6">
 			<filterchain>
@@ -143,7 +143,7 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/transform/searchresult/catalogue.xsl">${result-7}</echo>
-		
+
 		<!-- techinfo.xsl -->
 		<loadfile srcfile="../web/transform/searchresult/techinfo.xsl" property="result-8">
 			<filterchain>
@@ -154,7 +154,7 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/transform/searchresult/techinfo.xsl">${result-8}</echo>
-		
+
 		<!-- techinfo.xquery -->
 		<loadfile srcfile="../web/techinfo.xquery" property="result-9">
 			<filterchain>
@@ -164,7 +164,7 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/web/techinfo.xquery">${result-9}</echo>
-		
+
 		<!-- scheduler/properties.xquery -->
 		<loadfile srcfile="../scheduler/properties.xquery" property="result-10">
 			<filterchain>
@@ -209,7 +209,7 @@
 		<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda-denormalization" collection="data" />
 	</target>
 
-	<target name="deploy-web" description="Deploy the web interface">
+	<target name="deploy-web" depends="minify" description="Deploy the web interface">
 		<!-- store the rest files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
 			<fileset dir="../web">
@@ -226,13 +226,13 @@
 		</xdb:store>
 		<!-- store the java script files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/js" createcollection="true" createsubcollections="true">
-			<fileset dir="../web/js">
+			<fileset dir="${basedir}/bin/minify/js">
 				<include name="**/*.*" />
 			</fileset>
 		</xdb:store>
 		<!-- store the theme files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/theme" createcollection="true" createsubcollections="true">
-			<fileset dir="../web/theme">
+			<fileset dir="${basedir}/bin/minify/css">
 				<include name="**/*.*" />
 			</fileset>
 		</xdb:store>
@@ -281,7 +281,7 @@
 			<fileset dir="../dda/schema">
 				<include name="**/*.xsd" />
 			</fileset>
-		</xdb:store>		
+		</xdb:store>
 
 		<!-- store the modded files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web" createcollection="true" createsubcollections="true">
@@ -291,7 +291,7 @@
 			</fileset>
 		</xdb:store>
 	</target>
-	
+
 	<target name="deploy-urn" description="Deploy the URN resolution">
 		<!-- store the index files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/system/config/db/apps/dda-urn" createcollection="true" srcfile="../dda-urn/index/collection.xconf" />
@@ -327,5 +327,25 @@
 				<include name="**/*.xml" />
 			</fileset>
 		</xdb:store>
+	</target>
+
+	<target name="minify">
+		<taskdef name="yuicompressor" classname="com.metrosix.yuicompressor.anttask.YuiCompressorTask">
+			<classpath refid="project.classpath" />
+		</taskdef>
+
+		<mkdir dir="${basedir}/bin/minify/js" />
+		<yuicompressor todir="${basedir}/bin/minify/js" charset="utf-8" preserveallsemicolons="true" munge="true">
+			<fileset dir="../web/js">
+				<include name="**/*.js" />
+			</fileset>
+		</yuicompressor>
+
+		<mkdir dir="${basedir}/bin/minify/css" />
+		<yuicompressor todir="${basedir}/bin/minify/css" charset="utf-8" preserveallsemicolons="true" munge="true">
+			<fileset dir="../web/theme">
+				<include name="**/*.css" />
+			</fileset>
+		</yuicompressor>
 	</target>
 </project>
