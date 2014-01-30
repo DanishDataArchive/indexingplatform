@@ -204,6 +204,9 @@
 			<fileset dir="../scheduler">
 				<include name="*.xquery" />
 			</fileset>
+			<fileset dir="${basedir}/bin/scheduler">
+				<include name="*.xquery" />
+			</fileset>
 		</xdb:store>
 		<!-- create collections for storing the DB resources -->
 		<xdb:create xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/dda" collection="data" />
