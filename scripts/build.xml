@@ -236,6 +236,11 @@
 			<fileset dir="${basedir}/bin/minify/css">
 				<include name="**/*.*" />
 			</fileset>
+			<fileset dir="../web/theme">
+				<include name="**/*.*" />
+				<exclude name="**/*.css" />
+				<exclude name="**/*.js" />
+			</fileset>
 		</xdb:store>
 		<!-- store the order form files -->
 		<xdb:store xmlns:xdb="http://exist-db.org/ant" user="${config.username}" password="${config.password}" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db/apps/web/order" createcollection="true">
