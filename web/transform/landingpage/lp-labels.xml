@@ -162,7 +162,7 @@
         <LabelText xml:lang="en">Received</LabelText>
     </Label>
     <Label id="publisheddate">
-        <LabelText xml:lang="da">Publiseret</LabelText>
+        <LabelText xml:lang="da">Publiceret</LabelText>
         <LabelText xml:lang="en">Published</LabelText>
     </Label>
     <Label id="access">
