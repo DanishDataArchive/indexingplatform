@@ -130,7 +130,7 @@ function submitForm(form) {
 function changeHitStart(hitStart) {
     if(validateFields()) {
         $('#searchform').append('<input type="hidden" name="hit-start" value="' + hitStart + '" />');
-        // $('#searchform').submit();
+        $('#searchform').submit();
     }
 }
 
