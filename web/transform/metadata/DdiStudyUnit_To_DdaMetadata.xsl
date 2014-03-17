@@ -21,9 +21,31 @@
             <xsl:attribute name="xsi:schemaLocation">
                 <xsl:text>dda.dk/metadata/1.0.0  file:///home/ddajvj/Documents/DDA/indekseringsplatform-1.1/svn/ddaipf/trunk/web/schemas/MetaDataSchema.xsd</xsl:text>
             </xsl:attribute>
-            <State codeListAgencyName="dda.dk" codeListID="urn:studystate.dda.dk"
-                codeListName="DDAStudyState" codeListSchemeURN="urn:studystate.dda.dk-1.0.0"
-                codeListURN="urn:studystate.dda.dk-1.0.0" codeListVersionID="1.0.0">
+            <State>
+                <xsl:attribute name="codeListAgencyName">
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListAgencyName" />
+                </xsl:attribute>
+                <xsl:attribute name="codeListID">
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListID" />
+                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID">                        
+                        <xsl:attribute name="codeListVersionID">
+                            <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID" />
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName">
+                        <xsl:attribute name="codeListVersionID">
+                            <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName" />
+                        </xsl:attribute>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:attribute name="codeListSchemeURN">
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListSchemeURN" />
+                </xsl:attribute>                
+                <xsl:attribute name="codeListURN">
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListURN" />
+                </xsl:attribute>
                 <xsl:value-of
                     select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType"
                 />
@@ -278,7 +300,7 @@
         <Access>
             <Restriction codeListAgencyName="dda.dk" codeListID="urn:accessrestrictions.dda.dk"
                 codeListName="DDADataAccessRestrictions"
-                codeListSchemeURN="urn:accessrestrictions.dda.dk-1.0.0"
+                codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                 codeListURN="urn:accessrestrictions.dda.dk-1.0.0" codeListVersionID="1.0.0">
                 <xsl:value-of
                     select="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns2:UserID[@type='dk.dda.study.archive.access.restriction.cvcode']"
@@ -302,7 +324,7 @@
             </xsl:if>
             <Condition codeListAgencyName="dda.dk" codeListID="urn:accessconditions.dda.dk"
                 codeListName="DDAAccessConditions"
-                codeListSchemeURN="urn:accessconditions.dda.dk-1.0.0"
+                codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                 codeListURN="urn:accessconditions.dda.dk-1.0.0" codeListVersionID="1.0.0">
                 <xsl:value-of
                     select="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns2:UserID[@type='dk.dda.study.archive.access.condition.cvcode']"
@@ -315,11 +337,31 @@
             <DataSet>
                 <UnitType>
                     <xsl:if test="ns2:AnalysisUnit">
-                        <UnitTypeIdentifier codeListAgencyName="dda.dk"
-                            codeListID="urn:analysisunit.dda.dk"
-                            codeListName="DDADataCollectionMethodology"
-                            codeListSchemeURN="urn:analysisunit.dda.dk-1.0.0"
-                            codeListURN="urn:analysisunit.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                        <UnitTypeIdentifier>
+                            <xsl:attribute name="codeListAgencyName">
+                                <xsl:value-of select="ns2:AnalysisUnit/@codeListAgencyName" />
+                            </xsl:attribute>
+                            <xsl:attribute name="codeListID">
+                                <xsl:value-of select="ns2:AnalysisUnit/@codeListID" />
+                            </xsl:attribute>                            
+                            <xsl:choose>
+                                <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID">                        
+                                    <xsl:attribute name="codeListVersionID">
+                                        <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID" />
+                                    </xsl:attribute>
+                                </xsl:when>
+                                <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName">
+                                    <xsl:attribute name="codeListVersionID">
+                                        <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName" />
+                                    </xsl:attribute>
+                                </xsl:when>
+                            </xsl:choose>
+                            <xsl:attribute name="codeListSchemeURN">
+                                <xsl:value-of select="ns2:AnalysisUnit/@codeListSchemeURN" />
+                            </xsl:attribute>                
+                            <xsl:attribute name="codeListURN">
+                                <xsl:value-of select="ns2:AnalysisUnit/@codeListURN" />
+                            </xsl:attribute>
                             <xsl:value-of select="ns2:AnalysisUnit/text()"/>
                         </UnitTypeIdentifier>
                     </xsl:if>
@@ -367,7 +409,7 @@
                 <TestTypeIdentifier codeListAgencyName="dda.dk"
                     codeListID="urn:datacollectionmethodology.dda.dk"
                     codeListName="DDADataCollectionMethodology"
-                    codeListSchemeURN="urn:datacollectionmethodology.dda.dk-1.0.0"
+                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                     codeListURN="urn:datacollectionmethodology.dda.dk-1.0.0"
                     codeListVersionID="1.0.0">
                     <xsl:value-of
@@ -397,7 +439,7 @@
             </TestType>
             <TimeMethod>
                 <TimeMethodIdentifier codeListAgencyName="dda.dk" codeListID="urn:timemethod.dda.dk"
-                    codeListName="DDATimeMethod" codeListSchemeURN="urn:timemethod.dda.dk-1.0.0"
+                    codeListName="DDATimeMethod" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                     codeListURN="urn:timemethod.dda.dk-1.0.0" codeListVersionID="1.0.0">
                     <xsl:value-of
                         select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[1]/ns2:UserID"/>
@@ -426,7 +468,7 @@
             <SamplingProcedure>
                 <SamplingProcedureIdentifier codeListAgencyName="dda.dk"
                     codeListID="urn:samplingprocedure.dda.dk" codeListName="DDASamplingProcedure"
-                    codeListSchemeURN="urn:samplingprocedure.dda.dk-1.0.0"
+                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                     codeListURN="urn:samplingprocedure.dda.dk-1.0.0" codeListVersionID="1.0.0">
                     <xsl:value-of
                         select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[1]/ns2:UserID"
@@ -457,7 +499,7 @@
                 <DataType>
                     <DataTypeIdentifier codeListAgencyName="dda.dk"
                         codeListID="urn:kindofdata.dda.dk" codeListName="DDAKindOfData"
-                        codeListSchemeURN="urn:kindofdata.dda.dk-1.0.0"
+                        codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                         codeListURN="urn:kindofdata.dda.dk-1.0.0" codeListVersionID="1.0.0">
                         <xsl:value-of select="."/>
                     </DataTypeIdentifier>
@@ -509,7 +551,7 @@
             <ModeOfCollection>
                 <ModeOfCollectionIdentifier codeListAgencyName="dda.dk"
                     codeListID="urn:datacollectionmode.dda.dk" codeListName="DDAModeOfCollection"
-                    codeListSchemeURN="urn:datacollectionmode.dda.dk-1.0.0"
+                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                     codeListURN="urn:datacollectionmode.dda.dk-1.0.0" codeListVersionID="1.0.0">
                     <xsl:value-of
                         select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[1]/ns2:UserID"
@@ -617,7 +659,7 @@
         <Publication>
             <PublicationType codeListAgencyName="dda.dk" codeListID="urn:dda-cv:studypublication"
                 codeListName="DDAStudyPublication"
-                codeListSchemeURN="urn:dda-cv:studypublication:1.0.0"
+                codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                 codeListURN="urn:dda-cv:studypublication:1.0.0" codeListVersionID="1.0.0">
                 <xsl:value-of select="$type"/>
             </PublicationType>

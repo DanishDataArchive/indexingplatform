@@ -50,6 +50,8 @@
             select="document(concat($cvFolder, '/samplingprocedure.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="studyStateCV"
             select="document(concat($cvFolder, '/studystate.dda.dk-1.0.0.cv'))"/>
+        <xsl:variable name="studyStateCV-2"
+            select="document(concat($cvFolder, '/studystate.dda.dk-2.0.0.cv'))"/>
         <xsl:variable name="timeMethodCV"
             select="document(concat($cvFolder, '/timemethod.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="analysisUnitCV"
@@ -553,8 +555,17 @@
                     />
                 </strong>
                 <xsl:variable name="stateId" select="ns1:State"/>
-                <xsl:value-of
-                    select="$studyStateCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                <xsl:choose>
+                    <xsl:when test="ns1:State/@codeListVersionID='2.0.0'">
+                        <xsl:value-of
+                            select="$studyStateCV-2/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                    </xsl:when>
+                    <xsl:when test="ns1:State/@codeListVersionID='1.0.0'">
+                        <xsl:value-of
+                            select="$studyStateCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>        
+                    </xsl:when>
+                </xsl:choose>
+                
                 <br/>
                 <strong class="lp">
                     <xsl:value-of

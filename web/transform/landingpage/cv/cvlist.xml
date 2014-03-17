@@ -23,6 +23,7 @@
     </Cv>
     <Cv name="studystate">
         <Version>1.0.0</Version>
+        <Version>2.0.0</Version>
     </Cv>
     <Cv name="accessconditions">
         <Version>1.0.0</Version>
