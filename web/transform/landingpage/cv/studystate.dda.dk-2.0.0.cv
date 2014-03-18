@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
+  <Annotation>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>CV defining the state of a study within DDA's curation proccess</p>
+      </div>
+    </Description>
+    <AppInfo>
+      <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2013</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
+      <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
+      <ddi-cv:Value key="SoftwareVersion">0.1.0</ddi-cv:Value>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName xml:lang="en">DDAStudyState</ShortName>
+    <LongName xml:lang="en">DDA Study State</LongName>
+    <Version>2.0.0</Version>
+    <CanonicalUri>urn:dda-cv:studystate</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:studystate:2.0.0</CanonicalVersionUri>
+    <LocationUri>http://www.dda.dk/cv/studystate.dda.dk-2.0.0.cv</LocationUri>
+    <Agency>
+      <ShortName>Danish Data Archive</ShortName>
+      <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
+      <Identifier>DDA</Identifier>
+    </Agency>
+  </Identification>
+  <ColumnSet>
+    <Column Id="code" Use="required">
+      <Annotation>
+        <Description xml:lang="da">
+          <h:p>The code that identifies the value</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>code</ShortName>
+      <LongName xml:lang="da">Identifing code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="term" Use="required">
+      <Annotation>
+        <Description xml:lang="da">
+          <h:p>The term accociated with the code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>term</ShortName>
+      <LongName xml:lang="da">Term of the code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="description" Use="required">
+      <Annotation>
+        <Description xml:lang="da">
+          <h:p>Description of the term and code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>description</ShortName>
+      <LongName xml:lang="da">Description</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="reusestatus" Use="required">
+      <Annotation>
+        <Description xml:lang="da">
+          <h:p>Description status for reuse</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>reusestatus</ShortName>
+      <LongName xml:lang="da">Reuse status</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="ddacode" Use="required">
+      <Annotation>
+        <Description xml:lang="da">
+          <h:p>DDA specific code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>ddacode</ShortName>
+      <LongName xml:lang="da">DDA identifing code</LongName>
+      <Data Type="int"/>
+    </Column>
+    <Key Id="Key-code">
+      <ShortName>Key-code</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>MOD</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har modtaget data fra donor.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ARK</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ARK.I.O</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>411</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ARK.I.D31</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>421</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ARK.E.D31</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern aktør kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>422</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FOD</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har gjort data fuldt analyseklar og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>7</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FOD.I.O</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">testing testing</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>711</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FOD.E.O</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern aktør gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>712</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FOD.I.D31</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>721</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FOD.E.D31</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern aktør gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="reusestatus">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da"/>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="ddacode">
+        <SimpleValue>722</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>
