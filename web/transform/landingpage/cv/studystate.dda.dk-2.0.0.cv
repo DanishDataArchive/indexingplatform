@@ -9,11 +9,7 @@
     <AppInfo>
       <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
       <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
-      <ddi-cv:Value key="CopyrightYear">2013</ddi-cv:Value>
-      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
-      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
-      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
-      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2014</ddi-cv:Value>
       <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
       <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
       <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
@@ -38,52 +34,52 @@
   <ColumnSet>
     <Column Id="code" Use="required">
       <Annotation>
-        <Description xml:lang="da">
+        <Description xml:lang="en">
           <h:p>The code that identifies the value</h:p>
         </Description>
       </Annotation>
       <ShortName>code</ShortName>
-      <LongName xml:lang="da">Identifing code</LongName>
+      <LongName xml:lang="en">Identifing code</LongName>
       <Data Type="string"/>
     </Column>
     <Column Id="term" Use="required">
       <Annotation>
-        <Description xml:lang="da">
+        <Description xml:lang="en">
           <h:p>The term accociated with the code</h:p>
         </Description>
       </Annotation>
       <ShortName>term</ShortName>
-      <LongName xml:lang="da">Term of the code</LongName>
+      <LongName xml:lang="en">Term of the code</LongName>
       <Data Type="string"/>
     </Column>
     <Column Id="description" Use="required">
       <Annotation>
-        <Description xml:lang="da">
+        <Description xml:lang="en">
           <h:p>Description of the term and code</h:p>
         </Description>
       </Annotation>
       <ShortName>description</ShortName>
-      <LongName xml:lang="da">Description</LongName>
+      <LongName xml:lang="en">Description</LongName>
       <Data Type="string"/>
     </Column>
     <Column Id="reusestatus" Use="required">
       <Annotation>
-        <Description xml:lang="da">
+        <Description xml:lang="en">
           <h:p>Description status for reuse</h:p>
         </Description>
       </Annotation>
       <ShortName>reusestatus</ShortName>
-      <LongName xml:lang="da">Reuse status</LongName>
+      <LongName xml:lang="en">Reuse status</LongName>
       <Data Type="string"/>
     </Column>
     <Column Id="ddacode" Use="required">
       <Annotation>
-        <Description xml:lang="da">
+        <Description xml:lang="en">
           <h:p>DDA specific code</h:p>
         </Description>
       </Annotation>
       <ShortName>ddacode</ShortName>
-      <LongName xml:lang="da">DDA identifing code</LongName>
+      <LongName xml:lang="en">DDA identifing code</LongName>
       <Data Type="int"/>
     </Column>
     <Key Id="Key-code">
@@ -98,17 +94,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er modtaget.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been received.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has received data from the depositor.</ddi-cv:Value>
           <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har modtaget data fra donor.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has received data from the depositor.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har modtaget data fra donor.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -121,17 +120,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has checked and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has checked and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -144,17 +146,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has checked and preserved the data. The data has been converted to the long-term preservation format OSIRIS.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has checked and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -167,17 +172,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
           <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has checked and preserved the data. The data has been converted to the long-term preservation format DDI-L 3.1.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har kontrolleret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has checked and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -190,17 +198,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern aktør kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern partner kontrolleret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has in cooperation with an external partner checked and preserved the data. The data has been converted to the long-term preservation format DDI-L 3.1.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has in cooperation with an external partner checked and preserved the data in a long-term preservation format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern partner kontrolleret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -213,17 +224,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er fuldt dokumenteret og bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been fully documented and preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har gjort data fuldt analyseklar og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har fuldt dokumenteret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has fully documented and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har fuldt dokumenteret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has fully documented and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -236,17 +250,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er fuldt dokumenteret og bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been fully documented and preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has fully documented and preserved the data. The data has been converted to the long-term preservation format OSIRIS.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har fuldt dokumenteret og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">testing testing</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har fuldt dokumenteret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has fully documented and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -259,17 +276,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er fuldt dokumenteret og bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been fully documented and preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern aktør gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has in coorperation with an external partner fully documented and preserved the data. The data has been converted to the long-term preservation format OSIRIS.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern partner fuldt dokumenteret og bevaret data. Data er konverteret til det langtidsholdbare format OSIRIS.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern partner fuldt dokumenteret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has in cooperation with an external partner fully documented and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -282,17 +302,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er fuldt dokumenteret og bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been fully documented and preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has fully documented and preserved the data. The data has been converted to the long-term preservation format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har fuldt dokumenteret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har fuldt dokumenteret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has fully documented and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
@@ -305,17 +328,20 @@
       </Value>
       <Value ColumnRef="term">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Data er fuldt dokumenteret og bevaret i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The data has been fully documented and preserved in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="description">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern aktør gjort data fuldt analyseklar og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has in coorperation with an external partner fully documented and preserved the data. The data has been converted to the long-term preservation format DDI-L 3.1.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern partner fuldt dokumenteret og bevaret data. Data er konverteret til det langtidsholdbare format DDI-L 3.1.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="reusestatus">
         <ComplexValue>
-          <ddi-cv:Value xml:lang="da"/>
+          <ddi-cv:Value xml:lang="da">Dansk Data Arkiv har i samarbejde med en ekstern partner fuldt dokumenteret og bevaret data i et langtidsholdbart format.</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">The Danish Data Archive has in cooperation with an external partner fully documented and preserved the data in a long-term preservation format.</ddi-cv:Value>
         </ComplexValue>
       </Value>
       <Value ColumnRef="ddacode">
