@@ -298,14 +298,14 @@
     </xsl:template>
     <xsl:template name="Access">
         <Access>
-            <Restriction codeListAgencyName="dda.dk" codeListID="urn:accessrestrictions.dda.dk"
+            <!--Restriction codeListAgencyName="dda.dk" codeListID="urn:accessrestrictions.dda.dk"
                 codeListName="DDADataAccessRestrictions"
                 codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
                 codeListURN="urn:accessrestrictions.dda.dk-1.0.0" codeListVersionID="1.0.0">
                 <xsl:value-of
                     select="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns2:UserID[@type='dk.dda.study.archive.access.restriction.cvcode']"
                 />
-            </Restriction>
+            </Restriction-->
             <!-- embargo -->
             <xsl:if
                 test="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate">

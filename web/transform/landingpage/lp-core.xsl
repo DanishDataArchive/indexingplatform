@@ -566,7 +566,7 @@
                     </xsl:when>
                 </xsl:choose>
                 
-                <br/>
+                <!--br/>
                 <strong class="lp">
                     <xsl:value-of
                         select="concat($labels/LandingPageLabels/Label[@id='restrictions']/LabelText[@xml:lang=$lang]/text(), ': ')"
@@ -574,7 +574,7 @@
                 </strong>
                 <xsl:variable name="restrictionId" select="ns1:Access/ns1:Restriction"/>
                 <xsl:value-of
-                    select="$accessRestrictionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$restrictionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                    select="$accessRestrictionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$restrictionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/-->
                 <br/>
                 <strong class="lp">
                     <xsl:value-of
