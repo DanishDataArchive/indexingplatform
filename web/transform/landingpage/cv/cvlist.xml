@@ -28,7 +28,7 @@
     <Cv name="accessconditions">
         <Version>1.0.0</Version>
     </Cv>
-    <Cv name="accessrestrictions">
+    <!--Cv name="accessrestrictions">
         <Version>1.0.0</Version>
-    </Cv>
+    </Cv-->
 </CvList>
