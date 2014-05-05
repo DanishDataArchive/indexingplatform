@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TechInfoLabels>
     <Label id="title">
-        <LabelText xml:lang="da">Tekninsk information</LabelText>
+        <LabelText xml:lang="da">Teknisk information</LabelText>
         <LabelText xml:lang="en">Technical information</LabelText>
     </Label>
     <!-- controled vocabs -->
