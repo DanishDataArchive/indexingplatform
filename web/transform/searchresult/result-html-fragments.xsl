@@ -359,6 +359,16 @@
 
                                         <td style="border-style: none; border-width: medium"
                                             align="center">
+                                            <a class="navi"
+                                                href="http://samfund.dda.dk/dda/datamanagement.asp"
+                                                >Datamanagement</a>
+                                        </td>
+
+                                        <td style="border-style: none; border-width: medium"
+                                            align="center" width="35">&#160;</td>
+
+                                        <td style="border-style: none; border-width: medium"
+                                            align="center">
 
                                             <a class="navi"
                                                 href="http://samfund.dda.dk/dda/ddasamfund/om-ddasamfund.asp"
