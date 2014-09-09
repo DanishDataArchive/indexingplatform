@@ -1,7 +1,7 @@
 Installation notes:
 
 1. Clone this repository
-2. Install [http://sourceforge.net/projects/exist/files/Stable/2.2/](eXist-2.2) (Leave the admin password blank for the ease of testing this product)
+2. Install [eXist-db-2.2](http://sourceforge.net/projects/exist/files/Stable/2.2/) (Leave the admin password blank for the ease of testing this product)
 3. Install haproxy (sudo apt-get install haprox)
 4. Now go to the eXist-db installation in your browser [http://localhost:8080/exist](http://localhost:8080/exist)
   1. Install xfunc from clone_dir/external_lib/
