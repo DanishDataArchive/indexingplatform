@@ -24,7 +24,7 @@
 	</path>
 
 	<property name="repository.url" value="http://ddixslt.googlecode.com/svn" />
-	<property name="ddi-html.dir" value="${basedir}/bin/ddi-html" />
+	<property name="ddi-html.dir" value="${basedir}/bin/ddi-xslt/ddi-html/ddi3_1" />
 
 	<target name="clean" description="Clean up">
 		<delete quiet="true" dir="${basedir}/bin" />
@@ -34,17 +34,24 @@
 		<xdb:list xmlns:xdb="http://exist-db.org/ant" uri="xmldb:exist://localhost:8080/exist/xmlrpc/db" collections="true" outputproperty="collections" user="${config.username}" password="${config.password}" />
 	</target>
 
-	<target name="deploy" depends="svn-import-stylesheet,apply-config,deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
+	<target name="deploy" depends="import-stylesheet,apply-config,deploy-dda,deploy-web,deploy-urn" description="Deploy all the parts of the index platform" />
 
-	<target name="svn-import-stylesheet" description="Import DDI stylesheets">
+	<target name="import-stylesheet" description="Import DDI stylesheets">
 		<mkdir dir="${config.bin-dir}" />
-		<java classname="org.tmatesoft.svn.cli.SVN" dir="${basedir}">
-			<arg value="export" />
-			<arg value="--force" />
-			<arg value="${repository.url}/trunk/ddi-html/" />
-			<arg value="${ddi-html.dir}" />
-			<classpath refid="project.classpath" />
-		</java>
+		<delete dir="${basedir}/bin/ddi-xslt" />
+		<exec executable="git" newenvironment="false" dir="${basedir}/bin/">
+			<arg value="clone" />
+			<arg value="--no-checkout" />
+			<arg value="--depth" />
+			<arg value="1" />
+			<arg value="-v" />
+			<arg value="https://github.com/MetadataTransform/ddi-xslt.git" />
+		</exec>
+		<exec executable="git" newenvironment="false" dir="${basedir}/bin/ddi-xslt">
+			<arg value="checkout" />
+			<arg value="master" />
+			<arg value="ddi-html/ddi3_1" />
+		</exec>
 	</target>
 
 	<target name="apply-config" description="Applies hostname configuration to haproxy and queries">
