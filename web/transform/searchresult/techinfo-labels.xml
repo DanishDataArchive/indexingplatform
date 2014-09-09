@@ -69,8 +69,8 @@
         <LabelText xml:lang="en">Example of a search with URL parameters:</LabelText>
     </Label>
     <Label id="url-ex-search-api-doc">
-        <LabelText xml:lang="da">http://kipon.dda.dk/search-api?StudyUnit=treu&amp;search-string=Europæisk</LabelText>
-        <LabelText xml:lang="en">http://kipon.dda.dk/search-api?StudyUnit=treu&amp;search-string=European</LabelText>
+        <LabelText xml:lang="da">http://dda.dk/search-api?StudyUnit=treu&amp;search-string=Europæisk</LabelText>
+        <LabelText xml:lang="en">http://dda.dk/search-api?StudyUnit=treu&amp;search-string=European</LabelText>
     </Label>  
     <Label id="xml-search-api-doc">
         <LabelText xml:lang="da">XML indlejret metode</LabelText>
@@ -81,8 +81,8 @@
         <LabelText xml:lang="en">The search API URL is the same as with the URL parameter method but the URL parameters are striped and XML is added as payload. The XML is defined by the simple-search-parameters.xsd XML schema. E.g. using 'curl' a request would look like:</LabelText>
     </Label>  
     <Label id="xml-ex-search-api-doc">
-        <LabelText xml:lang="da"><![CDATA[curl -d '<ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ssp:search-string>Europæisk</ssp:search-string><smd:SearchMetaData hits-perpage="50" hit-start="1" lang="da"/><s:Scope><s:StudyUnit/></s:Scope></ssp:SimpleSearchParameters>' -H 'Content-Type: text/xml' http://kipon.dda.dk/search-api]]></LabelText>
-        <LabelText xml:lang="en"><![CDATA[curl -d '<ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ssp:search-string>European</ssp:search-string><smd:SearchMetaData hits-perpage="50" hit-start="1" lang="da"/><s:Scope><s:StudyUnit/></s:Scope></ssp:SimpleSearchParameters>' -H 'Content-Type: text/xml' http://kipon.dda.dk/search-api]]></LabelText>
+        <LabelText xml:lang="da"><![CDATA[curl -d '<ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ssp:search-string>Europæisk</ssp:search-string><smd:SearchMetaData hits-perpage="50" hit-start="1" lang="da"/><s:Scope><s:StudyUnit/></s:Scope></ssp:SimpleSearchParameters>' -H 'Content-Type: text/xml' http://dda.dk/search-api]]></LabelText>
+        <LabelText xml:lang="en"><![CDATA[curl -d '<ssp:SimpleSearchParameters xmlns:s="http://dda.dk/ddi/scope" xmlns:ssp="http://dda.dk/ddi/simple-search-parameters" xmlns:smd="http://dda.dk/ddi/search-metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ssp:search-string>European</ssp:search-string><smd:SearchMetaData hits-perpage="50" hit-start="1" lang="da"/><s:Scope><s:StudyUnit/></s:Scope></ssp:SimpleSearchParameters>' -H 'Content-Type: text/xml' http://dda.dk/search-api]]></LabelText>
     </Label>
     <!-- json or xml -->
     <Label id="api-json-xml-search-api-doc">
@@ -98,8 +98,8 @@
         <LabelText xml:lang="en">E.g. using 'curl' for a JSON request the URL parameter method would take the form of:</LabelText>
     </Label>
     <Label id="api-json-xml-ex-search-api-doc">
-        <LabelText xml:lang="da"><![CDATA[curl 'http://kipon.dda.dk/search-api?StudyUnit=true&search-string=Europæisk' -H 'Accept: application/json']]></LabelText>
-        <LabelText xml:lang="en"><![CDATA[curl 'http://kipon.dda.dk/search-api?StudyUnit=true&search-string=European' -H 'Accept: application/json']]></LabelText>
+        <LabelText xml:lang="da"><![CDATA[curl 'http://dda.dk/search-api?StudyUnit=true&search-string=Europæisk' -H 'Accept: application/json']]></LabelText>
+        <LabelText xml:lang="en"><![CDATA[curl 'http://dda.dk/search-api?StudyUnit=true&search-string=European' -H 'Accept: application/json']]></LabelText>
     </Label>
     <!-- urn resolv service -->
     <Label id="title-urn-service-doc">
@@ -123,8 +123,8 @@
         <LabelText xml:lang="en">E.g. the URL for the DDI-L study unit with agency: dda.dk, ID: 18465 at version: 1.0.0 is: </LabelText>
     </Label>
     <Label id="detail-d-urn-service-doc">
-        <LabelText xml:lang="da">http://kipon.dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
-        <LabelText xml:lang="en">http://kipon.dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
+        <LabelText xml:lang="da">http://dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
+        <LabelText xml:lang="en">http://dda.dk/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:18465:1.0.0</LabelText>
     </Label>
     <Label id="title-source-doc">
         <LabelText xml:lang="da">Kildekode og licens</LabelText>

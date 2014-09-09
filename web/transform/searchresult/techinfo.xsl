@@ -79,14 +79,14 @@
                                                                         <p>
                                                                             <xsl:value-of  select="$labels[@id='a-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/>
                                                                             <ul>
-                                                                                <li><b>http://kipon.dda.dk/catalogue/10</b></li>
+                                                                                <li><b>http://dda.dk/catalogue/10</b></li>
                                                                              </ul>
                                                                         </p>
                                                                         <p>
                                                                             <xsl:value-of  select="$labels[@id='b-dda-landing-doc']/LabelText[@xml:lang=$lang]/text()"/>
                                                                             <ul>
-                                                                                <li><b>http://kipon.dda.dk/catalogue/10/doc/codebook</b></li>
-                                                                                <li><b>http://kipon.dda.dk/catalogue/10/doc/ddastudymetadata</b></li>
+                                                                                <li><b>http://dda.dk/catalogue/10/doc/codebook</b></li>
+                                                                                <li><b>http://dda.dk/catalogue/10/doc/ddastudymetadata</b></li>
                                                                             </ul>                                                                            
                                                                         </p>
                                                                         <p>
