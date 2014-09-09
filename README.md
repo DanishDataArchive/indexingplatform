@@ -1,12 +1,12 @@
 Installation notes:
 
 1. Clone this repository
-2. Install eXist-db 2.1 (Leave the admin password blank for the ease of testing this product)
-3. install haproxy
+2. Install [http://sourceforge.net/projects/exist/files/Stable/2.2/](eXist-2.2) (Leave the admin password blank for the ease of testing this product)
+3. Install haproxy (sudo apt-get install haprox)
 4. Now go to the eXist-db installation in your browser [http://localhost:8080/exist](http://localhost:8080/exist)
   1. Install xfunc from clone_dir/external_lib/
 5. Edit clone_dir/scripts/config.xml according to your details
-6. ant apply-config -> you can now start your haproxy instance using the generated config in clone_dir/scripts/bin/haproxy (haproxy -d -f haproxy.cfg)
+6. ant apply-config -> you can now start your haproxy instance using the generated config in clone_dir/scripts/bin/haproxy (sudo haproxy -d -f haproxy.cfg)
 7. Now that you have changed the config.xml to point at your ddi-l files run
   1. ant deploy
   2. ant store

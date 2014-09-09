@@ -4,7 +4,7 @@
   <bin-dir>bin</bin-dir>
 
   <!-- exist settings -->
-  <exist-dir>/home/ddajvj/app/eXist/stable</exist-dir>
+  <exist-dir>/home/ddajvj/app/eXist-db/2.2RC2</exist-dir>
   <username>admin</username>
   <password/>
 

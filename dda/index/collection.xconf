@@ -9,7 +9,7 @@
     
     <!-- Lucene index is configured below -->
     <lucene>
-      <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
+      <analyzer id="ws" class="org.apache.lucene.analysis.core.WhitespaceAnalyzer"/>
       <analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>
       
       <!-- Index for full-text search -->

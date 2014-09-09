@@ -11,7 +11,7 @@
     
     <!-- Lucene index is configured below -->
     <lucene>
-      <analyzer id="ws" class="org.apache.lucene.analysis.WhitespaceAnalyzer"/>
+      <analyzer id="ws" class="org.apache.lucene.analysis.core.WhitespaceAnalyzer"/>
         
       <!-- Index for specific search -->
       <text match="//d:Variable/@id" analyzer="ws"/>
