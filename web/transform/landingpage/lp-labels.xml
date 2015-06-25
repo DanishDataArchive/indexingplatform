@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingPageLabels>    
     <Label id="host">
-        <!-- production -->
+        <!-- production-->
         <LabelText xml:lang="production_xternal">http://kipon.dda.dk</LabelText>
         <LabelText xml:lang="production_internal">http://192.168.111.109</LabelText>
         
-        <!-- development 
-        <LabelText xml:lang="production_internal">http://localhost</LabelText> 
-        <LabelText xml:lang="production_xternal">http://localhost</LabelText> -->
+        <!-- development--> 
+        <!--<LabelText xml:lang="production_internal">http://localhost</LabelText> 
+        <LabelText xml:lang="production_xternal">http://localhost</LabelText>-->
     </Label>
     <Label id="newsearch">
         <LabelText xml:lang="da">Ny søgning</LabelText>
@@ -76,6 +76,10 @@
     <Label id="variables">
         <LabelText xml:lang="da">Variabler</LabelText>
         <LabelText xml:lang="en">Variables</LabelText>
+    </Label>
+    <Label id="unknown">
+        <LabelText xml:lang="da">Ikke oplyst</LabelText>
+        <LabelText xml:lang="en">Unknown</LabelText>
     </Label>
     <Label id="respondenter">
         <LabelText xml:lang="da">Respondenter</LabelText>
@@ -218,7 +222,7 @@
         <LabelText xml:lang="en">Secondary publications</LabelText>
     </Label>
     <Label id="na">
-        <LabelText xml:lang="da">Ikke oplyst</LabelText>
+        <LabelText xml:lang="da">Ikke oplyst!</LabelText>
         <LabelText xml:lang="en">NA</LabelText>
     </Label>
     <Label id="">
