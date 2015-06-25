@@ -93,22 +93,49 @@
                         </xsl:if>
                     </div>
                 </xsl:for-each>
-                <a name="documentation"/>
-                <h2 class="lp">
-                    <xsl:value-of
-                        select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"
-                    />
-                </h2>
-                <p class="lp">
-                    <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook?lang={$lang}">
+                <!-- provice only codebook link if Documentation/File/Type = codebook found -->
+                <xsl:choose>
+                    <xsl:when test="ns1:Documentation/ns1:File/ns1:Type = 'Codebook'">
+                        <a name="documentation"/>
+                        <h2 class="lp">
+                            <xsl:value-of
+                                select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"
+                            />
+                        </h2>
+                        <p class="lp">
+                            <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook?lang={$lang}">
+                                <xsl:value-of
+                                    select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"
+                                />
+                            </a>
+                        </p>
+                        <!--p class="lp">
+                    <a href="{ concat($studyId, '/documentation/questionaire/q-',  $studyId, '.pdf')}">Spørgeskema PDF</a>
+                    </p-->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <p class="lp"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <!--  -->
+                <!--<xsl:if test="ns1:Documentation/ns1:File/ns1:Type = 'Codebook'">
+                    <a name="documentation"/>
+                    <h2 class="lp">
                         <xsl:value-of
-                            select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"
+                            select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"
                         />
-                    </a>
-                </p>
-                <!--p class="lp">
-                <a href="{ concat($studyId, '/documentation/questionaire/q-',  $studyId, '.pdf')}">Spørgeskema PDF</a>
-            </p-->
+                    </h2>
+                    <p class="lp">
+                        <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook?lang={$lang}">
+                            <xsl:value-of
+                                select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"
+                            />
+                        </a>
+                    </p>
+                    <!-\-p class="lp">
+                    <a href="{ concat($studyId, '/documentation/questionaire/q-',  $studyId, '.pdf')}">Spørgeskema PDF</a>
+                    </p-\->
+                </xsl:if>-->
                 <a name="description"/>
                 <span class="lph2">
                     <xsl:value-of
@@ -219,7 +246,17 @@
                         select="concat($labels/LandingPageLabels/Label[@id='variables']/LabelText[@xml:lang=$lang]/text(), ': ')"
                     />
                 </strong>
-                <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberVariables"/>
+                <xsl:choose>
+                    <xsl:when test="ns1:DataSets/ns1:DataSet/ns1:NumberVariables=0">
+                        <xsl:value-of
+                            select="$labels/LandingPageLabels/Label[@id='unknown']/LabelText[@xml:lang=$lang]/text()"
+                        />
+                        <!--<xsl:text>Ikke oplyst</xsl:text>-->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberVariables"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <br/>
                 <!-- analasis unit -->
                 <xsl:variable name="unitTypeIdentifierId"
@@ -266,10 +303,9 @@
                         />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>        
+                        <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                
                 <!-- - methodology - -->
                 <a name="method"/>
                 <h2 class="lp">
@@ -558,14 +594,15 @@
                 <xsl:choose>
                     <xsl:when test="ns1:State/@codeListVersionID='2.0.0'">
                         <xsl:value-of
-                            select="$studyStateCV-2/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                            select="$studyStateCV-2/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"
+                        />
                     </xsl:when>
                     <xsl:when test="ns1:State/@codeListVersionID='1.0.0'">
                         <xsl:value-of
-                            select="$studyStateCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>        
+                            select="$studyStateCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"
+                        />
                     </xsl:when>
                 </xsl:choose>
-                
                 <!--br/>
                 <strong class="lp">
                     <xsl:value-of
