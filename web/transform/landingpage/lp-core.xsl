@@ -117,25 +117,6 @@
                         <p class="lp"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <!--  -->
-                <!--<xsl:if test="ns1:Documentation/ns1:File/ns1:Type = 'Codebook'">
-                    <a name="documentation"/>
-                    <h2 class="lp">
-                        <xsl:value-of
-                            select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"
-                        />
-                    </h2>
-                    <p class="lp">
-                        <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook?lang={$lang}">
-                            <xsl:value-of
-                                select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"
-                            />
-                        </a>
-                    </p>
-                    <!-\-p class="lp">
-                    <a href="{ concat($studyId, '/documentation/questionaire/q-',  $studyId, '.pdf')}">Spørgeskema PDF</a>
-                    </p-\->
-                </xsl:if>-->
                 <a name="description"/>
                 <span class="lph2">
                     <xsl:value-of
