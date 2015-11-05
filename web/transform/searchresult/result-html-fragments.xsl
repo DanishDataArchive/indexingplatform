@@ -628,7 +628,7 @@
                                             <p align="center">
 
                                                 <font color="#FFFFFF">Danish Data Archive&#160;
-                                                  -&#160; Islandsgade 10&#160; -&#160;
+                                                  -&#160; Jernbanegade 36&#160; -&#160;
                                                   5000 Odense C&#160; -&#160;
                                                   Denmark&#160; -&#160; Phone:
                                                   +45/66113010&#160; -&#160; Fax:
@@ -679,7 +679,7 @@
                                             <p align="center">
 
                                                 <font color="#FFFFFF">Dansk Data Arkiv&#160;
-                                                  -&#160; Islandsgade 10&#160; -&#160;
+                                                  -&#160; Jernbanegade 36&#160; -&#160;
                                                   5000 Odense C&#160; -&#160; Tlf:
                                                   66113010&#160; -&#160; Fax:
                                                   66113060&#160; -&#160; mailbox@dda.dk</font>
