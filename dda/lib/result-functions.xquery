@@ -11,6 +11,7 @@ module namespace result = "http://dda.dk/ddi/result";
 
 import module namespace context = "http://dda.dk/ddi/context" at "xmldb:exist:///db/apps/dda/lib/context-functions.xquery";
 
+declare namespace json="http://www.json.org";
 declare namespace i="ddi:instance:3_1";
 declare namespace su="ddi:studyunit:3_1";
 declare namespace r="ddi:reusable:3_1";
@@ -231,7 +232,7 @@ declare function result:buildResultListItem($result as element()) as element() {
 declare function result:buildListStudyListItem($result as element()) as element() {
     let $result-name := local-name($result)
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
-        parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}">
+        parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}" agency="{data($result/@agency)}" lastModified="{data($result/@versionDate)}">
         {local:getLabel($result)}
     </LightXmlObject>
 };
