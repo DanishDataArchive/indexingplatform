@@ -1,69 +1,46 @@
-<xsl:stylesheet xmlns="dda.dk/metadata/1.0.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-    xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns6="ddi:physicalinstance:3_1"
-    xmlns:ns7="ddi:logicalproduct:3_1" xmlns:ns8="ddi:datacollection:3_1"
-    xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1"
-    xmlns:ns3="ddi:archive:3_1" xmlns:ddi-cv="urn:ddi-cv" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0"
-    exclude-result-prefixes="ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv xhtml">
-
+<xsl:stylesheet xmlns="dda.dk/metadata/1.0.0" xmlns:dl="ddieditor-lightobject" xmlns:ddi-cv="urn:ddi-cv" xmlns:ns0="ddi:instance:3_1" xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1" xmlns:ns3="ddi:archive:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="ddi:physicalinstance:3_1" xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns8="ddi:datacollection:3_1" xmlns:ns7="ddi:logicalproduct:3_1" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="2.0" exclude-result-prefixes="ns0 ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv xhtml">
     <xsl:output indent="yes" method="xml" encoding="UTF-8" omit-xml-declaration="no"/>
-
     <xsl:param name="hostname" select="'http://dda.dk/catalogue'"/>
     <xsl:template match="@*|comment()|processing-instruction()|text()">
         <xsl:copy/>
     </xsl:template>
     <xsl:template match="*">
-        <xsl:apply-templates select="ns1:StudyUnit"/>
+        <xsl:apply-templates select="ns0:DDIInstance/ns1:StudyUnit">
+            <xsl:with-param name="seriesList" select="dl:LightXmlObjectList" tunnel="yes"/>
+        </xsl:apply-templates>
     </xsl:template>
     <xsl:template match="ns1:StudyUnit">
-
+        <xsl:param name="seriesList" tunnel="yes"/>
         <Study>
             <xsl:attribute name="xsi:schemaLocation">
                 <xsl:text>dda.dk/metadata/1.0.0  file:///home/ddajvj/Documents/DDA/indekseringsplatform-1.1/svn/ddaipf/trunk/web/schemas/MetaDataSchema.xsd</xsl:text>
             </xsl:attribute>
             <State>
                 <xsl:attribute name="codeListAgencyName">
-                    <xsl:value-of
-                        select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListAgencyName"
-                    />
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListAgencyName"/>
                 </xsl:attribute>
                 <xsl:attribute name="codeListID">
-                    <xsl:value-of
-                        select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListID"
-                    />
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListID"/>
                 </xsl:attribute>
                 <xsl:choose>
-                    <xsl:when
-                        test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID">
+                    <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID">
                         <xsl:attribute name="codeListVersionID">
-                            <xsl:value-of
-                                select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID"
-                            />
+                            <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID"/>
                         </xsl:attribute>
                     </xsl:when>
-                    <xsl:when
-                        test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName">
+                    <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName">
                         <xsl:attribute name="codeListVersionID">
-                            <xsl:value-of
-                                select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName"
-                            />
+                            <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName"/>
                         </xsl:attribute>
                     </xsl:when>
                 </xsl:choose>
                 <xsl:attribute name="codeListSchemeURN">
-                    <xsl:value-of
-                        select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListSchemeURN"
-                    />
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListSchemeURN"/>
                 </xsl:attribute>
                 <xsl:attribute name="codeListURN">
-                    <xsl:value-of
-                        select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListURN"
-                    />
+                    <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListURN"/>
                 </xsl:attribute>
-                <xsl:value-of
-                    select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType"
-                />
+                <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType"/>
             </State>
             <StudyIdentifier>
                 <Identifier>
@@ -76,8 +53,7 @@
             <PIDs>
                 <PID>
                     <ID>
-                        <xsl:value-of select="ns2:Citation/ns2:InternationalIdentifier[@type='DOI']"
-                        />
+                        <xsl:value-of select="ns2:Citation/ns2:InternationalIdentifier[@type='DOI']"/>
                     </ID>
                     <PIDType>DOI</PIDType>
                 </PID>
@@ -85,6 +61,11 @@
             <Titles>
                 <xsl:apply-templates select="ns2:Citation/ns2:Title"/>
             </Titles>
+            <xsl:if test="$seriesList/dl:LightXmlObject[@element='Group']">
+                <SeriesList>
+                    <xsl:apply-templates select="$seriesList/dl:LightXmlObject[@element='Group']"/>
+                </SeriesList>
+            </xsl:if>
             <PrincipalInvestigators>
                 <xsl:apply-templates select="ns3:Archive/ns3:OrganizationScheme/ns3:Individual"/>
                 <!-- Those are not investigators..todo: find another element for publishers/organisations
@@ -96,14 +77,10 @@
                 </DataURL>
             </DataURLs>
             <StudyPublicationDate>
-                <xsl:value-of
-                    select="substring-before(ns2:Citation/ns2:PublicationDate/ns2:SimpleDate, 'T')"
-                />
+                <xsl:value-of select="substring-before(ns2:Citation/ns2:PublicationDate/ns2:SimpleDate, 'T')"/>
             </StudyPublicationDate>
             <StudyRecievedDate>
-                <xsl:value-of
-                    select="substring-before(ns3:Archive/ns2:LifecycleInformation/ns2:LifecycleEvent[ns2:EventType='MOD']/ns2:Date/ns2:SimpleDate, 'T')"
-                />
+                <xsl:value-of select="substring-before(ns3:Archive/ns2:LifecycleInformation/ns2:LifecycleEvent[ns2:EventType='MOD']/ns2:Date/ns2:SimpleDate, 'T')"/>
             </StudyRecievedDate>
             <xsl:call-template name="Access"/>
             <StudyLanguage>da</StudyLanguage>
@@ -124,12 +101,9 @@
             <xsl:call-template name="DataCollection"/>
             <xsl:call-template name="Documentation"/>
             <xsl:call-template name="Publications"/>
-            <xsl:variable name="archiveOrganizationRef"
-                select="ns3:Archive/ns3:ArchiveSpecific/ns3:ArchiveOrganizationReference/ns2:ID"/>
+            <xsl:variable name="archiveOrganizationRef" select="ns3:Archive/ns3:ArchiveSpecific/ns3:ArchiveOrganizationReference/ns2:ID"/>
             <Archive>
-                <xsl:value-of
-                    select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$archiveOrganizationRef]/ns3:OrganizationName"
-                />
+                <xsl:value-of select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$archiveOrganizationRef]/ns3:OrganizationName"/>
             </Archive>
         </Study>
     </xsl:template>
@@ -166,11 +140,8 @@
                 </xsl:variable>
                 <xsl:if test="$orgId">
                     <Affiliation>
-                        <AffiliationName
-                            xml:lang="{../ns3:Organization[@id=$orgId]/ns3:OrganizationName/@xml:lang}">
-                            <xsl:value-of
-                                select="../ns3:Organization[@id=$orgId]/ns3:OrganizationName/text()"
-                            />
+                        <AffiliationName xml:lang="{../ns3:Organization[@id=$orgId]/ns3:OrganizationName/@xml:lang}">
+                            <xsl:value-of select="../ns3:Organization[@id=$orgId]/ns3:OrganizationName/text()"/>
                         </AffiliationName>
                     </Affiliation>
                 </xsl:if>
@@ -186,7 +157,6 @@
             </Institution>
         </PrincipalInvestigator>
     </xsl:template>
-
     <xsl:template match="ns2:Citation/ns2:Title">
         <Title>
             <xsl:if test="@xml:lang">
@@ -197,7 +167,6 @@
             <xsl:value-of select="text()"/>
         </Title>
     </xsl:template>
-
     <xsl:template name="StudyDescriptions">
         <StudyDescriptions>
             <xsl:if test="ns1:Purpose">
@@ -232,7 +201,6 @@
             </xsl:if>
         </StudyDescriptions>
     </xsl:template>
-
     <xsl:template match="ns2:Coverage/ns2:TopicalCoverage/ns2:Subject">
         <!--
             <Subject codeListAgencyName="dda.dk" 
@@ -292,18 +260,15 @@
     <xsl:template match="ns2:Coverage/ns2:TemporalCoverage">
         <TemporalCoverage>
             <StartDate>
-                <xsl:value-of select="substring-before(ns2:ReferenceDate/ns2:StartDate/text(),'T')"
-                />
+                <xsl:value-of select="substring-before(ns2:ReferenceDate/ns2:StartDate/text(),'T')"/>
             </StartDate>
             <EndDate>
                 <xsl:value-of select="substring-before(ns2:ReferenceDate/ns2:EndDate/text(),'T')"/>
             </EndDate>
             <!-- todo: er dette en acceptabel løsning? Der er kun en overordnet note og ikke en note for både start og end date. -->
             <xsl:variable name="temporalCoverageId" select="@id"/>
-            <xsl:if
-                test="//ns2:Note/ns2:Relationship/ns2:RelatedToReference/ns2:ID=$temporalCoverageId">
-                <xsl:for-each
-                    select="//ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$temporalCoverageId]">
+            <xsl:if test="//ns2:Note/ns2:Relationship/ns2:RelatedToReference/ns2:ID=$temporalCoverageId">
+                <xsl:for-each select="//ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$temporalCoverageId]">
                     <Description xml:lang="{ns2:Content/@xml:lang}">
                         <xsl:value-of select="ns2:Content"/>
                     </Description>
@@ -322,28 +287,18 @@
                 />
             </Restriction-->
             <!-- embargo -->
-            <xsl:if
-                test="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate">
+            <xsl:if test="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate">
                 <RestrictionDate>
                     <StartDate>
-                        <xsl:value-of
-                            select="substring-before(ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:StartDate/text(),'T')"
-                        />
+                        <xsl:value-of select="substring-before(ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:StartDate/text(),'T')"/>
                     </StartDate>
                     <EndDate>
-                        <xsl:value-of
-                            select="substring-before(ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate/text(),'T')"
-                        />
+                        <xsl:value-of select="substring-before(ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns3:AccessRestrictionDate/ns2:EndDate/text(),'T')"/>
                     </EndDate>
                 </RestrictionDate>
             </xsl:if>
-            <Condition codeListAgencyName="dda.dk" codeListID="urn:accessconditions.dda.dk"
-                codeListName="DDAAccessConditions"
-                codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                codeListURN="urn:accessconditions.dda.dk-1.0.0" codeListVersionID="1.0.0">
-                <xsl:value-of
-                    select="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns2:UserID[@type='dk.dda.study.archive.access.condition.cvcode']"
-                />
+            <Condition codeListAgencyName="dda.dk" codeListID="urn:accessconditions.dda.dk" codeListName="DDAAccessConditions" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:accessconditions.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:DefaultAccess/ns2:UserID[@type='dk.dda.study.archive.access.condition.cvcode']"/>
             </Condition>
         </Access>
     </xsl:template>
@@ -360,20 +315,14 @@
                                 <xsl:value-of select="ns2:AnalysisUnit/@codeListID"/>
                             </xsl:attribute>
                             <xsl:choose>
-                                <xsl:when
-                                    test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID">
+                                <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID">
                                     <xsl:attribute name="codeListVersionID">
-                                        <xsl:value-of
-                                            select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID"
-                                        />
+                                        <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListVersionID"/>
                                     </xsl:attribute>
                                 </xsl:when>
-                                <xsl:when
-                                    test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName">
+                                <xsl:when test="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName">
                                     <xsl:attribute name="codeListVersionID">
-                                        <xsl:value-of
-                                            select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName"
-                                        />
+                                        <xsl:value-of select="ns3:Archive/ns3:ArchiveSpecific/ns3:Collection/ns3:StudyClass/ns3:ClassType/@codeListName"/>
                                     </xsl:attribute>
                                 </xsl:when>
                             </xsl:choose>
@@ -397,9 +346,7 @@
                     </xsl:if>
                 </UnitType>
                 <NumberOfUnits>
-                    <xsl:value-of
-                        select="ns6:PhysicalInstance/ns6:GrossFileStructure/ns6:CaseQuantity/text()"
-                    />
+                    <xsl:value-of select="ns6:PhysicalInstance/ns6:GrossFileStructure/ns6:CaseQuantity/text()"/>
                 </NumberOfUnits>
                 <xsl:variable name="sampleNumberOfUnits">
                     <xsl:for-each select="ns8:DataCollection/ns2:UserID">
@@ -420,7 +367,7 @@
                 </SampleNumberOfUnits>
                 <NumberVariables>
                     <xsl:choose>
-                        <xsl:when test="count(ns7:LogicalProduct)>0">
+                        <xsl:when test="count(ns7:LogicalProduct)&gt;0">
                             <xsl:value-of select="count(//ns7:Variable)"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -441,107 +388,63 @@
     <xsl:template name="Methodology">
         <Methodology>
             <TestType>
-                <TestTypeIdentifier codeListAgencyName="dda.dk"
-                    codeListID="urn:datacollectionmethodology.dda.dk"
-                    codeListName="DDADataCollectionMethodology"
-                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                    codeListURN="urn:datacollectionmethodology.dda.dk-1.0.0"
-                    codeListVersionID="1.0.0">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[1]/ns2:UserID"
-                    />
+                <TestTypeIdentifier codeListAgencyName="dda.dk" codeListID="urn:datacollectionmethodology.dda.dk" codeListName="DDADataCollectionMethodology" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:datacollectionmethodology.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[1]/ns2:UserID"/>
                 </TestTypeIdentifier>
                 <xsl:variable name="testTypeDaId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[ns2:Content/@xml:lang='da']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[ns2:Content/@xml:lang='da']/@id"/>
                 </xsl:variable>
                 <xsl:variable name="testTypeEnId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[ns2:Content/@xml:lang='en']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:DataCollectionMethodology[ns2:Content/@xml:lang='en']/@id"/>
                 </xsl:variable>
                 <Description xml:lang="da">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$testTypeDaId]/ns2:Content"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$testTypeDaId]/ns2:Content"/>
                 </Description>
                 <Description xml:lang="en">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$testTypeEnId]/ns2:Content"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$testTypeEnId]/ns2:Content"/>
                 </Description>
             </TestType>
             <TimeMethod>
-                <TimeMethodIdentifier codeListAgencyName="dda.dk" codeListID="urn:timemethod.dda.dk"
-                    codeListName="DDATimeMethod"
-                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                    codeListURN="urn:timemethod.dda.dk-1.0.0" codeListVersionID="1.0.0">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[1]/ns2:UserID"/>
+                <TimeMethodIdentifier codeListAgencyName="dda.dk" codeListID="urn:timemethod.dda.dk" codeListName="DDATimeMethod" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:timemethod.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[1]/ns2:UserID"/>
                 </TimeMethodIdentifier>
                 <xsl:variable name="timeMethodDaId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[ns2:Content/@xml:lang='da']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[ns2:Content/@xml:lang='da']/@id"/>
                 </xsl:variable>
                 <xsl:variable name="timeMethodEnId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[ns2:Content/@xml:lang='en']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:TimeMethod[ns2:Content/@xml:lang='en']/@id"/>
                 </xsl:variable>
                 <Description xml:lang="da">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$timeMethodDaId]/ns2:Content/text() "
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$timeMethodDaId]/ns2:Content/text() "/>
                 </Description>
                 <Description xml:lang="en">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$timeMethodEnId]/ns2:Content/text() "
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$timeMethodEnId]/ns2:Content/text() "/>
                 </Description>
             </TimeMethod>
             <SamplingProcedure>
-                <SamplingProcedureIdentifier codeListAgencyName="dda.dk"
-                    codeListID="urn:samplingprocedure.dda.dk" codeListName="DDASamplingProcedure"
-                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                    codeListURN="urn:samplingprocedure.dda.dk-1.0.0" codeListVersionID="1.0.0">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[1]/ns2:UserID"
-                    />
+                <SamplingProcedureIdentifier codeListAgencyName="dda.dk" codeListID="urn:samplingprocedure.dda.dk" codeListName="DDASamplingProcedure" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:samplingprocedure.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[1]/ns2:UserID"/>
                 </SamplingProcedureIdentifier>
                 <xsl:variable name="samplingProcDaId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[ns2:Content/@xml:lang='da']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[ns2:Content/@xml:lang='da']/@id"/>
                 </xsl:variable>
                 <xsl:variable name="samplingProcEnId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[ns2:Content/@xml:lang='en']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:Methodology/ns8:SamplingProcedure[ns2:Content/@xml:lang='en']/@id"/>
                 </xsl:variable>
                 <Description xml:lang="da">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$samplingProcDaId]/ns2:Content"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$samplingProcDaId]/ns2:Content"/>
                 </Description>
                 <Description xml:lang="en">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$samplingProcEnId]/ns2:Content"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$samplingProcEnId]/ns2:Content"/>
                 </Description>
             </SamplingProcedure>
             <xsl:for-each select="ns1:KindOfData">
                 <DataType>
-                    <DataTypeIdentifier codeListAgencyName="dda.dk"
-                        codeListID="urn:kindofdata.dda.dk" codeListName="DDAKindOfData"
-                        codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                        codeListURN="urn:kindofdata.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                    <DataTypeIdentifier codeListAgencyName="dda.dk" codeListID="urn:kindofdata.dda.dk" codeListName="DDAKindOfData" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:kindofdata.dda.dk-1.0.0" codeListVersionID="1.0.0">
                         <xsl:value-of select="."/>
                     </DataTypeIdentifier>
                     <!-- lookup description -->
-                    <xsl:for-each
-                        select="../ns2:Note[ns2:UserID/text()='dk.dda.ddi.kindofdata-0.1']">
+                    <xsl:for-each select="../ns2:Note[ns2:UserID/text()='dk.dda.ddi.kindofdata-0.1']">
                         <xsl:variable name="noteLang" select="ns2:Content/@xml:lang"/>
                         <Description xml:lang="{$noteLang}">
                             <xsl:value-of select="ns2:Content"/>
@@ -550,32 +453,23 @@
                 </DataType>
             </xsl:for-each>
             <NumberOfQuestions>
-                <xsl:value-of select="count(ns8:DataCollection/ns8:QuestionScheme/ns8:QuestionItem)"
-                />
+                <xsl:value-of select="count(ns8:DataCollection/ns8:QuestionScheme/ns8:QuestionItem)"/>
             </NumberOfQuestions>
             <!-- action to minimize losses -->
             <xsl:variable name="actionToMinimizeLossesDaId">
-                <xsl:value-of
-                    select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[ns2:Content/@xml:lang='da']/@id"
-                />
+                <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[ns2:Content/@xml:lang='da']/@id"/>
             </xsl:variable>
             <xsl:variable name="actionToMinimizeLossesEnId">
-                <xsl:value-of
-                    select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[ns2:Content/@xml:lang='en']/@id"
-                />
+                <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[ns2:Content/@xml:lang='en']/@id"/>
             </xsl:variable>
             <xsl:if test="$actionToMinimizeLossesDaId!=''">
                 <ActionToMinimizeLosses>
                     <Description xml:lang="da">
-                        <xsl:value-of
-                            select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[@id=$actionToMinimizeLossesDaId]/ns2:Content"
-                        />
+                        <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[@id=$actionToMinimizeLossesDaId]/ns2:Content"/>
                     </Description>
                     <xsl:if test="$actionToMinimizeLossesEnId!=''">
                         <Description xml:lang="en">
-                            <xsl:value-of
-                                select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[@id=$actionToMinimizeLossesEnId]/ns2:Content"
-                            />
+                            <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ActionToMinimizeLosses[@id=$actionToMinimizeLossesEnId]/ns2:Content"/>
                         </Description>
                     </xsl:if>
                 </ActionToMinimizeLosses>
@@ -585,47 +479,30 @@
     <xsl:template name="DataCollection">
         <DataCollection>
             <ModeOfCollection>
-                <ModeOfCollectionIdentifier codeListAgencyName="dda.dk"
-                    codeListID="urn:datacollectionmode.dda.dk" codeListName="DDAModeOfCollection"
-                    codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                    codeListURN="urn:datacollectionmode.dda.dk-1.0.0" codeListVersionID="1.0.0">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[1]/ns2:UserID"
-                    />
+                <ModeOfCollectionIdentifier codeListAgencyName="dda.dk" codeListID="urn:datacollectionmode.dda.dk" codeListName="DDAModeOfCollection" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:datacollectionmode.dda.dk-1.0.0" codeListVersionID="1.0.0">
+                    <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[1]/ns2:UserID"/>
                 </ModeOfCollectionIdentifier>
                 <xsl:variable name="modeOfCollectionDaId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[ns2:Content/@xml:lang='da']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[ns2:Content/@xml:lang='da']/@id"/>
                 </xsl:variable>
                 <xsl:variable name="modeOfCollectionEnId">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[ns2:Content/@xml:lang='en']/@id"
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns8:CollectionEvent/ns8:ModeOfCollection[ns2:Content/@xml:lang='en']/@id"/>
                 </xsl:variable>
                 <Description xml:lang="da">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$modeOfCollectionDaId]/ns2:Content/text() "
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$modeOfCollectionDaId]/ns2:Content/text() "/>
                 </Description>
                 <Description xml:lang="en">
-                    <xsl:value-of
-                        select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$modeOfCollectionEnId]/ns2:Content/text() "
-                    />
+                    <xsl:value-of select="ns8:DataCollection/ns2:Note[ns2:Relationship/ns2:RelatedToReference/ns2:ID=$modeOfCollectionEnId]/ns2:Content/text() "/>
                 </Description>
             </ModeOfCollection>
-            <xsl:variable name="dataCollectorOrgRef"
-                select="ns8:DataCollection/ns8:CollectionEvent/ns8:DataCollectorOrganizationReference/ns2:ID"/>
+            <xsl:variable name="dataCollectorOrgRef" select="ns8:DataCollection/ns8:CollectionEvent/ns8:DataCollectorOrganizationReference/ns2:ID"/>
             <xsl:if test="$dataCollectorOrgRef">
                 <DataCollectorOrganizationReference>
-                    <xsl:value-of
-                        select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef/text()]/ns3:OrganizationName"
-                    />
+                    <xsl:value-of select="ns3:Archive/ns3:OrganizationScheme/ns3:Organization[@id=$dataCollectorOrgRef/text()]/ns3:OrganizationName"/>
                 </DataCollectorOrganizationReference>
             </xsl:if>
         </DataCollection>
     </xsl:template>
-
     <xsl:template name="Documentation">
         <Documentation>
             <File MimeType="text/html">
@@ -669,7 +546,6 @@
             </File>
         </Documentation>
     </xsl:template>
-
     <xsl:template name="Publications">
         <Publications>
             <!-- primary -->
@@ -691,14 +567,10 @@
             </xsl:for-each>
         </Publications>
     </xsl:template>
-
     <xsl:template name="Publication">
         <xsl:param name="type"/>
         <Publication>
-            <PublicationType codeListAgencyName="dda.dk" codeListID="urn:dda-cv:studypublication"
-                codeListName="DDAStudyPublication"
-                codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                codeListURN="urn:dda-cv:studypublication:1.0.0" codeListVersionID="1.0.0">
+            <PublicationType codeListAgencyName="dda.dk" codeListID="urn:dda-cv:studypublication" codeListName="DDAStudyPublication" codeListSchemeURN="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" codeListURN="urn:dda-cv:studypublication:1.0.0" codeListVersionID="1.0.0">
                 <xsl:value-of select="$type"/>
             </PublicationType>
             <Authors>
@@ -729,5 +601,28 @@
             </xsl:if>
             <!--PIDs/-->
         </Publication>
+    </xsl:template>
+    <xsl:template match="dl:LightXmlObject">
+        <Series>
+            <Titles>
+                <xsl:apply-templates select="dl:CustomList[@type='Title']/dl:Custom[@option='Title']"/>
+            </Titles>
+            <StudyIdentifier>
+                <Identifier>
+                    <xsl:value-of select="@id"/>
+                </Identifier>
+                <CurrentVersion>
+                    <xsl:value-of select="@version"/>
+                </CurrentVersion>
+            </StudyIdentifier>
+        </Series>
+    </xsl:template>
+    <xsl:template match="dl:CustomList/dl:Custom">
+        <Title>
+            <xsl:attribute name="xml:lang">
+                <xsl:value-of select="@value"/>
+            </xsl:attribute>
+            <xsl:value-of select="text()"/>
+        </Title>
     </xsl:template>
 </xsl:stylesheet>

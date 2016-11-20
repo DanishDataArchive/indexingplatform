@@ -95,8 +95,6 @@ declare function local:getContext($node as element()) as element() {
     </Context>
 };
 
-
-
 (:~
  : Returns a Custom element containing the info about the StudyUnit 
  :
@@ -234,6 +232,19 @@ declare function result:buildListStudyListItem($result as element()) as element(
     return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}" agency="{data($result/@agency)}" lastModified="{data($result/@versionDate)}">
         {local:getLabel($result)}
+    </LightXmlObject>
+};
+
+declare function result:buildListSeriesListItem($result as element()) as element() {
+    let $result-name := local-name($result)
+    return <LightXmlObject xmlns="ddieditor-lightobject" element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
+        parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}" agency="{data($result/@agency)}" lastModified="{data($result/@versionDate)}">
+        <CustomList type="Title">
+            {
+            for $title in $result/r:Citation/r:Title
+                return <Custom option="Title" value="{data($title/@xml:lang)}">{data($title)}</Custom>
+            }
+        </CustomList>
     </LightXmlObject>
 };
 

@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    attributeFormDefault="unqualified" targetNamespace="dda.dk/metadata/1.0.0"
-    xmlns="dda.dk/metadata/1.0.0" xmlns:xml="http://www.w3.org/XML/1998/namespace">
-
-    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-        schemaLocation="http://www.w3.org/2001/xml.xsd"/>
-
+<xs:schema xmlns="dda.dk/metadata/1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="dda.dk/metadata/1.0.0">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
     <xs:element name="Titles">
         <xs:complexType>
             <xs:sequence>
@@ -13,7 +7,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Title">
         <xs:complexType>
             <xs:simpleContent>
@@ -23,7 +16,24 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-
+    <xs:element name="SeriesList">
+        <xs:annotation>
+            <xs:documentation/>
+        </xs:annotation>
+        <xs:complexType mixed="false">
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Series"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Series">
+        <xs:complexType mixed="false">
+            <xs:choice>
+                <xs:element ref="Titles" maxOccurs="1" minOccurs="1"/>
+                <xs:element ref="StudyIdentifier" maxOccurs="1" minOccurs="1"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="PrincipalInvestigators">
         <xs:annotation>
             <xs:documentation/>
@@ -42,7 +52,6 @@
             </xs:choice>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Person">
         <xs:complexType>
             <xs:sequence maxOccurs="1" minOccurs="1">
@@ -60,7 +69,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Affiliation">
         <xs:complexType mixed="false">
             <xs:sequence maxOccurs="1" minOccurs="1">
@@ -76,7 +84,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Institution">
         <xs:complexType>
             <xs:sequence maxOccurs="1" minOccurs="1">
@@ -92,7 +99,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="DataURLs">
         <xs:complexType>
             <xs:sequence>
@@ -104,7 +110,6 @@
             <xs:field xpath="."/>
         </xs:unique>
     </xs:element>
-
     <xs:element name="StudyLanguage">
         <xs:simpleType>
             <xs:restriction base="xs:string">
@@ -112,10 +117,8 @@
             </xs:restriction>
         </xs:simpleType>
     </xs:element>
-
     <xs:element name="StudyPublicationDate" type="xs:date"/>
     <xs:element name="StudyRecievedDate" type="xs:date"/>
-
     <xs:element name="StudyDescriptions">
         <xs:complexType>
             <xs:sequence>
@@ -147,7 +150,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="GeographicCoverages">
         <xs:complexType>
             <xs:sequence>
@@ -158,8 +160,7 @@
     <xs:element name="GeographicCoverage">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Label" minOccurs="0" maxOccurs="unbounded"
-                    type="nonemptycontentStringType"/>
+                <xs:element name="Label" minOccurs="0" maxOccurs="unbounded" type="nonemptycontentStringType"/>
                 <xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:complexContent>
@@ -180,7 +181,6 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Universes">
         <xs:complexType>
             <xs:sequence maxOccurs="unbounded" minOccurs="1">
@@ -212,7 +212,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="TemporalCoverage">
         <xs:complexType>
             <xs:sequence>
@@ -237,7 +236,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="DataSet">
         <xs:complexType>
             <xs:sequence maxOccurs="1" minOccurs="1">
@@ -266,7 +264,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="StudyIdentifier">
         <xs:complexType>
             <xs:sequence>
@@ -311,12 +308,10 @@
     <xs:element name="PIDType">
         <xs:simpleType>
             <xs:restriction base="xs:string">
-                <xs:pattern
-                    value="ARK|DOI|EAN13|EISSN|Handle|ISBN|ISSN|ISTC|LISSN|LSID|PURL|UPC|URL|URN"/>
+                <xs:pattern value="ARK|DOI|EAN13|EISSN|Handle|ISBN|ISSN|ISTC|LISSN|LSID|PURL|UPC|URL|URN"/>
             </xs:restriction>
         </xs:simpleType>
     </xs:element>
-
     <xs:element name="Study">
         <xs:complexType>
             <xs:sequence minOccurs="1">
@@ -324,6 +319,7 @@
                 <xs:element ref="StudyIdentifier"/>
                 <xs:element ref="PIDs" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Titles"/>
+                <xs:element ref="SeriesList"/>
                 <xs:element ref="PrincipalInvestigators"/>
                 <xs:element ref="DataURLs" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="StudyPublicationDate"/>
@@ -381,7 +377,6 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-
     <xs:attributeGroup name="ControlledVocabularyAttributeGroup">
         <xs:attribute name="codeListAgencyName" type="xs:string" use="optional"/>
         <xs:attribute name="codeListID" type="xs:string" use="optional"/>
@@ -390,13 +385,11 @@
         <xs:attribute name="codeListURN" type="xs:string" use="optional"/>
         <xs:attribute name="codeListVersionID" type="xs:string" use="optional"/>
     </xs:attributeGroup>
-
     <xs:element name="State">
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Access">
         <xs:complexType>
             <xs:sequence>
@@ -421,7 +414,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="TopicalCoverage">
         <xs:complexType>
             <xs:sequence>
@@ -442,7 +434,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Subject">
         <xs:complexType>
             <xs:simpleContent>
@@ -453,7 +444,6 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Keyword">
         <xs:complexType>
             <xs:simpleContent>
@@ -464,7 +454,6 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Methodology">
         <xs:complexType>
             <xs:sequence>
@@ -477,7 +466,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="TestType">
         <xs:complexType>
             <xs:sequence>
@@ -498,7 +486,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="TimeMethod">
         <xs:complexType>
             <xs:sequence>
@@ -519,7 +506,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="SamplingProcedure">
         <xs:complexType>
             <xs:sequence>
@@ -540,7 +526,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="DataType">
         <xs:complexType>
             <xs:sequence>
@@ -561,7 +546,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="ActionToMinimizeLosses">
         <xs:complexType>
             <xs:sequence>
@@ -577,18 +561,15 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="DataCollection">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="ModeOfCollection" minOccurs="0" maxOccurs="1"/>
                 <!-- todo: sæt IF på i transform, da han ofte ikke er med -->
-                <xs:element name="DataCollectorOrganizationReference" minOccurs="0" maxOccurs="1"
-                    type="nonemptycontentStringType"/>
+                <xs:element name="DataCollectorOrganizationReference" minOccurs="0" maxOccurs="1" type="nonemptycontentStringType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="ModeOfCollection">
         <xs:complexType>
             <xs:sequence>
@@ -609,7 +590,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Documentation">
         <xs:complexType>
             <xs:sequence>
@@ -620,8 +600,7 @@
     <xs:element name="File">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Label" minOccurs="0" maxOccurs="1"
-                    type="nonemptycontentStringType"/>
+                <xs:element name="Label" minOccurs="0" maxOccurs="1" type="nonemptycontentStringType"/>
                 <xs:element name="URI" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Type" minOccurs="0" maxOccurs="1">
                     <xs:simpleType>
@@ -638,7 +617,6 @@
             <xs:attribute name="MimeType" type="xs:anyURI" use="optional"/>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Publications">
         <xs:complexType>
             <xs:sequence>
@@ -646,7 +624,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="Publication">
         <xs:annotation>
             <xs:documentation xml:lang="en">Structured recording of the scientific publications
@@ -669,8 +646,7 @@
                         <xs:documentation>Location of publication</xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element minOccurs="0" maxOccurs="1" name="PublicationReferenceAndPage"
-                    type="xs:string">
+                <xs:element minOccurs="0" maxOccurs="1" name="PublicationReferenceAndPage" type="xs:string">
                     <xs:annotation>
                         <xs:documentation>Description of publication published in: Journal, volume,
                             issue or anthology -and page location within
@@ -681,7 +657,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="PublicationType">
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="ControlledVocabularyAttributeGroup"/>

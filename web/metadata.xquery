@@ -16,7 +16,8 @@ declare function local:main() as node()? {
     let $study := ddi:getDdiStudy(request:get-parameter("studyid", "0"))
     let $stylesheet := doc("/db/apps/web/transform/metadata/DdiStudyUnit_To_DdaMetadata.xsl")
     let $params := <parameters></parameters>
-    return transform:transform($study, $stylesheet, $params)
+    let $wrappedMetaDataXml := <MetaDataWrapper>{$study}</MetaDataWrapper>
+    return transform:transform($wrappedMetaDataXml, $stylesheet, $params)
 };
 
 local:main()

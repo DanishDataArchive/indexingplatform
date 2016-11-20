@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LandingPageLabels>    
+<LandingPageLabels>
     <Label id="host">
         <!-- production-->
         <LabelText xml:lang="production_xternal">http://kipon.dda.dk</LabelText>
@@ -24,6 +24,10 @@
     <Label id="orderdata">
         <LabelText xml:lang="da">Bestil data</LabelText>
         <LabelText xml:lang="en">Order data</LabelText>
+    </Label>
+    <Label id="partofseries">
+        <LabelText xml:lang="da">Del af serie</LabelText>
+        <LabelText xml:lang="en">Part of series</LabelText>
     </Label>
     <Label id="principalinvestigator">
         <LabelText xml:lang="da">Primærundersøger</LabelText>
@@ -60,7 +64,7 @@
     <Label id="universe">
         <LabelText xml:lang="da">Universe</LabelText>
         <LabelText xml:lang="en">Universe</LabelText>
-    </Label>    
+    </Label>
     <Label id="geographiccoverage">
         <LabelText xml:lang="da">Geografisk afgrænsning</LabelText>
         <LabelText xml:lang="en">Geographic Coverage</LabelText>
@@ -160,7 +164,7 @@
     <Label id="archiveinfo">
         <LabelText xml:lang="da">Arkiv information</LabelText>
         <LabelText xml:lang="en">Archive information</LabelText>
-    </Label> 
+    </Label>
     <Label id="receiveddate">
         <LabelText xml:lang="da">Modtaget</LabelText>
         <LabelText xml:lang="en">Received</LabelText>
@@ -226,7 +230,7 @@
         <LabelText xml:lang="en">NA</LabelText>
     </Label>
     <Label id="">
-        <LabelText xml:lang="da"></LabelText>
-        <LabelText xml:lang="en"></LabelText>
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en"/>
     </Label>
 </LandingPageLabels>

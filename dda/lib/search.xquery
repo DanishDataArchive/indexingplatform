@@ -17,6 +17,7 @@ declare namespace r="ddi:reusable:3_1";
 declare namespace dc="ddi:datacollection:3_1";
 declare namespace cc="ddi:conceptualcomponent:3_1";
 declare namespace lp="ddi:logicalproduct:3_1";
+declare namespace g="ddi:group:3_1";
 
 declare namespace ssp="http://dda.dk/ddi/simple-search-parameters";
 declare namespace asp="http://dda.dk/ddi/advanced-search-parameters";
@@ -24,6 +25,27 @@ declare namespace smd="http://dda.dk/ddi/search-metadata";
 declare namespace s="http://dda.dk/ddi/scope";
 declare namespace d="http://dda.dk/ddi/denormalized-ddi";
 
+
+declare function ddi:getDdiStudy($studyId as xs:string) as element()* {
+    let $study := collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $studyId)]
+    return $study/ancestor::i:DDIInstance
+};
+
+declare function ddi:getSeriesListForStudy($studyId as xs:string) as element()* {
+    let $seriesList := collection('/db/apps/dda')//g:Group[ft:query(g:StudyUnit/g:Reference/r:ID, $studyId)]
+    return $seriesList/ancestor::i:DDIInstance
+};
+
+declare function ddi:getSeriesListMetaDataForStudy($studyId as xs:string, $lang as xs:string) as element()* {
+    let $seriesList := <LightXmlObjectList xmlns="ddieditor-lightobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd">
+    { 
+        for $series in collection('/db/apps/dda')//g:Group[ft:query(g:StudyUnit/g:Reference/r:ID, $studyId)]
+        order by $series/g:Group/r:Citation/r:Title[@xml:lang=$lang]
+        return result:buildListSeriesListItem($series)
+    }
+    </LightXmlObjectList>
+    return $seriesList
+};
 
 (:~
  : Makes a free-text search in StudyUnit elements and returns the element(s) containing the match
@@ -33,11 +55,6 @@ declare namespace d="http://dda.dk/ddi/denormalized-ddi";
  : @version 1.0
  : @param   $search-string the string that needs to be matched
  :)
-declare function ddi:getDdiStudy($studyId as xs:string) as element()* {
-    let $study := collection('/db/apps/dda')//su:StudyUnit[ft:query(@id, $studyId)]
-    return $study/ancestor::i:DDIInstance
-};
-
 declare function ddi:listDdiStudies($lang as xs:string) as element()* {
     let $studies := for $result in collection('/db/apps/dda')//su:StudyUnit
     order by $result/r:Citation/r:Title[@xml:lang=$lang]

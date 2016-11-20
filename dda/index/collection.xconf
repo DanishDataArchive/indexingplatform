@@ -1,5 +1,5 @@
-<collection xmlns="http://exist-db.org/collection-config/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd">
-  <index xmlns:dc="ddi:datacollection:3_1" xmlns:r="ddi:reusable:3_1" xmlns:lp="ddi:logicalproduct:3_1" xmlns:su="ddi:studyunit:3_1" xmlns:cco="ddi:conceptualcomponent:3_1" xmlns:i="ddi:instance:3_1">
+<collection xmlns="http://exist-db.org/collection-config/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://exist-db.org/collection-config/1.0 file:/C:/dda/exist/schema/collection.xconf.xsd">
+  <index xmlns:su="ddi:studyunit:3_1" xmlns:lp="ddi:logicalproduct:3_1" xmlns:i="ddi:instance:3_1" xmlns:cco="ddi:conceptualcomponent:3_1" xmlns:r="ddi:reusable:3_1" xmlns:dc="ddi:datacollection:3_1" xmlns:g="ddi:group:3_1">
     
     <!-- Disable the standard full text index -->
     <fulltext default="none" attributes="false"/>
@@ -13,6 +13,8 @@
       <analyzer id="da" class="org.apache.lucene.analysis.da.DanishAnalyzer"/>
       
       <!-- Index for full-text search -->
+      <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:InternationalIdentifier-->
+      <text qname="r:InternationalIdentifier" analyzer="ws" boost="9.0"/>
       <!--/i:DDIInstance/su:StudyUnit/@id-->
       <text match="//su:StudyUnit/@id" analyzer="ws" boost="8.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Creator-->
@@ -81,12 +83,16 @@
       <text match="//lp:CodeScheme/lp:Code/lp:CategoryReference/r:ID" analyzer="ws"/>
       <!--/i:DDIInstance/su:StudyUnit/lp:LogicalProduct/lp:CategoryScheme/lp:Category/@id-->
       <text match="//lp:Category/@id" analyzer="ws"/>
+      
+      <!-- Index for series -->
+      <!--/i:DDIInstance/g:Group/g:StudyUnit/g:Reference/r:ID-->
+      <text match="//g:StudyUnit/g:Reference/r:ID" analyzer="ws"/>
     </lucene>
     
     <!-- Range indexes -->
-    <create path="//r:TemporalCoverage/r:ReferenceDate/r:StartDate"  type="xs:dateTime"/>
+    <create path="//r:TemporalCoverage/r:ReferenceDate/r:StartDate" type="xs:dateTime"/>
     <!-- <create qname="r:StartDate" type="xs:dateTime"/> -->
-    <create path="//r:TemporalCoverage/r:ReferenceDate/r:EndDate"   type="xs:dateTime"/>
+    <create path="//r:TemporalCoverage/r:ReferenceDate/r:EndDate" type="xs:dateTime"/>
     <!-- <create qname="r:EndDate" type="xs:dateTime"/> -->
   </index>
 </collection>

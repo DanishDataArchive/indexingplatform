@@ -33,7 +33,10 @@ declare function local:main() as node()? {
         then 'da'
     else 'en'
     
+    let $seriesMetaDataList := ddi:getSeriesListMetaDataForStudy($studyId, $lang)
     let $currentVersion := $versions//LightXmlObject[@element='main-db']/@version
+    
+    let $wrappedMetaDataXml := <MetaDataWrapper>{$study, $seriesMetaDataList}</MetaDataWrapper>
     
     let $params := <parameters>
             <param name="lang" value="{$lang}"/>
@@ -42,9 +45,9 @@ declare function local:main() as node()? {
             <param name="hostname" value="@WEB-HOST_NAME@" />
         </parameters>
 
-    let $metadataResultXml := transform:transform($study, $metadataStylesheet, $params)
-    return transform:transform($metadataResultXml, $landingpageStylesheet, $params)
+    let $metadataResultXml := transform:transform($wrappedMetaDataXml, $metadataStylesheet, $params)
     
+    return transform:transform($metadataResultXml, $landingpageStylesheet, $params)
 };
 
 local:main()
