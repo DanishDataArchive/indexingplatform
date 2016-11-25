@@ -1,11 +1,13 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="dda.dk/metadata/1.0.0" version="1.0">
+<xsl:stylesheet xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:import href="lp-core.xsl"/>
+    <xsl:import href="lp-core-series.xsl"/>
     <xsl:import href="../searchresult/result-html-fragments-default.xsl"/>
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/html4/loose.dtd" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" indent="yes"/>
     <xsl:param name="lang"/>
     <xsl:param name="previousVersions"/>
     <xsl:param name="cvFolder"/>
     <xsl:param name="hostname"/>
+    <xsl:param name="type"/>
     <xsl:variable name="labels" select="document('lp-labels.xml')"/>
     <xsl:template match="*">
         <xsl:variable name="studyId" select="ns1:StudyIdentifier/ns1:Identifier"/>
@@ -189,29 +191,57 @@
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <strong class="lp">
-                                                                                            <xsl:value-of select="concat('DDA-', substring-after(ns1:StudyIdentifier/ns1:Identifier, 'DDA-'))"/>
-                                                                                        </strong>
+                                                                                        <xsl:if test="not($type = 'series')">
+                                                                                            <strong class="lp">
+                                                                                                <xsl:value-of select="concat('DDA-', substring-after(ns1:StudyIdentifier/ns1:Identifier, 'DDA-'))"/>
+                                                                                            </strong>
+                                                                                        </xsl:if>
                                                                                     </td>
                                                                                     <td/>
                                                                                     <td style="text-align:right">
-                                                                                        <xsl:variable name="orderdata" select="$labels/LandingPageLabels/Label[@id='orderdata']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                        <form method="post" name="order" action="order.html" target="_blank">
-                                                                                            <input name="submit_order" type="button" class="lporderButton lporderText" value="{$orderdata}" style="width:90px;" onclick="createOrder()"/>
-                                                                                            <input type="hidden" name="studyId[]" value="{ns1:StudyIdentifier/ns1:Identifier}"/>
-                                                                                            <input type="hidden" name="studyTitle[]" value="{ns1:Titles/ns1:Title[@xml:lang=$lang]/text()}"/>
-                                                                                        </form>
+                                                                                        <xsl:choose>
+                                                                                            <xsl:when test="$type = 'series'">
+                                                                                                <xsl:variable name="orderdata" select="$labels/LandingPageLabels/Label[@id='orderseries']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                                <form method="post" name="order" action="order.html" target="_blank">
+                                                                                                    <input name="submit_order" type="button" class="lporderButton lporderText" value="{$orderdata}" style="width:90px;" onclick="createOrder()"/>
+                                                                                                    <xsl:for-each select="ns1:SeriesStudyReferences/ns1:SeriesStudyReference">
+                                                                                                        <input type="hidden" name="studyId[]" value="{ns1:StudyIdentifier/ns1:Identifier}"/>
+                                                                                                        <input type="hidden" name="studyTitle[]" value="{ns1:Titles/ns1:Title[@xml:lang=$lang]/text()}"/>
+                                                                                                    </xsl:for-each>
+                                                                                                </form>
+                                                                                            </xsl:when>
+                                                                                            <xsl:otherwise>
+                                                                                                <xsl:variable name="orderdata" select="$labels/LandingPageLabels/Label[@id='orderdata']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                                <form method="post" name="order" action="order.html" target="_blank">
+                                                                                                    <input name="submit_order" type="button" class="lporderButton lporderText" value="{$orderdata}" style="width:90px;" onclick="createOrder()"/>
+                                                                                                    <input type="hidden" name="studyId[]" value="{ns1:StudyIdentifier/ns1:Identifier}"/>
+                                                                                                    <input type="hidden" name="studyTitle[]" value="{ns1:Titles/ns1:Title[@xml:lang=$lang]/text()}"/>
+                                                                                                </form>
+                                                                                            </xsl:otherwise>
+                                                                                        </xsl:choose>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
                                                                         <div id="lpcontent">
-                                                                            <xsl:call-template name="lp-core-content">
-                                                                                <xsl:with-param name="lang" select="$lang"/>
-                                                                                <xsl:with-param name="previousVersions" select="$previousVersions"/>
-                                                                                <xsl:with-param name="cvFolder" select="$cvFolder"/>
-                                                                                <xsl:with-param name="hostname" select="$hostname"/>
-                                                                            </xsl:call-template>
+                                                                            <xsl:choose>
+                                                                                <xsl:when test="$type = 'series'">
+                                                                                    <xsl:call-template name="lp-core-content-series">
+                                                                                        <xsl:with-param name="lang" select="$lang"/>
+                                                                                        <xsl:with-param name="previousVersions" select="$previousVersions"/>
+                                                                                        <xsl:with-param name="cvFolder" select="$cvFolder"/>
+                                                                                        <xsl:with-param name="hostname" select="$hostname"/>
+                                                                                    </xsl:call-template>
+                                                                                </xsl:when>
+                                                                                <xsl:otherwise>
+                                                                                    <xsl:call-template name="lp-core-content">
+                                                                                        <xsl:with-param name="lang" select="$lang"/>
+                                                                                        <xsl:with-param name="previousVersions" select="$previousVersions"/>
+                                                                                        <xsl:with-param name="cvFolder" select="$cvFolder"/>
+                                                                                        <xsl:with-param name="hostname" select="$hostname"/>
+                                                                                    </xsl:call-template>
+                                                                                </xsl:otherwise>
+                                                                            </xsl:choose>
                                                                         </div>
                                                                     </td>
                                                                 </tr>

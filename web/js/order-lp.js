@@ -6,12 +6,14 @@ function createOrder() {
     
     var studyIdElements = document.getElementsByName("studyId[]");
     var studyTitleElements = document.getElementsByName("studyTitle[]");
-    var studyIDs = new Array();;
-    var studyTitles = new Array();;
+    var studyIDs = new Array();
+    var studyTitles = new Array();
     
     // Add the study ID and title to the lists
-    studyIDs.push(studyIdElements[0].value);
-    studyTitles.push(studyTitleElements[0].value);
+    for (i = 0; i < studyIdElements.length; i++) {
+        studyIDs.push(studyIdElements[i].value);
+        studyTitles.push(studyTitleElements[i].value);
+    }
     
     // Serialize the arrays to strings and store them into local storage
     // TODO IE

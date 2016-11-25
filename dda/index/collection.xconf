@@ -17,6 +17,8 @@
       <text qname="r:InternationalIdentifier" analyzer="ws" boost="9.0"/>
       <!--/i:DDIInstance/su:StudyUnit/@id-->
       <text match="//su:StudyUnit/@id" analyzer="ws" boost="8.0"/>
+      <!--/i:DDIInstance/g:Group/@id-->
+      <text match="//g:Group/@id" analyzer="ws" boost="8.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Creator-->
       <text qname="r:Creator" analyzer="da" boost="7.0"/>
       <!--/i:DDIInstance/su:StudyUnit/r:Citation/r:Title-->

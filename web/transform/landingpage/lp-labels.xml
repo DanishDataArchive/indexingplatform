@@ -25,9 +25,21 @@
         <LabelText xml:lang="da">Bestil data</LabelText>
         <LabelText xml:lang="en">Order data</LabelText>
     </Label>
+    <Label id="orderseries">
+        <LabelText xml:lang="da">Bestil serien</LabelText>
+        <LabelText xml:lang="en">Order series</LabelText>
+    </Label>
     <Label id="partofseries">
         <LabelText xml:lang="da">Del af serie</LabelText>
         <LabelText xml:lang="en">Part of series</LabelText>
+    </Label>
+    <Label id="studiesinseries">
+        <LabelText xml:lang="da">Studier i serien</LabelText>
+        <LabelText xml:lang="en">Studies in series</LabelText>
+    </Label>
+    <Label id="numberofstudies">
+        <LabelText xml:lang="da">Antal studier</LabelText>
+        <LabelText xml:lang="en">Number of studies</LabelText>
     </Label>
     <Label id="principalinvestigator">
         <LabelText xml:lang="da">Primærundersøger</LabelText>
@@ -193,6 +205,10 @@
         <LabelText xml:lang="da">DDI-L-3.1 XML Studiemetadata</LabelText>
         <LabelText xml:lang="en">DDI-L-3.1 XML Study metadata</LabelText>
     </Label>
+    <Label id="seriesmetadata">
+        <LabelText xml:lang="da">DDI-L-3.1 XML Seriemetadata</LabelText>
+        <LabelText xml:lang="en">DDI-L-3.1 XML Series metadata</LabelText>
+    </Label>
     <Label id="latestversion">
         <LabelText xml:lang="da">Nyeste version: </LabelText>
         <LabelText xml:lang="en">Latest version: </LabelText>
@@ -204,6 +220,10 @@
     <Label id="studydescription">
         <LabelText xml:lang="da">DDA XML Studiebeskrivelse</LabelText>
         <LabelText xml:lang="en">DDA XML Study description</LabelText>
+    </Label>
+    <Label id="seriesdescription">
+        <LabelText xml:lang="da">DDA XML Seriebeskrivelse</LabelText>
+        <LabelText xml:lang="en">DDA XML Series description</LabelText>
     </Label>
     <Label id="datacite">
         <LabelText xml:lang="da">DataCite XML mf.</LabelText>

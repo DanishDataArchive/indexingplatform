@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="dda.dk/metadata/1.0.0" xmlns:dl="ddieditor-lightobject" xmlns:ddi-cv="urn:ddi-cv" xmlns:ns0="ddi:instance:3_1" xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1" xmlns:ns3="ddi:archive:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="ddi:physicalinstance:3_1" xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns8="ddi:datacollection:3_1" xmlns:ns7="ddi:logicalproduct:3_1" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="2.0" exclude-result-prefixes="ns0 ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv xhtml">
+<xsl:stylesheet xmlns="dda.dk/metadata/1.0.0" xmlns:ddi-cv="urn:ddi-cv" xmlns:dl="ddieditor-lightobject" xmlns:ns0="ddi:instance:3_1" xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1" xmlns:ns3="ddi:archive:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="ddi:physicalinstance:3_1" xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns8="ddi:datacollection:3_1" xmlns:ns7="ddi:logicalproduct:3_1" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="2.0" exclude-result-prefixes="ns0 ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv xhtml">
     <xsl:output indent="yes" method="xml" encoding="UTF-8" omit-xml-declaration="no"/>
     <xsl:param name="hostname" select="'http://dda.dk/catalogue'"/>
     <xsl:template match="@*|comment()|processing-instruction()|text()">
@@ -62,9 +62,9 @@
                 <xsl:apply-templates select="ns2:Citation/ns2:Title"/>
             </Titles>
             <xsl:if test="$seriesList/dl:LightXmlObject[@element='Group']">
-                <SeriesList>
+                <SeriesStudyReferences>
                     <xsl:apply-templates select="$seriesList/dl:LightXmlObject[@element='Group']"/>
-                </SeriesList>
+                </SeriesStudyReferences>
             </xsl:if>
             <PrincipalInvestigators>
                 <xsl:apply-templates select="ns3:Archive/ns3:OrganizationScheme/ns3:Individual"/>
@@ -603,7 +603,7 @@
         </Publication>
     </xsl:template>
     <xsl:template match="dl:LightXmlObject">
-        <Series>
+        <SeriesStudyReference>
             <Titles>
                 <xsl:apply-templates select="dl:CustomList[@type='Title']/dl:Custom[@option='Title']"/>
             </Titles>
@@ -615,7 +615,7 @@
                     <xsl:value-of select="@version"/>
                 </CurrentVersion>
             </StudyIdentifier>
-        </Series>
+        </SeriesStudyReference>
     </xsl:template>
     <xsl:template match="dl:CustomList/dl:Custom">
         <Title>

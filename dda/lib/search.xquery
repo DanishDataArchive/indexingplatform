@@ -31,6 +31,11 @@ declare function ddi:getDdiStudy($studyId as xs:string) as element()* {
     return $study/ancestor::i:DDIInstance
 };
 
+declare function ddi:getDdiSeries($seriesId as xs:string) as element()* {
+    let $series := collection('/db/apps/dda')//g:Group[ft:query(@id, $seriesId)]
+    return $series/ancestor::i:DDIInstance
+};
+
 declare function ddi:getSeriesListForStudy($studyId as xs:string) as element()* {
     let $seriesList := collection('/db/apps/dda')//g:Group[ft:query(g:StudyUnit/g:Reference/r:ID, $studyId)]
     return $seriesList/ancestor::i:DDIInstance

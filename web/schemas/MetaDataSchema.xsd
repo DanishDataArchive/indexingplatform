@@ -16,17 +16,17 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-    <xs:element name="SeriesList">
+    <xs:element name="SeriesStudyReferences">
         <xs:annotation>
             <xs:documentation/>
         </xs:annotation>
         <xs:complexType mixed="false">
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Series"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="SeriesStudyReference"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="Series">
+    <xs:element name="SeriesStudyReference">
         <xs:complexType mixed="false">
             <xs:choice>
                 <xs:element ref="Titles" maxOccurs="1" minOccurs="1"/>
@@ -48,7 +48,7 @@
         <xs:complexType mixed="false">
             <xs:choice>
                 <xs:element ref="Person" maxOccurs="1" minOccurs="1"/>
-                <xs:element ref="Institution" maxOccurs="1" minOccurs="1"/>
+                <xs:element ref="Institution" maxOccurs="1" minOccurs="0"/>
             </xs:choice>
         </xs:complexType>
     </xs:element>
@@ -319,7 +319,7 @@
                 <xs:element ref="StudyIdentifier"/>
                 <xs:element ref="PIDs" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Titles"/>
-                <xs:element ref="SeriesList"/>
+                <xs:element ref="SeriesStudyReferences" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="PrincipalInvestigators"/>
                 <xs:element ref="DataURLs" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="StudyPublicationDate"/>
@@ -338,6 +338,22 @@
                 <xs:element ref="Documentation" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="Publications" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="Archive" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Series">
+        <xs:complexType>
+            <xs:sequence minOccurs="1">
+                <xs:element ref="StudyIdentifier"/>
+                <xs:element ref="Titles"/>
+                <xs:element ref="PrincipalInvestigators"/>
+                <xs:element ref="DataURLs" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="StudyPublicationDate"/>
+                <xs:element ref="TopicalCoverage" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="StudyDescriptions"/>
+                <xs:element ref="TemporalCoverages" minOccurs="0"/>
+                <xs:element ref="Publications" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="SeriesStudyReferences" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ddi-cv="urn:ddi-cv" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ns1="dda.dk/metadata/1.0.0" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
+<xsl:stylesheet xmlns:ddi-cv="urn:ddi-cv" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
 
     <!-- Kun relevant i forbindelse med test af lp-core direkte uden om lp-main -->
     <xsl:output method="html" indent="yes"/>
@@ -51,18 +51,18 @@
                     </span>
                     <span property="dcterms:language" content="da"/>
                 </h1>
-                <xsl:if test="ns1:SeriesList/ns1:Series">
+                <xsl:if test="ns1:SeriesStudyReferences/ns1:SeriesStudyReference">
                     <a name="partofseries"/>
                     <h2 class="lp">
                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='partofseries']/LabelText[@xml:lang=$lang]/text()"/>
                     </h2>
                 </xsl:if>
-                <xsl:for-each select="ns1:SeriesList/ns1:Series">
+                <xsl:for-each select="ns1:SeriesStudyReferences/ns1:SeriesStudyReference">
                     <div itemscope="itemscope" itemtype="http://schema.org/Series">
                         <span itemprop="name" class="lplink">
                             <xsl:variable name="seriesId" select="ns1:StudyIdentifier/ns1:Identifier"/>
                             <xsl:variable name="seriesVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
-                            <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$seriesId}:{$seriesVersion}">
+                            <a href="http://{$hostname}/catalogue-series/{$seriesId}?lang={$lang}">
                                 <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
                             </a>
                         </span>
