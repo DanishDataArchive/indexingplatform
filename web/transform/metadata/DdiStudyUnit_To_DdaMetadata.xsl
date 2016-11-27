@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="dda.dk/metadata/1.0.0" xmlns:ddi-cv="urn:ddi-cv" xmlns:dl="ddieditor-lightobject" xmlns:ns0="ddi:instance:3_1" xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1" xmlns:ns3="ddi:archive:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="ddi:physicalinstance:3_1" xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns8="ddi:datacollection:3_1" xmlns:ns7="ddi:logicalproduct:3_1" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="2.0" exclude-result-prefixes="ns0 ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc ddi-cv xhtml">
+<xsl:stylesheet xmlns="dda.dk/metadata/1.0.0" xmlns:ddi-cv="urn:ddi-cv" xmlns:dl="ddieditor-lightobject" xmlns:ns0="ddi:instance:3_1" xmlns:ns2="ddi:reusable:3_1" xmlns:ns1="ddi:studyunit:3_1" xmlns:ns4="ddi:physicalinstance:3_1" xmlns:ns3="ddi:archive:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="ddi:physicalinstance:3_1" xmlns:ns5="ddi:conceptualcomponent:3_1" xmlns:ns8="ddi:datacollection:3_1" xmlns:ns7="ddi:logicalproduct:3_1" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="2.0" exclude-result-prefixes="ns0 ns1 ns2 ns3 ns4 ns5 ns6 ns7 ns8 gc dl ddi-cv xhtml">
     <xsl:output indent="yes" method="xml" encoding="UTF-8" omit-xml-declaration="no"/>
     <xsl:param name="hostname" select="'http://dda.dk/catalogue'"/>
     <xsl:template match="@*|comment()|processing-instruction()|text()">
@@ -61,9 +61,9 @@
             <Titles>
                 <xsl:apply-templates select="ns2:Citation/ns2:Title"/>
             </Titles>
-            <xsl:if test="$seriesList/dl:LightXmlObject[@element='Group']">
+            <xsl:if test="$seriesList/LightXmlObject[@element='Group']">
                 <SeriesStudyReferences>
-                    <xsl:apply-templates select="$seriesList/dl:LightXmlObject[@element='Group']"/>
+                    <xsl:apply-templates select="$seriesList/LightXmlObject[@element='Group']"/>
                 </SeriesStudyReferences>
             </xsl:if>
             <PrincipalInvestigators>
@@ -602,10 +602,10 @@
             <!--PIDs/-->
         </Publication>
     </xsl:template>
-    <xsl:template match="dl:LightXmlObject">
+    <xsl:template match="LightXmlObject">
         <SeriesStudyReference>
             <Titles>
-                <xsl:apply-templates select="dl:CustomList[@type='Title']/dl:Custom[@option='Title']"/>
+                <xsl:apply-templates select="Label"/>
             </Titles>
             <StudyIdentifier>
                 <Identifier>
@@ -617,10 +617,10 @@
             </StudyIdentifier>
         </SeriesStudyReference>
     </xsl:template>
-    <xsl:template match="dl:CustomList/dl:Custom">
+    <xsl:template match="Label">
         <Title>
             <xsl:attribute name="xml:lang">
-                <xsl:value-of select="@value"/>
+                <xsl:value-of select="@lang"/>
             </xsl:attribute>
             <xsl:value-of select="text()"/>
         </Title>

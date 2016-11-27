@@ -76,19 +76,21 @@ function createOrderImp() {
     localStorage.removeItem('studyTitles');
     
     var chosenStudies = document.getElementsByName("studyChosen[]");
-    var studyIdElements = document.getElementsByName("studyId[]");
-    var studyTitleElements = document.getElementsByName("studyTitle[]");
     var studyIDs = new Array();;
     var studyTitles = new Array();;
     
     for(i=0; i<chosenStudies.length; i++) {
         // Find every study that was selected
         if(chosenStudies[i].checked) {
+            var studyIdElements = document.getElementsByName("studyId['" + chosenStudies[i].id + "'][]");
+            var studyTitleElements = document.getElementsByName("studyTitle['" + chosenStudies[i].id + "'][]");
+            for (j = 0; j < studyIdElements.length; j++) {
             // Check if study was already added to the list to avoid duplicates
-            if($.inArray(studyIdElements[i].value, studyIDs) == -1) {
-                // Add the study ID and title to the lists
-                studyIDs.push(studyIdElements[i].value);
-                studyTitles.push(studyTitleElements[i].value);
+                if($.inArray(studyIdElements[j].value, studyIDs) == -1) {
+                    // Add the study ID and title to the lists
+                    studyIDs.push(studyIdElements[j].value);
+                    studyTitles.push(studyTitleElements[j].value);
+                }
             }
         }
     }

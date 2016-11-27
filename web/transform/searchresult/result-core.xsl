@@ -1,24 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
     <xsl:variable name="qmark">?</xsl:variable>
-    <xsl:key name="kStudyByID" match="//CustomList[@type='StudyUnit']" use="Custom[@option='id']" />
-
-    <xsl:template name="catalogue-core-content">        
+    <xsl:key name="kStudyByID" match="//CustomList[@type='StudyUnit']" use="Custom[@option='id']"/>
+    <xsl:template name="catalogue-core-content">
         <xsl:param name="type"/>
         <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
+        <xsl:param name="cataloguePath"/>
         <xsl:for-each select="LightXmlObject">
             <div class="result">
-                <xsl:variable name="studyId" select="@id"/>                                
+                <xsl:variable name="studyId" select="@id"/>
                 <xsl:variable name="title" select="Label[@lang=$lang]"/>
-                
-                <div class="contextlink" style="float:left;" typeof="dcat:Dataset" about="dcat:Dataset" itemtype="http://schema.org/Dataset" itemscope="itemscope" 
-                        xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcat="http://www.w3.org/ns/dcat#">                    
-                    <p><strong class="lp">DDA-<xsl:value-of select="$studyId"/></strong></p>
-                    <xsl:variable name="url2"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
+                <div xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" class="contextlink" style="float:left;" typeof="dcat:Dataset" about="dcat:Dataset" itemtype="http://schema.org/Dataset" itemscope="itemscope">
+                    <p>
+                        <strong class="lp">DDA-<xsl:value-of select="$studyId"/>
+                        </strong>
+                    </p>
+                    <xsl:variable name="url2" select="concat('http://',$hostname,$cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="contextlink" href="{$url2}">
                         <span property="dcterms:title" itemprop="name">
                             <xsl:value-of select="$title"/>
@@ -29,25 +27,26 @@
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="title" select="$title"/>
                     <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="studiesInSeries" select="CustomList[@type='StudyUnit']" tunnel="yes"/>
                 </xsl:call-template>
             </div>
         </xsl:for-each>
     </xsl:template>
-    
     <xsl:template name="result-core-content">
         <xsl:param name="type"/>
         <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
+        <xsl:param name="cataloguePath"/>
+        <xsl:param name="studiesInSeries" tunnel="yes"/>
         <xsl:for-each select="LightXmlObject">
             <div class="result">
                 <xsl:variable name="studyId" select="CustomList[@type='StudyUnit']/Custom[@option='id']"/>
-                
                 <xsl:call-template name="element-info">
                     <xsl:with-param name="type" select="$type"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
                 </xsl:call-template>
-                
                 <xsl:call-template name="references">
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
@@ -56,8 +55,7 @@
                 <xsl:variable name="title" select="CustomList[@type='StudyUnit']/Custom[@option='label']"/>
                 <br/>
                 <div class="study" style="float:left;">
-                    <xsl:variable name="url2"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
+                    <xsl:variable name="url2" select="concat('http://',$hostname,$cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="study" href="{$url2}">
                         <xsl:value-of select="$title"/>
                     </a>
@@ -66,23 +64,23 @@
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="title" select="$title"/>
                     <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="studiesInSeries" select="$studiesInSeries" tunnel="yes"/>
                 </xsl:call-template>
             </div>
         </xsl:for-each>
-
     </xsl:template>
-    
     <xsl:template name="result-core-content-grouped">
         <xsl:param name="type"/>
         <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
+        <xsl:param name="cataloguePath"/>
+        <xsl:param name="studiesInSeries" tunnel="yes"/>
         <xsl:for-each select="//CustomList[generate-id(.) = generate-id(key('kStudyByID',Custom[@option='id'])[1])]">
             <div class="result">
-                <xsl:variable name="studyId" select="Custom[@option='id']" />
-                <xsl:variable name="title" select="Custom[@option='label' and @value=$lang]" />
+                <xsl:variable name="studyId" select="Custom[@option='id']"/>
+                <xsl:variable name="title" select="Custom[@option='label' and @value=$lang]"/>
                 <div class="studyLarge" style="float:left;">
-                    <xsl:variable name="url2"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
+                    <xsl:variable name="url2" select="concat('http://',$hostname,$cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="studyLarge" href="{$url2}">
                         <xsl:value-of select="$title"/>
                     </a>
@@ -91,13 +89,15 @@
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="title" select="$title"/>
                     <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="studiesInSeries" select="$studiesInSeries" tunnel="yes"/>
                 </xsl:call-template>
-                <div style="clear: both;"></div>
+                <div style="clear: both;"/>
                 <br/>
                 <xsl:for-each select="//CustomList[@type='StudyUnit']/Custom[@option='id' and text()=$studyId]/../..">
                     <xsl:call-template name="element-info">
                         <xsl:with-param name="type" select="$type"/>
                         <xsl:with-param name="studyId" select="$studyId"/>
+                        <xsl:with-param name="lang" select="$lang"/>
                         <xsl:with-param name="hostname" select="$hostname"/>
                     </xsl:call-template>
                     <xsl:call-template name="references">
@@ -105,30 +105,30 @@
                         <xsl:with-param name="lang" select="$lang"/>
                         <xsl:with-param name="hostname" select="$hostname"/>
                     </xsl:call-template>
-                    <br/><br/>
+                    <br/>
+                    <br/>
                 </xsl:for-each>
             </div>
         </xsl:for-each>
     </xsl:template>
-    
     <xsl:template name="element-info">
         <xsl:param name="type"/>
         <xsl:param name="studyId"/>
+        <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
+        <xsl:param name="cataloguePath"/>
         <p class="contextlink">
             <strong>
                 <xsl:variable name="elementType" select="@element"/>
                 <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>: </strong>
             <xsl:if test="@element!='StudyUnit'">
-                <xsl:variable name="url"
-                    select="concat('http://',$hostname,'/catalogue/', $studyId, '/doc/codebook?lang=', $lang, '#', @id, '.', @version)"/>
+                <xsl:variable name="url" select="concat('http://',$hostname,$cataloguePath, $studyId, '/doc/codebook?lang=', $lang, '#', @id, '.', @version)"/>
                 <a class="contextlink" href="{$url}">
                     <xsl:value-of select="Label"/>
                 </a>
             </xsl:if>
             <xsl:if test="@element='StudyUnit'">
-                <xsl:variable name="url"
-                    select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
+                <xsl:variable name="url" select="concat('http://',$hostname,$cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
                 <a class="contextlink" href="{$url}">
                     <xsl:value-of select="Label"/>
                 </a>
@@ -141,7 +141,7 @@
                 <xsl:choose>
                     <xsl:when test="$type='advanced'">
                         <xsl:choose>
-                            <xsl:when test="count(Context/Hit) > 5">
+                            <xsl:when test="count(Context/Hit) &gt; 5">
                                 <xsl:apply-templates select="Context/Hit[position() &lt;= 5]"/>
                                 <a href="javascript:;" class="referencedElementsTitle">
                                     <xsl:value-of select="$labels[@id='html-show-all']/LabelText[@xml:lang=$lang]/text()"/>
@@ -162,15 +162,17 @@
             </em>
         </p>
     </xsl:template>
-    
     <xsl:template name="references">
         <xsl:param name="studyId"/>
         <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
+        <xsl:param name="cataloguePath"/>
         <xsl:if test="@element!='StudyUnit'">
             <br/>
             <a href="javascript:;" class="referencedElementsTitle">
-                <strong><xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]/text()"/></strong>
+                <strong>
+                    <xsl:value-of select="$labels[@id='html-details']/LabelText[@xml:lang=$lang]/text()"/>
+                </strong>
             </a>
             <div class="referencedElementsList">
                 <br/>
@@ -188,13 +190,14 @@
                                 <xsl:value-of select="$labels[@id=$domainType]/LabelText[@xml:lang=$lang]/text()"/>
                                 <!--</a>-->
                                 <xsl:if test="Custom[@option='type'] = 'NumericDomain'">
-                                    - <em><xsl:value-of select="Custom/@value"/></em>
+                                    - <em>
+                                        <xsl:value-of select="Custom/@value"/>
+                                    </em>
                                 </xsl:if>
                             </li>
                         </xsl:for-each>
                     </ul>
                 </xsl:if>
-                
                 <xsl:if test="CustomList[@type='RepresentationType']">
                     <strong>
                         <xsl:value-of select="$labels[@id='RepresentationType']/LabelText[@xml:lang=$lang]/text()"/>
@@ -209,13 +212,14 @@
                                 <xsl:value-of select="$labels[@id=$representationType]/LabelText[@xml:lang=$lang]/text()"/>
                                 <!--</a>-->
                                 <xsl:if test="Custom[@option='type'] = 'NumericRepresentation'">
-                                    - <em><xsl:value-of select="Custom/@value"/></em>
+                                    - <em>
+                                        <xsl:value-of select="Custom/@value"/>
+                                    </em>
                                 </xsl:if>
                             </li>
                         </xsl:for-each>
                     </ul>
                 </xsl:if>
-                
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'QuestionItem'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
@@ -255,31 +259,42 @@
             </div>
         </xsl:if>
     </xsl:template>
-    
     <xsl:template name="order-box">
         <xsl:param name="studyId"/>
         <xsl:param name="title"/>
         <xsl:param name="lang"/>
+        <xsl:param name="studiesInSeries" tunnel="yes"/>
         <div style="float:right;">
-            <!-- {$studyId} -->
-            <a href="javascript:void(0);" onclick="toggleCheckBoxById('{$studyId}')">
-                <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]/text()"/>
-            </a>
-            <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" id="{$studyId}" style="position:relative;vertical-align:middle; "/>
-            <input type="hidden" name="studyId[]" value="{$studyId}" />
-            <input type="hidden" name="studyTitle[]" value="{$title}" />
+            <xsl:choose>
+                <xsl:when test="$studiesInSeries">
+                    <a href="javascript:void(0);" onclick="toggleCheckBoxById('{$studyId}')">
+                        <xsl:value-of select="$labels[@id='html-order-series']/LabelText[@xml:lang=$lang]/text()"/>
+                    </a>
+                    <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" id="{$studyId}" style="position:relative;vertical-align:middle; "/>
+                    <xsl:for-each select="$studiesInSeries">
+                        <input type="hidden" name="studyId['{$studyId}'][]" value="{Custom[@option='id']/text()}"/>
+                        <input type="hidden" name="studyTitle['{$studyId}'][]" value="{Custom[@option='title' and @value=$lang]/text()}"/>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <a href="javascript:void(0);" onclick="toggleCheckBoxById('{$studyId}')">
+                        <xsl:value-of select="$labels[@id='html-order-study']/LabelText[@xml:lang=$lang]/text()"/>
+                    </a>
+                    <input type="checkbox" name="studyChosen[]" onchange="toggleSubmitButton()" id="{$studyId}" style="position:relative;vertical-align:middle; "/>
+                    <input type="hidden" name="studyId['{$studyId}'][]" value="{$studyId}"/>
+                    <input type="hidden" name="studyTitle['{$studyId}'][]" value="{$title}"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </div>
         <div style="clear:both;"/>
     </xsl:template>
-    
     <xsl:template match="Context">
         <p>
             <xsl:copy-of select="*"/>
         </p>
     </xsl:template>
-    
     <xsl:template match="Hit">
-       <p>
+        <p>
             <strong>
                 <xsl:variable name="elementType" select="@elementType"/>
                 <xsl:value-of select="$labels[@id=$elementType]/LabelText[@xml:lang=$lang]/Singular/text()"/>:
@@ -287,12 +302,12 @@
             <xsl:copy-of select="*"/>
         </p>
     </xsl:template>
-
     <xsl:template name="referencedElements">
         <xsl:param name="referencedType"/>
         <xsl:param name="studyId"/>
         <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
+        <xsl:param name="cataloguePath"/>
         <xsl:variable name="referencedElements" select="CustomList[@type=$referencedType]"/>
         <xsl:if test="count($referencedElements) &gt; 0">
             <strong>
@@ -300,8 +315,7 @@
             </strong>
             <ul type="square">
                 <xsl:for-each select="$referencedElements">
-                    <xsl:variable name="url"
-                        select="concat('http://',$hostname,'/catalogue/', $studyId, '/doc/codebook?lang=', $lang, '#', Custom[@option='id'], '.', Custom[@option='version'])"/>
+                    <xsl:variable name="url" select="concat('http://',$hostname,$cataloguePath, $studyId, '/doc/codebook?lang=', $lang, '#', Custom[@option='id'], '.', Custom[@option='version'])"/>
                     <li>
                         <a class="contextlink" href="{$url}">
                             <xsl:value-of select="Custom[@option='label']"/>

@@ -34,7 +34,7 @@ declare function local:getLabel($node as element()) as element()* {
         local:createLabel($node/r:Label)
     else if ($node-name eq 'QuestionItem' or $node-name eq 'MultipleQuestionItem') then
         local:createLabel($node/dc:QuestionText/dc:LiteralText/dc:Text)
-    else if ($node-name eq 'StudyUnit') then
+    else if ($node-name eq 'StudyUnit' or $node-name eq 'Group') then
         local:createLabel($node/r:Citation/r:Title)
     else
         local:createLabel($node)
@@ -237,14 +237,17 @@ declare function result:buildListStudyListItem($result as element()) as element(
 
 declare function result:buildListSeriesListItem($result as element()) as element() {
     let $result-name := local-name($result)
-    return <LightXmlObject xmlns="ddieditor-lightobject" element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
+    return <LightXmlObject element="{$result-name}" id="{data($result/@id)}" version="{data($result/@version)}"
         parentId="{data($result/../@id)}" parentVersion="{data($result/../@version)}" agency="{data($result/@agency)}" lastModified="{data($result/@versionDate)}">
-        <CustomList type="Title">
-            {
-            for $title in $result/r:Citation/r:Title
-                return <Custom option="Title" value="{data($title/@xml:lang)}">{data($title)}</Custom>
-            }
-        </CustomList>
+        {local:getLabel($result)}
+        {for $studyNote in $result/r:Note
+            return <CustomList type="StudyUnit">
+                <Custom option="id">{data($studyNote/r:Relationship/r:RelatedToReference/r:ID)}</Custom>
+                {for $content in $studyNote/r:Content
+                    return <Custom option="title" value="{data($content/@xml:lang)}">{data($content)}</Custom>
+                }
+            </CustomList>
+        }
     </LightXmlObject>
 };
 

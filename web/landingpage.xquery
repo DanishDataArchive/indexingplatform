@@ -18,8 +18,6 @@ declare function local:main() as node()? {
     let $parameterLanguage := data(request:get-parameter("lang", "n/a"))
     let $versions := urn:getStudyVersions(request:get-parameter("studyid", ()))
     
-    let $study := ddi:getDdiStudy($studyId)
-    
     let $study := if($version='0')
         then ddi:getDdiStudy($studyId)
     else

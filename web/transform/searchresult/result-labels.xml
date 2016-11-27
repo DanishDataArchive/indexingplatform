@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <SearchResultLabels>
     <!-- result-main.xsl -->
     <Label id="html-title">
@@ -8,6 +7,10 @@
     <Label id="html-order-data">
         <LabelText xml:lang="da">Bestil Data</LabelText>
         <LabelText xml:lang="en">Order Data</LabelText>
+    </Label>
+    <Label id="html-order-series">
+        <LabelText xml:lang="da">Bestil serie</LabelText>
+        <LabelText xml:lang="en">Order Series</LabelText>
     </Label>
     <Label id="html-search-results">
         <LabelText xml:lang="da">Søgeresultater</LabelText>
@@ -67,7 +70,7 @@
     <Label id="html-search">
         <LabelText xml:lang="da">Søg</LabelText>
         <LabelText xml:lang="en">Search</LabelText>
-    </Label>    
+    </Label>
     <Label id="html-result">
         <LabelText xml:lang="da">Resultat</LabelText>
         <LabelText xml:lang="en">Result</LabelText>
@@ -268,9 +271,17 @@
         <LabelText xml:lang="da">DDA katalog</LabelText>
         <LabelText xml:lang="en">DDA catalogue</LabelText>
     </Label>
+    <Label id="catalogue-series-title">
+        <LabelText xml:lang="da">DDA seriekatalog</LabelText>
+        <LabelText xml:lang="en">DDA series catalogue</LabelText>
+    </Label>
     <Label id="catalogue-study-count">
-        <LabelText xml:lang="da">Antal studier: </LabelText>
-        <LabelText xml:lang="en">Number of studies: </LabelText>
+        <LabelText xml:lang="da">Antal serier: </LabelText>
+        <LabelText xml:lang="en">Number of series: </LabelText>
+    </Label>
+    <Label id="catalogue-series-count">
+        <LabelText xml:lang="da">Antal serier: </LabelText>
+        <LabelText xml:lang="en">Number of series: </LabelText>
     </Label>
     <!-- search help labels -->
     <!-- Labels for 'search-help-simple' are located in search-result.js -->
@@ -322,9 +333,8 @@
         <LabelText xml:lang="da">Vælg hvilke detaljer du vil have vist i søgeresultatet:</LabelText>
         <LabelText xml:lang="en">Choose wich details you want to see in the search results:</LabelText>
     </Label>
-        
     <Label id="">
-        <LabelText xml:lang="da"></LabelText>
-        <LabelText xml:lang="en"></LabelText>
+        <LabelText xml:lang="da"/>
+        <LabelText xml:lang="en"/>
     </Label>
-</SearchResultLabels> 
+</SearchResultLabels>

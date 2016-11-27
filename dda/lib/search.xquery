@@ -42,19 +42,18 @@ declare function ddi:getSeriesListForStudy($studyId as xs:string) as element()* 
 };
 
 declare function ddi:getSeriesListMetaDataForStudy($studyId as xs:string, $lang as xs:string) as element()* {
-    let $seriesList := <LightXmlObjectList xmlns="ddieditor-lightobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd">
+    let $seriesList := <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd">
     { 
         for $series in collection('/db/apps/dda')//g:Group[ft:query(g:StudyUnit/g:Reference/r:ID, $studyId)]
         order by $series/g:Group/r:Citation/r:Title[@xml:lang=$lang]
-        return result:buildListSeriesListItem($series)
+        return result:buildListStudyListItem($series)
     }
-    </LightXmlObjectList>
+    </dl:LightXmlObjectList>
     return $seriesList
 };
 
 (:~
- : Makes a free-text search in StudyUnit elements and returns the element(s) containing the match
- : It also sorts the list by score in descending order
+ : Lists all StudyUnit elements
  :
  : @author  Kemal Pajevic
  : @version 1.0
@@ -71,6 +70,27 @@ declare function ddi:listDdiStudies($lang as xs:string) as element()* {
         xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
         xmlns:smd="http://dda.dk/ddi/search-metadata">
         { for $study in $studies return result:buildListStudyListItem($study) }
+    </dl:LightXmlObjectList>
+};
+
+(:~
+ : Lists all formal Group elements
+ :
+ : @author  Kemal Pajevic
+ : @version 1.0
+ : @param   $search-string the string that needs to be matched
+ :)
+declare function ddi:listDdiSeries($lang as xs:string) as element()* {
+    let $seriesList := for $result in collection('/db/apps/dda')//g:Group
+    order by $result/r:Citation/r:Title[@xml:lang=$lang]
+    return $result
+    (:order by number($result/@id):)
+   
+    return <dl:LightXmlObjectList xmlns:dl="ddieditor-lightobject"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="ddieditor-lightobject ddieditor-lightxmlobject.xsd"
+        xmlns:smd="http://dda.dk/ddi/search-metadata">
+        { for $series in $seriesList return result:buildListSeriesListItem($series) }
     </dl:LightXmlObjectList>
 };
 
