@@ -7,16 +7,24 @@ module namespace store = "http://dda.dk/ddi/store";
 
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace su="ddi:studyunit:3_1";
+declare namespace g="ddi:group:3_1";
 
 
 declare function store:storeDDI($ddi as element()?) as xs:string? {
-    let $studyId := $ddi/su:StudyUnit/@id
-    let $version := $ddi/su:StudyUnit/@version
+    let $id := if ($ddi/g:Group) then
+                           $ddi/g:Group/@id
+                       else
+                           $ddi/su:StudyUnit/@id
     
-    let $urnResourcePath := xmldb:store('/db/apps/dda-urn/data', concat($studyId, "-", $version, ".xml"), $ddi)
+    let $version := if ($ddi/g:Group) then
+                           $ddi/g:Group/@version
+                       else
+                           $ddi/su:StudyUnit/@version
+    
+    let $urnResourcePath := xmldb:store('/db/apps/dda-urn/data', concat($id, "-", $version, ".xml"), $ddi)
     
     let $result := if ($urnResourcePath) then
-                       let $resourcePath := xmldb:store('/db/apps/dda/data', concat($studyId, ".xml"), $ddi)
+                       let $resourcePath := xmldb:store('/db/apps/dda/data', concat($id, ".xml"), $ddi)
                        return if ($resourcePath) then
                            <store:result success="true">
                                <message>
