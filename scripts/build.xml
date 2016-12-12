@@ -183,6 +183,26 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/scheduler/properties.xquery">${result-10}</echo>
+
+		<!-- landingpage-series.xquery -->
+		<loadfile srcfile="../web/landingpage-series.xquery" property="result-11">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/landingpage-series.xquery">${result-11}</echo>
+
+		<!-- catalogue-series.xquery -->
+		<loadfile srcfile="../web/catalogue-series.xquery" property="result-12">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="WEB-HOST_NAME" value="${config.haproxy-webserver-hostname}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/web/catalogue-series.xquery">${result-12}</echo>
 	</target>
 
 	<target name="deploy-dda" description="Deploy the index platform">

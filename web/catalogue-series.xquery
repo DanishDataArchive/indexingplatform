@@ -23,7 +23,7 @@ declare function local:main() as node()? {
     let $searchResultsStylesheet := doc("/db/apps/web/transform/searchresult/catalogue.xsl")    
     let $params := <parameters>
             <param name="lang" value="{$lang}"/>
-            <param name="hostname" value="localhost" />
+            <param name="hostname" value="@WEB-HOST_NAME@" />
             <param name="catalogueType" value="series" />
         </parameters>    
     return transform:transform($seriesList, $searchResultsStylesheet, $params)
