@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ http://docs.oasis-open.org/codelist/cs-genericode-1.0/xsd/genericode.xsd" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddi-cv="urn:ddi-cv" xmlns:h="http://www.w3.org/1999/xhtml">
+  <Annotation>
+    <Description>
+      <div xml:lang="en" class="Description" xmlns="http://www.w3.org/1999/xhtml">
+        <p>DDA defined user defined group property</p>
+      </div>
+    </Description>
+    <AppInfo>
+      <ddi-cv:Value key="CopyrightOwner">Danish Data Archive</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightOwnerUrl">http://www.dda.dk</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightYear">2016</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseName">Creative Commons Attribution-ShareAlike 3</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseUrl">http://creativecommons.org/licenses/by-sa/3.0/</ddi-cv:Value>
+      <ddi-cv:Value key="LicenseLogoUrl">http://i.creativecommons.org/l/by-sa/3.0/80x15.png</ddi-cv:Value>
+      <ddi-cv:Value key="CopyrightText">Copyright ©</ddi-cv:Value>
+      <ddi-cv:Value key="Software">DdiEditor-Genericode</ddi-cv:Value>
+      <ddi-cv:Value key="SoftwareVersion">0.2.0</ddi-cv:Value>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName xml:lang="en">DDAKindOfSeries</ShortName>
+    <LongName xml:lang="en">DDA Kind Of Series</LongName>
+    <Version>1.0.0</Version>
+    <CanonicalUri>urn:dda-cv:kindofseries</CanonicalUri>
+    <CanonicalVersionUri>urn:dda-cv:kindofseries:1.0.0</CanonicalVersionUri>
+    <LocationUri>http://dda.dk/search-technical-information/cv/doc/kindofseries.dda.dk-1.0.0.cv</LocationUri>
+    <Agency>
+      <ShortName>Danish Data Archive</ShortName>
+      <LongName>The Danish Data Archive is a national service for social-, history- and health sciences.</LongName>
+      <Identifier>DDA</Identifier>
+    </Agency>
+  </Identification>
+  <ColumnSet>
+    <Column Id="code" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The code that identifies the value</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>code</ShortName>
+      <LongName xml:lang="en">Identifing code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="term" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>The term accociated with the code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>term</ShortName>
+      <LongName xml:lang="en">Term of the code</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Column Id="description" Use="required">
+      <Annotation>
+        <Description xml:lang="en">
+          <h:p>Description of the term and code</h:p>
+        </Description>
+      </Annotation>
+      <ShortName>description</ShortName>
+      <LongName xml:lang="en">Description</LongName>
+      <Data Type="string"/>
+    </Column>
+    <Key Id="Key-code">
+      <ShortName>Key-code</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CohortStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Kohortestudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Cohort study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Et prospektivt studie der følger en veldefineret gruppe af individer over tid</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">A prospective study that follows a well-defined group of individuals over time</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CaseControlStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Case-kontrolstudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Case control study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Et retrospektivt studie der følger to grupper af individer over tid</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">A retrospective study included two groups of individuals over time</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PanelStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Panelstudie</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Panel study</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Et studie der følger en tilfældigt udvalgt gruppe af individer over tid</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">An investigation of attitude changes using a constant set of people and comparing each individuals opinions at different times</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>TrendStudy</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Trend study</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Trendstudie</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">A study that follow a specific defined population with specific characteristics over time</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Et studie der følger en specifik defineret population med særlige karakteristika over tid</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>RandomizedClinicalTrials</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">Randomized clinical trials</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Randomiseret klinisk studie</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">A study which randomly assigned individuals receive multiple clinical interventions</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Et studie hvor tilfældigt fordelte individer modtager en til flere kliniske interventioner</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Other</SimpleValue>
+      </Value>
+      <Value ColumnRef="term">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="da">Andet</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="en">Other</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+      <Value ColumnRef="description">
+        <ComplexValue>
+          <ddi-cv:Value xml:lang="en">A study that do not meet the criteria for any of the listed serial studytypes but still consists of two or more interdependent studies</ddi-cv:Value>
+          <ddi-cv:Value xml:lang="da">Et studie der ikke opfylder kriterierne for nogen af de anførte serielle studietyper men alligevel består af to eller flere indbyrdes afhængige undersøgelser</ddi-cv:Value>
+        </ComplexValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>
