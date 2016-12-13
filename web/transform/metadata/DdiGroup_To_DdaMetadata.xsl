@@ -120,26 +120,20 @@
         </StudyDescriptions>
     </xsl:template>
     <xsl:template match="ns2:Coverage/ns2:TopicalCoverage/ns2:Subject">
-        <!--
-            <Subject codeListAgencyName="dda.dk" 
-            codeListID="urn:subject.dda.dk" codeListName="" 
-            codeListSchemeURN="urn:subject.dda.dk-1.0.0" 
-            codeListURN="urn:subject.dda.dk-1.0.0" codeListVersionID="1.0.0" xml:lang="{@xml:lang}">
-        -->
-        <Subject xml:lang="{@xml:lang}">
-            <xsl:value-of select="text()"/>
-        </Subject>
+        <xsl:variable name="lang" select="@xml:lang"/>
+        <xsl:for-each select="tokenize(text(),',')">
+            <Subject xml:lang="{$lang}">
+                <xsl:value-of select="normalize-space(.)"/>
+            </Subject>
+        </xsl:for-each>
     </xsl:template>
     <xsl:template match="ns2:Coverage/ns2:TopicalCoverage/ns2:Keyword">
-        <!--
-            <Keyword codeListAgencyName="dda.dk" 
-            codeListID="urn:keyword.dda.dk" codeListName="" 
-            codeListSchemeURN="urn:keyword.dda.dk-1.0.0" 
-            codeListURN="urn:keyword.dda.dk-1.0.0" codeListVersionID="1.0.0" xml:lang="{@xml:lang}">
-        -->
-        <Keyword xml:lang="{@xml:lang}">
-            <xsl:value-of select="text()"/>
-        </Keyword>
+        <xsl:variable name="lang" select="@xml:lang"/>
+        <xsl:for-each select="tokenize(text(),',')">
+            <Keyword xml:lang="{$lang}">
+                <xsl:value-of select="normalize-space(.)"/>
+            </Keyword>
+        </xsl:for-each>
     </xsl:template>
     <xsl:template name="TopicalCoverage">
         <TopicalCoverage>
@@ -227,7 +221,7 @@
     </xsl:template>
     <xsl:template match="ns0:StudyUnit">
         <xsl:param name="notes" tunnel="yes"/>
-        <xsl:variable name="studyId" select="ns0:Reference/ns2:ID"/> 
+        <xsl:variable name="studyId" select="ns0:Reference/ns2:ID"/>
         <SeriesStudyReferences>
             <SeriesStudyReference>
                 <Titles>
