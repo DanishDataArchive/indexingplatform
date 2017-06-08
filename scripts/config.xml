@@ -19,7 +19,7 @@
   <haproxy-webserver-hostname>localhost</haproxy-webserver-hostname>
   <haproxy-exist-hostname>localhost:8080</haproxy-exist-hostname>
   <haproxy-exist-usrpasswdbase64>YWRtaW46</haproxy-exist-usrpasswdbase64>
-  <haproxy-rate-error-page>/etc/haproxy/errors/503rate.http</haproxy-rate-error-page>
+  <haproxy-rate-error-page>/etc/haproxy/errors/503.http</haproxy-rate-error-page>
   
   <!-- upload dir location -->
   <resources-dir>/media/74FD-E3EE/indekseringsplatform</resources-dir>
