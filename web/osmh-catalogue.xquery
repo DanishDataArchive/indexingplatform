@@ -1,4 +1,4 @@
-xquery version "3.1";
+xquery version "3.0";
 
 import module namespace ddi = "http://dda.dk/ddi" at "xmldb:exist:///db/apps/dda/lib/search.xquery";
 
