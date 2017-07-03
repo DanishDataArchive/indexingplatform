@@ -2,7 +2,7 @@ xquery version "1.0";
 
 import module namespace store = "http://dda.dk/ddi/store" at "xmldb:exist:///db/apps/dda/lib/store.xquery";
 
-declare function local:main() as xs:string? {
+declare function local:main() as node()? {
     let $ddi := request:get-data()/*
     
     let $result := store:storeDDI($ddi)

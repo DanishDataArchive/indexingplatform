@@ -10,7 +10,7 @@ declare namespace su="ddi:studyunit:3_1";
 declare namespace g="ddi:group:3_1";
 
 
-declare function store:storeDDI($ddi as element()?) as xs:string? {
+declare function store:storeDDI($ddi as element()?) as node()? {
     let $id := if ($ddi/g:Group) then
                            $ddi/g:Group/@id
                        else
