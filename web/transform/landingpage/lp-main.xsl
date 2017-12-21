@@ -14,9 +14,8 @@
         <xsl:variable name="studyDdiId" select="substring-after(ns1:StudyIdentifier/ns1:Identifier/text(), 'DDA-')"/>
         <html>
             <head>
-                <link rel="stylesheet" type="text/css" href="theme/style.css"/>
-                <link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml"/>
-                <link rel="shortcut icon" href="theme/favicon.ico"/>
+                <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
+                <link rel="shortcut icon" href="/theme/favicon.ico"/>
                 <link rel="meta" type="application/x-ddi-l+xml" href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyDdiId}:{ns1:StudyIdentifier/ns1:CurrentVersion}"/>
                 <link rel="meta" type="application/x-ddametadata+xml" href="/catalogue/{$studyDdiId}/doc/ddastudymetadata"/>
                 <meta name="description" content="{ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()}"/>
@@ -24,8 +23,8 @@
                     <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
                 </title>
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"/>
-                <script src="js/order-lp.js" type="text/javascript"/>
-                <script src="js/cvi_busy_lib.js" type="text/javascript"/>
+                <script src="/js/order-lp.js" type="text/javascript"/>
+                <script src="/js/cvi_busy_lib.js" type="text/javascript"/>
                 <xsl:comment>[if IE]<![CDATA[>]]>&lt;script type="text/javascript" src="js/json2.js"&gt;&lt;/script&gt;<![CDATA[<![endif]]]></xsl:comment>
                 <script type="text/javascript">
                     function changeLang(newLang) {

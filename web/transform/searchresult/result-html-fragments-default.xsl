@@ -22,7 +22,7 @@
         <tr>
             <td class="header" valign="top">
                 <p align="center">
-                    <img src="theme/ra-logo-blaa.jpg" usemap="#Map" height="129" border="0" width="961" />
+                    <img src="/theme/ra-logo-blaa.jpg" usemap="#Map" height="129" border="0" width="961" />
                     <map name="Map">
                         <area shape="rect" coords="24, 11, 221, 121" href="http://sa.dk" />
                     </map>

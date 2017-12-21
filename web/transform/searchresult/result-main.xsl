@@ -13,19 +13,20 @@
     <xsl:param name="grouped"/>
     <xsl:param name="lang"/>
     <xsl:param name="hostname"/>
+    <xsl:param name="cataloguePath"/>
     <xsl:variable name="labels" select="document('result-labels.xml')/SearchResultLabels/Label"/>
     
     <xsl:template match="dl:LightXmlObjectList">
         <html>
             <head>
                 <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-                <link rel="stylesheet" type="text/css" href="theme/style.css"/>
-                <link rel="stylesheet" type="text/css" href="theme/result.css"/>
-                <link rel="shortcut icon" href="theme/favicon.ico"/>
+                <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
+                <link rel="stylesheet" type="text/css" href="/theme/result.css"/>
+                <link rel="shortcut icon" href="/theme/favicon.ico"/>
                 
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
                 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-                <script src="js/cvi_busy_lib.js" type="text/javascript"></script>
+                <script src="/js/cvi_busy_lib.js" type="text/javascript"></script>
                 <script type="text/javascript">
                     var lang = '<xsl:value-of select="$lang"/>';
                     function changeLang(newLang) {
@@ -39,8 +40,8 @@
                     }
                 </script>
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-                <script src="js/search-result.js" type="text/javascript"></script>
-                <script src="js/input-validation.js" type="text/javascript"></script>
+                <script src="/js/search-result.js" type="text/javascript"></script>
+                <script src="/js/input-validation.js" type="text/javascript"></script>
                 <script type="text/javascript">
                     @WEB-SITE-TRACKING@
                 </script>    
@@ -121,6 +122,7 @@
                                                                                                     <xsl:with-param name="type" select="$type"/>
                                                                                                     <xsl:with-param name="lang" select="$lang"/>
                                                                                                     <xsl:with-param name="hostname" select="$hostname"/>
+                                                                                                    <xsl:with-param name="cataloguePath" select="$cataloguePath" />
                                                                                                 </xsl:call-template>
                                                                                             </xsl:when>
                                                                                             <xsl:otherwise>
@@ -128,6 +130,7 @@
                                                                                                     <xsl:with-param name="type" select="$type"/>
                                                                                                     <xsl:with-param name="lang" select="$lang"/>
                                                                                                     <xsl:with-param name="hostname" select="$hostname"/>
+                                                                                                    <xsl:with-param name="cataloguePath" select="$cataloguePath" />
                                                                                                 </xsl:call-template>
                                                                                             </xsl:otherwise>
                                                                                         </xsl:choose>

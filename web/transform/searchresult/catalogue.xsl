@@ -19,9 +19,9 @@
         <html>
             <head>
                 <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-                <link rel="stylesheet" type="text/css" href="theme/style.css"/>
-                <link rel="stylesheet" type="text/css" href="theme/result.css"/>
-                <link rel="shortcut icon" href="theme/favicon.ico"/>
+                <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
+                <link rel="stylesheet" type="text/css" href="/theme/result.css"/>
+                <link rel="shortcut icon" href="/theme/favicon.ico"/>
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"/>
                 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"/>
                 <script type="text/javascript">
@@ -33,8 +33,8 @@
                     }
                 </script>
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
-                <script src="js/search-result.js" type="text/javascript"/>
-                <script src="js/input-validation.js" type="text/javascript"/>
+                <script src="/js/search-result.js" type="text/javascript"/>
+                <script src="/js/input-validation.js" type="text/javascript"/>
                 <script type="text/javascript">
                     @WEB-SITE-TRACKING@
                 </script>

@@ -10,14 +10,10 @@
     <xsl:template match="*">
         <html>
             <head>
-                <link rel="stylesheet" type="text/css" href="style.css"/>
-                <!--link rel="alternate" type="application/rss+xml" title="Dansk Data Arkiv Nyheder" href="http://samfund.dda.dk/dda/nyheder.xml"/>
-                <link rel="shortcut icon" href="theme/favicon.ico"/-->
+                <link rel="stylesheet" type="text/css" href="style.css"/>                
                 <title>
                     <xsl:value-of select="ns1:Titles/ns1:Title[@xml:lang=$lang]/text()"/>
                 </title>
-                <!--script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
-                <script src="js/order-lp.js" type="text/javascript"></script-->
             </head>
             <body>                
                 <xsl:call-template name="lp-core-content">

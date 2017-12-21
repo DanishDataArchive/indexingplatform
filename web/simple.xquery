@@ -62,6 +62,7 @@ declare function local:main() as node()? {
             <param name="grouped" value="{$grouped}"/>
             <param name="lang" value="{$lang}"/>
             <param name="hostname" value="@WEB-HOST_NAME@" />
+            <param name="cataloguePath" value="/catalogue/" />            
         </parameters>
     
     return transform:transform($searchResults, $searchResultsStylesheet, $params)

@@ -104,7 +104,7 @@
 
                     <td valign="top" class="header">
 
-                        <img border="0" usemap="#Map" src="theme/dda-header-{$img}-961.jpg"
+                        <img border="0" usemap="#Map" src="/theme/dda-header-{$img}-961.jpg"
                             width="961" height="129"/>
 
                         <map name="Map">

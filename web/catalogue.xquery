@@ -24,6 +24,7 @@ declare function local:main() as node()? {
     let $params := <parameters>
             <param name="lang" value="{$lang}"/>
             <param name="hostname" value="@WEB-HOST_NAME@" />
+            <param name="catalogueType" value="study" />
         </parameters>    
     return transform:transform($studies, $searchResultsStylesheet, $params)
 };

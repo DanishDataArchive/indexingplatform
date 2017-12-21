@@ -7,6 +7,7 @@
         <xsl:param name="lang"/>
         <xsl:param name="hostname"/>
         <xsl:param name="cataloguePath"/>
+
         <xsl:for-each select="LightXmlObject">
             <div class="result">
                 <xsl:variable name="studyId" select="@id"/>
@@ -16,7 +17,7 @@
                         <strong class="lp">DDA-<xsl:value-of select="$studyId"/>
                         </strong>
                     </p>
-                    <xsl:variable name="url2" select="concat('http://',$hostname,$cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
+                    <xsl:variable name="url2" select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="contextlink" href="{$url2}">
                         <span property="dcterms:title" itemprop="name">
                             <xsl:value-of select="$title"/>
@@ -46,11 +47,13 @@
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:call-template name="references">
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:variable name="title" select="CustomList[@type='StudyUnit']/Custom[@option='label']"/>
                 <br/>
@@ -99,11 +102,13 @@
                         <xsl:with-param name="studyId" select="$studyId"/>
                         <xsl:with-param name="lang" select="$lang"/>
                         <xsl:with-param name="hostname" select="$hostname"/>
+                        <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                     </xsl:call-template>
                     <xsl:call-template name="references">
                         <xsl:with-param name="studyId" select="$studyId"/>
                         <xsl:with-param name="lang" select="$lang"/>
                         <xsl:with-param name="hostname" select="$hostname"/>
+                        <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                     </xsl:call-template>
                     <br/>
                     <br/>
@@ -225,36 +230,42 @@
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'MultipleQuestionItem'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'Variable'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'Category'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'Concept'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
                 <xsl:call-template name="referencedElements">
                     <xsl:with-param name="referencedType" select="'Universe'"/>
                     <xsl:with-param name="studyId" select="$studyId"/>
                     <xsl:with-param name="lang" select="$lang"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
+                    <xsl:with-param name="cataloguePath" select="$cataloguePath"/>
                 </xsl:call-template>
             </div>
         </xsl:if>

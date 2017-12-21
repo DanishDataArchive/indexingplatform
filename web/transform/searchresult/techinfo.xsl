@@ -18,9 +18,9 @@
         <html>
             <head>
                 <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-                <link rel="stylesheet" type="text/css" href="theme/style.css"/>
-                <link rel="stylesheet" type="text/css" href="theme/result.css"/>
-                <link rel="shortcut icon" href="theme/favicon.ico"/>                
+                <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
+                <link rel="stylesheet" type="text/css" href="/theme/result.css"/>
+                <link rel="shortcut icon" href="/theme/favicon.ico"/>                
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
                 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
                 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
@@ -28,7 +28,7 @@
                     @WEB-SITE-TRACKING@
                 </script>
                 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-                <script src="js/cvi_busy_lib.js" type="text/javascript"></script>
+                <script src="/js/cvi_busy_lib.js" type="text/javascript"></script>
                 <script type="text/javascript">
                     var lang = 'da';
                     function changeLang(newLang) {
