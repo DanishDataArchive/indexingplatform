@@ -847,7 +847,7 @@ declare function ddi:advancedSearch($search-parameters as element()) as element(
  : @version 1.0
  : @param   $search-parameters the advanced search parameters
  :)
-declare function local:studyUnitsFromParameters($search-parameters as element()) as element()* {
+declare function local:studyUnitsFromParameters($search-parameters as element()) as node()* {
     (: First check if any of the parameters regarding StudyUnit are set, and for each one that is get a separate list of StudyUnits based on that criteria. :)
     (: We will later use intersection to only get the list of StudyUnits that satisfy all the set criteria. :)
     (: The reason why we do not simply put all the criteria in one query is that all the parameters are optional, which means that we have to check if they are set and only use them if they are. :)
