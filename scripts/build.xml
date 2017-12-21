@@ -54,9 +54,10 @@
 		</exec>
 	</target>
 
-	<target name="apply-config" description="Applies hostname configuration to haproxy and queries">
+	<target name="apply-config" description="Applies hostname configuration to haproxy, nginx and queries">
 		<mkdir dir="${config.bin-dir}/web" />
 		<mkdir dir="${config.bin-dir}/haproxy" />
+		<mkdir dir="${config.bin-dir}/nginx" />
 
 		<!-- haproxy cfg -->
 		<loadfile srcfile="../haproxy/haproxy.cfg" property="result-0">
@@ -71,6 +72,18 @@
 			</filterchain>
 		</loadfile>
 		<echo file="${config.bin-dir}/haproxy/haproxy.cfg">${result-0}</echo>
+
+		<!-- nginx conf -->
+		<loadfile srcfile="../nginx/forsyn_exist_db.conf" property="result-14">
+			<filterchain>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="token" name="NGINX_SERVER_NAME" value="${config.nginx-server-name}" />
+					<param type="token" name="EXIST_HOST_NAME" value="${config.haproxy-exist-hostname}" />
+					<param type="token" name="USR_PASSWD_BASE64" value="${config.haproxy-exist-usrpasswdbase64}" />
+				</filterreader>
+			</filterchain>
+		</loadfile>
+		<echo file="${config.bin-dir}/nginx/forsyn_exist_db.conf">${result-14}</echo>
 
 		<!-- copy queries -->
 		<copy todir="${config.bin-dir}/web" overwrite="true">

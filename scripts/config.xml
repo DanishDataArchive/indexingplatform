@@ -4,7 +4,7 @@
   <bin-dir>bin</bin-dir>
 
   <!-- exist settings -->
-  <exist-dir>/home/ddajvj/app/eXist-db/2.2RC2</exist-dir>
+  <exist-dir>/home/ddajvj/app/eXist-db/3.6.0</exist-dir>
   <username>admin</username>
   <password/>
 
@@ -21,9 +21,12 @@
   <haproxy-exist-usrpasswdbase64>YWRtaW46</haproxy-exist-usrpasswdbase64>
   <haproxy-rate-error-page>/etc/haproxy/errors/503.http</haproxy-rate-error-page>
   
+  <!-- nginx -->
+  <nginx-server-name>_</nginx-server-name>
+
   <!-- upload dir location -->
-  <resources-dir>/media/74FD-E3EE/indekseringsplatform</resources-dir>
-  <urn-resources-dir>/media/74FD-E3EE/indekseringsplatform</urn-resources-dir>
+  <resources-dir>/home/ddajvj/forsyn/allDDIer_26_okt_2016/ark.i.o</resources-dir>
+  <urn-resources-dir>/home/ddajvj/forsyn/allDDIer_26_okt_2016/ark.i.o</urn-resources-dir>
 
   <!-- ui branding -->
   <ui-branding-result>result-html-fragments-default.xsl</ui-branding-result>
@@ -31,4 +34,3 @@
   <!-- web site tracking -->
   <web-site-tracking>// web site tracking script code</web-site-tracking>
 </config>
-
