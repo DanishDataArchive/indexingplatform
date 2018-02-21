@@ -17,7 +17,7 @@
                         <strong class="lp">DDA-<xsl:value-of select="$studyId"/>
                         </strong>
                     </p>
-                    <xsl:variable name="url2" select="concat('http://',$hostname,'/catalogue/', $studyId, $qmark, 'lang=', $lang)"/>
+                    <xsl:variable name="url2" select="concat('http://',$hostname, $cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
                     <a class="contextlink" href="{$url2}">
                         <span property="dcterms:title" itemprop="name">
                             <xsl:value-of select="$title"/>

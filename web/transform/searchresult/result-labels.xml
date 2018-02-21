@@ -276,8 +276,8 @@
         <LabelText xml:lang="en">DDA series catalogue</LabelText>
     </Label>
     <Label id="catalogue-study-count">
-        <LabelText xml:lang="da">Antal serier: </LabelText>
-        <LabelText xml:lang="en">Number of series: </LabelText>
+        <LabelText xml:lang="da">Antal studier: </LabelText>
+        <LabelText xml:lang="en">Number of studies: </LabelText>
     </Label>
     <Label id="catalogue-series-count">
         <LabelText xml:lang="da">Antal serier: </LabelText>
