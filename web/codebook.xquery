@@ -37,7 +37,7 @@ declare function local:main() as node()? {
             
             <!-- java script enable -->
             <param name="include-js" value="true" />
-            <param name="show-category-statistics" value="true"/>            
+            <param name="show-category-statistics" value="false"/>            
             <param name="show-navigration-bar" value="true" />
             
             <!-- display options -->
