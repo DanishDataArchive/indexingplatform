@@ -491,13 +491,6 @@
                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/>
                     </a>
                 </p>
-                <!--a href="#">DublinCore</a><br-->
-                <p class="lp">
-                    <a href="http://data.datacite.org/{ns1:PIDs/ns1:PID/ns1:ID}">
-                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacite']/LabelText[@xml:lang=$lang]/text()"/>
-                    </a>
-                </p>
-                <!--a href="#">MARC</a-->
             </div>
         </form>
 
