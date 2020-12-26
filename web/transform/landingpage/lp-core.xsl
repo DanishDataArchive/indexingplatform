@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns:ddi-cv="urn:ddi-cv" xmlns:ns1="dda.dk/metadata/1.0.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ddi-cv="urn:ddi-cv" xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns:ns1="dda.dk/metadata/1.0.0" version="1.0" exclude-result-prefixes="ns1 gc ddi-cv">
 
     <!-- Kun relevant i forbindelse med test af lp-core direkte uden om lp-main -->
     <xsl:output method="html" indent="yes"/>
@@ -68,29 +68,31 @@
                         </span>
                     </div>
                 </xsl:for-each>
-                <a name="primaryinvestigator"/>
-                <h2 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='principalinvestigator']/LabelText[@xml:lang=$lang]/text()"/>
-                </h2>
-                <xsl:for-each select="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator">
-                    <div itemscope="itemscope" itemtype="http://schema.org/Person">
-                        <xsl:variable name="pInvestigator">
-                            <xsl:value-of select="ns1:Person/ns1:FirstName/text()"/>
-                            <xsl:if test="ns1:Person/ns1:LastName">
-                                <xsl:value-of select="concat(' ', ns1:Person/ns1:LastName)"/>
+                <xsl:if test="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator">
+                    <a name="primaryinvestigator"/>
+                    <h2 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='principalinvestigator']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h2>
+                    <xsl:for-each select="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator">
+                        <div itemscope="itemscope" itemtype="http://schema.org/Person">
+                            <xsl:variable name="pInvestigator">
+                                <xsl:value-of select="ns1:Person/ns1:FirstName/text()"/>
+                                <xsl:if test="ns1:Person/ns1:LastName">
+                                    <xsl:value-of select="concat(' ', ns1:Person/ns1:LastName)"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <span itemprop="name" class="lplink">
+                                <a href="javascript:;" onclick="studySearch('{$pInvestigator}')">
+                                    <xsl:value-of select="$pInvestigator"/>
+                                </a>
+                            </span>
+                            <xsl:if test="ns1:Person/ns1:Affiliation/ns1:AffiliationName">
+                                <xsl:text>, </xsl:text>
+                                <xsl:value-of select="ns1:Person/ns1:Affiliation/ns1:AffiliationName"/>
                             </xsl:if>
-                        </xsl:variable>
-                        <span itemprop="name" class="lplink">
-                            <a href="javascript:;" onclick="studySearch('{$pInvestigator}')">
-                                <xsl:value-of select="$pInvestigator"/>
-                            </a>
-                        </span>
-                        <xsl:if test="ns1:Person/ns1:Affiliation/ns1:AffiliationName">
-                            <xsl:text>, </xsl:text>
-                            <xsl:value-of select="ns1:Person/ns1:Affiliation/ns1:AffiliationName"/>
-                        </xsl:if>
-                    </div>
-                </xsl:for-each>
+                        </div>
+                    </xsl:for-each>
+                </xsl:if>
                 <!-- provice only codebook link if Documentation/File/Type = codebook found -->
                 <xsl:choose>
                     <xsl:when test="ns1:Documentation/ns1:File/ns1:Type = 'Codebook'">
@@ -115,258 +117,301 @@
                 <span class="lph2">
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='description']/LabelText[@xml:lang=$lang]/text()"/>
                 </span>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='purpose']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <xsl:copy-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang]"/>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='abstract']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <span itemprop="description" property="dcterms:description">
-                    <!--xsl:value-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()"/-->
-                    <xsl:copy-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]"/>
-                </span>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='keywords']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <span class="lplink" property="dcat:keyword">
-                    <xsl:for-each select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword[@xml:lang=$lang]">
-                        <a href="javascript:;" onclick="studySearch('{text()}')">
-                            <span itemprop="keyword">
-                                <span itemscope="itemscope" itemtype="http://schema.org/Text">
-                                    <xsl:value-of select="text()"/>
-                                </span>
-                                <xsl:if test="position() != last()">, </xsl:if>
-                            </span>
-                        </a>
-                    </xsl:for-each>
-                </span>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='classification']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <span class="lplink">
-                    <xsl:for-each select="ns1:TopicalCoverage/ns1:Subjects/ns1:Subject[@xml:lang=$lang]">
-                        <a href="javascript:;" onclick="studySearch('{text()}')">
-                            <span itemprop="about">
-                                <xsl:value-of select="text()"/>
-                                <xsl:if test="position() != last()">, </xsl:if>
-                            </span>
-                        </a>
-                    </xsl:for-each>
-                </span>
-                <a name="universe"/>
-                <h2 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='universe']/LabelText[@xml:lang=$lang]/text()"/>
-                </h2>
-                <xsl:value-of select="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang]/text()"/>
-                <xsl:if test="ns1:Universes/ns1:Universe/ns1:Description">
-                    <xsl:text>, </xsl:text>
-                    <em>
-                        <xsl:value-of select="ns1:Universes/ns1:Universe/ns1:Description[@xml:lang=$lang]/text()"/>
-                    </em>
+                <xsl:if test="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang] != ''" >
+                    <h3 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='purpose']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h3>
+                    <xsl:copy-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Purpose']/ns1:Content[@xml:lang=$lang]"/>
                 </xsl:if>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='geographiccoverage']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <span rel="dcterms:spatial" resource="http://dbpedia.org/resource/Denmark"/>
-                <xsl:value-of select="concat(translate(substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label,1,1), $vLower, $vUpper), substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label, 2), substring(' ', 1 div not(position()=last())))"/>
-                <xsl:if test="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]">, <em>
-                        <xsl:value-of select="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]/text()"/>
-                    </em>
+                <xsl:if test="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang] != ''" >
+                    <h3 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='abstract']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h3>
+                    <span itemprop="description" property="dcterms:description">
+                        <!--xsl:value-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]/text()"/-->
+                        <xsl:copy-of select="ns1:StudyDescriptions/ns1:StudyDescription[ns1:Type='Abstract']/ns1:Content[@xml:lang=$lang]"/>
+                    </span>
+                </xsl:if>
+                <xsl:if test="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword" >
+                    <h3 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='keywords']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h3>
+                    <span class="lplink" property="dcat:keyword">
+                        <xsl:for-each select="ns1:TopicalCoverage/ns1:Keywords/ns1:Keyword[@xml:lang=$lang]">
+                            <a href="javascript:;" onclick="studySearch('{text()}')">
+                                <span itemprop="keyword">
+                                    <span itemscope="itemscope" itemtype="http://schema.org/Text">
+                                        <xsl:value-of select="text()"/>
+                                    </span>
+                                    <xsl:if test="position() != last()">, </xsl:if>
+                                </span>
+                            </a>
+                        </xsl:for-each>
+                    </span>
+                </xsl:if>
+                <xsl:if test="ns1:TopicalCoverage/ns1:Subjects/ns1:Subject" >
+                    <h3 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='classification']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h3>
+                    <span class="lplink">
+                        <xsl:for-each select="ns1:TopicalCoverage/ns1:Subjects/ns1:Subject[@xml:lang=$lang]">
+                            <a href="javascript:;" onclick="studySearch('{text()}')">
+                                <span itemprop="about">
+                                    <xsl:value-of select="text()"/>
+                                    <xsl:if test="position() != last()">, </xsl:if>
+                                </span>
+                            </a>
+                        </xsl:for-each>
+                    </span>
+                </xsl:if>
+                <xsl:if test="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang] != ''">
+                    <a name="universe"/>
+                    <h2 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='universe']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h2>
+                    <xsl:value-of select="ns1:Universes/ns1:Universe/ns1:Label[@xml:lang=$lang]/text()"/>
+                    <xsl:if test="ns1:Universes/ns1:Universe/ns1:Description">
+                        <xsl:text>, </xsl:text>
+                        <em>
+                            <xsl:value-of select="ns1:Universes/ns1:Universe/ns1:Description[@xml:lang=$lang]/text()"/>
+                        </em>
+                    </xsl:if>
+                    <xsl:if test="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label != ''">
+                        <h3 class="lp">
+                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='geographiccoverage']/LabelText[@xml:lang=$lang]/text()"/>
+                        </h3>
+                        <span rel="dcterms:spatial" resource="http://dbpedia.org/resource/Denmark"/>
+                        <xsl:value-of select="concat(translate(substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label,1,1), $vLower, $vUpper), substring(ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Label, 2), substring(' ', 1 div not(position()=last())))"/>
+                        <xsl:if test="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]">, <em>
+                                <xsl:value-of select="ns1:GeographicCoverages/ns1:GeographicCoverage/ns1:Description[@xml:lang=$lang]/text()"/>
+                            </em>
+                        </xsl:if>
+                    </xsl:if>
                 </xsl:if>
                 <!--  -->
                 <!-- - dataset - -->
                 <!--  -->
-                <a name="dataset"/>
-                <h2 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
-                </h2>
-                <p class="lp">
-                    <a href="javascript:;" onclick="createOrder()">
-                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='askfordata']/LabelText[@xml:lang=$lang]/text()"/>
-                    </a>
-                </p>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='variables']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:choose>
-                    <xsl:when test="ns1:DataSets/ns1:DataSet/ns1:NumberVariables=0">
-                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='unknown']/LabelText[@xml:lang=$lang]/text()"/>
-                        <!--<xsl:text>Ikke oplyst</xsl:text>-->
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberVariables"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <br/>
-                <!-- analasis unit -->
-                <xsl:variable name="unitTypeIdentifierId" select="ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:UnitTypeIdentifier"/>
-                <xsl:if test="$unitTypeIdentifierId">
+                <xsl:if test="ns1:DataSets/ns1:DataSet/ns1:NumberVariables!=0 or ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:UnitTypeIdentifier!='' or ns1:DataSets/ns1:DataSet/ns1:NumberOfUnits!='' or ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits!=0">
+                    <a name="dataset"/>
+                    <h2 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h2>
+                    <p class="lp">
+                        <a href="javascript:;" onclick="createOrder()">
+                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='askfordata']/LabelText[@xml:lang=$lang]/text()"/>
+                        </a>
+                    </p>
                     <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_analysisunit']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='variables']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
                     </strong>
-                    <xsl:value-of select="$analysisUnitCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$unitTypeIdentifierId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    <xsl:if test="ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:Description/@xml:lang=$lang">
-                        <em>
-                            <xsl:value-of select="concat(', ', ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:Description[@xml:lang=$lang]/text())"/>
-                        </em>
+                    <xsl:choose>
+                        <xsl:when test="ns1:DataSets/ns1:DataSet/ns1:NumberVariables=0">
+                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='unknown']/LabelText[@xml:lang=$lang]/text()"/>
+                            <!--<xsl:text>Ikke oplyst</xsl:text>-->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberVariables"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <br/>
+                    <!-- analasis unit -->
+                    <xsl:variable name="unitTypeIdentifierId" select="ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:UnitTypeIdentifier"/>
+                    <xsl:if test="$unitTypeIdentifierId">
+                        <strong class="lp">
+                            <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_analysisunit']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                        </strong>
+                        <xsl:value-of select="$analysisUnitCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$unitTypeIdentifierId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                        <xsl:if test="ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:Description/@xml:lang=$lang">
+                            <em>
+                                <xsl:value-of select="concat(', ', ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:Description[@xml:lang=$lang]/text())"/>
+                            </em>
+                        </xsl:if>
+                        <br/>
+                    </xsl:if>
+                    <h3 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='respondenter']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h3>
+                    <strong class="lp">
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_numberunits']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    </strong>
+                    <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberOfUnits"/>
+                    <br/>
+                    <strong class="lp">
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_samplenumberunits']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    </strong>
+                    <xsl:choose>
+                        <xsl:when test="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits=0">
+                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
+                <!-- - methodology - -->
+                <xsl:if test="ns1:Methodology/ns1:DataType or ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]!='' or ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()!='' 
+                              or ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()!='' or ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()!=''
+                              or ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()!='' or ns1:Methodology/ns1:NumberOfQuestions!=0 or ns1:DataCollection/ns1:DataCollectorOrganizationReference 
+                              or ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:StartDate or ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:EndDate">
+                    <a name="method"/>
+                    <h2 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='method']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h2>
+                    
+                    <!-- kind of data -->
+                    <xsl:if test="ns1:Methodology/ns1:DataType">
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studytype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:for-each select="ns1:Methodology/ns1:DataType">
+                                <xsl:variable name="kindOfDataId" select="ns1:DataTypeIdentifier"/>
+                                <xsl:value-of select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                                <xsl:if test="position() != last()">, </xsl:if>
+                            </xsl:for-each>
+                        </p>
+                    </xsl:if>
+                    
+                    <!-- time method -->
+                    <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]!=''">
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='timemethod']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:variable name="timeMethodId" select="ns1:Methodology/ns1:TimeMethod/ns1:TimeMethodIdentifier"/>
+                            <xsl:value-of select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                            <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]">, <em>
+                                    <xsl:value-of select="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"/>
+                                </em>
+                            </xsl:if>
+                        </p>
+                    </xsl:if>
+                    
+                    <!-- sampling procedure -->
+                    <xsl:if test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()!=''">
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='samplingprocedure']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:variable name="samplingProcedureId" select="ns1:Methodology/ns1:SamplingProcedure/ns1:SamplingProcedureIdentifier"/>
+                            <xsl:choose>
+                                <xsl:when test="$samplingProcedureId!=''">
+                                    <xsl:value-of select="$samplingprocedureCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$samplingProcedureId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                                    <xsl:if test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()">, <em>
+                                            <xsl:value-of select="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"/>
+                                        </em>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </p>
+                    </xsl:if>
+                    
+                    <!-- action to minimize loose -->
+                    <xsl:if test="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()!=''">
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='actiontominimizeloos']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:choose>
+                                <xsl:when test="ns1:Methodology/ns1:ActionToMinimizeLosses">
+                                    <xsl:value-of select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </p>
+                    </xsl:if>
+                    
+                    <!-- - data collection - -->
+                    <xsl:if test="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()!='' or ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()!=''
+                                  or ns1:Methodology/ns1:NumberOfQuestions!=0 or ns1:DataCollection/ns1:DataCollectorOrganizationReference ">
+                        <h3 class="lp">
+                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacollection']/LabelText[@xml:lang=$lang]/text()"/>
+                        </h3>
+                        
+                        <!-- mode of collection -->
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='modeofcollection']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:variable name="modeOfCollectionId" select="ns1:DataCollection/ns1:ModeOfCollection/ns1:ModeOfCollectionIdentifier"/>
+                            <xsl:value-of select="$dataCollectionModeCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$modeOfCollectionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                            <xsl:if test="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()">, <em>
+                                    <xsl:value-of select="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()"/>
+                                </em>
+                            </xsl:if>
+                            <br/>
+                        </p>
+                        
+                        <!-- data collection methodology -->
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='testtype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier"/>
+                            <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                            <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()">, <em>
+                                    <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
+                                </em>
+                            </xsl:if>
+                        </p>
+                        
+                        <!-- number of questions -->
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='numberofquestions']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:value-of select="ns1:Methodology/ns1:NumberOfQuestions"/>
+                        </p>
+                        
+                        <!-- data  collector-->
+                        <p class="lp">
+                            <strong class="lp">
+                                <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='datacollector']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                            </strong>
+                            <xsl:choose>
+                                <xsl:when test="ns1:DataCollection/ns1:DataCollectorOrganizationReference">
+                                    <xsl:value-of select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <br/>
+                        </p>
+                    </xsl:if>
+                    
+                    <!-- - temporal coverage -  -->
+                    <xsl:if test="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:StartDate or ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:EndDate">
+                        <span itemprop="temporal" rel="dcterms:temporal">
+                            <span typeof="dcterms:periodOfTime" about="dcterms:temporal">
+                                <h3 class="lp" property="dcterms:name">
+                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='temporalcoverage']/LabelText[@xml:lang=$lang]/text()"/>
+                                </h3>
+                                <!-- todo: udskriv noter (todo: de er ikke med i metadata: tilføj dem) -->
+                                <strong class="lp">
+                                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_startdate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                                </strong>
+                                <span itemprop="startDate" property="dcterms:start">
+                                    <xsl:value-of select="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:StartDate"/>
+                                </span>
+                                <br/>
+                                <strong class="lp">
+                                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_enddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                                </strong>
+                                <span itemprop="endDate" property="dcterms:end">
+                                    <xsl:value-of select="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:EndDate"/>
+                                </span>
+                            </span>
+                        </span>
                     </xsl:if>
                     <br/>
                 </xsl:if>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='respondenter']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_numberunits']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:NumberOfUnits"/>
-                <br/>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='respondenter_samplenumberunits']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:choose>
-                    <xsl:when test="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits=0">
-                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <!-- - methodology - -->
-                <a name="method"/>
-                <h2 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='method']/LabelText[@xml:lang=$lang]/text()"/>
-                </h2>
-                <!-- kind of data -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studytype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:for-each select="ns1:Methodology/ns1:DataType">
-                        <xsl:variable name="kindOfDataId" select="ns1:DataTypeIdentifier"/>
-                        <xsl:value-of select="$kindOfDataCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$kindOfDataId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                        <xsl:if test="position() != last()">, </xsl:if>
-                    </xsl:for-each>
-                </p>
-                <!-- time method -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='timemethod']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:variable name="timeMethodId" select="ns1:Methodology/ns1:TimeMethod/ns1:TimeMethodIdentifier"/>
-                    <xsl:value-of select="$timeMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$timeMethodId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    <xsl:if test="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]">, <em>
-                            <xsl:value-of select="ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]/text()"/>
-                        </em>
-                    </xsl:if>
-                </p>
-                <!-- sampling procedure -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='samplingprocedure']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:variable name="samplingProcedureId" select="ns1:Methodology/ns1:SamplingProcedure/ns1:SamplingProcedureIdentifier"/>
-                    <xsl:choose>
-                        <xsl:when test="$samplingProcedureId!=''">
-                            <xsl:value-of select="$samplingprocedureCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$samplingProcedureId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                            <xsl:if test="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()">, <em>
-                                    <xsl:value-of select="ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()"/>
-                                </em>
-                            </xsl:if>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </p>
-                <!-- action to minimize loose -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='actiontominimizeloos']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:choose>
-                        <xsl:when test="ns1:Methodology/ns1:ActionToMinimizeLosses">
-                            <xsl:value-of select="ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </p>
-                <!-- - data collection - -->
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datacollection']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <!-- mode of collection -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='modeofcollection']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:variable name="modeOfCollectionId" select="ns1:DataCollection/ns1:ModeOfCollection/ns1:ModeOfCollectionIdentifier"/>
-                    <xsl:value-of select="$dataCollectionModeCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$modeOfCollectionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    <xsl:if test="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()">, <em>
-                            <xsl:value-of select="ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()"/>
-                        </em>
-                    </xsl:if>
-                    <br/>
-                </p>
-                <!-- data collection methodology -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='testtype']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:variable name="methodologyId" select="ns1:Methodology/ns1:TestType/ns1:TestTypeIdentifier"/>
-                    <xsl:value-of select="$dataCollectionMethodCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$methodologyId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    <xsl:if test="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()">, <em>
-                            <xsl:value-of select="ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()"/>
-                        </em>
-                    </xsl:if>
-                </p>
-                <!-- number of questions -->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='numberofquestions']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:value-of select="ns1:Methodology/ns1:NumberOfQuestions"/>
-                </p>
-                <!-- data  collector-->
-                <p class="lp">
-                    <strong class="lp">
-                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='datacollector']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                    </strong>
-                    <xsl:choose>
-                        <xsl:when test="ns1:DataCollection/ns1:DataCollectorOrganizationReference">
-                            <xsl:value-of select="ns1:DataCollection/ns1:DataCollectorOrganizationReference"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='na']/LabelText[@xml:lang=$lang]/text()"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <br/>
-                </p>
-                <!-- - temporal coverage -  -->
-                <span itemprop="temporal" rel="dcterms:temporal">
-                    <span typeof="dcterms:periodOfTime" about="dcterms:temporal">
-                        <h3 class="lp" property="dcterms:name">
-                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='temporalcoverage']/LabelText[@xml:lang=$lang]/text()"/>
-                        </h3>
-                        <!-- todo: udskriv noter (todo: de er ikke med i metadata: tilføj dem) -->
-                        <strong class="lp">
-                            <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_startdate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                        </strong>
-                        <span itemprop="startDate" property="dcterms:start">
-                            <xsl:value-of select="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:StartDate"/>
-                        </span>
-                        <br/>
-                        <strong class="lp">
-                            <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='temporalcoverage_enddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                        </strong>
-                        <span itemprop="endDate" property="dcterms:end">
-                            <xsl:value-of select="ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:EndDate"/>
-                        </span>
-                    </span>
-                </span>
-                <br/>
+                
                 <!-- - citation - -->
                 <a name="citation"/>
                 <h2 class="lp">
@@ -412,53 +457,59 @@
                         <xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID"/>
                     </a>
                 </p>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='archiveinfo']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='receiveddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:value-of select="ns1:StudyRecievedDate"/>
-                <br/>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='publisheddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <span itemprop="datePublished" property="dcterms:issued">
-                    <xsl:value-of select="ns1:StudyPublicationDate"/>
-                </span>
+                <xsl:if test="ns1:StudyRecievedDate!='' or ns1:StudyPublicationDate!=''">
+                    <h3 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='archiveinfo']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h3>
+                    <strong class="lp">
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='receiveddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    </strong>
+                    <xsl:value-of select="ns1:StudyRecievedDate"/>
+                    <br/>
+                    <strong class="lp">
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='publisheddate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    </strong>
+                    <span itemprop="datePublished" property="dcterms:issued">
+                        <xsl:value-of select="ns1:StudyPublicationDate"/>
+                    </span>
+                </xsl:if>
+                
                 <!-- - access - -->
-                <a name="status"/>
-                <h2 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='access']/LabelText[@xml:lang=$lang]/text()"/>
-                </h2>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studystate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:variable name="stateId" select="ns1:State"/>
-                <xsl:choose>
-                    <xsl:when test="ns1:State/@codeListVersionID='2.0.0'">
-                        <xsl:value-of select="$studyStateCV-2/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    </xsl:when>
-                    <xsl:when test="ns1:State/@codeListVersionID='1.0.0'">
-                        <xsl:value-of select="$studyStateCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                    </xsl:when>
-                </xsl:choose>
-                <!--br/>
-                <strong class="lp">
+                <xsl:if test="ns1:State/@codeListVersionID !='' or ns1:Access/ns1:Condition !=''" >
+                    <a name="status"/>
+                    <h2 class="lp">
+                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='access']/LabelText[@xml:lang=$lang]/text()"/>
+                    </h2>
+                    <strong class="lp">
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='studystate']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    </strong>
+                    <xsl:variable name="stateId" select="ns1:State"/>
+                    <xsl:choose>
+                        <xsl:when test="ns1:State/@codeListVersionID='2.0.0'">
+                            <xsl:value-of select="$studyStateCV-2/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                        </xsl:when>
+                        <xsl:when test="ns1:State/@codeListVersionID='1.0.0'">
+                            <xsl:value-of select="$studyStateCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$stateId]/Value[@ColumnRef='reusestatus']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <!--br/>
+                    <strong class="lp">
+                        <xsl:value-of
+                            select="concat($labels/LandingPageLabels/Label[@id='restrictions']/LabelText[@xml:lang=$lang]/text(), ': ')"
+                        />
+                    </strong>
+                    <xsl:variable name="restrictionId" select="ns1:Access/ns1:Restriction"/>
                     <xsl:value-of
-                        select="concat($labels/LandingPageLabels/Label[@id='restrictions']/LabelText[@xml:lang=$lang]/text(), ': ')"
-                    />
-                </strong>
-                <xsl:variable name="restrictionId" select="ns1:Access/ns1:Restriction"/>
-                <xsl:value-of
-                    select="$accessRestrictionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$restrictionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/-->
-                <br/>
-                <strong class="lp">
-                    <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='accessconditions']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
-                </strong>
-                <xsl:variable name="conditionId" select="ns1:Access/ns1:Condition"/>
-                <xsl:value-of select="$accessConditionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$conditionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
-                <br/>
+                        select="$accessRestrictionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$restrictionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/-->
+                    <br/>
+                    <strong class="lp">
+                        <xsl:value-of select="concat($labels/LandingPageLabels/Label[@id='accessconditions']/LabelText[@xml:lang=$lang]/text(), ': ')"/>
+                    </strong>
+                    <xsl:variable name="conditionId" select="ns1:Access/ns1:Condition"/>
+                    <xsl:value-of select="$accessConditionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$conditionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
+                    <br/>
+                </xsl:if>
+                
                 <a name="metadata"/>
                 <h2 class="lp">Metadata</h2>
                 <h3 class="lp">
@@ -495,42 +546,47 @@
         </form>
 
         <!-- - publications - -->
-        <a name="publications"/>
-        <h2 class="lp">
-            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='publications']/LabelText[@xml:lang=$lang]/text()"/>
-        </h2>
-        <!-- primary -->
-        <h3 class="lp">
-            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='primary-publications']/LabelText[@xml:lang=$lang]/text()"/>
-        </h3>
-        <ul class="lp">
-            <xsl:for-each select="ns1:Publications/ns1:Publication">
-                <xsl:if test="ns1:PublicationType='Primary'">
-                    <xsl:call-template name="Publication"/>
-                </xsl:if>
-            </xsl:for-each>
-        </ul>
-        <!-- secondary -->
-        <xsl:variable name="anySecondaryPublication">
-            <xsl:for-each select="ns1:Publications/ns1:Publication">
-                <xsl:if test="ns1:PublicationType='Secondary'">
-                    <xsl:text>1</xsl:text>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:if test="$anySecondaryPublication!=''">
+        <xsl:if test="ns1:Publications/ns1:Publication">
+            <a name="publications"/>
+            <h2 class="lp">
+                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='publications']/LabelText[@xml:lang=$lang]/text()"/>
+            </h2>
+            
+            <!-- primary -->
             <h3 class="lp">
-                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='secondary-publications']/LabelText[@xml:lang=$lang]/text()"/>
+                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='primary-publications']/LabelText[@xml:lang=$lang]/text()"/>
             </h3>
             <ul class="lp">
                 <xsl:for-each select="ns1:Publications/ns1:Publication">
-                    <xsl:if test="ns1:PublicationType='Secondary'">
+                    <xsl:if test="ns1:PublicationType='Primary'">
                         <xsl:call-template name="Publication"/>
                     </xsl:if>
                 </xsl:for-each>
             </ul>
+            
+            <!-- secondary -->
+            <xsl:variable name="anySecondaryPublication">
+                <xsl:for-each select="ns1:Publications/ns1:Publication">
+                    <xsl:if test="ns1:PublicationType='Secondary'">
+                        <xsl:text>1</xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:if test="$anySecondaryPublication!=''">
+                <h3 class="lp">
+                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='secondary-publications']/LabelText[@xml:lang=$lang]/text()"/>
+                </h3>
+                <ul class="lp">
+                    <xsl:for-each select="ns1:Publications/ns1:Publication">
+                        <xsl:if test="ns1:PublicationType='Secondary'">
+                            <xsl:call-template name="Publication"/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template name="Publication">
         <li class="lp">
             <!-- author -->
