@@ -75,16 +75,18 @@
                                                                             <tr>
                                                                                 <td>&#160;</td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="#primaryinvestigator">
-                                                                                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='principalinvestigator']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                    </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>&#160;</td>
-                                                                            </tr>
+                                                                            <xsl:if test="ns1:PrincipalInvestigators/ns1:PrincipalInvestigator">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <a href="#primaryinvestigator">
+                                                                                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='principalinvestigator']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>&#160;</td>
+                                                                                </tr>
+                                                                            </xsl:if>
                                                                             <xsl:choose>
                                                                                 <xsl:when test="$type != 'series'">
                                                                                     <tr>
@@ -111,26 +113,33 @@
                                                                             </tr>
                                                                             <xsl:choose>
                                                                                 <xsl:when test="$type != 'series'">
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <a href="#dataset">
-                                                                                                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                            </a>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>&#160;</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <a href="#method">
-                                                                                                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='method']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                            </a>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>&#160;</td>
-                                                                                    </tr>
+                                                                                    <xsl:if test="ns1:DataSets/ns1:DataSet/ns1:NumberVariables!=0 or ns1:DataSets/ns1:DataSet/ns1:UnitType/ns1:UnitTypeIdentifier!='' or ns1:DataSets/ns1:DataSet/ns1:NumberOfUnits!='' or ns1:DataSets/ns1:DataSet/ns1:SampleNumberOfUnits!=0">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <a href="#dataset">
+                                                                                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='dataset']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>&#160;</td>
+                                                                                        </tr>
+                                                                                    </xsl:if>
+                                                                                    <xsl:if test="ns1:Methodology/ns1:DataType or ns1:Methodology/ns1:TimeMethod/ns1:Description[@xml:lang=$lang]!='' or ns1:Methodology/ns1:SamplingProcedure/ns1:Description[@xml:lang=$lang]/text()!='' 
+                              or ns1:Methodology/ns1:ActionToMinimizeLosses/ns1:Description[@xml:lang=$lang]/text()!='' or ns1:DataCollection/ns1:ModeOfCollection/ns1:Description[@xml:lang=$lang]/text()!=''
+                              or ns1:Methodology/ns1:TestType/ns1:Description[@xml:lang=$lang]/text()!='' or ns1:Methodology/ns1:NumberOfQuestions!=0 or ns1:DataCollection/ns1:DataCollectorOrganizationReference 
+                              or ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:StartDate or ns1:TemporalCoverages/ns1:TemporalCoverage/ns1:EndDate">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <a href="#method">
+                                                                                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='method']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>&#160;</td>
+                                                                                        </tr>
+                                                                                    </xsl:if>
                                                                                     <tr>
                                                                                         <td>
                                                                                             <a href="#citation">
@@ -141,16 +150,18 @@
                                                                                     <tr>
                                                                                         <td>&#160;</td>
                                                                                     </tr>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <a href="#status">
-                                                                                                <xsl:value-of select="$labels/LandingPageLabels/Label[@id='access']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                            </a>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>&#160;</td>
-                                                                                    </tr>
+                                                                                    <xsl:if test="ns1:State/@codeListVersionID !='' or ns1:Access/ns1:Condition !=''" >
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <a href="#status">
+                                                                                                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='access']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>&#160;</td>
+                                                                                        </tr>
+                                                                                    </xsl:if>
                                                                                 </xsl:when>
                                                                             </xsl:choose>
                                                                             <tr>
@@ -163,13 +174,15 @@
                                                                             <tr>
                                                                                 <td>&#160;</td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="#publications">
-                                                                                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='publications']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                    </a>
-                                                                                </td>
-                                                                            </tr>
+                                                                            <xsl:if test="ns1:Publications/ns1:Publication">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <a href="#publications">
+                                                                                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='publications']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </xsl:if>
                                                                         </tbody>
                                                                     </table>
                                                                 </td>
