@@ -97,7 +97,7 @@
                                                                                 </tr>
                                                                             </xsl:if>
                                                                             <xsl:choose>
-                                                                                <xsl:when test="$type != 'series'">
+                                                                                <xsl:when test="$type != 'series' and starts-with($studyId, 'DDA')">
                                                                                     <tr>
                                                                                         <td>
                                                                                             <a href="#documentation">

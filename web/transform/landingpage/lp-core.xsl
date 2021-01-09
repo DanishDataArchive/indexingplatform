@@ -105,7 +105,7 @@
                 </xsl:if>
                 <!-- provice only codebook link if Documentation/File/Type = codebook found -->
                 <xsl:choose>
-                    <xsl:when test="ns1:Documentation/ns1:File/ns1:Type = 'Codebook'">
+                    <xsl:when test="starts-with($studyId, 'DDA') and ns1:Documentation/ns1:File/ns1:Type = 'Codebook'">                    
                         <a name="documentation"/>
                         <h2 class="lp">
                             <xsl:value-of select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"/>
