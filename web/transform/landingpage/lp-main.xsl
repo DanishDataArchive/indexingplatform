@@ -11,7 +11,16 @@
     <xsl:variable name="labels" select="document('lp-labels.xml')"/>
     <xsl:template match="*">
         <xsl:variable name="studyId" select="ns1:StudyIdentifier/ns1:Identifier"/>
-        <xsl:variable name="studyDdiId" select="substring-after(ns1:StudyIdentifier/ns1:Identifier/text(), 'DDA-')"/>
+        <xsl:variable name="studyDdiId">
+            <xsl:choose>
+                <xsl:when test="starts-with($studyId, 'DDA')">
+                    <xsl:value-of select="substring-after($studyId, 'DDA-')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$studyId" />
+                </xsl:otherwise>    
+            </xsl:choose>
+        </xsl:variable>
         <html>
             <head>
                 <link rel="stylesheet" type="text/css" href="/theme/style.css"/>
@@ -203,7 +212,7 @@
                                                                                     <td>
                                                                                         <xsl:if test="not($type = 'series')">
                                                                                             <strong class="lp">
-                                                                                                <xsl:value-of select="concat('DDA-', substring-after(ns1:StudyIdentifier/ns1:Identifier, 'DDA-'))"/>
+                                                                                                <xsl:value-of select="ns1:StudyIdentifier/ns1:Identifier"/>
                                                                                             </strong>
                                                                                         </xsl:if>
                                                                                     </td>

@@ -31,7 +31,17 @@
         -->
 
         <!-- cv mappe sendes med som parameter, så xslt kan kaldes både i exist og i tests uden for exist -->
-        <xsl:variable name="studyId" select="substring-after(ns1:StudyIdentifier/ns1:Identifier, 'DDA-')"/>
+        <xsl:variable name="studyId" select="ns1:StudyIdentifier/ns1:Identifier"/>
+        <xsl:variable name="studyDdiId">
+            <xsl:choose>
+                <xsl:when test="starts-with($studyId, 'DDA')">
+                    <xsl:value-of select="substring-after($studyId, 'DDA-')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$studyId" />
+                </xsl:otherwise>    
+            </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="accessConditionsCV" select="document(concat($cvFolder, '/accessconditions.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="accessRestrictionsCV" select="document(concat($cvFolder, '/accessrestrictions.dda.dk-1.0.0.cv'))"/>
         <xsl:variable name="dataCollectionMethodCV" select="document(concat($cvFolder, '/datacollectionmethodology.dda.dk-1.0.0.cv'))"/>
@@ -101,7 +111,7 @@
                             <xsl:value-of select="$labels/LandingPageLabels/Label[@id='documentation']/LabelText[@xml:lang=$lang]/text()"/>
                         </h2>
                         <p class="lp">
-                            <a href="http://{$hostname}/catalogue/{$studyId}/doc/codebook?lang={$lang}">
+                            <a href="http://{$hostname}/catalogue/{$studyDdiId}/doc/codebook?lang={$lang}">
                                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='codebook']/LabelText[@xml:lang=$lang]/text()"/>
                             </a>
                         </p>
@@ -436,7 +446,7 @@
                         </span>
                     </span>
                 </span>, <xsl:value-of select="substring-before(ns1:StudyPublicationDate, '-')"/>. 1
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datafile']/LabelText[@xml:lang=$lang]/text()"/>: <xsl:value-of select="concat('DDA-', $studyId)"/>, version: <xsl:value-of select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
+                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='datafile']/LabelText[@xml:lang=$lang]/text()"/>: <xsl:value-of select="$studyId"/>, version: <xsl:value-of select="ns1:StudyIdentifier/ns1:CurrentVersion"/>, <a href="http://dx.doi.org/{ns1:PIDs/ns1:PID/ns1:ID}">
                     <xsl:text>http://dx.doi.org/</xsl:text>
                     <xsl:value-of select="ns1:PIDs/ns1:PID/ns1:ID"/>
                 </a>
@@ -516,7 +526,7 @@
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/>
                 </h3>
                 <xsl:variable name="latestVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
-                <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyId}:{$latestVersion}">
+                <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyDdiId}:{$latestVersion}">
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='latestversion']/LabelText[@xml:lang=$lang]/text()"/>
                     <xsl:value-of select="$latestVersion"/>
                 </a>
@@ -530,7 +540,7 @@
                 <xsl:call-template name="PreviousVersionsOfStudy">
                     <xsl:with-param name="inputString" select="$previousVersions"/>
                     <xsl:with-param name="separator" select="','"/>
-                    <xsl:with-param name="studyId" select="$studyId"/>
+                    <xsl:with-param name="studyId" select="$studyDdiId"/>
                     <xsl:with-param name="hostname" select="$hostname"/>
                     <xsl:with-param name="lang" select="$lang"/>
                 </xsl:call-template>
@@ -538,7 +548,7 @@
                     <xsl:value-of select="$labels/LandingPageLabels/Label[@id='otherformats']/LabelText[@xml:lang=$lang]/text()"/>
                 </h3>
                 <p class="lp">
-                    <a href="http://{$hostname}/catalogue/{$studyId}/doc/ddastudymetadata">
+                    <a href="http://{$hostname}/catalogue/{$studyDdiId}/doc/ddastudymetadata">
                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/>
                     </a>
                 </p>

@@ -44,7 +44,15 @@
             </State>
             <StudyIdentifier>
                 <Identifier>
-                    <xsl:value-of select="concat('DDA-', @id)"/>
+                    <xsl:choose>
+                        <!-- Do not preappend DDA- for AV studies -->
+                        <xsl:when test="starts-with(@id, 'AV')">
+                            <xsl:value-of select="@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="concat('DDA-', @id)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </Identifier>
                 <CurrentVersion>
                     <xsl:value-of select="@version"/>
