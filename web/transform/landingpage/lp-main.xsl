@@ -173,16 +173,18 @@
                                                                                     </xsl:if>
                                                                                 </xsl:when>
                                                                             </xsl:choose>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="#metadata">
-                                                                                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='metadata']/LabelText[@xml:lang=$lang]/text()"/>
-                                                                                    </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>&#160;</td>
-                                                                            </tr>
+                                                                            <xsl:if test="$type != 'series' and starts-with($studyId, 'DDA')">
+                                                                                 <tr>
+                                                                                     <td>
+                                                                                         <a href="#metadata">
+                                                                                             <xsl:value-of select="$labels/LandingPageLabels/Label[@id='metadata']/LabelText[@xml:lang=$lang]/text()"/>
+                                                                                         </a>
+                                                                                     </td>
+                                                                                 </tr>
+                                                                                 <tr>
+                                                                                     <td>&#160;</td>
+                                                                                 </tr>
+                                                                            </xsl:if>
                                                                             <xsl:if test="ns1:Publications/ns1:Publication">
                                                                                 <tr>
                                                                                     <td>

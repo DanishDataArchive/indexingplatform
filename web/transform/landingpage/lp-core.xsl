@@ -519,39 +519,40 @@
                     <xsl:value-of select="$accessConditionsCV/gc:CodeList/SimpleCodeList/Row[Value/@ColumnRef='code' and Value/SimpleValue/text()=$conditionId]/Value[@ColumnRef='description']/ComplexValue/ddi-cv:Value[@xml:lang=$lang]/text()"/>
                     <br/>
                 </xsl:if>
-                
-                <a name="metadata"/>
-                <h2 class="lp">Metadata</h2>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <xsl:variable name="latestVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
-                <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyDdiId}:{$latestVersion}">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='latestversion']/LabelText[@xml:lang=$lang]/text()"/>
-                    <xsl:value-of select="$latestVersion"/>
-                </a>
-                <xsl:if test="$previousVersions != ','">
-                    <p class="lp">
-                        <strong class="lp">
-                            <xsl:value-of select="$labels/LandingPageLabels/Label[@id='previousversions']/LabelText[@xml:lang=$lang]/text()"/>
-                        </strong>
-                    </p>
+                <xsl:if test="starts-with($studyId, 'DDA')">
+                     <a name="metadata"/>
+                     <h2 class="lp">Metadata</h2>
+                     <h3 class="lp">
+                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studymetadata']/LabelText[@xml:lang=$lang]/text()"/>
+                     </h3>
+                     <xsl:variable name="latestVersion" select="ns1:StudyIdentifier/ns1:CurrentVersion"/>
+                     <a href="http://{$hostname}/urn-resolution/ddi-3.1?urn=urn:ddi:dk.dda:{$studyDdiId}:{$latestVersion}">
+                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='latestversion']/LabelText[@xml:lang=$lang]/text()"/>
+                         <xsl:value-of select="$latestVersion"/>
+                     </a>
+                     <xsl:if test="$previousVersions != ','">
+                         <p class="lp">
+                             <strong class="lp">
+                                 <xsl:value-of select="$labels/LandingPageLabels/Label[@id='previousversions']/LabelText[@xml:lang=$lang]/text()"/>
+                             </strong>
+                         </p>
+                     </xsl:if>
+                     <xsl:call-template name="PreviousVersionsOfStudy">
+                         <xsl:with-param name="inputString" select="$previousVersions"/>
+                         <xsl:with-param name="separator" select="','"/>
+                         <xsl:with-param name="studyId" select="$studyDdiId"/>
+                         <xsl:with-param name="hostname" select="$hostname"/>
+                         <xsl:with-param name="lang" select="$lang"/>
+                     </xsl:call-template>
+                     <h3 class="lp">
+                         <xsl:value-of select="$labels/LandingPageLabels/Label[@id='otherformats']/LabelText[@xml:lang=$lang]/text()"/>
+                     </h3>
+                     <p class="lp">
+                         <a href="http://{$hostname}/catalogue/{$studyDdiId}/doc/ddastudymetadata">
+                             <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/>
+                         </a>
+                     </p>
                 </xsl:if>
-                <xsl:call-template name="PreviousVersionsOfStudy">
-                    <xsl:with-param name="inputString" select="$previousVersions"/>
-                    <xsl:with-param name="separator" select="','"/>
-                    <xsl:with-param name="studyId" select="$studyDdiId"/>
-                    <xsl:with-param name="hostname" select="$hostname"/>
-                    <xsl:with-param name="lang" select="$lang"/>
-                </xsl:call-template>
-                <h3 class="lp">
-                    <xsl:value-of select="$labels/LandingPageLabels/Label[@id='otherformats']/LabelText[@xml:lang=$lang]/text()"/>
-                </h3>
-                <p class="lp">
-                    <a href="http://{$hostname}/catalogue/{$studyDdiId}/doc/ddastudymetadata">
-                        <xsl:value-of select="$labels/LandingPageLabels/Label[@id='studydescription']/LabelText[@xml:lang=$lang]/text()"/>
-                    </a>
-                </p>
             </div>
         </form>
 

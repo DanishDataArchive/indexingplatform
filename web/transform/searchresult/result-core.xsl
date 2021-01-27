@@ -14,7 +14,9 @@
                 <xsl:variable name="title" select="Label[@lang=$lang]"/>
                 <div xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" class="contextlink" style="float:left;" typeof="dcat:Dataset" about="dcat:Dataset" itemtype="http://schema.org/Dataset" itemscope="itemscope">
                     <p>
-                        <strong class="lp">DDA-<xsl:value-of select="$studyId"/>
+                        <strong class="lp">
+                            <xsl:if test="not(starts-with($studyId, 'AV'))"><xsl:text>DDA-</xsl:text></xsl:if>
+                            <xsl:value-of select="$studyId"/>
                         </strong>
                     </p>
                     <xsl:variable name="url2" select="concat('http://',$hostname, $cataloguePath, $studyId, $qmark, 'lang=', $lang)"/>
